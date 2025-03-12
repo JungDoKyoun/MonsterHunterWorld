@@ -1,6 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using UnityEditor.MPE;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PhotonView))]
@@ -34,9 +33,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
+        dash = Input.GetButton(DashTag);
         horizontal = Input.GetAxis(HorizontalTag);
         vertical = Input.GetAxis(VerticalTag);
-        dash = Input.GetButton(DashTag);
     }
 
     private void FixedUpdate()
@@ -49,6 +48,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 getPlayerBody.Move(new Vector2(horizontal, vertical), camera.transform.forward, dash);
             }
         }
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        dash = false;
+        horizontal = 0;
+        vertical = 0;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
