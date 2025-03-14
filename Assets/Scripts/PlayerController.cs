@@ -25,19 +25,31 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
         }
     }
 
-    private bool dash = false;
-    private float horizontal = 0;
-    private float vertical = 0;
+    private bool _dash = false;
+    private float _horizontal = 0;
+    private float _vertical = 0;
 
+    public int ActorNumber
+    {
+        get
+        {
+            return photonView.OwnerActorNr;
+        }
+        set
+        {
+            photonView.TransferOwnership(value);
+        }
+    }
+    
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string VerticalTag = "Vertical";
     private static readonly string DashTag = "Dash";
 
     private void Update()
     {
-        dash = Input.GetButton(DashTag);
-        horizontal = Input.GetAxis(HorizontalTag);
-        vertical = Input.GetAxis(VerticalTag);
+        _dash = Input.GetButton(DashTag);
+        _horizontal = Input.GetAxis(HorizontalTag);
+        _vertical = Input.GetAxis(VerticalTag);
     }
 
     private void FixedUpdate()
@@ -47,7 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
             Camera camera = Camera.main;
             if (camera != null)
             {
-                getPlayerBody.Move(new Vector2(horizontal, vertical), camera.transform.forward, dash);
+                getPlayerBody.Move(new Vector2(_horizontal, _vertical), camera.transform.forward, _dash);
             }
         }
     }
@@ -55,9 +67,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
     public override void OnDisable()
     {
         base.OnDisable();
-        dash = false;
-        horizontal = 0;
-        vertical = 0;
+        _dash = false;
+        _horizontal = 0;
+        _vertical = 0;
     }
 
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)

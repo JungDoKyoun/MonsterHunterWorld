@@ -9,18 +9,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject _playerPrefab;
 
-    private Dictionary<PhotonView, int> _players = new Dictionary<PhotonView, int>();
+    private Dictionary<PlayerController, int> _playerControllers = new Dictionary<PlayerController, int>();
 
-    public override void OnEnable()
+    private void Start()
     {
-        base.OnEnable();
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null && PhotonNetwork.IsMasterClient == true)
         {
             Dictionary<int, Player> players = room.Players;
             foreach (KeyValuePair<int, Player> player in players)
             {
-                CreateSpawnPlayer(player.Value);
+                Create(player.Value);
             }
         }
     }
@@ -33,40 +32,39 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player player)
     {
-        if (PhotonNetwork.IsMasterClient == true)
-        {
-            CreateSpawnPlayer(player);
-        }
+        Create(player);
     }
 
     public override void OnPlayerLeftRoom(Player player)
     {
-        if (PhotonNetwork.IsMasterClient == true)
+        if(PhotonNetwork.IsMasterClient == true)
         {
-            foreach (KeyValuePair<PhotonView, int> keyValuePair in _players)
+            foreach(KeyValuePair<PlayerController, int> keyValuePair in _playerControllers)
             {
-                if(keyValuePair.Value == player.ActorNumber)
+                if(player.ActorNumber == keyValuePair.Value)
                 {
-                    keyValuePair.Key.TransferOwnership(-1);
+                    keyValuePair.Key.ActorNumber = -1;
                 }
             }
         }
     }
 
-    private void CreateSpawnPlayer(Player player)
+    private void Create(Player player)
     {
         StartCoroutine(SpawnPlayerWhenConnected());
         IEnumerator SpawnPlayerWhenConnected()
         {
-            yield return new WaitUntil(predicate: () => PhotonNetwork.InRoom);
             if (_playerPrefab != null)
             {
-                GameObject playerObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
-                yield return new WaitUntil(predicate: () => playerObject != null);
-                int actorNumber = player.ActorNumber;
-                PhotonView photonView = playerObject.GetComponent<PhotonView>();
-                photonView.TransferOwnership(actorNumber);
-                _players[photonView] = actorNumber;
+                GameObject gameObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
+                yield return new WaitUntil(predicate: () => gameObject != null);
+                PlayerController playerController = gameObject.GetComponent<PlayerController>();
+                if(playerController != null)
+                {
+                    int actorNumber = player.ActorNumber;
+                    playerController.ActorNumber = actorNumber;
+                    _playerControllers.Add(playerController, actorNumber);
+                }
             }
         }
     }
