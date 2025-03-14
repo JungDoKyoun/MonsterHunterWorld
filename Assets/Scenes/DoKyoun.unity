@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,22 +215,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &1265104064
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132147934159923}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 2207850806306222022, guid: e3ae4f1dbe6694a488f7d731ca64240e, type: 3}
-  m_Animations:
-  - {fileID: 2207850806306222022, guid: e3ae4f1dbe6694a488f7d731ca64240e, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &1333547970
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,8 +840,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450651606236809}
-  - component: {fileID: 1265104064}
   - component: {fileID: 919132147934159924}
+  - component: {fileID: 919132147934159925}
   m_Layer: 0
   m_Name: r1
   m_TagString: Untagged
@@ -892,6 +876,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &919132147934159925
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147934159923}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8e4467e3eb4356d419729aafdc3efaa5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5554e9679790c8341a00681337a1b7dc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &969426409320092534
 GameObject:
   m_ObjectHideFlags: 0
