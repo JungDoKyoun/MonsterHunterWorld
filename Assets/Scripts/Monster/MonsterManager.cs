@@ -7,6 +7,7 @@ public class MonsterManager : MonoBehaviour
 {
     private static MonsterManager _instance;
     private MonsterStateManager _monsterStateManager;
+    private MonsterController _monsterController;
 
     private void Awake()
     {
@@ -33,5 +34,7 @@ public class MonsterManager : MonoBehaviour
             return _instance;
         }
     }
-    public MonsterStateManager MonsterStateManager { get { return _monsterStateManager; } set { _monsterStateManager = value; } }
+
+    public MonsterStateManager MonsterStateManager { get { return _monsterStateManager; } private set { _monsterStateManager = value; } }
+    public MonsterController MonsterController { get { return _monsterController; } private set { _monsterController = value; } }
 }
