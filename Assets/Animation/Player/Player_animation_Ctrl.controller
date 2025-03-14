@@ -10,8 +10,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 6588472467223804747}
-    m_Position: {x: 326.2091, y: 296.57153, z: 0}
+    m_State: {fileID: 7298125416364965240}
+    m_Position: {x: 586.8126, y: 233.44391, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -21,7 +21,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 190, y: 80, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 6588472467223804747}
+  m_DefaultState: {fileID: 7298125416364965240}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -44,14 +44,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &6588472467223804747
+--- !u!1102 &7298125416364965240
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fbc_Wire_004_004 (96 frames) ID_ 4
+  m_Name: plw_ShortSword_100_002 (20 frames) ID_ 2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -64,7 +64,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ee1991e94c841054c8be53f8635ca97e, type: 2}
+  m_Motion: {fileID: 7400000, guid: d1f63332852be1447850693770e06e28, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

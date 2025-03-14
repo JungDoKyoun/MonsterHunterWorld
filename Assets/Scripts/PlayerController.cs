@@ -1,12 +1,13 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Cinemachine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerBody))]
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunOwnershipCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks, IPunObservable
 {
     private bool _hasPlayerBody = false;
 
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
     {
         get
         {
-            if(_hasPlayerBody == false)
+            if (_hasPlayerBody == false)
             {
                 _hasPlayerBody = TryGetComponent(out _playerBody);
             }
@@ -32,11 +33,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
     private static readonly string VerticalTag = "Vertical";
     private static readonly string DashTag = "Dash";
 
-    private void Start()
-    {
-       // photonView.RequestOwnership();
-    }
-
     private void Update()
     {
         dash = Input.GetButton(DashTag);
@@ -46,7 +42,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
 
     private void FixedUpdate()
     {
-        if(photonView.IsMine == true)
+        if (photonView.IsMine == true)
         {
             Camera camera = Camera.main;
             if (camera != null)
@@ -64,6 +60,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
         vertical = 0;
     }
 
+    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    {
+    }
+
+    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+    {
+        if (photonView.AmOwner == true)
+        {
+            FindAnyObjectByType<CinemachineFreeLook>().Set(transform);
+        }
+    }
+
+    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
+    {
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -74,27 +86,5 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
         {
             //isFiring = (bool)stream.ReceiveNext();  //상대방의 정보는 받아주세요
         }
-    }
-
-
-    public override void OnPlayerLeftRoom(Player player)
-    {
-        Debug.Log(photonView.Owner.ActorNumber);
-        Debug.Log(player.ActorNumber);
-        if (photonView.Owner == player)
-        {
-        }
-    }
-
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-    {
-    }
-
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
-    {
-    }
-
-    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
-    {
     }
 }
