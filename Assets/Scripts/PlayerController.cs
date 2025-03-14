@@ -1,11 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerBody))]
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunOwnershipCallbacks
 {
     private bool _hasPlayerBody = false;
 
@@ -30,6 +31,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string VerticalTag = "Vertical";
     private static readonly string DashTag = "Dash";
+
+    private void Start()
+    {
+       // photonView.RequestOwnership();
+    }
 
     private void Update()
     {
@@ -68,5 +74,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             //isFiring = (bool)stream.ReceiveNext();  //상대방의 정보는 받아주세요
         }
+    }
+
+
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        Debug.Log(photonView.Owner.ActorNumber);
+        Debug.Log(player.ActorNumber);
+        if (photonView.Owner == player)
+        {
+        }
+    }
+
+    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    {
+    }
+
+    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+    {
+    }
+
+    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
+    {
     }
 }
