@@ -23,6 +23,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene("younghan");
+        PhotonNetwork.LoadLevel("younghan");
+        //SceneManager.LoadScene("younghan");
     }
 }

@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             yield return new WaitUntil(predicate: () => PhotonNetwork.InRoom);
             if (_playerPrefab != null)
             {
+                //_playerObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
+                //yield return new WaitUntil(predicate: () => _playerObject != null);
                 _playerObject = PhotonNetwork.Instantiate(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
                 _freeLockCamera.Set(_playerObject.transform);
             }
