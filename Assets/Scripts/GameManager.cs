@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private CinemachineFreeLook _freeLockCamera;
-    [SerializeField]
     private GameObject _playerPrefab;
+
+    private Dictionary<PhotonView, int> _players = new Dictionary<PhotonView, int>();
 
     public override void OnEnable()
     {
@@ -19,7 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (room != null && PhotonNetwork.IsMasterClient == true)
         {
             Dictionary<int, Player> players = room.Players;
-            foreach(KeyValuePair<int, Player> player in players)
+            foreach (KeyValuePair<int, Player> player in players)
             {
                 CreateSpawnPlayer(player.Value);
             }
@@ -34,7 +33,24 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player player)
     {
-        CreateSpawnPlayer(player);
+        if (PhotonNetwork.IsMasterClient == true)
+        {
+            CreateSpawnPlayer(player);
+        }
+    }
+
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        if (PhotonNetwork.IsMasterClient == true)
+        {
+            foreach (KeyValuePair<PhotonView, int> keyValuePair in _players)
+            {
+                if(keyValuePair.Value == player.ActorNumber)
+                {
+                    keyValuePair.Key.TransferOwnership(-1);
+                }
+            }
+        }
     }
 
     private void CreateSpawnPlayer(Player player)
@@ -47,16 +63,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 GameObject playerObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
                 yield return new WaitUntil(predicate: () => playerObject != null);
-                playerObject.GetComponent<PhotonView>().TransferOwnership(player.ActorNumber);
-                photonView.RPC("SetCamera", player, playerObject.transform);
+                int actorNumber = player.ActorNumber;
+                PhotonView photonView = playerObject.GetComponent<PhotonView>();
+                photonView.TransferOwnership(actorNumber);
+                _players[photonView] = actorNumber;
             }
         }
-    }
-
-    [PunRPC]
-    private void SetCamera(Transform transform)
-    {
-        Debug.Log("¼ö½Å");
-        _freeLockCamera.Set(transform);
     }
 }
