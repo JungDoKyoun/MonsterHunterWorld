@@ -80,7 +80,7 @@ public class PlayerBody : MonoBehaviour
             if (Physics.Raycast(new Vector3(bounds.center.x, bounds.min.y + GroundDistance, bounds.center.z), Vector3.down, GroundDistance) == landing)
             {
                 _isLanding = landing;
-                getAnimator.SetBool(LandingTag, _isLanding);
+                //getAnimator.SetBool(LandingTag, _isLanding);
             }
         }
     }
@@ -98,7 +98,7 @@ public class PlayerBody : MonoBehaviour
                 getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
             }
             float speed = input.magnitude;
-            getAnimator.SetFloat(SpeedTag, speed);
+            //getAnimator.SetFloat(SpeedTag, speed);
             if (dash == true)
             {
                 speed *= DashMultiply;

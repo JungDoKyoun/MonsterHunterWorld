@@ -7,8 +7,8 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private CinemachineFreeLook _freeLockCamera;
+    //[SerializeField]
+    //private CinemachineFreeLook _freeLockCamera;
     [SerializeField]
     private GameObject _playerPrefab;
 
@@ -48,15 +48,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameObject playerObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
                 yield return new WaitUntil(predicate: () => playerObject != null);
                 playerObject.GetComponent<PhotonView>().TransferOwnership(player.ActorNumber);
-                photonView.RPC("SetCamera", player, playerObject.transform);
             }
         }
-    }
-
-    [PunRPC]
-    private void SetCamera(Transform transform)
-    {
-        Debug.Log("¼ö½Å");
-        _freeLockCamera.Set(transform);
     }
 }

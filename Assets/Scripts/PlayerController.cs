@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Cinemachine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PhotonView))]
@@ -79,10 +80,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
 
     public override void OnPlayerLeftRoom(Player player)
     {
-        Debug.Log(photonView.Owner.ActorNumber);
-        Debug.Log(player.ActorNumber);
         if (photonView.Owner == player)
         {
+            Debug.Log("³ª°¨");
+            photonView.TransferOwnership(-1);
         }
     }
 
@@ -92,6 +93,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable, IPunO
 
     public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
+        if (photonView.AmOwner == true)
+        {
+            FindAnyObjectByType<CinemachineFreeLook>().Set(transform);
+        }
     }
 
     public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
