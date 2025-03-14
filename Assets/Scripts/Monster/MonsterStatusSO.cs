@@ -2,7 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterStatusSO : MonoBehaviour
+public abstract class MonsterStatusSO : ScriptableObject
 {
-    
+    [Header("몬스터 기본 정보")]
+    public int ID;
+    public string Name;
+    public int HP;
+    //To-Do 아이템 클래스 추가
+    //public List<> DropItem;
+
+    [Header("몬스터 전투 관련")]
+    public float Damage;
+    public float Defense;
+    public float AttackSpeed;
+    public float DetectRange;
+    public float AttackRange;
+}
+
+
+[CreateAssetMenu(fileName = "BossMonster", menuName = "Monster/BossMonster")]
+public class BossMonster : MonsterStatusSO
+{
+
 }
