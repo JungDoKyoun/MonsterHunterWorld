@@ -1,8 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Photon.Pun;
 using Cinemachine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -11,21 +12,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject _playerPrefab;
 
-    private GameObject _playerObject = null;
-
     public override void OnEnable()
     {
         base.OnEnable();
-        StartCoroutine(SpawnPlayerWhenConnected());
-        IEnumerator SpawnPlayerWhenConnected()
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null && PhotonNetwork.IsMasterClient == true)
         {
-            yield return new WaitUntil(predicate: () => PhotonNetwork.InRoom);
-            if (_playerPrefab != null)
+            Dictionary<int, Player> players = room.Players;
+            foreach(KeyValuePair<int, Player> player in players)
             {
-                //_playerObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
-                //yield return new WaitUntil(predicate: () => _playerObject != null);
-                _playerObject = PhotonNetwork.Instantiate(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
-                _freeLockCamera.Set(_playerObject.transform);
+                CreateSpawnPlayer(player.Value);
             }
         }
     }
@@ -34,11 +30,33 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnDisable();
         StopAllCoroutines();
-        Destroy(_playerObject);
     }
 
-    public override void OnLeftRoom()
+    public override void OnPlayerEnteredRoom(Player player)
     {
-        SceneManager.LoadScene(0);
+        CreateSpawnPlayer(player);
+    }
+
+    private void CreateSpawnPlayer(Player player)
+    {
+        StartCoroutine(SpawnPlayerWhenConnected());
+        IEnumerator SpawnPlayerWhenConnected()
+        {
+            yield return new WaitUntil(predicate: () => PhotonNetwork.InRoom);
+            if (_playerPrefab != null)
+            {
+                GameObject playerObject = PhotonNetwork.InstantiateRoomObject(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
+                yield return new WaitUntil(predicate: () => playerObject != null);
+                playerObject.GetComponent<PhotonView>().TransferOwnership(player.ActorNumber);
+                photonView.RPC("SetCamera", player, playerObject.transform);
+            }
+        }
+    }
+
+    [PunRPC]
+    private void SetCamera(Transform transform)
+    {
+        Debug.Log("¼ö½Å");
+        _freeLockCamera.Set(transform);
     }
 }
