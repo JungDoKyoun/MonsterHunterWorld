@@ -28,6 +28,6 @@ public class MonsterStateManager : MonoBehaviour
             currentState.Exit();
         }
         currentState = newState;
-        currentState.Enter(MonsterManager.Instance.MonsterController, this);
+        //currentState.Enter(MonsterManager.Instance.MonsterController, this);
     }
 }
