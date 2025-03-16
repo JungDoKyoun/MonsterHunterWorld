@@ -1,13 +1,11 @@
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
-using Cinemachine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerBody))]
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     private bool _hasPlayerBody = false;
 
@@ -29,18 +27,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
     private float _horizontal = 0;
     private float _vertical = 0;
 
-    public int ActorNumber
-    {
-        get
-        {
-            return photonView.OwnerActorNr;
-        }
-        set
-        {
-            photonView.TransferOwnership(value);
-        }
-    }
-    
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string VerticalTag = "Vertical";
     private static readonly string DashTag = "Dash";
@@ -70,22 +56,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
         _dash = false;
         _horizontal = 0;
         _vertical = 0;
-    }
-
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-    {
-    }
-
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
-    {
-        if (photonView.AmOwner == true)
-        {
-            FindAnyObjectByType<CinemachineFreeLook>().Set(transform);
-        }
-    }
-
-    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
-    {
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
