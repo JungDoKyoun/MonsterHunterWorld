@@ -2,7 +2,6 @@ using UnityEngine;
 using Photon.Pun;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerBody))]
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
@@ -23,6 +22,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    private bool _attack = false;
     private bool _dash = false;
     private float _horizontal = 0;
     private float _vertical = 0;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
+        _attack = Input.GetMouseButton(0);
         _dash = Input.GetButton(DashTag);
         _horizontal = Input.GetAxis(HorizontalTag);
         _vertical = Input.GetAxis(VerticalTag);
@@ -46,6 +47,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             if (camera != null)
             {
                 getPlayerBody.Move(new Vector2(_horizontal, _vertical), camera.transform.forward, _dash);
+            }
+            if(_attack == true)
+            {
+                getPlayerBody.Attack();
             }
         }
     }

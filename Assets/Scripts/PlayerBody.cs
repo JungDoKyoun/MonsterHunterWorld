@@ -3,10 +3,26 @@ using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonRigidbodyView))]
 public class PlayerBody : MonoBehaviour
 {
+    private bool _hasTransform = false;
+
+    private Transform _transform = null;
+
+    private Transform getTransform {
+        get
+        {
+            if(_hasTransform == false)
+            {
+                _transform = transform;
+                _hasTransform = true;
+            }
+            return _transform;
+        }
+    }
+
     private bool _hasAnimator = false;
 
     private Animator _animator = null;
@@ -39,21 +55,6 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    private bool _hasCollider = false;
-
-    private Collider _collider = null;
-
-    private Collider getCollider {
-        get
-        {
-            if(_hasCollider == false)
-            {
-                _hasCollider = TryGetComponent(out _collider);
-            }
-            return _collider;
-        }
-    }
-
     private bool _isLanding = false;
 
     private static readonly float DashMultiply = 3;
@@ -76,8 +77,8 @@ public class PlayerBody : MonoBehaviour
     {
         if (_isLanding == !landing)
         {
-            Bounds bounds = getCollider.bounds;
-            if (Physics.Raycast(new Vector3(bounds.center.x, bounds.min.y + GroundDistance, bounds.center.z), Vector3.down, GroundDistance) == landing)
+            Vector3 position = getTransform.position;
+            if (Physics.Raycast(new Vector3(position.x, position.y + GroundDistance, position.z), Vector3.down, GroundDistance) == landing)
             {
                 _isLanding = landing;
                 getAnimator.SetBool(LandingTag, _isLanding);
@@ -97,13 +98,18 @@ public class PlayerBody : MonoBehaviour
                 Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
                 getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
             }
-            float speed = input.magnitude;
-            getAnimator.SetFloat(SpeedTag, speed);
+            float speed = Mathf.Clamp01(input.magnitude);
             if (dash == true)
             {
                 speed *= DashMultiply;
             }
+            getAnimator.SetFloat(SpeedTag, speed);
             getRigidbody.velocity = getRigidbody.rotation * Vector3.forward * speed;
         }
+    }
+
+    public void Attack()
+    {
+
     }
 }
