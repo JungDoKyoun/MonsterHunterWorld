@@ -8,6 +8,7 @@ public class MonsterManager : MonoBehaviour
     private static MonsterManager _instance;
     private MonsterStateManager _monsterStateManager;
     private MonsterController _monsterController;
+    private MonsterAnimationController _animationController;
 
     private void Awake()
     {
@@ -21,6 +22,8 @@ public class MonsterManager : MonoBehaviour
         }
 
         MonsterStateManager = GetComponent<MonsterStateManager>();
+        MonsterController = GetComponent<MonsterController>();
+        AnimationController = GetComponent<MonsterAnimationController>();
     }
 
     public static MonsterManager Instance
@@ -37,4 +40,5 @@ public class MonsterManager : MonoBehaviour
 
     public MonsterStateManager MonsterStateManager { get { return _monsterStateManager; } private set { _monsterStateManager = value; } }
     public MonsterController MonsterController { get { return _monsterController; } private set { _monsterController = value; } }
+    public MonsterAnimationController AnimationController { get { return _animationController; } private set { _animationController = value; } }
 }

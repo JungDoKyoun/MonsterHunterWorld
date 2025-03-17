@@ -5,9 +5,13 @@ using UnityEngine;
 public class MonsterStateManager : MonoBehaviour
 {
     private IMonsterState currentState;
+    private MonsterController monsterController;
+    private MonsterAnimationController anime;
 
-    private void Awake()
+    private void Start()
     {
+        monsterController = MonsterManager.Instance.MonsterController;
+        anime = MonsterManager.Instance.AnimationController;
         ChangeMonsterState(new MonsterIdleState());
     }
 
@@ -28,6 +32,6 @@ public class MonsterStateManager : MonoBehaviour
             currentState.Exit();
         }
         currentState = newState;
-        currentState.Enter(MonsterManager.Instance.MonsterController, this);
+        currentState.Enter(monsterController, this, anime);
     }
 }
