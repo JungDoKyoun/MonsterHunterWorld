@@ -1,28 +1,11 @@
 using UnityEngine;
-using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(PhotonView))]
-[RequireComponent(typeof(PhotonRigidbodyView))]
+[RequireComponent(typeof(Rigidbody))]
+
 public class PlayerBody : MonoBehaviour
 {
-    private bool _hasTransform = false;
-
-    private Transform _transform = null;
-
-    private Transform getTransform {
-        get
-        {
-            if(_hasTransform == false)
-            {
-                _transform = transform;
-                _hasTransform = true;
-            }
-            return _transform;
-        }
-    }
-
     private bool _hasAnimator = false;
 
     private Animator _animator = null;
@@ -55,40 +38,15 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    private bool _isLanding = false;
-
     private static readonly float DashMultiply = 3;
     private static readonly float RotationDamping = 10;
-    private static readonly float GroundDistance = 0.2f;
     private static readonly string SpeedTag = "Speed";
     private static readonly string LandingTag = "Landing";
-
-    private void OnCollisionStay(Collision collision)
-    {
-        SetLanding(true);
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        SetLanding(false);
-    }
-
-    private void SetLanding(bool landing)
-    {
-        if (_isLanding == !landing)
-        {
-            Vector3 position = getTransform.position;
-            if (Physics.Raycast(new Vector3(position.x, position.y + GroundDistance, position.z), Vector3.down, GroundDistance) == landing)
-            {
-                _isLanding = landing;
-                getAnimator.SetBool(LandingTag, _isLanding);
-            }
-        }
-    }
+    private static readonly string AttackTag = "Attack";
 
     public void Move(Vector2 input, Vector3 direction, bool dash)
     {
-        if (_isLanding == true)
+        if (getAnimator.GetBool(LandingTag) == true && getAnimator.GetBool(AttackTag) == true)
         {
             if (input != Vector2.zero)
             {
@@ -108,8 +66,20 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void Alight(bool landing)
     {
+        getAnimator.SetBool(LandingTag, landing);
+    }
 
+    public void Attack(bool value)
+    {
+        if (getAnimator.GetBool(LandingTag) == true)
+        {
+            getAnimator.SetBool(AttackTag, value);
+        }
+        else
+        {
+            getAnimator.SetBool(AttackTag, false);
+        }
     }
 }
