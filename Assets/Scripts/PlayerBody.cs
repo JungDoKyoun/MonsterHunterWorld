@@ -6,6 +6,23 @@ using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
 {
+    private bool _hasTransform = false;
+
+    private Transform _transform = null;
+
+    private Transform getTransform
+    {
+        get
+        {
+            if(_hasTransform == false)
+            {
+                _transform = transform;
+                _hasTransform = true;
+            }
+            return _transform;
+        }
+    }
+
     private bool _hasAnimator = false;
 
     private Animator _animator = null;
@@ -47,54 +64,60 @@ public class PlayerBody : MonoBehaviour
     private static readonly string AttackTag = "Attack";
     private static readonly string LandingTag = "Landing";
 
-    private bool CanMove()
-    {
-        if (getAnimator.GetBool(LandingTag) == true && getAnimator.GetBool(AttackTag) == false)
-        {
-            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            if (name.Contains(AttackTag) == false && name.Contains(RollTag) == false)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void Move(Vector2 input, Vector3 direction, bool dash)
     {
-        if(CanMove() == true)
+        if(getAnimator.GetBool(LandingTag) == true && getAnimator.GetBool(AttackTag) == false && getAnimator.GetBool(RollTag) == false)
         {
-            if (input != Vector2.zero)
+            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+            if (name.Contains(AttackTag) == false && name.Equals(RollTag) == false)
             {
-                input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
-                input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-                Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
-                getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
+                if (input != Vector2.zero)
+                {
+                    input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
+                    input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
+                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+                    Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
+                    getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
+                }
+                float speed = Mathf.Clamp01(input.magnitude) * DashMultiply;
+                //if (dash == true)
+                //{
+                //    speed *= DashMultiply;
+                //}
+                getAnimator.SetFloat(SpeedTag, speed);
+                getRigidbody.velocity = getRigidbody.rotation * Vector3.forward * speed;
             }
-            float speed = Mathf.Clamp01(input.magnitude);
-            if (dash == true)
-            {
-                speed *= DashMultiply;
-            }
-            getAnimator.SetFloat(SpeedTag, speed);
-            getRigidbody.velocity = getRigidbody.rotation * Vector3.forward * speed;
         }
     }
 
-    public void Roll(Vector2 input, Vector3 direction)
+    public void Roll(Vector2 input, Vector3 direction, bool jump)
     {
-        if (CanMove() == true)
+        if(jump == false)
         {
-            if(input == Vector2.zero)
+            getAnimator.SetBool(RollTag, false);
+        }
+        else if (getAnimator.GetBool(LandingTag) == true)
+        {
+            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+            if (name.Equals(RollTag) == false)
             {
-                input.y = MaxInput;
+                if (input != Vector2.zero)
+                {
+                    input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
+                    input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
+                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+                    getRigidbody.MoveRotation(Quaternion.LookRotation(forward, Vector3.up));
+                }
+                else
+                {
+                    getRigidbody.MoveRotation(Quaternion.LookRotation(getTransform.forward, Vector3.up));
+                }
+                getAnimator.SetBool(RollTag, true);
             }
-            input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
-            input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-            Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-            getRigidbody.MoveRotation(Quaternion.LookRotation(forward, Vector3.up));
-            getAnimator.SetTrigger(RollTag);
+            else
+            {
+                Debug.Log("½ÇÆÐ");
+            }
         }
     }
 

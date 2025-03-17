@@ -59,13 +59,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 Vector2 input = new Vector2(_horizontal, _vertical);
                 Vector3 direction = camera.transform.forward;
                 getPlayerBody.Move(input, direction, _dash);
-                if (_jump == true)
-                {
-                    getPlayerBody.Roll(input, direction);
-                }
+                getPlayerBody.Roll(input, direction, _jump);
             }
             getPlayerBody.Attack(_attack);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log("충돌");
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        //Debug.Log("해제");
     }
 
     private void Update()
