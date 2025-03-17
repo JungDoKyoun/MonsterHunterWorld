@@ -16,18 +16,22 @@ public class MonsterIdleState : IMonsterState
     MonsterStateManager _stateManager;
     MonsterAnimationController _anime;
     float _tmepTime;
+    Vector3 _targetPos;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
     {
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+        _tmepTime = 0;
+        _targetPos = _monster.GetNextPatrolPos();
+        _monster.SetTargetPos(_targetPos);
         Debug.Log("½¬·¯¿È");
     }
 
     public override void Exit()
     {
-        _tmepTime = 0;
+        
     }
 
     public override void Move()
@@ -41,11 +45,24 @@ public class MonsterIdleState : IMonsterState
 
         if (_monster.IsRestPos())
         {
-            if(_tmepTime > 10)
+            if(_tmepTime > 3)
             {
-                _stateManager.ChangeMonsterState(new MonsterPatrolState());
-                return;
+                if (_monster.IsNeedRo())
+                {
+                    _stateManager.ChangeMonsterState(new MonsterRotationState());
+                    return;
+                }
+                else
+                {
+                    _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                    return;
+                }
             }
+        }
+        else if (_monster.IsNeedRo())
+        {
+            _stateManager.ChangeMonsterState(new MonsterRotationState());
+            return;
         }
         else
         {
@@ -66,11 +83,13 @@ public class MonsterRotationState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+        Debug.Log("È¸Àü µé¾î¿È");
+        _monster.RotateToTarget();
     }
 
     public override void Exit()
     {
-        
+        _anime.PlayMonsterRotateAnime(false);
     }
 
     public override void Move()
@@ -80,7 +99,11 @@ public class MonsterRotationState : IMonsterState
 
     public override void Update()
     {
-        
+        if(_monster.IsRo == false)
+        {
+            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+        }
+        _monster.NavMeshMatchMonsterPos();
     }
 }
 
@@ -96,8 +119,10 @@ public class MonsterPatrolState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _targetPos = _monster.GetNextPatrolPos();
+        _targetPos = _monster.GetCurrentPatrolPos();
         _monster.SetTargetPos(_targetPos);
+        _anime.PlayMonsterMoveAnime(true);
+        Debug.Log("asd");
     }
 
     public override void Exit()
@@ -114,17 +139,19 @@ public class MonsterPatrolState : IMonsterState
     {
         if (_monster.IsReachTarget())
         {
-            if(_monster.IsRestPos())
-            {
-                _stateManager.ChangeMonsterState(new MonsterIdleState());
-                return;
-            }
-            else
-            {
-                Enter(_monster, _stateManager,_anime);
-            }
+            _stateManager.ChangeMonsterState(new MonsterIdleState());
+            return;
+            //if (_monster.IsRestPos())
+            //{
+            //    _stateManager.ChangeMonsterState(new MonsterIdleState());
+            //    _anime.PlayMonsterMoveAnime(false);
+            //    return;
+            //}
+            //else
+            //{
+            //    Enter(_monster, _stateManager,_anime);
+            //}
         }
-        _anime.PlayMonsterMoveAnime(true);
         _monster.NavMeshMatchMonsterPos();
     }
 }
