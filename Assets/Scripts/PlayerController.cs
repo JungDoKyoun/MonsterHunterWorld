@@ -1,13 +1,13 @@
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
-using Cinemachine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerBody))]
+[RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(PhotonAnimatorView))]
+[RequireComponent(typeof(PhotonRigidbodyView))]
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     private bool _hasPlayerBody = false;
 
@@ -25,20 +25,29 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
         }
     }
 
-    private bool dash = false;
-    private float horizontal = 0;
-    private float vertical = 0;
+    private bool _attack = false;
+    private bool _dash = false;
+    private bool _jump = false;
+    private float _horizontal = 0;
+    private float _vertical = 0;
 
+    private static readonly float GroinDistance = 0.8f;
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string VerticalTag = "Vertical";
+    private static readonly string JumpTag = "Jump";
     private static readonly string DashTag = "Dash";
 
-    private void Update()
+#if UNITY_EDITOR
+    [SerializeField]
+    private Color _gizmoColor = Color.red;
+
+    private void OnDrawGizmos()
     {
-        dash = Input.GetButton(DashTag);
-        horizontal = Input.GetAxis(HorizontalTag);
-        vertical = Input.GetAxis(VerticalTag);
+        Gizmos.color = _gizmoColor;
+        Vector3 position = transform.position;
+        Gizmos.DrawRay(new Vector3(position.x, position.y + GroinDistance, position.z), Vector3.down * GroinDistance);
     }
+#endif
 
     private void FixedUpdate()
     {
@@ -47,33 +56,33 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunOwnershipCallback
             Camera camera = Camera.main;
             if (camera != null)
             {
-                getPlayerBody.Move(new Vector2(horizontal, vertical), camera.transform.forward, dash);
+                Vector2 input = new Vector2(_horizontal, _vertical);
+                Vector3 direction = camera.transform.forward;
+                getPlayerBody.Move(input, direction, _dash);
+                if (_jump == true)
+                {
+                    getPlayerBody.Roll(input, direction);
+                }
             }
+            getPlayerBody.Attack(_attack);
         }
+    }
+
+    private void Update()
+    {
+        _attack = Input.GetMouseButton(0);
+        _dash = Input.GetButton(DashTag);
+        _jump = Input.GetButton(JumpTag);
+        _horizontal = Input.GetAxis(HorizontalTag);
+        _vertical = Input.GetAxis(VerticalTag);
     }
 
     public override void OnDisable()
     {
         base.OnDisable();
-        dash = false;
-        horizontal = 0;
-        vertical = 0;
-    }
-
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-    {
-    }
-
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
-    {
-        if (photonView.AmOwner == true)
-        {
-            FindAnyObjectByType<CinemachineFreeLook>().Set(transform);
-        }
-    }
-
-    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
-    {
+        _dash = false;
+        _horizontal = 0;
+        _vertical = 0;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

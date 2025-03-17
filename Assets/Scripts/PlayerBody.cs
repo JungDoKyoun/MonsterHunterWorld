@@ -1,10 +1,9 @@
 using UnityEngine;
-using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(PhotonRigidbodyView))]
+[RequireComponent(typeof(Rigidbody))]
+
 public class PlayerBody : MonoBehaviour
 {
     private bool _hasAnimator = false;
@@ -39,71 +38,80 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    private bool _hasCollider = false;
-
-    private Collider _collider = null;
-
-    private Collider getCollider {
-        get
-        {
-            if(_hasCollider == false)
-            {
-                _hasCollider = TryGetComponent(out _collider);
-            }
-            return _collider;
-        }
-    }
-
-    private bool _isLanding = false;
-
+    private static readonly float MinInput = -1;
+    private static readonly float MaxInput = 1;
     private static readonly float DashMultiply = 3;
     private static readonly float RotationDamping = 10;
-    private static readonly float GroundDistance = 0.2f;
+    private static readonly string RollTag = "Roll";
     private static readonly string SpeedTag = "Speed";
+    private static readonly string AttackTag = "Attack";
     private static readonly string LandingTag = "Landing";
 
-    private void OnCollisionStay(Collision collision)
+    private bool CanMove()
     {
-        SetLanding(true);
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        SetLanding(false);
-    }
-
-    private void SetLanding(bool landing)
-    {
-        if (_isLanding == !landing)
+        if (getAnimator.GetBool(LandingTag) == true && getAnimator.GetBool(AttackTag) == false)
         {
-            Bounds bounds = getCollider.bounds;
-            if (Physics.Raycast(new Vector3(bounds.center.x, bounds.min.y + GroundDistance, bounds.center.z), Vector3.down, GroundDistance) == landing)
+            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+            if (name.Contains(AttackTag) == false && name.Contains(RollTag) == false)
             {
-                _isLanding = landing;
-                getAnimator.SetBool(LandingTag, _isLanding);
+                return true;
             }
         }
+        return false;
     }
 
     public void Move(Vector2 input, Vector3 direction, bool dash)
     {
-        if (_isLanding == true)
+        if(CanMove() == true)
         {
             if (input != Vector2.zero)
             {
-                input.x = Mathf.Clamp(input.x, -1, 1);
-                input.y = Mathf.Clamp(input.y, -1, 1);
+                input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
+                input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
                 Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
                 Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
                 getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
             }
-            float speed = input.magnitude;
-            getAnimator.SetFloat(SpeedTag, speed);
+            float speed = Mathf.Clamp01(input.magnitude);
             if (dash == true)
             {
                 speed *= DashMultiply;
             }
+            getAnimator.SetFloat(SpeedTag, speed);
             getRigidbody.velocity = getRigidbody.rotation * Vector3.forward * speed;
+        }
+    }
+
+    public void Roll(Vector2 input, Vector3 direction)
+    {
+        if (CanMove() == true)
+        {
+            if(input == Vector2.zero)
+            {
+                input.y = MaxInput;
+            }
+            input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
+            input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
+            Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+            getRigidbody.MoveRotation(Quaternion.LookRotation(forward, Vector3.up));
+            getAnimator.SetTrigger(RollTag);
+        }
+    }
+
+    public void Alight(bool landing)
+    {
+        getAnimator.SetBool(LandingTag, landing);
+    }
+
+    public void Attack(bool value)
+    {
+        if (getAnimator.GetBool(LandingTag) == true)
+        {
+            getAnimator.SetBool(AttackTag, value);
+        }
+        else
+        {
+            getAnimator.SetBool(AttackTag, false);
         }
     }
 }
