@@ -101,6 +101,7 @@ public class PlayerBody : MonoBehaviour
             string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             if (name.Equals(RollTag) == false)
             {
+                Debug.Log("구르기");
                 if (input != Vector2.zero)
                 {
                     input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
@@ -113,10 +114,6 @@ public class PlayerBody : MonoBehaviour
                     getRigidbody.MoveRotation(Quaternion.LookRotation(getTransform.forward, Vector3.up));
                 }
                 getAnimator.SetBool(RollTag, true);
-            }
-            else
-            {
-                Debug.Log("실패");
             }
         }
     }

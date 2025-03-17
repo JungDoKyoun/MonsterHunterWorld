@@ -31,48 +31,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private float _horizontal = 0;
     private float _vertical = 0;
 
-    private static readonly float GroinDistance = 0.8f;
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string VerticalTag = "Vertical";
     private static readonly string JumpTag = "Jump";
     private static readonly string DashTag = "Dash";
 
-#if UNITY_EDITOR
-    [SerializeField]
-    private Color _gizmoColor = Color.red;
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = _gizmoColor;
-        Vector3 position = transform.position;
-        Gizmos.DrawRay(new Vector3(position.x, position.y + GroinDistance, position.z), Vector3.down * GroinDistance);
-    }
-#endif
-
     private void FixedUpdate()
     {
         if (photonView.IsMine == true)
         {
+            getPlayerBody.Attack(_attack);
             Camera camera = Camera.main;
             if (camera != null)
             {
                 Vector2 input = new Vector2(_horizontal, _vertical);
                 Vector3 direction = camera.transform.forward;
-                getPlayerBody.Move(input, direction, _dash);
                 getPlayerBody.Roll(input, direction, _jump);
+                getPlayerBody.Move(input, direction, _dash);
             }
-            getPlayerBody.Attack(_attack);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Debug.Log("충돌");
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        //Debug.Log("해제");
     }
 
     private void Update()
