@@ -99,11 +99,29 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            Debug.Log("애니메이션 들어옴");
+            int temp = 0;
+            if(angle < 0 && angle >= -90)
+            {
+                temp = 0;
+            }
+            else if(angle < -90 && angle > -180)
+            {
+                temp = 1;
+            }
+            else if(angle > 0 && angle <= 90)
+            {
+                temp = 2;
+            }
+            else
+            {
+                temp = 3;
+            }
+            Debug.Log("temp" + temp);
             anime.PlayMonsterRotateAnime(true);
-            anime.SetRoAngle(angle);
+            anime.SetRoAngle(temp);
             StartCoroutine(WaitForEndAnime());
         }
+        //NavMeshMatchMonsterRotation();
     }
 
     private IEnumerator SmoothTurn(Vector3 direct)
@@ -123,8 +141,18 @@ public class MonsterController : MonoBehaviour
     private IEnumerator WaitForEndAnime()
     {
         Debug.Log(anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        //yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        //yield return new WaitForSeconds(0.1f);
         IsRo = false;
+        SetRoate();
+    }
+
+    public void SetRoate()
+    {
+        var a = GetComponentsInChildren<Transform>();
+        Debug.Log(a[1].name);
+        var b = a[1].rotation;
+        a[1].rotation = transform.rotation;
+        transform.rotation = b;
     }
 }

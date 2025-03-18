@@ -8,6 +8,7 @@ public abstract class MonsterStatusSO : ScriptableObject
     public int ID;
     public string Name;
     public int HP;
+    public GameObject Prefab;
     //To-Do 아이템 클래스 추가
     //public List<> DropItem;
 
