@@ -10,7 +10,12 @@ public class CanvasCtrl : MonoBehaviour
     [SerializeField] CanvasGroup loginCanvas;
     [SerializeField] CanvasGroup loadingCanvas;
 
+    [Header("로딩 이미지, 텍스트")]
+    [SerializeField] Image loadingImage;
+    [SerializeField] Text loadingText;
+
     float duration = 1f;
+    float textInterval = 0.5f;
 
     private void Start()
     {
@@ -57,6 +62,20 @@ public class CanvasCtrl : MonoBehaviour
         }
         canvas.alpha = 0f;
         canvas.gameObject.SetActive(false);
+    }
+
+    IEnumerator AnimationLoading()
+    {
+        int dotCount = 0;
+
+        loadingImage.transform.Rotate(new Vector3(0,0,30f * Time.deltaTime));
+
+        while (true)
+        {
+            dotCount = (dotCount + 1) % 4;
+            loadingText.text = "로딩중" + new string('.', dotCount);
+            yield return new WaitForSeconds(textInterval);
+        }
     }
 
 }

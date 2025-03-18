@@ -1329,10 +1329,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1906907161}
   - {fileID: 1550373360}
   - {fileID: 1414128180}
   - {fileID: 101910850}
-  - {fileID: 1906907161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &335606758
@@ -1350,6 +1350,8 @@ MonoBehaviour:
   titleCanvas: {fileID: 1550373361}
   loginCanvas: {fileID: 1414128181}
   loadingCanvas: {fileID: 101910854}
+  loadingImage: {fileID: 1372552740}
+  loadingText: {fileID: 797202356}
 --- !u!1 &362774522
 GameObject:
   m_ObjectHideFlags: 0
