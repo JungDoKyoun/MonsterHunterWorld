@@ -46,6 +46,9 @@ public class PlayerBody : MonoBehaviour
     private static readonly string AttackTag = "Attack";
     private static readonly string LandingTag = "Landing";
 
+
+    private static readonly string RunClip = "Run";
+
     public void SetAnimate(string tag, bool value)
     {
         getAnimator.SetBool(tag, value);
@@ -125,4 +128,20 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
+
+    public void MoveRotation(Vector3 forward)
+    {
+        getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, Quaternion.LookRotation(forward, Vector3.up), Time.deltaTime * RotationDamping));
+    }
+
+    public bool IsMoving()
+    {
+        return getAnimator.GetCurrentAnimatorStateInfo(0).IsName(RunClip);
+    }
+
+    public bool IsEnd()
+    {
+        AnimatorStateInfo stateInfo = getAnimator.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.normalizedTime >= 1.0f && !getAnimator.IsInTransition(0);
+    }
 }

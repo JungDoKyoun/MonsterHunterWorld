@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PlayerBody))]
 [RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(PhotonTransformView))]
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -50,9 +52,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private static readonly float MinInput = -1;
     private static readonly float MaxInput = 1;
-    private static readonly float SideDotProduct = Mathf.Sin(Mathf.Deg2Rad * 45);
-    private static readonly string HorizontalTag = "Horizontal";
     private static readonly string VerticalTag = "Vertical";
+    private static readonly string HorizontalTag = "Horizontal";
     private static readonly string JumpTag = "Jump";
     private static readonly string DashTag = "Dash";
 
@@ -70,18 +71,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
                     input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
                     Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                    float dot = Vector3.Dot(getTransform.forward, forward);
-                    if(SideDotProduct < dot)
+                    if(getPlayerBody.IsMoving() == true)
                     {
-                        //Debug.Log("À§");
+                       // getPlayerBody.MoveRotation(forward);
                     }
-                    else if(dot < -SideDotProduct)
+                    else if(_coroutine == null)
                     {
-                        //Debug.Log("¾Æ·¡");
+                        _coroutine = StartCoroutine(DoMoveStart(forward));
                     }
-                    else
+                }
+                else
+                {
+                    if(_coroutine != null)
                     {
-                        //Debug.Log(Vector3.Dot(getTransform.right, forward));
+                        StopCoroutine(_coroutine);
+                        _coroutine = null;
+                    }
+                    Move(Vector2.zero);
+                    if (PhotonNetwork.InRoom == true)
+                    {
+                        photonView.RPC("Move", RpcTarget.Others, Vector2.zero);
                     }
                 }
             }
@@ -90,17 +99,31 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        _horizontal = Input.GetAxis(HorizontalTag);
         _vertical = Input.GetAxis(VerticalTag);
+        _horizontal = Input.GetAxis(HorizontalTag);
         _attack = Input.GetMouseButton(0);
         _dash = Input.GetButton(DashTag);
         _jump = Input.GetButton(JumpTag);
     }
 
     [PunRPC]
-    private void MoveVertical(bool forward)
+    private void Move(Vector2 direction)
     {
+        getPlayerBody.SetAnimate(HorizontalTag, direction.x);
+        getPlayerBody.SetAnimate(VerticalTag, direction.y);
+    }
 
+    private IEnumerator DoMoveStart(Vector3 forward)
+    {
+        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, forward), Vector3.Dot(getTransform.forward, forward));
+        Move(direction);
+        if (PhotonNetwork.InRoom == true)
+        {
+            photonView.RPC("Move", RpcTarget.Others, direction);
+        }
+        yield return new WaitUntil(predicate: () => getPlayerBody.IsEnd());
+        getTransform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+        _coroutine = null;
     }
 
     public override void OnDisable()
@@ -113,15 +136,5 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        //if (stream.IsWriting)
-        //{
-        //    stream.SendNext(transform.position);
-        //    stream.SendNext(transform.rotation);
-        //}
-        //else if (stream.IsReading && photonView.IsMine == false)
-        //{
-        //    transform.position = (Vector3)stream.ReceiveNext();
-        //    transform.rotation = (Quaternion)stream.ReceiveNext();
-        //}
     }
 }
