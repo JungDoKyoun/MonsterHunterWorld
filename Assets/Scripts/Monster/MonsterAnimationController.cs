@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterAnimationController : MonoBehaviour
 {
     Animator anime;
+    int idle;
     int move;
     int ro;
     int turnAngle;
@@ -12,12 +13,18 @@ public class MonsterAnimationController : MonoBehaviour
     private void Awake()
     {
         anime = GetComponent<Animator>();
+        idle = Animator.StringToHash("IsIdle");
         move = Animator.StringToHash("IsMove");
         ro = Animator.StringToHash("IsRo");
         turnAngle = Animator.StringToHash("TurnAngle");
     }
 
     public Animator Anime { get { return anime; } set { anime = value; } }
+
+    public void PlayMonsterIdleAnime(bool TorF)
+    {
+        anime.SetBool(idle, TorF);
+    }
 
     public void PlayMonsterMoveAnime(bool TorF)
     {

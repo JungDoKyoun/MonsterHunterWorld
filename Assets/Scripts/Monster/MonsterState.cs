@@ -23,15 +23,15 @@ public class MonsterIdleState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+        _anime.PlayMonsterIdleAnime(true);
         _tmepTime = 0;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
-        Debug.Log("쉬러" + _targetPos);
     }
 
     public override void Exit()
     {
-        
+        _anime.PlayMonsterIdleAnime(false);
     }
 
     public override void Move()
@@ -44,10 +44,9 @@ public class MonsterIdleState : IMonsterState
         _tmepTime += Time.deltaTime;
 
         _monster.NavMeshMatchMonsterPos();
-        //_monster.NavMeshMatchMonsterRotation();
         if (_monster.IsRestPos())
         {
-            if(_tmepTime > 3)
+            if(_tmepTime > 10)
             {
                 if (_monster.IsNeedRo())
                 {
@@ -61,9 +60,8 @@ public class MonsterIdleState : IMonsterState
                 }
             }
         }
-        if (_monster.IsNeedRo())
+        else if (_monster.IsNeedRo())
         {
-            Debug.Log("asdggg");
             _stateManager.ChangeMonsterState(new MonsterRotationState());
             return;
         }
@@ -80,13 +78,15 @@ public class MonsterRotationState : IMonsterState
     MonsterController _monster;
     MonsterStateManager _stateManager;
     MonsterAnimationController _anime;
+    Vector3 _targetPos;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
     {
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        Debug.Log("회전 들어옴");
+        _targetPos = _monster.GetNextPatrolPos();
+        _monster.SetTargetPos(_targetPos);
         _monster.RotateToTarget();
     }
 
@@ -108,7 +108,6 @@ public class MonsterRotationState : IMonsterState
             return;
         }
         _monster.NavMeshMatchMonsterPos();
-        //_monster.NavMeshMatchMonsterRotation();
     }
 }
 
@@ -127,7 +126,6 @@ public class MonsterPatrolState : IMonsterState
         _targetPos = _monster.GetCurrentPatrolPos();
         _monster.SetTargetPos(_targetPos);
         _anime.PlayMonsterMoveAnime(true);
-        Debug.Log("asd");
     }
 
     public override void Exit()
@@ -144,21 +142,17 @@ public class MonsterPatrolState : IMonsterState
     {
         if (_monster.IsReachTarget())
         {
-            _stateManager.ChangeMonsterState(new MonsterIdleState());
-            return;
-            //if (_monster.IsRestPos())
-            //{
-            //    _stateManager.ChangeMonsterState(new MonsterIdleState());
-            //    _anime.PlayMonsterMoveAnime(false);
-            //    return;
-            //}
-            //else
-            //{
-            //    Enter(_monster, _stateManager,_anime);
-            //}
+            if (_monster.IsRestPos())
+            {
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
+            }
+            else if(_monster.IsNeedRo())
+            {
+                _stateManager.ChangeMonsterState(new MonsterRotationState());
+                return;
+            }
         }
         _monster.NavMeshMatchMonsterPos();
-        //_monster.NavMeshMatchMonsterRotation();
     }
 }
 
