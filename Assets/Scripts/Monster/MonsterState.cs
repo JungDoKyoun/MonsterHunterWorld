@@ -69,6 +69,8 @@ public class MonsterIdleState : IMonsterState
             _stateManager.ChangeMonsterState(new MonsterPatrolState());
             return;
         }
+
+        _monster.NavMeshMatchMonsterPos();
     }
 }
 
