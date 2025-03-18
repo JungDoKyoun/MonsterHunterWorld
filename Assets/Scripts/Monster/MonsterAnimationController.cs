@@ -26,11 +26,13 @@ public class MonsterAnimationController : MonoBehaviour
 
     public void PlayMonsterRotateAnime(bool TorF)
     {
+        Debug.Log(TorF);
         anime.SetBool(ro, TorF);
     }
 
     public void SetRoAngle(float turnAngle)
     {
+        Debug.Log("µé¾î¿Â ¾Þ±Û" + turnAngle);
         anime.SetFloat(this.turnAngle, turnAngle);
     }
 }

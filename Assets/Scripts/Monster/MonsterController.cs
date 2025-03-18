@@ -74,6 +74,7 @@ public class MonsterController : MonoBehaviour
         if (agent.enabled)
         {
             agent.transform.rotation = transform.rotation;
+            Debug.Log(transform.rotation);
         }
     }
 
@@ -84,7 +85,7 @@ public class MonsterController : MonoBehaviour
 
     public bool IsReachTarget()
     {
-        return !agent.pathPending && agent.remainingDistance < 0.1f;
+        return !agent.pathPending && agent.remainingDistance < 5.0f;
     }
 
     public bool IsNeedRo()
@@ -99,6 +100,7 @@ public class MonsterController : MonoBehaviour
     {
         Vector3 dir = (targetPos - transform.position).normalized;
         float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
+        agent.enabled = false;
         Debug.Log(angle);
         if (Math.Abs(angle) < 30)
         {
@@ -107,6 +109,7 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
+            Debug.Log("애니메이션");
             anime.PlayMonsterRotateAnime(true);
             anime.SetRoAngle(angle);
             StartCoroutine(WaitForEndAnime());
@@ -129,8 +132,11 @@ public class MonsterController : MonoBehaviour
 
     private IEnumerator WaitForEndAnime()
     {
+        yield return new WaitForSeconds(0.1f);
         Debug.Log(anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime);
         yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        //NavMeshMatchMonsterRotation();
+        agent.enabled = true;
         IsRo = false;
     }
 

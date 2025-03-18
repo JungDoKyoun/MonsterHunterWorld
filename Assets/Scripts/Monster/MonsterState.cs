@@ -26,7 +26,7 @@ public class MonsterIdleState : IMonsterState
         _tmepTime = 0;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
-        Debug.Log("½¬·¯¿È");
+        Debug.Log("½¬·¯" + _targetPos);
     }
 
     public override void Exit()
@@ -43,6 +43,8 @@ public class MonsterIdleState : IMonsterState
     {
         _tmepTime += Time.deltaTime;
 
+        _monster.NavMeshMatchMonsterPos();
+        //_monster.NavMeshMatchMonsterRotation();
         if (_monster.IsRestPos())
         {
             if(_tmepTime > 3)
@@ -59,8 +61,9 @@ public class MonsterIdleState : IMonsterState
                 }
             }
         }
-        else if (_monster.IsNeedRo())
+        if (_monster.IsNeedRo())
         {
+            Debug.Log("asdggg");
             _stateManager.ChangeMonsterState(new MonsterRotationState());
             return;
         }
@@ -69,9 +72,6 @@ public class MonsterIdleState : IMonsterState
             _stateManager.ChangeMonsterState(new MonsterPatrolState());
             return;
         }
-
-        _monster.NavMeshMatchMonsterPos();
-        _monster.NavMeshMatchMonsterRotation();
     }
 }
 
@@ -105,9 +105,10 @@ public class MonsterRotationState : IMonsterState
         if(_monster.IsRo == false)
         {
             _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            return;
         }
         _monster.NavMeshMatchMonsterPos();
-        _monster.NavMeshMatchMonsterRotation();
+        //_monster.NavMeshMatchMonsterRotation();
     }
 }
 
@@ -157,7 +158,7 @@ public class MonsterPatrolState : IMonsterState
             //}
         }
         _monster.NavMeshMatchMonsterPos();
-        _monster.NavMeshMatchMonsterRotation();
+        //_monster.NavMeshMatchMonsterRotation();
     }
 }
 
