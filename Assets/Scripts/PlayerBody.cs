@@ -6,23 +6,6 @@ using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
 {
-    private bool _hasTransform = false;
-
-    private Transform _transform = null;
-
-    private Transform getTransform
-    {
-        get
-        {
-            if(_hasTransform == false)
-            {
-                _transform = transform;
-                _hasTransform = true;
-            }
-            return _transform;
-        }
-    }
-
     private bool _hasAnimator = false;
 
     private Animator _animator = null;
@@ -57,12 +40,21 @@ public class PlayerBody : MonoBehaviour
 
     private static readonly float MinInput = -1;
     private static readonly float MaxInput = 1;
-    private static readonly float DashMultiply = 3;
     private static readonly float RotationDamping = 10;
     private static readonly string RollTag = "Roll";
     private static readonly string SpeedTag = "Speed";
     private static readonly string AttackTag = "Attack";
     private static readonly string LandingTag = "Landing";
+
+    public void SetAnimate(string tag, bool value)
+    {
+        getAnimator.SetBool(tag, value);
+    }
+
+    public void SetAnimate(string tag, float value)
+    {
+        getAnimator.SetFloat(tag, value);
+    }
 
     public void Move(Vector2 input, Vector3 direction, bool dash)
     {
@@ -79,13 +71,12 @@ public class PlayerBody : MonoBehaviour
                     Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
                     getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
                 }
-                float speed = Mathf.Clamp01(input.magnitude) * DashMultiply;
+                float speed = Mathf.Clamp01(input.magnitude);
                 //if (dash == true)
                 //{
                 //    speed *= DashMultiply;
                 //}
                 getAnimator.SetFloat(SpeedTag, speed);
-                getRigidbody.velocity = getRigidbody.rotation * Vector3.forward * speed;
             }
         }
     }
@@ -101,7 +92,6 @@ public class PlayerBody : MonoBehaviour
             string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             if (name.Equals(RollTag) == false)
             {
-                Debug.Log("±¸¸£±â");
                 if (input != Vector2.zero)
                 {
                     input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
@@ -111,7 +101,7 @@ public class PlayerBody : MonoBehaviour
                 }
                 else
                 {
-                    getRigidbody.MoveRotation(Quaternion.LookRotation(getTransform.forward, Vector3.up));
+                    //getRigidbody.MoveRotation(Quaternion.LookRotation(getTransform.forward, Vector3.up));
                 }
                 getAnimator.SetBool(RollTag, true);
             }
@@ -134,4 +124,5 @@ public class PlayerBody : MonoBehaviour
             getAnimator.SetBool(AttackTag, false);
         }
     }
+
 }

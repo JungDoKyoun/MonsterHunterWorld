@@ -13,9 +13,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null && _playerPrefab != null)
         {
-            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, new Vector3(0, 5, 0), Quaternion.identity, 0);
+            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, new Vector3(-173, 86.05f, 132.289f), Quaternion.identity, 0);
             FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
         }
+    }
+
+    private void OnGUI()
+    {
+        
     }
 
     public override void OnDisable()
