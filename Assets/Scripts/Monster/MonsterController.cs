@@ -13,7 +13,10 @@ public class MonsterController : MonoBehaviour
     private Vector3 targetPos;
     private int _currentPatrolIndex = 0;
     private int _nextPatrolIndex = 1;
+    private int _maxHP;
+    private float _currentHP;
     private bool _isRo;
+    private bool _isDie;
 
     private void Awake()
     {
@@ -23,12 +26,17 @@ public class MonsterController : MonoBehaviour
 
     private void Start()
     {
+        _maxHP = MonsterManager.Instance.MonsterSO.MaxHP;
+        _currentHP = _maxHP;
+        _isDie = false;
+        _isRo = false;
         agent.updatePosition = false;
         agent.updateRotation = false;
     }
 
     //public List<Vector3> MoveTargetPos { get { return moveTargetPos; } set { moveTargetPos = value; } }
     public bool IsRo { get { return _isRo; } set { _isRo = value; } }
+    public bool IsDie { get { return _isDie; } set { _isDie = value; } }
 
     public void SetTargetPos(Vector3 pos)
     {
@@ -92,36 +100,17 @@ public class MonsterController : MonoBehaviour
         Vector3 dir = (targetPos - transform.position).normalized;
         float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
         Debug.Log(angle);
-        if(Math.Abs(angle) < 30)
+        if (Math.Abs(angle) < 30)
         {
             Debug.Log("µé¾î¿È¤±¤±");
             StartCoroutine(SmoothTurn(dir));
         }
         else
         {
-            int temp = 0;
-            if(angle < 0 && angle >= -90)
-            {
-                temp = 0;
-            }
-            else if(angle < -90 && angle > -180)
-            {
-                temp = 1;
-            }
-            else if(angle > 0 && angle <= 90)
-            {
-                temp = 2;
-            }
-            else
-            {
-                temp = 3;
-            }
-            Debug.Log("temp" + temp);
             anime.PlayMonsterRotateAnime(true);
-            anime.SetRoAngle(temp);
+            anime.SetRoAngle(angle);
             StartCoroutine(WaitForEndAnime());
         }
-        //NavMeshMatchMonsterRotation();
     }
 
     private IEnumerator SmoothTurn(Vector3 direct)
@@ -142,17 +131,22 @@ public class MonsterController : MonoBehaviour
     {
         Debug.Log(anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime);
         yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        //yield return new WaitForSeconds(0.1f);
         IsRo = false;
-        SetRoate();
     }
 
-    public void SetRoate()
+    public void TakeDamage(float damage)
     {
-        var a = GetComponentsInChildren<Transform>();
-        Debug.Log(a[1].name);
-        var b = a[1].rotation;
-        a[1].rotation = transform.rotation;
-        transform.rotation = b;
+        _currentHP -= damage;
+
+        if(_currentHP <= 0)
+        {
+            _currentHP = 0;
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        _isDie = true;
     }
 }

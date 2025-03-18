@@ -3418,7 +3418,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 8e4467e3eb4356d419729aafdc3efaa5, type: 2}
   m_Controller: {fileID: 9100000, guid: 5554e9679790c8341a00681337a1b7dc, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -3582,6 +3582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9618f63674b8542b119c4115e95aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _monsterSO: {fileID: 11400000, guid: 3665e5ce5a3cbe543b009017d6d87ba5, type: 2}
 --- !u!114 &4660011432841896429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3599,7 +3600,7 @@ MonoBehaviour:
   - {x: -4, y: 0, z: -50}
   - {x: 100, y: 0, z: 0}
   - {x: 50, y: 0, z: -50}
-  roSpeed: 0
+  roSpeed: 3
 --- !u!1 &4755787348757504639
 GameObject:
   m_ObjectHideFlags: 0

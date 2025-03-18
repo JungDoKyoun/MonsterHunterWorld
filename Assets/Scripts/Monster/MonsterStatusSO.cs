@@ -7,7 +7,7 @@ public abstract class MonsterStatusSO : ScriptableObject
     [Header("몬스터 기본 정보")]
     public int ID;
     public string Name;
-    public int HP;
+    public int MaxHP;
     public GameObject Prefab;
     //To-Do 아이템 클래스 추가
     //public List<> DropItem;
