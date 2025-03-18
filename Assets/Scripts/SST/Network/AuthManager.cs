@@ -172,6 +172,4 @@ public class AuthManager : MonoBehaviour
             }
         }
     }
-
-
 }
