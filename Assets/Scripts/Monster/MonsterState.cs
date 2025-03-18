@@ -71,6 +71,7 @@ public class MonsterIdleState : IMonsterState
         }
 
         _monster.NavMeshMatchMonsterPos();
+        //_monster.NavMeshMatchMonsterRotation();
     }
 }
 
@@ -106,6 +107,7 @@ public class MonsterRotationState : IMonsterState
             _stateManager.ChangeMonsterState(new MonsterPatrolState());
         }
         _monster.NavMeshMatchMonsterPos();
+        _monster.NavMeshMatchMonsterRotation();
     }
 }
 
@@ -155,6 +157,7 @@ public class MonsterPatrolState : IMonsterState
             //}
         }
         _monster.NavMeshMatchMonsterPos();
+        //_monster.NavMeshMatchMonsterRotation();
     }
 }
 
