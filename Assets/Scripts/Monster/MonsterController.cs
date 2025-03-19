@@ -50,7 +50,6 @@ public class MonsterController : MonoBehaviour
         _isHit = false;
         agent.updatePosition = false;
         agent.updateRotation = false;
-        Debug.Log(agent.transform.rotation);
     }
 
     //public List<Vector3> MoveTargetPos { get { return moveTargetPos; } set { moveTargetPos = value; } }
@@ -114,12 +113,10 @@ public class MonsterController : MonoBehaviour
         Vector3 dir;
         if (IsBattle)
         {
-            Debug.Log("전투중 각도계산");
             dir = (_targetPlayerPos - transform.position).normalized;
         }
         else
         {
-            Debug.Log("전투아닐때 각도계산");
             dir = (_targetPos - transform.position).normalized;
         }
 
@@ -256,6 +253,16 @@ public class MonsterController : MonoBehaviour
         _elapsedTime = _attackCoolTime;
     }
 
+    public bool IsCanFindPlayer()
+    {
+        return _detectPlayers.Count > 0;
+    }
+
+    public void ResetHit()
+    {
+        _isHit = false;
+    }
+
     public void DetectedPlayer() //플레이어 감지
     {
         _detectPlayers.Clear();
@@ -302,7 +309,6 @@ public class MonsterController : MonoBehaviour
     public IEnumerator WaitForEndRoarAnime()
     {
         IsRoar = true;
-        Debug.Log(anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime);
         yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         IsRoar = false;
     }

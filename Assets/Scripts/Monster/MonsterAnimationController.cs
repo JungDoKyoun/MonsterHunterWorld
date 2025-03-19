@@ -31,7 +31,7 @@ public class MonsterAnimationController : MonoBehaviour
     }
 
     public void PlayMonsterMoveAnime(bool TorF)
-    {
+    { 
         anime.SetBool(move, TorF);
     }
 

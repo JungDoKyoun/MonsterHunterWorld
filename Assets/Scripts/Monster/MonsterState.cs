@@ -92,7 +92,6 @@ public class MonsterRotationState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        Debug.Log("회전 들어옴");
         if(!_monster.IsBattle)
         {
             _targetPos = _monster.GetNextPatrolPos();
@@ -128,13 +127,11 @@ public class MonsterRotationState : IMonsterState
         {
             if (_monster.IsBattle)
             {
-                Debug.Log("추격하려고 돌음");
                 _stateManager.ChangeMonsterState(new MonsterChaseState());
                 return;
             }
             else
             {
-                Debug.Log("이동하려고려고 돌음");
                 _stateManager.ChangeMonsterState(new MonsterPatrolState());
                 return;
             }
@@ -154,6 +151,7 @@ public class MonsterPatrolState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+
         if(!_monster.IsBattle)
         {
             _targetPos = _monster.GetCurrentPatrolPos();
@@ -175,7 +173,7 @@ public class MonsterPatrolState : IMonsterState
 
     public override void Update()
     {
-        if (_monster.IsBattle && !_monster.IsHit)
+        if (_monster.IsBattle && !_monster.IsHit && _monster.IsCanFindPlayer())
         {
             _monster.IsHit = true;
             _stateManager.ChangeMonsterState(new MonsterRoarState());
@@ -195,6 +193,12 @@ public class MonsterPatrolState : IMonsterState
                 return;
             }
         }
+
+        if(_monster.IsNeedRo())
+        {
+            _stateManager.ChangeMonsterState(new MonsterRotationState());
+            return;
+        }
     }
 }
 
@@ -203,7 +207,6 @@ public class MonsterRoarState : IMonsterState
     MonsterController _monster;
     MonsterStateManager _stateManager;
     MonsterAnimationController _anime;
-    Vector3 _targetPlayer;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
     {
@@ -255,7 +258,6 @@ public class MonsterChaseState : IMonsterState
         _anime = anime;
         _monster.CheckPlayer();
         _anime.PlayMonsterChaseAnime(true);
-        Debug.Log("추격");
     }
 
     public override void Exit()
@@ -273,6 +275,13 @@ public class MonsterChaseState : IMonsterState
     public override void Update()
     {
         _monster.SmothRotateToPlayer();
+        if(!_monster.IsCanFindPlayer())
+        {
+            _monster.ResetHit();
+            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            return;
+        }
+
         if (_monster.IsCanAttackPlayer())
         {
             _stateManager.ChangeMonsterState(new MonsterAttackState());
@@ -311,10 +320,17 @@ public class MonsterAttackState : IMonsterState
 
     public override void Update()
     {
-        if(!_monster.IsCanAttackPlayer())
+        if (!_monster.IsCanFindPlayer())
         {
-            Debug.Log("바꾸는 거 들어옴");
+            _monster.ResetHit();
+            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            return;
+        }
+
+        if (!_monster.IsCanAttackPlayer())
+        {
             _stateManager.ChangeMonsterState(new MonsterChaseState());
+            return;
         }
     }
 }
