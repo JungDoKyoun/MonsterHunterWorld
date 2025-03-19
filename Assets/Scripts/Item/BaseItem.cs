@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemType
 {
@@ -16,13 +17,23 @@ public enum Attribute
     Dragon
 }
 
+public enum TrapType
+{
+    Setup,Throw
+     
+}
+
 public class BaseItem
 {
+    public Image image;
+
     public string name;
     public ItemType type;
     public int rarity;
     public int count;
     public int maxCount;
+
+    public Color color;
 }
 
 public class Weapon : BaseItem
@@ -39,13 +50,16 @@ public class Armor : BaseItem
 
 public class Potion : BaseItem
 {
-    public int heal;
+    public int heal = 0;
     public int maxHeal;
+    public int stamina = 0;
+    public int maxStamina;
 }
 
 public class Trap : BaseItem
 {
     public GameObject trap;
+    public TrapType trapType;
 }
 
 

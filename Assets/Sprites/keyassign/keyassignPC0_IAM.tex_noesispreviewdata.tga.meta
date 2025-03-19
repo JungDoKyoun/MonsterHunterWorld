@@ -1,0 +1,4377 @@
+fileFormatVersion: 2
+guid: 7ca9630fc90f7ec43be85e1f1f0a5835
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 995
+        width: 128
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09a001d4925b1274bbe9c952b0e4e85c
+      internalID: -430877299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_1
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 995
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8dd7a501b090e947a24a3452e69d84b
+      internalID: -1564722542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_2
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 995
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e44d0b7095d8445b636af9fc522ded
+      internalID: -1773190079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 993
+        width: 64
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b95456b47dcef46ab25e51a34df812
+      internalID: -1255170789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 961
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 668598d60e2ed974099640302eb7d3a3
+      internalID: -1699357364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_5
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 961
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb8dd84eb9aea68479c34ae878917e0e
+      internalID: -2126650831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_6
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 961
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d4971fa5f761194ba3e03284e7b6ec0
+      internalID: 1580498362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_7
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 961
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a03988e5b92afa5468507a26171104d9
+      internalID: 339692438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_8
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 961
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fbf51c725f814d4fb19c99355180bee
+      internalID: -676593448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_9
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 961
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5194d64847c80124ea132b22c1beda7d
+      internalID: 57903583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd3409fa862da524298e6faa4b404c9d
+      internalID: 1977977626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9741dcb1fd59e7446810f6f2191e9e6c
+      internalID: -1300185931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_12
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54c796ad606855a4caec03cb7b017c09
+      internalID: 461602108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_13
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b78f1376f9ca840826f1b23cbe7336
+      internalID: 1218699326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_14
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc0b5f399c16f0a4587094cdc0e838c2
+      internalID: -2102577811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_15
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 364be2ca37368e144bf93fb29ccc6e7f
+      internalID: 361716057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_16
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d830940a7bf79634a9a25feeb7d5e404
+      internalID: -1312158697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_17
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 929
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c33731e1693abb4d9a1c7546797d551
+      internalID: -444561658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_18
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb76e7b7fc52eaa44940ead655320949
+      internalID: 445705624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_19
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a14cf081f2544824b94a357e1dc148b8
+      internalID: -501056373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_20
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f92bcfc1692f034fa1a1ddd0aee34e7
+      internalID: -1037412446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_21
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10bf3b0fdd4443c4c92b86143cdc6124
+      internalID: 2015837919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_22
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c6a4a8ef2366ba4b94372a26760e699
+      internalID: 1647615811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_23
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 909d00c3b62421745a6dc2ded0599d97
+      internalID: 2133272266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_24
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86b9db250718bc04bac96e3ad7b9db6e
+      internalID: 736017962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_25
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 897
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44239346bf963db4a9323258c8bcfd31
+      internalID: -485266039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_26
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4596706458f57f94bb69f554d21995ac
+      internalID: 1234939731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_27
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bc75ed5532bdaf4db98836a0b4844ae
+      internalID: -1759361862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_28
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec59936977a3dea45998a89ae2ebb935
+      internalID: -2114275050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_29
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb9f71031e5e00d4983f7ae5e721eb27
+      internalID: -952254700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_30
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbbbb7877c3388f4781e8d27a13909cb
+      internalID: -401656526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_31
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc079786fd8906a4b8ff41be4bcee411
+      internalID: -136265905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_32
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bbbc9fecea83574f92ae195c514d0fb
+      internalID: 114940567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_33
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 865
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e12b08e25ecfe940973005b0695adbe
+      internalID: 1800895535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_34
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fe59ccbc792e354f8f575cbb62237d7
+      internalID: -356634235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_35
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9393c4c1759e4df44931cc07172a3db7
+      internalID: 2009885431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_36
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de5afd363eda0b445a62db58f2092c3b
+      internalID: 2135114676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_37
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d18ccc581e512c4ea072fe554850e28
+      internalID: -2032155034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_38
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9afa11723ebd35547a36c8c63c3a3a5f
+      internalID: 1955481414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_39
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89e6495ae673cd944b662e19fb04ee3e
+      internalID: -1548941347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_40
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 833
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b4345557e250af498ebaa75c7adff97
+      internalID: 1616922649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_41
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 617ff7e40e3543f48aceb35cf4256b6f
+      internalID: 1500270009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_42
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3450174711be5234c8a80a23eaa39afc
+      internalID: -609863708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_43
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a63456fa24f042f428f7ca0c9dc8ddf3
+      internalID: 1904839267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_44
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e81f618a4087fe43b7aab978c3dfb23
+      internalID: 1756619439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_45
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7f4195ded191a84ab1cb24e2be4ff66
+      internalID: 1715987746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_46
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36e1e6693185e7649a63f0ed98471701
+      internalID: -189761728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_47
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cad5e4f7a1effdd4c8350aa4ca78f0df
+      internalID: -778627882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_48
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 801
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3602be2f5cc0e6a4fb4ff080f82d0cb4
+      internalID: 116144302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_49
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 769
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f043a001e6192da42af9d15bddf9c46a
+      internalID: 1113694770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_50
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 769
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9982883b626f3e4a8acaf107a209b15
+      internalID: 1391671025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_51
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de71f36cebafd784d813fd494bf88a38
+      internalID: -1417910086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_52
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90f22b253167c9d40bc99fe921bd6a7c
+      internalID: -619520108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_53
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b1f57125ce76c7459d11e9c51084dfd
+      internalID: -1004297688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_54
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd3a6696c9c59a648882a418b5bf5282
+      internalID: -998358600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_55
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ed825650bc93e64dbc81533d68d1399
+      internalID: -117049203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_56
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17e214be20867d64fa05dbb6b1e00dcb
+      internalID: -1873800329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_57
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ca560b2f257de64ab13bd4cf239f886
+      internalID: -715568557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_58
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 737
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa3557a1d140b214aab3f48b1626011b
+      internalID: -1805649884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_59
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 971b894dd9d9f274dbca34d030545e07
+      internalID: 1589558946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_60
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aadd1ea4dca2054b9bd8e10ed9d2c64
+      internalID: 1093283452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_61
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a97b7efc32f5eee42b1db58bffa0ed34
+      internalID: -1248236612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_62
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bebfd089a2fb7b44baecb257a7c010c1
+      internalID: 2017966296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_63
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 652a8509095ede04cb7428fbe6761dbc
+      internalID: -1855410132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_64
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e26e75cc73f5f94e9d0c20d0890bb96
+      internalID: 992575012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_65
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da0f045be8a381e4f8a1d95a1143e07a
+      internalID: -781196523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_66
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 705
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 681b8bdd9deca864e843943e6e00acf5
+      internalID: 1317908103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_67
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7db829ef2d48fca438ec9c502662082a
+      internalID: -1035456436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_68
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc95cb87eb3a99f4da335e56af76c2e9
+      internalID: -58331170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_69
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cff562ed5b7efe4ba73305ac30084df
+      internalID: -1874775877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_70
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcd532d93a5c16d4fb23eae29d6719b0
+      internalID: 1115353022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_71
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 235676700ff07b44e9cf7b4dd22167dd
+      internalID: 1920891537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_72
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae142fc742fbc794ea9f15bd967baeb6
+      internalID: 1076282697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_73
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e475189053c5ebf47888ca4df7c7b489
+      internalID: 166153247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_74
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 673
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e66e773361073ea43bd25ce27565297c
+      internalID: 998375488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_75
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bb41b9d6228a824f989fc95b1ac5d84
+      internalID: 1965131070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_76
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a61864287ad60540851ec8cec040ca4
+      internalID: -909738666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_77
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6496268165c8e804f9f68dc5d1e9e396
+      internalID: 1545701798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_78
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f9b6d7750d90424fb283276fbbdcade
+      internalID: 215895231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_79
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed133a7566b73e74e94ede4b861fc0cf
+      internalID: 2059408974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_80
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 348afbb515b8aee46ae5205652d728fc
+      internalID: -2011437411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_81
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c695cec75a3b544792f8fcfe63fd868
+      internalID: -202091550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_82
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 641
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c34538663cdfa8c4fa0ce39a8ce3db79
+      internalID: -910955148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_83
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 609
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46f544a398c434c4da6a042aab17b746
+      internalID: 1731438206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_84
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 609
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0694d87e65ae1e349b3303c6946429c5
+      internalID: 60800274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_85
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 609
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47fb0e1945e9d3f4ba9583f29a9a8bc8
+      internalID: -699702346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_86
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7614e00c5a751404da2e5eae0a833e79
+      internalID: -469631729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_87
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec332f971aa9f1548adb2fd8c8fda38a
+      internalID: 1980165611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_88
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4850c02013de11408b75f212b95d267
+      internalID: -1228455010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_89
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f48d1880418978c45a3710e2b5645f3d
+      internalID: -1043510931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_90
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2703b31672ce5264e94f4ce74f77e53e
+      internalID: 1080795487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_91
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afbebbfd5ae6a53479514c91ac44dbeb
+      internalID: -1632506938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_92
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b22be40b2e05464b8dae10de36cec62
+      internalID: 1109966439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_93
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 577
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a51a635d5dbd0b444af5893cf9ac9c25
+      internalID: -1281654612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_94
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c17e292442cb74546abdf888b1a1fce9
+      internalID: -1743077971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_95
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab29f7ba58fcc9e4a803ade4c52c4759
+      internalID: 1057061457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_96
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 998ecf51641c96a4eaa42a0b027d4b67
+      internalID: -230321963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_97
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb671e41c25559c40a251af3587dba8b
+      internalID: 522509998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_98
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bedae746ab39c349893a7f10f960706
+      internalID: -2018068378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_99
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 568bcebfff12bd34586863d2a01d9f49
+      internalID: 2054990573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_100
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 545
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bc32dc8ee37b904da375d6e4276cbf8
+      internalID: -1394728895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_101
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b69eab36e73aaa44da92955041eb79bc
+      internalID: 131381156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_102
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61c6f9e93306841419c712c1c519aea2
+      internalID: 1158865444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_103
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb8f944c6f75b9341a875194f115764f
+      internalID: -75344705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_104
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef459aa8e39f74b4f816a8d9b08d6d66
+      internalID: 1550612352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_105
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d48e6320cf022b499c6f242db0de8d9
+      internalID: 1349348014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_106
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26728e8cbb3869e4491ae61ed900fe3c
+      internalID: 695659160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_107
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 446cac553cc8e5342a7d20193ef7aa37
+      internalID: 1552692278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_108
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 512
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8bd6a2e5ce50fc4a9c19df272f84fba
+      internalID: 856884617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_109
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301d0f0d057f95a4c80e175dab33d543
+      internalID: -2017601055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_110
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ee7bd382ba0aac46bb10919d67eb40e
+      internalID: 1744185195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_111
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76ec902fd147f1b4db904b680d81b8f9
+      internalID: -1035920665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_112
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a75e42af917e2374180089387b0f0cce
+      internalID: 147895009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_113
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff1b383eec255dd46b5d54abb6b37359
+      internalID: -622644728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_114
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f2f3a089df61304582b5827c9e58113
+      internalID: 1734723066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_115
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 491097cb518df3d4b8cf2b2fb6bf0f97
+      internalID: -461565899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_116
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 480
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc55257b176f4c046a990e05e1c3ffb7
+      internalID: -370961890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_117
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e152bc235c7624490065ffc6ba6e18
+      internalID: 740680341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_118
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173c5bf1715861947b0cc84b2835ca24
+      internalID: -482661229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_119
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40071c49730fc4b4cb737b998cb4d559
+      internalID: -308002537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_120
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6b5cdc3245ad4e43bb0bf790d02d0f1
+      internalID: 682246567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_121
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a36892d654f30b7498ddd496e4e34e66
+      internalID: 1227530772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_122
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3fedc9750cd994eb254b55cb6d0b14
+      internalID: -1899069338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_123
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 519e53695ad742941b927840393da749
+      internalID: 292236802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_124
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 448
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23bd16a35e1075344b648d9871bcb205
+      internalID: -323909060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_125
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33840083c5e4e1a449da32b677415add
+      internalID: -557079576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_126
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd887aaa0539d754caffa246f2b821f3
+      internalID: -1807959217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_127
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b54fa57533884f942987403dcb60b934
+      internalID: -1822954390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_128
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94457cdce857efa4c8d3729dd1802742
+      internalID: 1258411594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_129
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93fbe01025df86b45b5817d6b87af48e
+      internalID: 2035204205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_130
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eac2e4199a12f2c46b6bf0bf345f6d95
+      internalID: 1357064258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_131
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 416
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d38ea6db6dde9e241be6154a56c5f233
+      internalID: 1901892847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_132
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e76554a767ccad498133009587ed596
+      internalID: -271942993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_133
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aabb0b42fdc1984c89c132b58dff0c1
+      internalID: -456300289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_134
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9279e1c7cb3c70b428753b0b23531cb6
+      internalID: 310378393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_135
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0076c57d3cf2a3545aecf327f61370f0
+      internalID: 103434677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_136
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b5fb32d0d48f1a40803296bb311014b
+      internalID: -976498328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_137
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d1e1724ec96d8f49a2da7a00b5ed8ce
+      internalID: 218952223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_138
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff1ef776f63bb1409087aadfebed173
+      internalID: -1946445000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_139
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 384
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4d7d0ccc77236a4f8a12393f9335743
+      internalID: -1693870055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_140
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 352
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f11bcd86f4f4744a81bf609d6d6595e
+      internalID: -9050640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_141
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 352
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734993ef40f2e2b4c95a48fad8e9ffe2
+      internalID: 719255454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_142
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dd889d552f8c00409f4ed8275b2dc87
+      internalID: 312568544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_143
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49a6de6909ea2b642ab01bfa89d24f0b
+      internalID: -1230120458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_144
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b116826023a1c4e9bc46787b865cba
+      internalID: -437421533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_145
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94582f225ba5f5946ad9695aeed27f43
+      internalID: -1688626176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_146
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8ad01ebef96f044f8c48ab924aee87c
+      internalID: 66875720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_147
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd641512130b61648aef157d0c5d0794
+      internalID: -520957274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_148
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a58a65e8b8fc894f8128d2259b5a3e9
+      internalID: -1320163363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_149
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 320
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56ba6da0f58b73e408ba8eafb1ac69dd
+      internalID: -1288362187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_150
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b34fe87d88c6d749990f706756c5414
+      internalID: 367188220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_151
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b94b215a4bee194e92f2b0c63a0790d
+      internalID: -1379292214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_152
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6be23dc2f24daa145b7def60beb286e5
+      internalID: 83191587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_153
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04dded2bb4a5e1643bda4d9ab91594ee
+      internalID: 1092680727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_154
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d889d8eb361f49f40b273043d781d9cb
+      internalID: -1468753609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_155
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38eb4970319556747af7bb1c491fc734
+      internalID: 805539379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_156
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f419b85043a604bb01af39c2a9f2d0
+      internalID: -756278750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_157
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 288
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c1687c04eace404e8289d82a35bae9d
+      internalID: -26769008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_158
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0136daabc3c39ef418180b70b0959a1c
+      internalID: 1335569362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_159
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f512b3b9f8c6ae4e86d300a870f353e
+      internalID: 525681986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_160
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aec313d15373228459fc3f76acd5daa5
+      internalID: 1095665452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_161
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb33d24bb360ff247a335b308b9d2c57
+      internalID: -566476101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_162
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec25c6d7a334efa4f8a66988423c01bb
+      internalID: -1822352749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_163
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b767ac0f569921f44b9451d9e13b772c
+      internalID: 40304752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_164
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 592b4b3bce3a76845ac7f9445ef46349
+      internalID: -315968727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_165
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 256
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97646b8dea20faa45af7dc65f26c7317
+      internalID: -706356083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_166
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbb96202b32221e4faa416f799de40ec
+      internalID: -2030959352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_167
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49899d31bdfd1b4b9b56011210db1ae
+      internalID: 924730959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_168
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae4e8968448549448c5850645bacb03
+      internalID: -254912375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_169
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65953ff7b7c29124ea45d9f4f3496095
+      internalID: -852980676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_170
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2716360713ba484c90e34c81ff7e66d
+      internalID: 784459116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_171
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0da0b36bffb3b574daace59bbe862abb
+      internalID: 396576221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_172
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2db200f5807a98c49aa6e22336dbb7fa
+      internalID: 2040751764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_173
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 224
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71d77573c322db49b3cca7a73a04bfa
+      internalID: -525467389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_174
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 192
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 177083d7685c90848ac05351adede882
+      internalID: -1849438159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_175
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 192
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 851038bc64f62244db2840b969b3df94
+      internalID: -608371767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_176
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 192
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4d7c7afa13fc8545a03736acc2624aa
+      internalID: -86648887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_177
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d67422789d0767f428d752c4eb9dcf3c
+      internalID: -644603052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_178
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21260ae1994c6524d859e8c9d63d8c54
+      internalID: -2036844673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_179
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9900e5f83a64c9b4191f00bbec18bc2a
+      internalID: 1682954877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_180
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc26ef4a7083261458c7ecdd6be6f2fb
+      internalID: -1686057116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_181
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3334ca2994858ce4b879329c528a9cf0
+      internalID: -1374892212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_182
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7affdec41c8ac9a429db4c79278f65b1
+      internalID: -1826549870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_183
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3644df216f0fb74da8f42ad0f055339
+      internalID: -1744522802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_184
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 160
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7d44596205ae124cb5e332751fd8ec6
+      internalID: -1101101416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_185
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ac5540e22012ff4ab70a4480520f29c
+      internalID: -1954637200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_186
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86805d30a9264844e8b7b4368e00cfde
+      internalID: -1170687428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_187
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3387449a238d23c44aa35b7a864a15b3
+      internalID: -52286487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_188
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72f7694cf92c1b44e8ac5cf97e504c98
+      internalID: 1489030581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_189
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bf0cfaad67b34c479a4ed2373e9bc0f
+      internalID: 73529388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_190
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bddabe03d380144bac6090e45eef228
+      internalID: 428744616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: keyassignPC0_IAM.tex_noesispreviewdata_191
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 128
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9268b07f6624b49438459ba97c46b25b
+      internalID: 481722755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ebec96e829e375746bcd6b92298f03bc
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      keyassignPC0_IAM.tex_noesispreviewdata_0: -430877299
+      keyassignPC0_IAM.tex_noesispreviewdata_1: -1564722542
+      keyassignPC0_IAM.tex_noesispreviewdata_10: 1977977626
+      keyassignPC0_IAM.tex_noesispreviewdata_100: -1394728895
+      keyassignPC0_IAM.tex_noesispreviewdata_101: 131381156
+      keyassignPC0_IAM.tex_noesispreviewdata_102: 1158865444
+      keyassignPC0_IAM.tex_noesispreviewdata_103: -75344705
+      keyassignPC0_IAM.tex_noesispreviewdata_104: 1550612352
+      keyassignPC0_IAM.tex_noesispreviewdata_105: 1349348014
+      keyassignPC0_IAM.tex_noesispreviewdata_106: 695659160
+      keyassignPC0_IAM.tex_noesispreviewdata_107: 1552692278
+      keyassignPC0_IAM.tex_noesispreviewdata_108: 856884617
+      keyassignPC0_IAM.tex_noesispreviewdata_109: -2017601055
+      keyassignPC0_IAM.tex_noesispreviewdata_11: -1300185931
+      keyassignPC0_IAM.tex_noesispreviewdata_110: 1744185195
+      keyassignPC0_IAM.tex_noesispreviewdata_111: -1035920665
+      keyassignPC0_IAM.tex_noesispreviewdata_112: 147895009
+      keyassignPC0_IAM.tex_noesispreviewdata_113: -622644728
+      keyassignPC0_IAM.tex_noesispreviewdata_114: 1734723066
+      keyassignPC0_IAM.tex_noesispreviewdata_115: -461565899
+      keyassignPC0_IAM.tex_noesispreviewdata_116: -370961890
+      keyassignPC0_IAM.tex_noesispreviewdata_117: 740680341
+      keyassignPC0_IAM.tex_noesispreviewdata_118: -482661229
+      keyassignPC0_IAM.tex_noesispreviewdata_119: -308002537
+      keyassignPC0_IAM.tex_noesispreviewdata_12: 461602108
+      keyassignPC0_IAM.tex_noesispreviewdata_120: 682246567
+      keyassignPC0_IAM.tex_noesispreviewdata_121: 1227530772
+      keyassignPC0_IAM.tex_noesispreviewdata_122: -1899069338
+      keyassignPC0_IAM.tex_noesispreviewdata_123: 292236802
+      keyassignPC0_IAM.tex_noesispreviewdata_124: -323909060
+      keyassignPC0_IAM.tex_noesispreviewdata_125: -557079576
+      keyassignPC0_IAM.tex_noesispreviewdata_126: -1807959217
+      keyassignPC0_IAM.tex_noesispreviewdata_127: -1822954390
+      keyassignPC0_IAM.tex_noesispreviewdata_128: 1258411594
+      keyassignPC0_IAM.tex_noesispreviewdata_129: 2035204205
+      keyassignPC0_IAM.tex_noesispreviewdata_13: 1218699326
+      keyassignPC0_IAM.tex_noesispreviewdata_130: 1357064258
+      keyassignPC0_IAM.tex_noesispreviewdata_131: 1901892847
+      keyassignPC0_IAM.tex_noesispreviewdata_132: -271942993
+      keyassignPC0_IAM.tex_noesispreviewdata_133: -456300289
+      keyassignPC0_IAM.tex_noesispreviewdata_134: 310378393
+      keyassignPC0_IAM.tex_noesispreviewdata_135: 103434677
+      keyassignPC0_IAM.tex_noesispreviewdata_136: -976498328
+      keyassignPC0_IAM.tex_noesispreviewdata_137: 218952223
+      keyassignPC0_IAM.tex_noesispreviewdata_138: -1946445000
+      keyassignPC0_IAM.tex_noesispreviewdata_139: -1693870055
+      keyassignPC0_IAM.tex_noesispreviewdata_14: -2102577811
+      keyassignPC0_IAM.tex_noesispreviewdata_140: -9050640
+      keyassignPC0_IAM.tex_noesispreviewdata_141: 719255454
+      keyassignPC0_IAM.tex_noesispreviewdata_142: 312568544
+      keyassignPC0_IAM.tex_noesispreviewdata_143: -1230120458
+      keyassignPC0_IAM.tex_noesispreviewdata_144: -437421533
+      keyassignPC0_IAM.tex_noesispreviewdata_145: -1688626176
+      keyassignPC0_IAM.tex_noesispreviewdata_146: 66875720
+      keyassignPC0_IAM.tex_noesispreviewdata_147: -520957274
+      keyassignPC0_IAM.tex_noesispreviewdata_148: -1320163363
+      keyassignPC0_IAM.tex_noesispreviewdata_149: -1288362187
+      keyassignPC0_IAM.tex_noesispreviewdata_15: 361716057
+      keyassignPC0_IAM.tex_noesispreviewdata_150: 367188220
+      keyassignPC0_IAM.tex_noesispreviewdata_151: -1379292214
+      keyassignPC0_IAM.tex_noesispreviewdata_152: 83191587
+      keyassignPC0_IAM.tex_noesispreviewdata_153: 1092680727
+      keyassignPC0_IAM.tex_noesispreviewdata_154: -1468753609
+      keyassignPC0_IAM.tex_noesispreviewdata_155: 805539379
+      keyassignPC0_IAM.tex_noesispreviewdata_156: -756278750
+      keyassignPC0_IAM.tex_noesispreviewdata_157: -26769008
+      keyassignPC0_IAM.tex_noesispreviewdata_158: 1335569362
+      keyassignPC0_IAM.tex_noesispreviewdata_159: 525681986
+      keyassignPC0_IAM.tex_noesispreviewdata_16: -1312158697
+      keyassignPC0_IAM.tex_noesispreviewdata_160: 1095665452
+      keyassignPC0_IAM.tex_noesispreviewdata_161: -566476101
+      keyassignPC0_IAM.tex_noesispreviewdata_162: -1822352749
+      keyassignPC0_IAM.tex_noesispreviewdata_163: 40304752
+      keyassignPC0_IAM.tex_noesispreviewdata_164: -315968727
+      keyassignPC0_IAM.tex_noesispreviewdata_165: -706356083
+      keyassignPC0_IAM.tex_noesispreviewdata_166: -2030959352
+      keyassignPC0_IAM.tex_noesispreviewdata_167: 924730959
+      keyassignPC0_IAM.tex_noesispreviewdata_168: -254912375
+      keyassignPC0_IAM.tex_noesispreviewdata_169: -852980676
+      keyassignPC0_IAM.tex_noesispreviewdata_17: -444561658
+      keyassignPC0_IAM.tex_noesispreviewdata_170: 784459116
+      keyassignPC0_IAM.tex_noesispreviewdata_171: 396576221
+      keyassignPC0_IAM.tex_noesispreviewdata_172: 2040751764
+      keyassignPC0_IAM.tex_noesispreviewdata_173: -525467389
+      keyassignPC0_IAM.tex_noesispreviewdata_174: -1849438159
+      keyassignPC0_IAM.tex_noesispreviewdata_175: -608371767
+      keyassignPC0_IAM.tex_noesispreviewdata_176: -86648887
+      keyassignPC0_IAM.tex_noesispreviewdata_177: -644603052
+      keyassignPC0_IAM.tex_noesispreviewdata_178: -2036844673
+      keyassignPC0_IAM.tex_noesispreviewdata_179: 1682954877
+      keyassignPC0_IAM.tex_noesispreviewdata_18: 445705624
+      keyassignPC0_IAM.tex_noesispreviewdata_180: -1686057116
+      keyassignPC0_IAM.tex_noesispreviewdata_181: -1374892212
+      keyassignPC0_IAM.tex_noesispreviewdata_182: -1826549870
+      keyassignPC0_IAM.tex_noesispreviewdata_183: -1744522802
+      keyassignPC0_IAM.tex_noesispreviewdata_184: -1101101416
+      keyassignPC0_IAM.tex_noesispreviewdata_185: -1954637200
+      keyassignPC0_IAM.tex_noesispreviewdata_186: -1170687428
+      keyassignPC0_IAM.tex_noesispreviewdata_187: -52286487
+      keyassignPC0_IAM.tex_noesispreviewdata_188: 1489030581
+      keyassignPC0_IAM.tex_noesispreviewdata_189: 73529388
+      keyassignPC0_IAM.tex_noesispreviewdata_19: -501056373
+      keyassignPC0_IAM.tex_noesispreviewdata_190: 428744616
+      keyassignPC0_IAM.tex_noesispreviewdata_191: 481722755
+      keyassignPC0_IAM.tex_noesispreviewdata_2: -1773190079
+      keyassignPC0_IAM.tex_noesispreviewdata_20: -1037412446
+      keyassignPC0_IAM.tex_noesispreviewdata_21: 2015837919
+      keyassignPC0_IAM.tex_noesispreviewdata_22: 1647615811
+      keyassignPC0_IAM.tex_noesispreviewdata_23: 2133272266
+      keyassignPC0_IAM.tex_noesispreviewdata_24: 736017962
+      keyassignPC0_IAM.tex_noesispreviewdata_25: -485266039
+      keyassignPC0_IAM.tex_noesispreviewdata_26: 1234939731
+      keyassignPC0_IAM.tex_noesispreviewdata_27: -1759361862
+      keyassignPC0_IAM.tex_noesispreviewdata_28: -2114275050
+      keyassignPC0_IAM.tex_noesispreviewdata_29: -952254700
+      keyassignPC0_IAM.tex_noesispreviewdata_3: -1255170789
+      keyassignPC0_IAM.tex_noesispreviewdata_30: -401656526
+      keyassignPC0_IAM.tex_noesispreviewdata_31: -136265905
+      keyassignPC0_IAM.tex_noesispreviewdata_32: 114940567
+      keyassignPC0_IAM.tex_noesispreviewdata_33: 1800895535
+      keyassignPC0_IAM.tex_noesispreviewdata_34: -356634235
+      keyassignPC0_IAM.tex_noesispreviewdata_35: 2009885431
+      keyassignPC0_IAM.tex_noesispreviewdata_36: 2135114676
+      keyassignPC0_IAM.tex_noesispreviewdata_37: -2032155034
+      keyassignPC0_IAM.tex_noesispreviewdata_38: 1955481414
+      keyassignPC0_IAM.tex_noesispreviewdata_39: -1548941347
+      keyassignPC0_IAM.tex_noesispreviewdata_4: -1699357364
+      keyassignPC0_IAM.tex_noesispreviewdata_40: 1616922649
+      keyassignPC0_IAM.tex_noesispreviewdata_41: 1500270009
+      keyassignPC0_IAM.tex_noesispreviewdata_42: -609863708
+      keyassignPC0_IAM.tex_noesispreviewdata_43: 1904839267
+      keyassignPC0_IAM.tex_noesispreviewdata_44: 1756619439
+      keyassignPC0_IAM.tex_noesispreviewdata_45: 1715987746
+      keyassignPC0_IAM.tex_noesispreviewdata_46: -189761728
+      keyassignPC0_IAM.tex_noesispreviewdata_47: -778627882
+      keyassignPC0_IAM.tex_noesispreviewdata_48: 116144302
+      keyassignPC0_IAM.tex_noesispreviewdata_49: 1113694770
+      keyassignPC0_IAM.tex_noesispreviewdata_5: -2126650831
+      keyassignPC0_IAM.tex_noesispreviewdata_50: 1391671025
+      keyassignPC0_IAM.tex_noesispreviewdata_51: -1417910086
+      keyassignPC0_IAM.tex_noesispreviewdata_52: -619520108
+      keyassignPC0_IAM.tex_noesispreviewdata_53: -1004297688
+      keyassignPC0_IAM.tex_noesispreviewdata_54: -998358600
+      keyassignPC0_IAM.tex_noesispreviewdata_55: -117049203
+      keyassignPC0_IAM.tex_noesispreviewdata_56: -1873800329
+      keyassignPC0_IAM.tex_noesispreviewdata_57: -715568557
+      keyassignPC0_IAM.tex_noesispreviewdata_58: -1805649884
+      keyassignPC0_IAM.tex_noesispreviewdata_59: 1589558946
+      keyassignPC0_IAM.tex_noesispreviewdata_6: 1580498362
+      keyassignPC0_IAM.tex_noesispreviewdata_60: 1093283452
+      keyassignPC0_IAM.tex_noesispreviewdata_61: -1248236612
+      keyassignPC0_IAM.tex_noesispreviewdata_62: 2017966296
+      keyassignPC0_IAM.tex_noesispreviewdata_63: -1855410132
+      keyassignPC0_IAM.tex_noesispreviewdata_64: 992575012
+      keyassignPC0_IAM.tex_noesispreviewdata_65: -781196523
+      keyassignPC0_IAM.tex_noesispreviewdata_66: 1317908103
+      keyassignPC0_IAM.tex_noesispreviewdata_67: -1035456436
+      keyassignPC0_IAM.tex_noesispreviewdata_68: -58331170
+      keyassignPC0_IAM.tex_noesispreviewdata_69: -1874775877
+      keyassignPC0_IAM.tex_noesispreviewdata_7: 339692438
+      keyassignPC0_IAM.tex_noesispreviewdata_70: 1115353022
+      keyassignPC0_IAM.tex_noesispreviewdata_71: 1920891537
+      keyassignPC0_IAM.tex_noesispreviewdata_72: 1076282697
+      keyassignPC0_IAM.tex_noesispreviewdata_73: 166153247
+      keyassignPC0_IAM.tex_noesispreviewdata_74: 998375488
+      keyassignPC0_IAM.tex_noesispreviewdata_75: 1965131070
+      keyassignPC0_IAM.tex_noesispreviewdata_76: -909738666
+      keyassignPC0_IAM.tex_noesispreviewdata_77: 1545701798
+      keyassignPC0_IAM.tex_noesispreviewdata_78: 215895231
+      keyassignPC0_IAM.tex_noesispreviewdata_79: 2059408974
+      keyassignPC0_IAM.tex_noesispreviewdata_8: -676593448
+      keyassignPC0_IAM.tex_noesispreviewdata_80: -2011437411
+      keyassignPC0_IAM.tex_noesispreviewdata_81: -202091550
+      keyassignPC0_IAM.tex_noesispreviewdata_82: -910955148
+      keyassignPC0_IAM.tex_noesispreviewdata_83: 1731438206
+      keyassignPC0_IAM.tex_noesispreviewdata_84: 60800274
+      keyassignPC0_IAM.tex_noesispreviewdata_85: -699702346
+      keyassignPC0_IAM.tex_noesispreviewdata_86: -469631729
+      keyassignPC0_IAM.tex_noesispreviewdata_87: 1980165611
+      keyassignPC0_IAM.tex_noesispreviewdata_88: -1228455010
+      keyassignPC0_IAM.tex_noesispreviewdata_89: -1043510931
+      keyassignPC0_IAM.tex_noesispreviewdata_9: 57903583
+      keyassignPC0_IAM.tex_noesispreviewdata_90: 1080795487
+      keyassignPC0_IAM.tex_noesispreviewdata_91: -1632506938
+      keyassignPC0_IAM.tex_noesispreviewdata_92: 1109966439
+      keyassignPC0_IAM.tex_noesispreviewdata_93: -1281654612
+      keyassignPC0_IAM.tex_noesispreviewdata_94: -1743077971
+      keyassignPC0_IAM.tex_noesispreviewdata_95: 1057061457
+      keyassignPC0_IAM.tex_noesispreviewdata_96: -230321963
+      keyassignPC0_IAM.tex_noesispreviewdata_97: 522509998
+      keyassignPC0_IAM.tex_noesispreviewdata_98: -2018068378
+      keyassignPC0_IAM.tex_noesispreviewdata_99: 2054990573
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
