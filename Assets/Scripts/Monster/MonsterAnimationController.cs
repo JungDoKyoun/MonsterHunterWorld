@@ -11,6 +11,7 @@ public class MonsterAnimationController : MonoBehaviour
     int turnAngle;
     int howl;
     int chase;
+    int attackIdle;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class MonsterAnimationController : MonoBehaviour
         turnAngle = Animator.StringToHash("TurnAngle");
         howl = Animator.StringToHash("IsHowl");
         chase = Animator.StringToHash("IsChase");
+        attackIdle = Animator.StringToHash("IsAttackIdle");
     }
 
     public Animator Anime { get { return anime; } set { anime = value; } }
@@ -51,6 +53,11 @@ public class MonsterAnimationController : MonoBehaviour
     }
 
     public void PlayMonsterChaseAnime(bool TorF)
+    {
+        anime.SetBool(chase, TorF);
+    }
+
+    public void PlayMonsterAttackIdleAnime(bool TorF)
     {
         anime.SetBool(chase, TorF);
     }

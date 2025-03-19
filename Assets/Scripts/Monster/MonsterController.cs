@@ -4,6 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
+public enum MonsterAttackType
+{
+    Bite
+}
 
 public class MonsterController : MonoBehaviour
 {
@@ -338,5 +344,20 @@ public class MonsterController : MonoBehaviour
 
         transform.position += finalMove;
         transform.rotation = anime.Anime.rootRotation;
+    }
+
+    public void Attack()
+    {
+        MonsterAttackType attackType = (MonsterAttackType)Random.Range(0, Enum.GetValues(typeof(MonsterAttackType)).Length);
+
+        switch(attackType)
+        {
+            case MonsterAttackType.Bite:
+                {
+
+                    break;
+                }
+
+        }
     }
 }
