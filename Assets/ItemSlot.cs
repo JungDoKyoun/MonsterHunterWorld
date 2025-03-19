@@ -18,6 +18,8 @@ public class ItemSlot : MonoBehaviour
     {
         this.item = item;
         var img = GetComponentInChildren<Image>();
+        Debug.Log("1" + item.image.name);
+        Debug.Log("2" + img.name);
         img.sprite = item.image.sprite;
 
         if (item.count > 0)
