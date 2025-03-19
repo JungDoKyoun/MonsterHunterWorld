@@ -1,0 +1,923 @@
+fileFormatVersion: 2
+guid: 3eca48bf03475ad41b271c76798e653c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 465
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbeb2eb8d0f32c049ba734c7c1ab0c8a
+      internalID: 884495307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_2
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 466
+        width: 44
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d249b97726801c84393e3aa38343ee5d
+      internalID: -1604198220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_3
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 467
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 985e077111049d14699fa3f765950edd
+      internalID: 409347020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 416
+        width: 43
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76aff465c812aa44d9effb9c6935b4de
+      internalID: -43656888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_5
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 417
+        width: 46
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48c57a99f302d449854adb33cd5496e
+      internalID: 1462289793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_6
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 416
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37fc3d08c50e3274ea4b127832ca171c
+      internalID: -136512626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_7
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 368
+        width: 38
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c26b5c02b368bb4f8e9a44200e7257d
+      internalID: 1175658919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_8
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 368
+        width: 34
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 999db7656a2cdaf47b3c648a379308ea
+      internalID: 913194627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_9
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 368
+        width: 40
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a3dd71e02818124699eaa8c8a7b7ba6
+      internalID: -645455021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_10
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 368
+        width: 47
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 884e1e93bbff81c41aa48abb012ed23e
+      internalID: -2002778354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_11
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 368
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e8cd5e4f52f4d14ebf45660231df38b
+      internalID: 11948769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 322
+        width: 46
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf0d387ede8b9e54f94d97371518c592
+      internalID: 1787651424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 320
+        width: 33
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edf193e7c0efc3d498aa30b498bc426a
+      internalID: -60374330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_14
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 320
+        width: 45
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a60a6bda7eea94086d477cda1b1cb4
+      internalID: 640599048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_15
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 320
+        width: 41
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a191284f131534b99a5d682179b5d4
+      internalID: 559692078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_16
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 320
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e74b8e322d3af40a50ac9c9232401e
+      internalID: 120092840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_17
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 272
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5ee50316114d8644941f152fe7e9b4e
+      internalID: 1507119681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_18
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 272
+        width: 41
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 766563f04e1befd489e2d4166188e89c
+      internalID: 1120833497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_19
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 274
+        width: 47
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13537632505788a4f8c1ac9365a028d5
+      internalID: 418837245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_20
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 272
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 732c5c6d71938c3478d11bfc6a7afd5a
+      internalID: -1977608183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_21
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 273
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5914441297ece284c9190dfca38b99cb
+      internalID: 453384958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb33cb125cb62064ab4786e89f2410f9
+      internalID: 231186957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_23
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 225
+        width: 45
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3641a3569c7a39d4795886224f41a475
+      internalID: 51719577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_24
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 225
+        width: 48
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fb995c3250d8db4f834e63b49fe6684
+      internalID: -1357083992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 224
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c447a4093753ac64798d50702bc4f44b
+      internalID: -231703082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_26
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 178
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47783db790b4f954582700e74a32e6f2
+      internalID: -2014638280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_27
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 176
+        width: 43
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b145df42b8f31a64ead4749ec85eed85
+      internalID: 1946333806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 467
+        width: 44
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c09d79756cd28844bb7f28a16df87469
+      internalID: 1288130115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_28
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 466
+        width: 44
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d40d04dc4c8aa84bb048cc5e0fe566e
+      internalID: -540538656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_29
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 418
+        width: 46
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5123eed38578afa47adaa055f655295a
+      internalID: 1296576901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_30
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 224
+        width: 45
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4940508715b679744bc8baba34cfee71
+      internalID: 506324834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_31
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 175
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94b393df84a6ea43b7c5ae22a7bcf06
+      internalID: -1915627002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 177
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8db5f3cf0bd9b34438e0af8cd52dbdba
+      internalID: -61420046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_33
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 175
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c143a9902ef17ae4a97a7309ac5546ae
+      internalID: -373912458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cmn_EquipIcon_IAM.tex_noesispreviewdata_34
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 416
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f71639cfc268f14393791296abd22e2
+      internalID: 2147380891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: be4d725579090bd4ea141a828b176ff2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_0: 884495307
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_1: 1288130115
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_10: -2002778354
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_11: 11948769
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_12: 1787651424
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_13: -60374330
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_14: 640599048
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_15: 559692078
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_16: 120092840
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_17: 1507119681
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_18: 1120833497
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_19: 418837245
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_2: -1604198220
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_20: -1977608183
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_21: 453384958
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_22: 231186957
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_23: 51719577
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_24: -1357083992
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_25: -231703082
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_26: -2014638280
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_27: 1946333806
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_28: -540538656
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_29: 1296576901
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_3: 409347020
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_30: 506324834
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_31: -1915627002
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_32: -61420046
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_33: -373912458
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_34: 2147380891
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_4: -43656888
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_5: 1462289793
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_6: -136512626
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_7: 1175658919
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_8: 913194627
+      cmn_EquipIcon_IAM.tex_noesispreviewdata_9: -645455021
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

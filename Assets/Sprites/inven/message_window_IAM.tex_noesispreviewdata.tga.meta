@@ -1,0 +1,2136 @@
+fileFormatVersion: 2
+guid: 2d61bb30b26e1614ca064ffcd2ef2a2d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 445
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccf33715b5f1365409f36b536e107072
+      internalID: -1921043287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_1
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 484
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55fec34fded80fb4db3194a1e20373a4
+      internalID: 1309644115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_2
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 484
+        width: 15
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7aeb4352ebbca24f82e814f4322e3ba
+      internalID: -943859663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_3
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 484
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d20639fa8a87bc4a96ac2c52ea66de7
+      internalID: -225970839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_4
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 478
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99231d1d8785b7647805fbb4777b9bf8
+      internalID: 1529953521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 460
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fcc6492c67931b42ab23282d7442524
+      internalID: 1635447457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_6
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 468
+        width: 26
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd2ca7bef84db3a4cafae3859f6d4a3f
+      internalID: -1479344971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_7
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 453
+        width: 26
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8580450bf5222a44b9a49251cffdc657
+      internalID: 1008126108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_8
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 390
+        width: 10
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca6a47c02f61c8429b99de25f7aaf84
+      internalID: 310426537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_9
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 392
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d13581dfe80804b8d9240c7b89339b
+      internalID: -731816535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_11
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 415
+        width: 138
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ea6a9e35442eed428ccb8daffbceff6
+      internalID: -2130402824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_14
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 392
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e92327764a16bd64baed58a337851c30
+      internalID: -2083886162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 392
+        width: 64
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8b93136e2be40f42843ece16523699e
+      internalID: 1890569790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_18
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 392
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc03fcd89375b274ca4f2e9e808c4154
+      internalID: -1557643487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_20
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 396
+        width: 23
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed331071c7faafe45a106f277725be21
+      internalID: 322432156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_22
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 333
+        width: 49
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2797ee4e16e45bd4da981e0d6df15f7f
+      internalID: -969004724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_23
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 331
+        width: 53
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ac4828fb5c49c14aaab5954c2b31ed2
+      internalID: -1399266475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_24
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 332
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dfa52726568ee94ba6e20c66eccebb0
+      internalID: 761355613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_25
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 360
+        width: 48
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 518b2bf7474c87840a697acf27fa3411
+      internalID: 1510982271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_26
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 358
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c7c7caf1dae5d64996ea86ee6d5cbd9
+      internalID: 5702626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_27
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 358
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 174d7af20544a4348876ec20988539ea
+      internalID: -722016380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_28
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 334
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d36b4bb90f918d1449ce8c7b633bfc02
+      internalID: -1141631749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_29
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 336
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5351f6a67ea8b39458d780a222b475fc
+      internalID: 1172540733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_30
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 332
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b0b8a52c641f44ab7c204a46075c28
+      internalID: 267797181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_31
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 330
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3438f6fb10770b64d983e2446c3d4c22
+      internalID: -1375133743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_32
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 316
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af71f1e1281151546be592f7e3bc4e29
+      internalID: 1832923440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_36
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 316
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f6dadf6ae6f4184dae9a9f82c541ed4
+      internalID: 2137436546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_37
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 294
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b796279605ef6a04b9fd1227366c4898
+      internalID: -2114818885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_38
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 286
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d40d990eade987045aeabae1917c4309
+      internalID: -618695021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_39
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 261
+        width: 79
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d8ca047a206d1e428b58496c6cb5912
+      internalID: 1019513333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_40
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 261
+        width: 82
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35bbb582ba5fa1b4da7d62b83d5539b0
+      internalID: 975734942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_41
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 259
+        width: 42
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57faacbba382273409f137840869f58d
+      internalID: 1167330899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 221
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c71c693bbf6cf63469418cf99d05efe0
+      internalID: 1538270944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_43
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 221
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcd6bef8a930cb040889e056de128186
+      internalID: -1403536016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_44
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 232
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e9d447261f261f48b771d6fa6baed6d
+      internalID: 1349062231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_45
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 232
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c79334c02609ecf4dab29e0f15193958
+      internalID: -1244648082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_46
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 219
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13972dea2b1188340824aac20c7ce6a6
+      internalID: 1937482343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_47
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 234
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f1a679537ffc8e4ea74c44c7cd3385b
+      internalID: 2015989254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_48
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 204
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b62e48937bb790438e8e908a53a4cf4
+      internalID: -729205836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_49
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 192
+        width: 59
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b709a5e3816e9724ab06fa350b6d7717
+      internalID: -596127619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_50
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 192
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85eee2263cec3f4d9be47863e3f42c3
+      internalID: 1260007071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_51
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 196
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d19c5176bf499204390db738f0e7d012
+      internalID: -1299622278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_52
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 188
+        width: 35
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4ad04bb6597c5419ba1721eb613c4e
+      internalID: 19114081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_53
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 182
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8be5deaa63268da478f207b19db904f2
+      internalID: 259934596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_54
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 154
+        width: 43
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a32b07c38ce8f524883281b1b87dc341
+      internalID: -1556685383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_55
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 156
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b73de0795342e8f438096ab865a3180a
+      internalID: 2041738587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_56
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 158
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7c01b00cf2f9364c98786f06a252cdc
+      internalID: 886320245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_57
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 162
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34cfafb22b347ff42bd3337fddc05c92
+      internalID: -1576778918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_58
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 158
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45492dc572042043a354c1c02ac502a
+      internalID: 1895707934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_59
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 152
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5cba16a28f7d4140abb7e6a77c6e807
+      internalID: 1365319879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_60
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 153
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92757cf3c97743142aaa3156784c8fe6
+      internalID: 1048528492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_62
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 99
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed4f4ce951653fe4fafa68da7fe1d882
+      internalID: 1591087311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_63
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 146
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c7b64b6c11ce546920c3dced617c91
+      internalID: -687829638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_64
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 126
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21208fd9903136e4485dba3757db2dbb
+      internalID: 641111890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_65
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 129
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58dd0f122a65bc146be2a199ba632693
+      internalID: -1369243690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_66
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 122
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18be97233885a9244a5b43dc86e37ada
+      internalID: 1345624578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_67
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 98
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c60d696dbbb984d8cb5edffe98d646
+      internalID: -1022349199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_68
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 101
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a37de65be1830374a96d22c1ce7c5a9c
+      internalID: -1169586494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_69
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 98
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9542cc70caa8c68479d19b6420510b2b
+      internalID: 1098260888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_70
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 67
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f17537fd74da9545bfc57fb79c14693
+      internalID: -435339716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_71
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 65
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05b3ad362cf2484f816ce1b8c0c47a6
+      internalID: 1346608282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_72
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 67
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27e90b0f73e8db8489a06288aec6c1ef
+      internalID: -1858084441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_73
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 69
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 860d98b28fdc254469acb29aefd92867
+      internalID: -771874352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_74
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 76
+        width: 128
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b69d8fe088ad2044eb9eef6000e54662
+      internalID: 559393729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_75
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 30
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35ac897eb0cc51742b2de1d3c5d72872
+      internalID: 1152848506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_76
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 30
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a2c05bd22fa8ca44aa13ad70cc8752a
+      internalID: -1520975635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_77
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 30
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edf439a80efea754cb5f3fa8fd819a9a
+      internalID: -778678923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_78
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 35
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e195c93726bf49c489d90871bfba5eef
+      internalID: 1777974631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_79
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 50
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d1eb90537c32c946acfb9281162056c
+      internalID: 1474528024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_80
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 38
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4afc7d27593c4f4289b7504ed15b6ed
+      internalID: 1383300268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_81
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 38
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a9a2aba42c4ae943814a627a009c798
+      internalID: 118006713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_82
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 47
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f2dd3d83a2376142b3fef575cb8e76c
+      internalID: 783421281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_83
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 30
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9267034aab04002409cad7dd40dc8c77
+      internalID: 1691588179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_84
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 99
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c646842c4b656104eb7aadf03c73797f
+      internalID: -1357768867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_61
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 99
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 632a4d02a2ee8e84aa9bf3653f1222ab
+      internalID: -1583433307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_85
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 158
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d848d9d882a410a45a79489756d5b143
+      internalID: 1012788973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_86
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 189
+        width: 55
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915ca27fb7b4a27478e573e1a7b6d471
+      internalID: 1934234711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_87
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 192
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8747fe15189b13c4582ad5a4f51e1cc4
+      internalID: 406424223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_88
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 196
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb24e74a138a6a84a931e5318029f29a
+      internalID: 1365023988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_89
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 262
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b80b298bb1cd0e4397c6ee606d2ed01
+      internalID: -626114442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_10
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 441
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a320f177e423614d96e26fc5ea40e79
+      internalID: -1342866639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_12
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 465
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 918028a84f7c44044b149c5e9133904d
+      internalID: 1240239404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_13
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 486
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73b0709b70134a4c922e667f9c52f9b
+      internalID: -1217506575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_15
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 484
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66bb66bff60e6f745850bec8edd00166
+      internalID: 1155943030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_17
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 470
+        width: 16
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a775ce5b61ce48d419c951c219a033ce
+      internalID: -1363034992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_19
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 470
+        width: 18
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d58733da416db44997897a109b88133
+      internalID: -828068577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_21
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 470
+        width: 13
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6653e40754902bd48863dce802fd11eb
+      internalID: -490258533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_90
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 445
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110685fbe85ba8646818df6fb0ef0fce
+      internalID: 392798070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_91
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 446
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d64bf7d76b5bb7a41aa3f35c6f06eaa0
+      internalID: -1124633444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: message_window_IAM.tex_noesispreviewdata_92
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 455
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c9d4f5c8fe80304ea10b375c8ccebdd
+      internalID: -947562475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 7697f90dbfcdb4147bc4e4a68189c632
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      message_window_IAM.tex_noesispreviewdata_0: -1921043287
+      message_window_IAM.tex_noesispreviewdata_1: 1309644115
+      message_window_IAM.tex_noesispreviewdata_10: -1342866639
+      message_window_IAM.tex_noesispreviewdata_11: -2130402824
+      message_window_IAM.tex_noesispreviewdata_12: 1240239404
+      message_window_IAM.tex_noesispreviewdata_13: -1217506575
+      message_window_IAM.tex_noesispreviewdata_14: -2083886162
+      message_window_IAM.tex_noesispreviewdata_15: 1155943030
+      message_window_IAM.tex_noesispreviewdata_16: 1890569790
+      message_window_IAM.tex_noesispreviewdata_17: -1363034992
+      message_window_IAM.tex_noesispreviewdata_18: -1557643487
+      message_window_IAM.tex_noesispreviewdata_19: -828068577
+      message_window_IAM.tex_noesispreviewdata_2: -943859663
+      message_window_IAM.tex_noesispreviewdata_20: 322432156
+      message_window_IAM.tex_noesispreviewdata_21: -490258533
+      message_window_IAM.tex_noesispreviewdata_22: -969004724
+      message_window_IAM.tex_noesispreviewdata_23: -1399266475
+      message_window_IAM.tex_noesispreviewdata_24: 761355613
+      message_window_IAM.tex_noesispreviewdata_25: 1510982271
+      message_window_IAM.tex_noesispreviewdata_26: 5702626
+      message_window_IAM.tex_noesispreviewdata_27: -722016380
+      message_window_IAM.tex_noesispreviewdata_28: -1141631749
+      message_window_IAM.tex_noesispreviewdata_29: 1172540733
+      message_window_IAM.tex_noesispreviewdata_3: -225970839
+      message_window_IAM.tex_noesispreviewdata_30: 267797181
+      message_window_IAM.tex_noesispreviewdata_31: -1375133743
+      message_window_IAM.tex_noesispreviewdata_32: 1832923440
+      message_window_IAM.tex_noesispreviewdata_33: -1638900920
+      message_window_IAM.tex_noesispreviewdata_34: -1772482554
+      message_window_IAM.tex_noesispreviewdata_35: -952323391
+      message_window_IAM.tex_noesispreviewdata_36: 2137436546
+      message_window_IAM.tex_noesispreviewdata_37: -2114818885
+      message_window_IAM.tex_noesispreviewdata_38: -618695021
+      message_window_IAM.tex_noesispreviewdata_39: 1019513333
+      message_window_IAM.tex_noesispreviewdata_4: 1529953521
+      message_window_IAM.tex_noesispreviewdata_40: 975734942
+      message_window_IAM.tex_noesispreviewdata_41: 1167330899
+      message_window_IAM.tex_noesispreviewdata_42: 1538270944
+      message_window_IAM.tex_noesispreviewdata_43: -1403536016
+      message_window_IAM.tex_noesispreviewdata_44: 1349062231
+      message_window_IAM.tex_noesispreviewdata_45: -1244648082
+      message_window_IAM.tex_noesispreviewdata_46: 1937482343
+      message_window_IAM.tex_noesispreviewdata_47: 2015989254
+      message_window_IAM.tex_noesispreviewdata_48: -729205836
+      message_window_IAM.tex_noesispreviewdata_49: -596127619
+      message_window_IAM.tex_noesispreviewdata_5: 1635447457
+      message_window_IAM.tex_noesispreviewdata_50: 1260007071
+      message_window_IAM.tex_noesispreviewdata_51: -1299622278
+      message_window_IAM.tex_noesispreviewdata_52: 19114081
+      message_window_IAM.tex_noesispreviewdata_53: 259934596
+      message_window_IAM.tex_noesispreviewdata_54: -1556685383
+      message_window_IAM.tex_noesispreviewdata_55: 2041738587
+      message_window_IAM.tex_noesispreviewdata_56: 886320245
+      message_window_IAM.tex_noesispreviewdata_57: -1576778918
+      message_window_IAM.tex_noesispreviewdata_58: 1895707934
+      message_window_IAM.tex_noesispreviewdata_59: 1365319879
+      message_window_IAM.tex_noesispreviewdata_6: -1479344971
+      message_window_IAM.tex_noesispreviewdata_60: 1048528492
+      message_window_IAM.tex_noesispreviewdata_61: -1583433307
+      message_window_IAM.tex_noesispreviewdata_62: 1591087311
+      message_window_IAM.tex_noesispreviewdata_63: -687829638
+      message_window_IAM.tex_noesispreviewdata_64: 641111890
+      message_window_IAM.tex_noesispreviewdata_65: -1369243690
+      message_window_IAM.tex_noesispreviewdata_66: 1345624578
+      message_window_IAM.tex_noesispreviewdata_67: -1022349199
+      message_window_IAM.tex_noesispreviewdata_68: -1169586494
+      message_window_IAM.tex_noesispreviewdata_69: 1098260888
+      message_window_IAM.tex_noesispreviewdata_7: 1008126108
+      message_window_IAM.tex_noesispreviewdata_70: -435339716
+      message_window_IAM.tex_noesispreviewdata_71: 1346608282
+      message_window_IAM.tex_noesispreviewdata_72: -1858084441
+      message_window_IAM.tex_noesispreviewdata_73: -771874352
+      message_window_IAM.tex_noesispreviewdata_74: 559393729
+      message_window_IAM.tex_noesispreviewdata_75: 1152848506
+      message_window_IAM.tex_noesispreviewdata_76: -1520975635
+      message_window_IAM.tex_noesispreviewdata_77: -778678923
+      message_window_IAM.tex_noesispreviewdata_78: 1777974631
+      message_window_IAM.tex_noesispreviewdata_79: 1474528024
+      message_window_IAM.tex_noesispreviewdata_8: 310426537
+      message_window_IAM.tex_noesispreviewdata_80: 1383300268
+      message_window_IAM.tex_noesispreviewdata_81: 118006713
+      message_window_IAM.tex_noesispreviewdata_82: 783421281
+      message_window_IAM.tex_noesispreviewdata_83: 1691588179
+      message_window_IAM.tex_noesispreviewdata_84: -1357768867
+      message_window_IAM.tex_noesispreviewdata_85: 1012788973
+      message_window_IAM.tex_noesispreviewdata_86: 1934234711
+      message_window_IAM.tex_noesispreviewdata_87: 406424223
+      message_window_IAM.tex_noesispreviewdata_88: 1365023988
+      message_window_IAM.tex_noesispreviewdata_89: -626114442
+      message_window_IAM.tex_noesispreviewdata_9: -731816535
+      message_window_IAM.tex_noesispreviewdata_90: 392798070
+      message_window_IAM.tex_noesispreviewdata_91: -1124633444
+      message_window_IAM.tex_noesispreviewdata_92: -947562475
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
