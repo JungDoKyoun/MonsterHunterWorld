@@ -15,7 +15,7 @@ public abstract class MonsterStatusSO : ScriptableObject
     [Header("몬스터 전투 관련")]
     public float Damage;
     public float Defense;
-    public float AttackSpeed;
+    public float AttackCoolTime;
     public float DetectRange;
     public float AttackRange;
 }
