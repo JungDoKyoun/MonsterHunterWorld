@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossMonster
   ID: 0
   Name: 
-  HP: 0
+  MaxHP: 0
   Prefab: {fileID: 0}
   Damage: 0
   Defense: 0
   AttackSpeed: 0
-  DetectRange: 0
+  DetectRange: 50
   AttackRange: 0
