@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class CanvasCtrl : MonoBehaviour
 {
-    [Header("캔버스")]
+    [Header("백그라운드용 캔버스")]
+    [SerializeField] Canvas basicCanvas;
+
+    [Header("캔버스 그룹")]
     [SerializeField] CanvasGroup titleCanvas;
     [SerializeField] CanvasGroup loginCanvas;
     [SerializeField] CanvasGroup loadingCanvas;
@@ -14,68 +17,23 @@ public class CanvasCtrl : MonoBehaviour
     [SerializeField] Image loadingImage;
     [SerializeField] Text loadingText;
 
-    float duration = 1f;
-    float textInterval = 0.5f;
-
     private void Start()
     {
-        StartCoroutine(FadeInUI(titleCanvas));
+        basicCanvas.gameObject.SetActive(true);
+        titleCanvas.gameObject.SetActive(false);
         loginCanvas.gameObject.SetActive(false);
         loadingCanvas.gameObject.SetActive(false);
+
+        UiManager.Instance.FadeInUI(titleCanvas);
+        //StartCoroutine(FadeInUI(titleCanvas));
     }
 
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && titleCanvas.gameObject.activeSelf)
         {
-            StartCoroutine(FadeOutUI(titleCanvas));
-            StartCoroutine(FadeInUI(loginCanvas));
+            UiManager.Instance.FadeOutUI(titleCanvas);
+            UiManager.Instance.FadeInUI(loginCanvas);
         }
     }
-
-    IEnumerator FadeInUI(CanvasGroup canvas)
-    {
-        float elapsedTime = 0f;
-        canvas.alpha = 0f;
-
-        while ( elapsedTime < duration)
-        {
-            canvas.alpha = Mathf.Lerp(0f, 1f, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        canvas.alpha = 1f;
-        canvas.gameObject.SetActive(true);
-    }
-
-    IEnumerator FadeOutUI(CanvasGroup canvas)
-    {
-        canvas.interactable = false;
-        float elapsedTime = 0f;
-        canvas.alpha = 1f;
-
-        while( elapsedTime < duration)
-        {
-            canvas.alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        canvas.alpha = 0f;
-        canvas.gameObject.SetActive(false);
-    }
-
-    IEnumerator AnimationLoading()
-    {
-        int dotCount = 0;
-
-        loadingImage.transform.Rotate(new Vector3(0,0,30f * Time.deltaTime));
-
-        while (true)
-        {
-            dotCount = (dotCount + 1) % 4;
-            loadingText.text = "로딩중" + new string('.', dotCount);
-            yield return new WaitForSeconds(textInterval);
-        }
-    }
-
 }
