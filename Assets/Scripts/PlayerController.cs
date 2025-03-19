@@ -47,11 +47,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private bool _jump = false;
     private float _horizontal = 0;
     private float _vertical = 0;
+    private Vector3 _forward = Vector3.zero;
 
     private Coroutine _coroutine = null;
 
     private static readonly float MinInput = -1;
     private static readonly float MaxInput = 1;
+    private static readonly float RotationDamping = 10;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string JumpTag = "Jump";
@@ -70,28 +72,30 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
                     input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                    if(getPlayerBody.IsMoving() == true)
+                    if (getPlayerBody.IsKeepMoving() == true)
                     {
-                       // getPlayerBody.MoveRotation(forward);
+                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
                     }
-                    else if(_coroutine == null)
+                    else if (_coroutine == null)
                     {
-                        _coroutine = StartCoroutine(DoMoveStart(forward));
+                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+                        _coroutine = StartCoroutine(DoMoveStart());
                     }
                 }
-                else
+                else if(_forward != Vector3.zero)
                 {
-                    if(_coroutine != null)
+                    if (_coroutine != null)
                     {
                         StopCoroutine(_coroutine);
                         _coroutine = null;
                     }
-                    Move(Vector2.zero);
-                    if (PhotonNetwork.InRoom == true)
+                    if(getPlayerBody.IsStartMoving() == true)
                     {
-                        photonView.RPC("Move", RpcTarget.Others, Vector2.zero);
+                        Debug.Log(_forward);
+                        Rotate();
                     }
+                    _forward = Vector3.zero;
+                    Move();
                 }
             }
         }
@@ -106,6 +110,44 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         _jump = Input.GetButton(JumpTag);
     }
 
+    private void RotateLeft()
+    {
+
+    }
+
+    private void RotateRIght()
+    {
+
+    }
+
+    private void RotateBack()
+    {
+
+    }
+
+    private void Rotate()
+    {
+        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            getTransform.forward = (direction.x > 0) ? getTransform.right : -getTransform.right; // 좌우 방향 결정
+        }
+        else
+        {
+            getTransform.forward = (direction.y > 0) ? getTransform.forward : -getTransform.forward; // 전후 방향 결정
+        }
+    }
+
+    private void Move()
+    {
+        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+        Move(direction);
+        if (PhotonNetwork.InRoom == true)
+        {
+            photonView.RPC("Move", RpcTarget.Others, direction);
+        }
+    }
+
     [PunRPC]
     private void Move(Vector2 direction)
     {
@@ -113,17 +155,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         getPlayerBody.SetAnimate(VerticalTag, direction.y);
     }
 
-    private IEnumerator DoMoveStart(Vector3 forward)
+    private IEnumerator DoMoveStart()
     {
-        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, forward), Vector3.Dot(getTransform.forward, forward));
-        Move(direction);
-        if (PhotonNetwork.InRoom == true)
+        Move();
+        yield return new WaitUntil(predicate: () => getPlayerBody.IsStartMoving());
+        yield return new WaitWhile(predicate: () => getPlayerBody.IsStartMoving());
+        while (getPlayerBody.IsKeepMoving() == true)
         {
-            photonView.RPC("Move", RpcTarget.Others, direction);
+            getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
+            yield return null;
         }
-        yield return new WaitUntil(predicate: () => getPlayerBody.IsEnd());
-        getTransform.rotation = Quaternion.LookRotation(forward, Vector3.up);
-        _coroutine = null;
     }
 
     public override void OnDisable()
@@ -132,6 +173,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         _horizontal = 0;
         _vertical = 0;
         _dash = false;
+        StopAllCoroutines();
+        _coroutine = null;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

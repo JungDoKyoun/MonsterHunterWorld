@@ -1,3 +1,4 @@
+using GLTF.Schema;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -46,8 +47,13 @@ public class PlayerBody : MonoBehaviour
     private static readonly string AttackTag = "Attack";
     private static readonly string LandingTag = "Landing";
 
-
+    private static readonly string IdleToFrontClip = "IdleToFront";
+    private static readonly string IdleToBackClip = "IdleToBack";
+    private static readonly string IdleToLeftClip = "IdleToLeft";
+    private static readonly string IdleToRightClip = "IdleToRight";
+    private static readonly string StopToIdleClip = "StopToIdle";
     private static readonly string RunClip = "Run";
+
 
     public void SetAnimate(string tag, bool value)
     {
@@ -134,14 +140,19 @@ public class PlayerBody : MonoBehaviour
         getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, Quaternion.LookRotation(forward, Vector3.up), Time.deltaTime * RotationDamping));
     }
 
-    public bool IsMoving()
+    public bool IsStartMoving()
     {
-        return getAnimator.GetCurrentAnimatorStateInfo(0).IsName(RunClip);
+        string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        return name == IdleToFrontClip || name == IdleToBackClip || name == IdleToLeftClip || name == IdleToRightClip;
     }
 
-    public bool IsEnd()
+    public bool IsKeepMoving()
     {
-        AnimatorStateInfo stateInfo = getAnimator.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.normalizedTime >= 1.0f && !getAnimator.IsInTransition(0);
+        return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name == RunClip;
+    }
+
+    public string GetCurrentName()
+    {
+        return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 }
