@@ -39,20 +39,11 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    private static readonly float MinInput = -1;
-    private static readonly float MaxInput = 1;
-    private static readonly float RotationDamping = 10;
-    private static readonly string RollTag = "Roll";
-    private static readonly string SpeedTag = "Speed";
     private static readonly string AttackTag = "Attack";
     private static readonly string LandingTag = "Landing";
 
-    private static readonly string IdleToFrontClip = "IdleToFront";
-    private static readonly string IdleToBackClip = "IdleToBack";
-    private static readonly string IdleToLeftClip = "IdleToLeft";
-    private static readonly string IdleToRightClip = "IdleToRight";
-    private static readonly string StopToIdleClip = "StopToIdle";
     private static readonly string RunClip = "Run";
+    private static readonly string RollClip = "Roll";
 
 
     public void SetAnimate(string tag, bool value)
@@ -64,64 +55,7 @@ public class PlayerBody : MonoBehaviour
     {
         getAnimator.SetFloat(tag, value);
     }
-
-    public void Move(Vector2 input, Vector3 direction, bool dash)
-    {
-        if(getAnimator.GetBool(LandingTag) == true && getAnimator.GetBool(AttackTag) == false && getAnimator.GetBool(RollTag) == false)
-        {
-            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            if (name.Contains(AttackTag) == false && name.Equals(RollTag) == false)
-            {
-                if (input != Vector2.zero)
-                {
-                    input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
-                    input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                    Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
-                    getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
-                }
-                float speed = Mathf.Clamp01(input.magnitude);
-                //if (dash == true)
-                //{
-                //    speed *= DashMultiply;
-                //}
-                getAnimator.SetFloat(SpeedTag, speed);
-            }
-        }
-    }
-
-    public void Roll(Vector2 input, Vector3 direction, bool jump)
-    {
-        if(jump == false)
-        {
-            getAnimator.SetBool(RollTag, false);
-        }
-        else if (getAnimator.GetBool(LandingTag) == true)
-        {
-            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            if (name.Equals(RollTag) == false)
-            {
-                if (input != Vector2.zero)
-                {
-                    input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
-                    input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                    getRigidbody.MoveRotation(Quaternion.LookRotation(forward, Vector3.up));
-                }
-                else
-                {
-                    //getRigidbody.MoveRotation(Quaternion.LookRotation(getTransform.forward, Vector3.up));
-                }
-                getAnimator.SetBool(RollTag, true);
-            }
-        }
-    }
-
-    public void Alight(bool landing)
-    {
-        getAnimator.SetBool(LandingTag, landing);
-    }
-
+    
     public void Attack(bool value)
     {
         if (getAnimator.GetBool(LandingTag) == true)
@@ -134,25 +68,18 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-
-    public void MoveRotation(Vector3 forward)
-    {
-        getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, Quaternion.LookRotation(forward, Vector3.up), Time.deltaTime * RotationDamping));
-    }
-
-    public bool IsStartMoving()
-    {
-        string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-        return name == IdleToFrontClip || name == IdleToBackClip || name == IdleToLeftClip || name == IdleToRightClip;
-    }
-
-    public bool IsKeepMoving()
+    public bool IsRunning()
     {
         return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name == RunClip;
     }
 
-    public string GetCurrentName()
+    public bool IsRolling()
     {
-        return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name == RollClip;
+    }
+
+    public bool GetAnimate(string tag)
+    {
+        return getAnimator.GetBool(tag);
     }
 }
