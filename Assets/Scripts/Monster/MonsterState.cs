@@ -36,7 +36,7 @@ public class MonsterIdleState : IMonsterState
 
     public override void Move()
     {
-        
+        _monster.CheckPlayer();
     }
 
     public override void Update()
@@ -76,8 +76,6 @@ public class MonsterIdleState : IMonsterState
             _stateManager.ChangeMonsterState(new MonsterPatrolState());
             return;
         }
-
-        _monster.NavMeshMatchMonsterPos();
     }
 }
 
@@ -102,10 +100,7 @@ public class MonsterRotationState : IMonsterState
         }
         if(_monster.IsBattle)
         {
-            _monster.DetectedPlayer();
-            _targetPlayer = _monster.GetClosePlayer();
-            Debug.Log(_targetPlayer);
-            _monster.SetTargetplayer(_targetPlayer);
+            _monster.CheckPlayer();
         }
         _monster.RotateToTarget();
     }
@@ -117,7 +112,7 @@ public class MonsterRotationState : IMonsterState
 
     public override void Move()
     {
-        
+        _monster.CheckPlayer();
     }
 
     public override void Update()
@@ -144,7 +139,6 @@ public class MonsterRotationState : IMonsterState
                 return;
             }
         }
-        _monster.NavMeshMatchMonsterPos();
     }
 }
 
@@ -176,7 +170,7 @@ public class MonsterPatrolState : IMonsterState
 
     public override void Move()
     {
-        
+        _monster.CheckPlayer();
     }
 
     public override void Update()
@@ -201,7 +195,6 @@ public class MonsterPatrolState : IMonsterState
                 return;
             }
         }
-        _monster.NavMeshMatchMonsterPos();
     }
 }
 
@@ -217,9 +210,6 @@ public class MonsterRoarState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _monster.DetectedPlayer();
-        _targetPlayer = _monster.GetClosePlayer();
-        _monster.SetTargetplayer(_targetPlayer);
         _anime.PlayMonsterRoarAnime();
         _monster.StartCoroutine(_monster.WaitForEndRoarAnime());
     }
@@ -231,7 +221,7 @@ public class MonsterRoarState : IMonsterState
 
     public override void Move()
     {
-        
+        _monster.CheckPlayer();
     }
 
     public override void Update()
@@ -249,7 +239,6 @@ public class MonsterRoarState : IMonsterState
                 return;
             }
         }
-        _monster.NavMeshMatchMonsterPos();
     }
 }
 
@@ -258,18 +247,15 @@ public class MonsterChaseState : IMonsterState
     MonsterController _monster;
     MonsterStateManager _stateManager;
     MonsterAnimationController _anime;
-    Vector3 _targetPlayer;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
     {
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _monster.DetectedPlayer();
-        _targetPlayer = _monster.GetClosePlayer();
-        Debug.Log(_targetPlayer + "플레이어 위치");
-        _monster.SetTargetplayer(_targetPlayer);
+        _monster.CheckPlayer();
         _anime.PlayMonsterChaseAnime(true);
+        Debug.Log("추격");
     }
 
     public override void Exit()
@@ -279,16 +265,19 @@ public class MonsterChaseState : IMonsterState
 
     public override void Move()
     {
+        _monster.CheckPlayer();
+        _monster.ApplyRootMotionMovement();
         
     }
 
     public override void Update()
     {
-        _monster.DetectedPlayer();
-        _targetPlayer = _monster.GetClosePlayer();
-        _monster.SetTargetplayer(_targetPlayer);
-        Debug.Log(_targetPlayer + "플레이어 위치");
-        _monster.NavMeshMatchMonsterPos();
+        _monster.SmothRotateToPlayer();
+        if (_monster.IsCanAttackPlayer())
+        {
+            _stateManager.ChangeMonsterState(new MonsterAttackState());
+            return;
+        }
     }
 }
 
@@ -303,21 +292,30 @@ public class MonsterAttackState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+        Debug.Log("공격 들어옴");
     }
 
     public override void Exit()
     {
-        
+        _monster.ResetCoolTime();
     }
 
     public override void Move()
     {
-        
+        _monster.CheckPlayer();
+        if (_monster.IsCoolTimeEnd())
+        {
+            
+        }
     }
 
     public override void Update()
     {
-        
+        if(!_monster.IsCanAttackPlayer())
+        {
+            Debug.Log("바꾸는 거 들어옴");
+            _stateManager.ChangeMonsterState(new MonsterChaseState());
+        }
     }
 }
 

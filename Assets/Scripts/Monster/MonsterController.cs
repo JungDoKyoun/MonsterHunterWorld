@@ -1,3 +1,4 @@
+using GLTF.Schema;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ public class MonsterController : MonoBehaviour
     private int _maxHP; //최대 HP
     private float _currentHP; //현재 몬스터의 HP
     private float _detectRange; //플레이어 감지 거리
+    private float _attackRange; //몬스터 공격 거리
+    private float _attackCoolTime; //몬스터 공격 쿨타임
+    private float _elapsedTime;
     private bool _isRo; //회전중인지?
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
@@ -36,6 +40,9 @@ public class MonsterController : MonoBehaviour
         _maxHP = MonsterManager.Instance.MonsterSO.MaxHP;
         _currentHP = _maxHP;
         _detectRange = MonsterManager.Instance.MonsterSO.DetectRange;
+        _attackRange = MonsterManager.Instance.MonsterSO.AttackRange;
+        _attackCoolTime = MonsterManager.Instance.MonsterSO.AttackCoolTime;
+        _elapsedTime = _attackCoolTime;
         _isBattle = false;
         _isDie = false;
         _isRo = false;
@@ -43,6 +50,7 @@ public class MonsterController : MonoBehaviour
         _isHit = false;
         agent.updatePosition = false;
         agent.updateRotation = false;
+        Debug.Log(agent.transform.rotation);
     }
 
     //public List<Vector3> MoveTargetPos { get { return moveTargetPos; } set { moveTargetPos = value; } }
@@ -148,6 +156,15 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    public void SmothRotateToPlayer() //추적할때 자연스럽게 플레이어 바라보며 갈 수 있도록 회전
+    {
+        Vector3 dir = (_targetPlayerPos - transform.position).normalized;
+
+        Quaternion targetRo = Quaternion.LookRotation(dir);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
+    }
+
     private IEnumerator SmoothTurn(Vector3 direct) //30도 이하 자연스럽게 애니메이션 없이 회전
     {
         Quaternion targetRo = Quaternion.LookRotation(direct);
@@ -184,20 +201,59 @@ public class MonsterController : MonoBehaviour
         {
             StartCoroutine(SmoothTurn(dir));
         }
-        NavMeshMatchMonsterRotation();
         agent.enabled = true;
         IsRo = false;
     }
 
-    public void OnHit(Transform player)
+    public void OnHit(Transform player) //선공 당했을때 (아직 안쓰는중)
     {
         _isBattle = true;
         _targetPlayerPos = player.position;
     }
 
-    public Vector3 GetFirstAttckPlayer()
+    public Vector3 GetFirstAttckPlayer() //선공 당했을때 (아직 안쓰는중)
     {
         return _targetPlayerPos;
+    }
+
+    public void CheckPlayer() //플레이어 감지 및 좌표 설정
+    {
+        DetectedPlayer();
+        if(_detectPlayers.Count > 0)
+        {
+            _targetPlayerPos = GetClosePlayer();
+            SetTargetplayer();
+        }
+    }
+
+    public bool IsCanAttackPlayer() //공격 가능?
+    {
+        float dis = Vector3.Distance(transform.position, _targetPlayerPos);
+
+        if(dis <= _attackRange)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void UpdateAttackCoolTime() //쿨타임 재기
+    {
+        _elapsedTime -= Time.deltaTime;
+        if(_elapsedTime <= 0)
+        {
+            _elapsedTime = 0;
+        }
+    }
+
+    public bool IsCoolTimeEnd()
+    {
+        return _elapsedTime <= 0;
+    }
+
+    public void ResetCoolTime()
+    {
+        _elapsedTime = _attackCoolTime;
     }
 
     public void DetectedPlayer() //플레이어 감지
@@ -211,11 +267,12 @@ public class MonsterController : MonoBehaviour
             if(collider.CompareTag("Player"))
             {
                 _detectPlayers.Add(collider.transform);
+                _isBattle = true;
             }
         }
     }
 
-    public Vector3 GetClosePlayer()
+    public Vector3 GetClosePlayer() //가장 가까이 있는 플레이어 찾기
     {
         Transform closePlayer = null;
         float minDis = Mathf.Infinity;
@@ -234,10 +291,8 @@ public class MonsterController : MonoBehaviour
         return closePlayer.position;
     }
 
-    public void SetTargetplayer(Vector3 player)
+    public void SetTargetplayer()
     {
-        _targetPlayerPos = player;
-        
         if(agent.isOnNavMesh)
         {
             agent.SetDestination(_targetPlayerPos);
@@ -266,5 +321,16 @@ public class MonsterController : MonoBehaviour
     public void Die() //죽었을때
     {
         _isDie = true;
+    }
+
+    public void ApplyRootMotionMovement() //루트모션 좌표 강제 이동
+    {
+        Vector3 rootMotionMove = anime.Anime.deltaPosition;
+        Vector3 navMeshMove = agent.desiredVelocity.normalized * rootMotionMove.magnitude;
+
+        Vector3 finalMove = Vector3.Lerp(rootMotionMove, navMeshMove, 0.5f);
+
+        transform.position += finalMove;
+        transform.rotation = anime.Anime.rootRotation;
     }
 }

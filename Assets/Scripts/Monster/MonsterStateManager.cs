@@ -18,11 +18,14 @@ public class MonsterStateManager : MonoBehaviour
     private void FixedUpdate()
     {
         currentState.Move();
+        monsterController.NavMeshMatchMonsterPos();
+        monsterController.NavMeshMatchMonsterRotation();
     }
 
     private void Update()
     {
         currentState.Update();
+        monsterController.UpdateAttackCoolTime();
     }
 
     public void ChangeMonsterState(IMonsterState newState)
