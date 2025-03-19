@@ -9,6 +9,8 @@ public class MonsterAnimationController : MonoBehaviour
     int move;
     int ro;
     int turnAngle;
+    int howl;
+    int chase;
 
     private void Awake()
     {
@@ -17,6 +19,8 @@ public class MonsterAnimationController : MonoBehaviour
         move = Animator.StringToHash("IsMove");
         ro = Animator.StringToHash("IsRo");
         turnAngle = Animator.StringToHash("TurnAngle");
+        howl = Animator.StringToHash("IsHowl");
+        chase = Animator.StringToHash("IsChase");
     }
 
     public Animator Anime { get { return anime; } set { anime = value; } }
@@ -33,13 +37,21 @@ public class MonsterAnimationController : MonoBehaviour
 
     public void PlayMonsterRotateAnime(bool TorF)
     {
-        Debug.Log(TorF);
         anime.SetBool(ro, TorF);
     }
 
     public void SetRoAngle(float turnAngle)
     {
-        Debug.Log("µé¾î¿Â ¾Þ±Û" + turnAngle);
         anime.SetFloat(this.turnAngle, turnAngle);
+    }
+
+    public void PlayMonsterRoarAnime()
+    {
+        anime.SetTrigger(howl);
+    }
+
+    public void PlayMonsterChaseAnime(bool TorF)
+    {
+        anime.SetBool(chase, TorF);
     }
 }
