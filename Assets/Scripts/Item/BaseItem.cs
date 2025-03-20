@@ -29,13 +29,14 @@ public class BaseItem
 
     public string name;
     public ItemType type;
-    public int rarity;
-    public int count;
-    public int maxCount;
-
+    public string rarity;
+    public int count;//현재 들고있는 갯수
+    public int maxCount;//최대한 들고있을수 있는 갯수
+    public int allCount;//가지고있는 총 갯수  
     public Color color;
-    public Color32 color32;
-
+    
+    public string tooltip;
+    public int price;
 
 }
 

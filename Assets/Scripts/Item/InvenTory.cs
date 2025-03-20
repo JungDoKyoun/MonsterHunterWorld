@@ -13,7 +13,7 @@ public class InvenTory : MonoBehaviour
         foreach (var item in ItemDataBase.Instance.items.ToList())
         {
             items.Add(item);
-            Debug.Log(item.name);
+            //Debug.Log(item.name);
         }     
         
         //자식 오브젝트 연결
@@ -36,9 +36,6 @@ public class InvenTory : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
+
 }
