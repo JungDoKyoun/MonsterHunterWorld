@@ -58,6 +58,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine == true)
         {
+            if(getPlayerBody.IsAttacking() == true)
+            {
+
+            }
+            else if(Input.GetMouseButton(0))
+            {
+                Debug.Log("Å¬¸¯");
+            }
             float vertical = Input.GetAxis(VerticalTag);
             float horizontal = Input.GetAxis(HorizontalTag);
             //_dash = Input.GetButton(DashTag);
@@ -66,7 +74,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             if (camera != null)
             {
                 Vector2 input = new Vector2(Mathf.Clamp(horizontal, MinInput, MaxInput), Mathf.Clamp(vertical, MinInput, MaxInput));
-                Vector3 direction = camera.transform.forward;
+                Vector3 forward = camera.transform.forward;
                 if(getPlayerBody.GetAnimate(JumpTag) == true)
                 {
                     Jump(false);
@@ -89,7 +97,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     }
                     if (input != Vector2.zero)
                     {
-                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
                     }
                     else
                     {
@@ -101,10 +109,35 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     if (input != Vector2.zero)
                     {
-                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
+                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
                         if (_coroutine == null)
                         {
                             _coroutine = StartCoroutine(DoMoveStart());
+                            IEnumerator DoMoveStart()
+                            {
+                                Move();
+                                Vector3 forward = _forward;
+                                while(getPlayerBody.IsRunning() == false)
+                                {
+                                    Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
+                                    if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                                    {
+                                        Move(direction);
+                                        if (PhotonNetwork.InRoom == true)
+                                        {
+                                            photonView.RPC("Move", RpcTarget.Others, direction);
+                                        }
+                                        forward = _forward;
+                                    }
+                                    yield return null;
+                                }
+                                while (getPlayerBody.IsRunning() == true)
+                                {
+                                    getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
+                                    yield return null;
+                                }
+                                _coroutine = null;
+                            }
                         }
                     }
                     else if (_forward != Vector3.zero)
@@ -162,18 +195,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void Jump(bool value)
     {
         getPlayerBody.SetAnimate(JumpTag, value);
-    }
-
-    private IEnumerator DoMoveStart()
-    {
-        Move();
-        yield return new WaitUntil(predicate: () => getPlayerBody.IsRunning() == true);
-        while (getPlayerBody.IsRunning() == true)
-        {
-            getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
-            yield return null;
-        }
-        _coroutine = null;
     }
 
     public override void OnDisable()
