@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -22,11 +23,7 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    private static readonly string LandingTag = "Landing";
-
     private static readonly string RunClip = "Run";
-    private static readonly string RollClip = "Roll";
-    private static readonly string AttackTag = "Attack";
 
     public void SetAnimate(string tag, bool value)
     {
@@ -37,24 +34,23 @@ public class PlayerBody : MonoBehaviour
     {
         getAnimator.SetFloat(tag, value);
     }
-    
-    public bool IsRunning()
-    {
-        return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name == RunClip;
-    }
-
-    public bool IsRolling()
-    {
-        return getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name == RollClip;
-    }
-
-    public bool IsAttacking()
-    {
-        return GetAnimate(AttackTag);
-    }
 
     public bool GetAnimate(string tag)
     {
         return getAnimator.GetBool(tag);
+    }
+
+    public bool IsRunning()
+    {
+        AnimatorClipInfo[] animatorClipInfos = getAnimator.GetCurrentAnimatorClipInfo(0);
+        if(animatorClipInfos.Length > 0)
+        {
+            AnimationClip animationClip = animatorClipInfos[0].clip;
+            if(animationClip != null && animationClip.name == RunClip)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
