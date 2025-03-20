@@ -13,7 +13,10 @@ public abstract class MonsterStatusSO : ScriptableObject
     //public List<> DropItem;
 
     [Header("몬스터 전투 관련")]
-    public float Damage;
+    public float BiteDamage;
+    public float TaileDamage;
+    public float ChargeDamage;
+    public float FlyDamage;
     public float Defense;
     public float AttackCoolTime;
     public float DetectRange;

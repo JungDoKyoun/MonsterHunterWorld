@@ -4,11 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
+public enum MonsterAttackType
+{
+    Bite, TaileAttack, Charge
+}
 
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] private List<Vector3> moveTargetPos; //패트롤 돌아야하는 위치 좌표
     [SerializeField] private float roSpeed; //부드럽게 돌때 사용하는 변수
+    [SerializeField] private List<Collider> attackColliders;
     private NavMeshAgent agent; //네이메쉬
     private MonsterAnimationController anime; //애니메이션
     private List<Transform> _detectPlayers = new List<Transform>(); //감지되는 플레이어 목록
@@ -17,7 +24,13 @@ public class MonsterController : MonoBehaviour
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
     private int _maxHP; //최대 HP
+    private int _lastAttack;
     private float _currentHP; //현재 몬스터의 HP
+    private float _damage; //몬스터 데미지
+    private float _biteDamage; //몬스터 물기 데미지
+    private float _taileDamage; //꼬리 데미지
+    private float _chargeDamage; //돌진 데미지
+    private float _flyDamage; //비행공격 데미지
     private float _detectRange; //플레이어 감지 거리
     private float _attackRange; //몬스터 공격 거리
     private float _attackCoolTime; //몬스터 공격 쿨타임
@@ -39,15 +52,21 @@ public class MonsterController : MonoBehaviour
     {
         _maxHP = MonsterManager.Instance.MonsterSO.MaxHP;
         _currentHP = _maxHP;
+        _biteDamage = MonsterManager.Instance.MonsterSO.BiteDamage;
+        _taileDamage = MonsterManager.Instance.MonsterSO.TaileDamage;
+        _taileDamage = MonsterManager.Instance.MonsterSO.FlyDamage;
+        _chargeDamage = MonsterManager.Instance.MonsterSO.ChargeDamage;
         _detectRange = MonsterManager.Instance.MonsterSO.DetectRange;
         _attackRange = MonsterManager.Instance.MonsterSO.AttackRange;
         _attackCoolTime = MonsterManager.Instance.MonsterSO.AttackCoolTime;
+        _damage = 0;
         _elapsedTime = _attackCoolTime;
         _isBattle = false;
         _isDie = false;
         _isRo = false;
         _isRoar = false;
         _isHit = false;
+        _isAttack = false;
         agent.updatePosition = false;
         agent.updateRotation = false;
     }
@@ -58,6 +77,7 @@ public class MonsterController : MonoBehaviour
     public bool IsBattle { get { return _isBattle; } set { _isBattle = value; } }
     public bool IsRoar { get { return _isRoar; } set { _isRoar = value; } }
     public bool IsHit { get { return _isHit; } set { _isHit = value; } }
+    public bool IsAttack { get { return _isAttack; } set { _isAttack = value; } }
 
     public void SetTargetPos(Vector3 pos) //타깃 위치 정보 네비메쉬 등록
     {
@@ -68,10 +88,14 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public Vector3 GetCurrentPatrolPos() //패트롤시 타깃이 되는 위치 정보 변경
+    public void UpdatePatrolIndex()
     {
         _currentPatrolIndex = (_currentPatrolIndex + 1) % moveTargetPos.Count;
         _nextPatrolIndex = (_nextPatrolIndex + 1) % moveTargetPos.Count;
+    }
+
+    public Vector3 GetCurrentPatrolPos() //패트롤시 타깃이 되는 위치 정보 변경
+    {
         Vector3 patrolPos = moveTargetPos[_currentPatrolIndex];
         return patrolPos;
     }
@@ -122,7 +146,6 @@ public class MonsterController : MonoBehaviour
 
         float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
         IsRo = true;
-        Debug.Log(angle);
         return Math.Abs(angle) > 10f;
     }
 
@@ -158,8 +181,9 @@ public class MonsterController : MonoBehaviour
         Vector3 dir = (_targetPlayerPos - transform.position).normalized;
 
         Quaternion targetRo = Quaternion.LookRotation(dir);
+        transform.rotation = targetRo;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
     }
 
     private IEnumerator SmoothTurn(Vector3 direct) //30도 이하 자연스럽게 애니메이션 없이 회전
@@ -173,6 +197,7 @@ public class MonsterController : MonoBehaviour
         }
 
         transform.rotation = targetRo;
+        IsRo = false;
     }
     
 
@@ -308,7 +333,7 @@ public class MonsterController : MonoBehaviour
 
     public IEnumerator WaitForEndRoarAnime()
     {
-        IsRoar = true;
+        yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         IsRoar = false;
     }
@@ -337,6 +362,93 @@ public class MonsterController : MonoBehaviour
         Vector3 finalMove = Vector3.Lerp(rootMotionMove, navMeshMove, 0.5f);
 
         transform.position += finalMove;
-        transform.rotation = anime.Anime.rootRotation;
+        if (agent.desiredVelocity.sqrMagnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(agent.desiredVelocity.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * roSpeed);
+        }
+    }
+
+    public void Attack()
+    {
+        int attackType;
+        while (true)
+        {
+            attackType = Random.Range(0, Enum.GetValues(typeof(MonsterAttackType)).Length);
+
+            if(attackType != _lastAttack)
+            {
+                break;
+            }
+        }
+
+        switch(attackType)
+        {
+            case (int)MonsterAttackType.Bite:
+                {
+                    _lastAttack = 0;
+                    _damage = _biteDamage;
+                    attackColliders[0].enabled = true;
+                    anime.PlayMonsterBiteAnime();
+                    StartCoroutine(WaitForEndAttackAnime());
+                    break;
+                }
+
+            case (int)MonsterAttackType.TaileAttack:
+                {
+                    _lastAttack = 1;
+                    agent.enabled = false;
+                    _damage = _taileDamage;
+                    attackColliders[1].enabled = true;
+                    anime.PlayMonsterTaileAttackAnime();
+                    StartCoroutine(WaitForEndAttackAnime());
+                    break;
+                }
+
+            case (int)MonsterAttackType.Charge:
+                {
+                    _lastAttack = 2;
+                    _damage = _chargeDamage;
+                    attackColliders[2].enabled = true;
+                    attackColliders[0].enabled = true;
+                    anime.PlayMonsterChargeAnime();
+                    StartCoroutine(WaitForEndAttackAnime());
+                    break;
+                }
+
+        }
+    }
+
+    public IEnumerator WaitForEndAttackAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        CheckAttackOnCollider();
+        if(_lastAttack == 1)
+        {
+            agent.enabled = true;
+        }
+        _isAttack = false;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            Debug.Log("플레이어 공격함");
+            //플레이어 데미지 공식 넣으면됨
+            CheckAttackOnCollider();
+        }
+    }
+
+    public void CheckAttackOnCollider()
+    {
+        foreach(var co in attackColliders)
+        {
+            if(co.enabled)
+            {
+                co.enabled = false;
+            }
+        }
     }
 }
