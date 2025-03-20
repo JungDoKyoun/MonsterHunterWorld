@@ -21,6 +21,7 @@ public class ItemDataBase : MonoBehaviour
 
     public List<BaseItem> items = new List<BaseItem>();
 
+    public BaseItem emptyItem;
 
     public static ItemDataBase Instance;
 
@@ -30,6 +31,8 @@ public class ItemDataBase : MonoBehaviour
         {
             Instance = this;
         }
+
+        emptyItem = new BaseItem { image = itemImages[(int)ItemImageNumber.HunterKnife], name = "", type = ItemType.Weapon, rarity = "  ", count = 0, maxCount = 0, color = new Color32(255, 255, 255, 0), tooltip = "", price = 0 };
 
         //아이템 디폴트 데이터 생성
 
