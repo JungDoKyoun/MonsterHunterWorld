@@ -3,7 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(PlayerBody))]
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
 
@@ -26,19 +26,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private bool _hasPlayerBody = false;
+    private bool _hasAnimator = false;
 
-    private PlayerBody _playerBody = null;
+    private Animator _animator = null;
 
-    private PlayerBody getPlayerBody
-    {
+    private Animator getAnimator {
         get
         {
-            if (_hasPlayerBody == false)
+            if (_hasAnimator == false)
             {
-                _hasPlayerBody = TryGetComponent(out _playerBody);
+                _hasAnimator = TryGetComponent(out _animator);
             }
-            return _playerBody;
+            return _animator;
         }
     }
 
@@ -53,103 +52,123 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string JumpTag = "Jump";
     private static readonly string AttackTag = "Attack";
+    private static readonly string RunClip = "Run";
 
     private void Update()
     {
         if (photonView.IsMine == true)
         {
             bool attack = Input.GetMouseButton(0);
-            if (attack != getPlayerBody.GetAnimate(AttackTag))
+            if (attack != getAnimator.GetBool(AttackTag))
             {
                 Attack(attack);
                 if (PhotonNetwork.InRoom == true)
                 {
                     photonView.RPC("Attack", RpcTarget.Others, attack);
                 }
-            }
-            if (getPlayerBody.GetAnimate(JumpTag) == true)
-            {
-                Jump(false);
-                if (PhotonNetwork.InRoom == true)
+                if(attack == true)
                 {
-                    photonView.RPC("Jump", RpcTarget.Others, false);
+
                 }
             }
-            float vertical = Input.GetAxis(VerticalTag);
-            float horizontal = Input.GetAxis(HorizontalTag);
-            bool jump = Input.GetButton(JumpTag);
-            Camera camera = Camera.main;
-            if (camera != null)
+            else
             {
-                Vector2 input = new Vector2(Mathf.Clamp(horizontal, MinInput, MaxInput), Mathf.Clamp(vertical, MinInput, MaxInput));
-                Vector3 forward = camera.transform.forward;
-                if (jump == true)
+                bool jump = Input.GetButton(JumpTag);
+                if (jump == false && getAnimator.GetBool(JumpTag) == true)
                 {
-                    if (_coroutine != null)
-                    {
-                        StopCoroutine(_coroutine);
-                        _coroutine = null;
-                    }
-                    if (input != Vector2.zero)
-                    {
-                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
-                    }
-                    else
-                    {
-                        _forward = getTransform.forward;
-                    }
-                    Move();
-                    Jump(true);
+                    Jump(false);
                     if (PhotonNetwork.InRoom == true)
                     {
-                        photonView.RPC("Jump", RpcTarget.Others, true);
+                        photonView.RPC("Jump", RpcTarget.Others, false);
                     }
                 }
                 else
                 {
-                    if (input != Vector2.zero)
+                    float vertical = Input.GetAxis(VerticalTag);
+                    float horizontal = Input.GetAxis(HorizontalTag);
+                    Camera camera = Camera.main;
+                    if (camera != null)
                     {
-                        _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
-                        if (_coroutine == null)
+                        Vector2 input = new Vector2(Mathf.Clamp(horizontal, MinInput, MaxInput), Mathf.Clamp(vertical, MinInput, MaxInput));
+                        Vector3 forward = camera.transform.forward;
+                        if(jump == false)
                         {
-                            _coroutine = StartCoroutine(DoMoveStart());
-                            IEnumerator DoMoveStart()
+                            if (input != Vector2.zero)
                             {
-                                Move();
-                                Vector3 forward = _forward;
-                                while(getPlayerBody.IsRunning() == false)
+                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
+                                if (_coroutine == null)
                                 {
-                                    Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
-                                    if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                                    _coroutine = StartCoroutine(DoMoveStart());
+                                    IEnumerator DoMoveStart()
                                     {
-                                        Debug.Log(direction);
-                                        //애니메이션에 대한 horizontal과 vertical 값 변환
-                                        forward = _forward;
+                                        Move();
+                                        Vector3 forward = _forward;
+                                        while (IsRunning() == false)
+                                        {
+                                            Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
+                                            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                                            {
+                                                Move(direction);
+                                                if (PhotonNetwork.InRoom == true)
+                                                {
+                                                    photonView.RPC("Move", RpcTarget.Others, direction);
+                                                }
+                                                _coroutine = null;
+                                                yield break;
+                                            }
+                                            yield return null;
+                                        }
+                                        while (IsRunning() == true)
+                                        {
+                                            getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
+                                            yield return null;
+                                        }
+                                        _coroutine = null;
                                     }
-                                    yield return null;
                                 }
-                                while (getPlayerBody.IsRunning() == true)
+                            }
+                            else if (_forward != Vector3.zero)
+                            {
+                                if (_coroutine != null)
                                 {
-                                    getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
-                                    yield return null;
+                                    StopCoroutine(_coroutine);
+                                    _coroutine = null;
                                 }
-                                _coroutine = null;
+                                _forward = Vector3.zero;
+                                Move();
                             }
                         }
-                    }
-                    else if (_forward != Vector3.zero)
-                    {
-                        if (_coroutine != null)
+                        else if (getAnimator.GetBool(JumpTag) == false)
                         {
-                            StopCoroutine(_coroutine);
-                            _coroutine = null;
+                            if (_coroutine != null)
+                            {
+                                StopCoroutine(_coroutine);
+                                _coroutine = null;
+                            }
+                            if (input != Vector2.zero)
+                            {
+                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
+                            }
+                            else
+                            {
+                                _forward = getTransform.forward;
+                            }
+                            //Debug.Log(new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward)));
+                            Move();
+                            Jump(true);
+                            if (PhotonNetwork.InRoom == true)
+                            {
+                                photonView.RPC("Jump", RpcTarget.Others, true);
+                            }
                         }
-                        _forward = Vector3.zero;
-                        Move();
                     }
                 }
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
     }
 
     private void RotateLeft()
@@ -180,20 +199,34 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void Move(Vector2 direction)
     {
-        getPlayerBody.SetAnimate(HorizontalTag, direction.x);
-        getPlayerBody.SetAnimate(VerticalTag, direction.y);
+        getAnimator.SetFloat(HorizontalTag, direction.x);
+        getAnimator.SetFloat(VerticalTag, direction.y);
     }
 
     [PunRPC]
     private void Jump(bool value)
     {
-        getPlayerBody.SetAnimate(JumpTag, value);
+        getAnimator.SetBool(JumpTag, value);
     }
 
     [PunRPC]
     private void Attack(bool value)
     {
-        getPlayerBody.SetAnimate(AttackTag, value);
+        getAnimator.SetBool(AttackTag, value);
+    }
+
+    private bool IsRunning()
+    {
+        AnimatorClipInfo[] animatorClipInfos = getAnimator.GetCurrentAnimatorClipInfo(0);
+        if (animatorClipInfos.Length > 0)
+        {
+            AnimationClip animationClip = animatorClipInfos[0].clip;
+            if (animationClip != null && animationClip.name == RunClip)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public override void OnDisable()
