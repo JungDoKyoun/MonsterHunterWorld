@@ -27,14 +27,14 @@ public class ItemSlot : MonoBehaviour
         //Debug.Log("1" + value.image.name);
         //Debug.Log("2" + img.name);
 
-        Debug.Log(1);
+        Debug.Log(1 +". " + item.name);
         Debug.Log(img.color);
         Debug.Log(value.color);
         
         img.sprite = value.image;
         img.color = value.color;
         
-        Debug.Log(2);
+        Debug.Log(2 + ". " + item.name);
         Debug.Log(img.color);
         Debug.Log(value.color);
 
