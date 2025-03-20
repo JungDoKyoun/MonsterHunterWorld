@@ -25,7 +25,7 @@ public enum TrapType
 
 public class BaseItem
 {
-    public Image image;
+    public Sprite image;
 
     public string name;
     public ItemType type;
@@ -34,6 +34,7 @@ public class BaseItem
     public int maxCount;
 
     public Color color;
+
 }
 
 public class Weapon : BaseItem

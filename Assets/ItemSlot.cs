@@ -21,7 +21,8 @@ public class ItemSlot : MonoBehaviour
         var img = itemImage.GetComponent<Image>();
         Debug.Log("1" + item.image.name);
         Debug.Log("2" + img.name);
-        img.sprite = item.image.sprite;
+        //img = item.image;
+        img.sprite = item.image;
         img.color = item.color;
 
         if (item.count > 0)
