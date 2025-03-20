@@ -25,7 +25,7 @@ public class InvenTory : MonoBehaviour
       
 
         //가지고있는 아이템이 있는경우
-        if (items.Count != 0)
+        if (items.Count > 0)
         {
             for (int i = 0; i < items.Count; i++)
             {

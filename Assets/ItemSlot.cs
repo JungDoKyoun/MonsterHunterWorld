@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour
 {
     public BaseItem item;
+    public GameObject itemImage;
     public Text countText;
 
     //void Start()
@@ -17,10 +18,11 @@ public class ItemSlot : MonoBehaviour
     public void SetItem(BaseItem item)
     {
         this.item = item;
-        var img = GetComponentInChildren<Image>();
+        var img = itemImage.GetComponent<Image>();
         Debug.Log("1" + item.image.name);
         Debug.Log("2" + img.name);
         img.sprite = item.image.sprite;
+        img.color = item.color;
 
         if (item.count > 0)
         {

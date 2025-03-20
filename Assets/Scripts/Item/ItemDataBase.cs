@@ -13,9 +13,13 @@ public enum ItemImageNumber
 
 public class ItemDataBase : MonoBehaviour
 {
-    public List<Sprite> itemImages = new List<Sprite>(); // 스프라이트 리스트
-    public List<Image> uiItemImages = new List<Image>(); // UI 이미지 리스트
-    public List<GameObject> trapItemObj = new List<GameObject>();
+    [SerializeField]
+    List<Sprite> itemImages = new List<Sprite>(); // 스프라이트 리스트
+    
+    List<Image> uiItemImages = new List<Image>(); // UI 이미지 리스트
+    [SerializeField]
+    List<GameObject> trapItemObj = new List<GameObject>();
+
     public List<BaseItem> items = new List<BaseItem>();
 
     //임시로 이미지 저장해줄 변수
@@ -40,7 +44,7 @@ public class ItemDataBase : MonoBehaviour
         }
 
 
-
+        
         items.Add(new Weapon { image = uiItemImages[(int)ItemImageNumber.HunterKnife], name = "헌터 나이프", type = ItemType.Weapon, rarity = 1, count = 1, maxCount = 1, damage = 10, attribute = Attribute.Fire, color = Color.white });
         items.Add(new Armor { image = uiItemImages[(int)ItemImageNumber.HunterArmor], name = "헌터 아머", type = ItemType.Armor, rarity = 1, count = 1, maxCount = 1, defense = 10, attribute = Attribute.Fire, color = Color.white });
         items.Add(new Potion { image = uiItemImages[(int)ItemImageNumber.RecoveryPotion], name = "회복약", type = ItemType.Potion, rarity = 1, count = 1, maxCount = 10, heal = 10, color = new Color(36, 225, 148) });
