@@ -42,6 +42,12 @@ MonoBehaviour:
   - SetCamera
   - SendPlayersInfo
   - SetActorNumber
+  - Move
+  - MoveVertical
+  - AnimateMove
+  - Jump
+  - Run
+  - Attack
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

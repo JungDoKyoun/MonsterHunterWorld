@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -6,23 +7,6 @@ using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
 {
-    private bool _hasTransform = false;
-
-    private Transform _transform = null;
-
-    private Transform getTransform
-    {
-        get
-        {
-            if(_hasTransform == false)
-            {
-                _transform = transform;
-                _hasTransform = true;
-            }
-            return _transform;
-        }
-    }
-
     private bool _hasAnimator = false;
 
     private Animator _animator = null;
@@ -39,102 +23,34 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-    private bool _hasRigidbody = false;
+    private static readonly string RunClip = "Run";
 
-    private Rigidbody _rigidbody = null;
-
-    private Rigidbody getRigidbody
+    public void SetAnimate(string tag, bool value)
     {
-        get
-        {
-            if (_hasRigidbody == false)
-            {
-                _hasRigidbody = TryGetComponent(out _rigidbody);
-            }
-            return _rigidbody;
-        }
+        getAnimator.SetBool(tag, value);
     }
 
-    private static readonly float MinInput = -1;
-    private static readonly float MaxInput = 1;
-    private static readonly float DashMultiply = 3;
-    private static readonly float RotationDamping = 10;
-    private static readonly string RollTag = "Roll";
-    private static readonly string SpeedTag = "Speed";
-    private static readonly string AttackTag = "Attack";
-    private static readonly string LandingTag = "Landing";
-
-    public void Move(Vector2 input, Vector3 direction, bool dash)
+    public void SetAnimate(string tag, float value)
     {
-        if(getAnimator.GetBool(LandingTag) == true && getAnimator.GetBool(AttackTag) == false && getAnimator.GetBool(RollTag) == false)
-        {
-            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            if (name.Contains(AttackTag) == false && name.Equals(RollTag) == false)
-            {
-                if (input != Vector2.zero)
-                {
-                    input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
-                    input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                    Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
-                    getRigidbody.MoveRotation(Quaternion.Slerp(getRigidbody.rotation, rotation, Time.deltaTime * RotationDamping));
-                }
-                float speed = Mathf.Clamp01(input.magnitude) * DashMultiply;
-                //if (dash == true)
-                //{
-                //    speed *= DashMultiply;
-                //}
-                getAnimator.SetFloat(SpeedTag, speed);
-                getRigidbody.velocity = getRigidbody.rotation * Vector3.forward * speed;
-            }
-        }
+        getAnimator.SetFloat(tag, value);
     }
 
-    public void Roll(Vector2 input, Vector3 direction, bool jump)
+    public bool GetAnimate(string tag)
     {
-        if(jump == false)
-        {
-            getAnimator.SetBool(RollTag, false);
-        }
-        else if (getAnimator.GetBool(LandingTag) == true)
-        {
-            string name = getAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-            if (name.Equals(RollTag) == false)
-            {
-                if (input != Vector2.zero)
-                {
-                    input.x = Mathf.Clamp(input.x, MinInput, MaxInput);
-                    input.y = Mathf.Clamp(input.y, MinInput, MaxInput);
-                    Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(direction, Vector3.up).normalized;
-                    getRigidbody.MoveRotation(Quaternion.LookRotation(forward, Vector3.up));
-                }
-                else
-                {
-                    getRigidbody.MoveRotation(Quaternion.LookRotation(getTransform.forward, Vector3.up));
-                }
-                getAnimator.SetBool(RollTag, true);
-            }
-            else
-            {
-                Debug.Log("½ÇÆÐ");
-            }
-        }
+        return getAnimator.GetBool(tag);
     }
 
-    public void Alight(bool landing)
+    public bool IsRunning()
     {
-        getAnimator.SetBool(LandingTag, landing);
-    }
-
-    public void Attack(bool value)
-    {
-        if (getAnimator.GetBool(LandingTag) == true)
+        AnimatorClipInfo[] animatorClipInfos = getAnimator.GetCurrentAnimatorClipInfo(0);
+        if(animatorClipInfos.Length > 0)
         {
-            getAnimator.SetBool(AttackTag, value);
+            AnimationClip animationClip = animatorClipInfos[0].clip;
+            if(animationClip != null && animationClip.name == RunClip)
+            {
+                return true;
+            }
         }
-        else
-        {
-            getAnimator.SetBool(AttackTag, false);
-        }
+        return false;
     }
 }
