@@ -34,6 +34,8 @@ public class BaseItem
     public int maxCount;
 
     public Color color;
+    public Color32 color32;
+
 
 }
 

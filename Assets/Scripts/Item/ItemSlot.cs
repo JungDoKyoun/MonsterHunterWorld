@@ -1,36 +1,30 @@
 using ExitGames.Client.Photon;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
     BaseItem item;
-
+    public BaseItem Item => item;
 
     public GameObject itemImage;
     public Text countText;
-
-    public BaseItem Item => item;
-
-    //void Start()
-    //{
-    //    var img = GetComponentInChildren<Image>();
-    //    img.sprite = item.image.sprite;
-    //}
 
     public void SetItem(BaseItem value)
     {
         item = value;
         var img = itemImage.GetComponent<Image>();
-        //Debug.Log("1" + value.image.name);
-        //Debug.Log("2" + img.name);
 
+        Debug.Log(img.name);
         Debug.Log(1 +". " + item.name);
         Debug.Log(img.color);
         Debug.Log(value.color);
-        
+
+        //Debug.Log(img.material.color);
+        //img.material.color = value.color; // 기본 머티리얼 제거
         img.sprite = value.image;
         img.color = value.color;
         
@@ -38,7 +32,7 @@ public class ItemSlot : MonoBehaviour
         Debug.Log(img.color);
         Debug.Log(value.color);
 
-        if (value.count > 0)
+        if (item.count > 0)
         {
             countText.gameObject.SetActive(true);
             countText.text = value.count.ToString();
