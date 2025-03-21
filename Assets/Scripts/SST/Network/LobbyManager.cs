@@ -24,7 +24,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
 
-    float panelMoveSpeed = 10.0f;
+    // 나중에 UI 스크롤 넘어가듯이 연출할 때 쓸 변수
+    //float panelMoveSpeed = 10.0f;
 
     // 나중에 UI 스크롤처럼 이동하게 효과 줄 거임
     Vector2 originPos = Vector2.up * 1500;
@@ -39,9 +40,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged;
     }
 
+    // 객체 파괴 시 이벤트 구독 해제
+    private void OnDestroy()
+    {
+        NpcCtrl.OnNpcDetectionChanged -= HandleNpcDetectionChanged;
+    }
+
     private void Start()
     {
-        // ▼ UI 스크롤 이동 효과 나중에
+        // ▼ UI 스크롤 이동 효과 나중에 추가 할 거
         //createRoomPanel.anchoredPosition = originPos;
         //joinRoomPanel.anchoredPosition = originPos;
         createRoomCanvas.gameObject.SetActive(false);
@@ -54,12 +61,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            // 활성화 된 NPC가 있다면
             if (activeNpcs.Count > 0)
             {
+                // Player 태그의 게임오브젝트를 찾고 그 녀석의 transform을 담는다
                 Transform playerPos = GameObject.FindGameObjectWithTag("Player").transform;
                 NpcCtrl selectedNpc = null;
                 float minDistance = Mathf.Infinity;
 
+                // 거리가 더 가까운 NPC와 상호작용 하게 설정
                 foreach(var npc in activeNpcs)
                 {
                     float distance = Vector3.Distance(npc.transform.position, playerPos.position);
@@ -71,6 +81,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                     }
                 }
 
+                // NPC의 타입에 따라서 다른 상호작용을 함
                 if (selectedNpc != null)
                 {
                     if(selectedNpc.npcType == NpcCtrl.Type.Create)
@@ -84,6 +95,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+
+        // ESC 키를 누르면 나가기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             DeactiveCreateRoomUI();
@@ -113,6 +126,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
+        roomInfoCanvas.gameObject.SetActive(false);
+    }
+
+    public void InGame()
+    {
+        // 방장이 맞다면?
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // 다 같이 InGame 씬으로 넘어감
+            PhotonNetwork.LoadLevel("InGame");
+        }
     }
 
     public override void OnCreatedRoom()
@@ -169,10 +193,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    // NpcCtrl 스크립트 이벤트 OnNpcDetectionChanged 구독
     private void HandleNpcDetectionChanged(NpcCtrl npc, bool isActive)
     {
         if (isActive)
         {
+            // 감지 범위에 들어와서 bool 값이 true가 되어 NPC 활성화
             // NPC가 활성 상태일때 그 NPC가 리스트에 추가 안되어있으면 추가
             if (!activeNpcs.Contains(npc))
             {
