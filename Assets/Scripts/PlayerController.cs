@@ -236,20 +236,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                         }
                                         while (IsRunning() == true)
                                         {
-                                            bool pressed = Input.GetButton(DashTag);
-                                            bool tag = getAnimator.GetBool(DashTag);
-                                            if (pressed != tag)
+                                            if(Input.GetButton(DashTag) == true)
                                             {
-                                                Dash(pressed);
-                                                if (PhotonNetwork.InRoom == true)
+                                                if(_currentStamina > 0)
                                                 {
-                                                    photonView.RPC("Dash", RpcTarget.Others, pressed);
+                                                    _currentStamina -= Time.deltaTime;
+                                                    TryDash(true);
+                                                    if(_currentStamina < 0)
+                                                    {
+                                                        _currentStamina = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    TryDash(false);
                                                 }
                                             }
-                                            if(tag == true && pressed == true)
+                                            else
                                             {
-                                                Debug.Log("스태미나 소모");
-                                                //스태미나 소모
+                                                TryDash(false);
                                             }
                                             getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
                                             yield return null;
@@ -360,6 +365,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void Attack(bool value)
     {
         getAnimator.SetBool(AttackTag, value);
+    }
+
+    private bool TryDash(bool value)
+    {
+        if (getAnimator.GetBool(DashTag) == !value)
+        {
+            Dash(value);
+            if (PhotonNetwork.InRoom == true)
+            {
+                photonView.RPC("Dash", RpcTarget.Others, value);
+            }
+            return true;
+        }
+        return false;
     }
 
     private bool IsRunning()
