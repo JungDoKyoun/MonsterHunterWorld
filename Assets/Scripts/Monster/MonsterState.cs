@@ -50,11 +50,22 @@ public class MonsterIdleState : IMonsterState
             return;
         }
 
+        if(_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
         if(_monster.IsBattle && !_monster.IsHit)
         {
             _monster.IsHit = true;
             _stateManager.ChangeMonsterState(new MonsterRoarState());
             return;
+        }
+
+        if(_monster.IsBattle && _monster.IsHit)
+        {
+            _stateManager.ChangeMonsterState(new MonsterChaseState());
         }
 
         if (_monster.IsRestPos())
@@ -131,6 +142,12 @@ public class MonsterRotationState : IMonsterState
             return;
         }
 
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
         if (_monster.IsBattle && !_monster.IsHit)
         {
             _monster.IsHit = true;
@@ -190,6 +207,12 @@ public class MonsterPatrolState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
             return;
         }
 
@@ -259,6 +282,12 @@ public class MonsterRoarState : IMonsterState
             return;
         }
 
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
         if (!_monster.IsRoar)
         {
             if(_monster.IsNeedRo())
@@ -309,6 +338,12 @@ public class MonsterChaseState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
             return;
         }
 
@@ -364,6 +399,12 @@ public class MonsterAttackIdleState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
             return;
         }
 
@@ -434,6 +475,12 @@ public class MonsterAttackState : IMonsterState
             return;
         }
 
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
         if (!_monster.IsAttack)
         {
             if (!_monster.IsCanFindPlayer())
@@ -488,6 +535,12 @@ public class MonsterBackMoveState : IMonsterState
             return;
         }
 
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
         if (!_monster.IsBackMove)
         {
             if (_monster.IsTooClose())
@@ -533,25 +586,42 @@ public class MonsterStunState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+        _anime.PlayMonsterStrunAnime(true);
+        _monster.StartCoroutine(_monster.WaitForEndSturnAnime());
     }
 
     public override void Exit()
     {
-        
+        _anime.PlayMonsterStrunAnime(false);
+        _monster.CheckPlayer();
     }
 
     public override void Move()
+    {
+        
+    }
+
+    public override void Update()
     {
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
             return;
         }
-    }
 
-    public override void Update()
-    {
-        
+        if (!_monster.IsStun)
+        {
+            if (_monster.IsNeedRo())
+            {
+                _stateManager.ChangeMonsterState(new MonsterRotationState());
+                return;
+            }
+            else
+            {
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
+                return;
+            }
+        }
     }
 }
 
