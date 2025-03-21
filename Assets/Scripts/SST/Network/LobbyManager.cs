@@ -22,6 +22,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] RectTransform playListPanel;
     [SerializeField] GameObject playerListPrefab;
 
+    private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
+
     float panelMoveSpeed = 10.0f;
 
     // 나중에 UI 스크롤처럼 이동하게 효과 줄 거임
@@ -32,7 +34,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(instance == null)
         {
             instance = this;
-        }        
+        }
+
+        NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged;
     }
 
     private void Start()
@@ -144,6 +148,26 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             // ▼ 룸 이름을 버튼 텍스트에 담아줌
             roomBtn.GetComponentInChildren<Text>().text = room.Name;
             roomBtn.GetComponent<Button>().onClick.AddListener(JoinRoom);
+        }
+    }
+
+    private void HandleNpcDetectionChanged(NpcCtrl npc, bool isActive)
+    {
+        if (isActive)
+        {
+            // NPC가 활성 상태일때 그 NPC가 리스트에 추가 안되어있으면 추가
+            if (!activeNpcs.Contains(npc))
+            {
+                activeNpcs.Add(npc);
+            }
+        }
+        else
+        {
+            // NPC가 활성 상태가 아닌데 리스트에 npc가 있다면 제거
+            if (activeNpcs.Contains(npc))
+            {
+                activeNpcs.Remove(npc);
+            }
         }
     }
 
