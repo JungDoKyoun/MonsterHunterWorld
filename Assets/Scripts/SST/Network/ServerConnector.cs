@@ -29,13 +29,6 @@ public class ServerConnector : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();       
     }
 
-    public void CreateRoom()
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 4;
-        PhotonNetwork.CreateRoom(null, roomOptions);
-    }
-
     public override void OnJoinedLobby()
     {
         Debug.Log("로비에 입장하였습니다");
@@ -43,19 +36,5 @@ public class ServerConnector : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("LobbyScene");
 
         //PhotonNetwork.JoinRandomRoom();
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        Debug.Log("랜덤 룸(집회소) 입장 실패. 새로운 룸(집회소) 생성중..");
-
-        CreateRoom();
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("룸(집회소)에 입장하였습니다");
-
-        SceneManager.LoadScene("LobbyScene");
     }
 }
