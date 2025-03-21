@@ -16,11 +16,14 @@ MonoBehaviour:
   Name: re
   MaxHP: 1000
   Prefab: {fileID: 2104358004636197693, guid: 0f9913d1ebc9adb44a6a18216ffdbc3b, type: 3}
-  BiteDamage: 0
-  TaileDamage: 0
-  ChargeDamage: 0
-  FlyDamage: 0
-  Defense: 10
+  BiteDamage: 10
+  TaileDamage: 10
+  ChargeDamage: 10
+  FlyDamage: 10
+  Defense: 0
+  HeadMaxDamage: 100
   AttackCoolTime: 3
   DetectRange: 50
   AttackRange: 9
+  MinAttackRange: 3
+  SturnTime: 3

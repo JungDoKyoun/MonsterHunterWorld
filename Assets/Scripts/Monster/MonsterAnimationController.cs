@@ -15,6 +15,11 @@ public class MonsterAnimationController : MonoBehaviour
     int bite;
     int taile;
     int charge;
+    int bakcMove;
+    int die;
+    int sturn;
+    int sturn2;
+    int sturn3;
 
     private void Awake()
     {
@@ -29,6 +34,11 @@ public class MonsterAnimationController : MonoBehaviour
         bite = Animator.StringToHash("Bite");
         taile = Animator.StringToHash("TaileAttack");
         charge = Animator.StringToHash("Charge");
+        bakcMove = Animator.StringToHash("BackMove");
+        die = Animator.StringToHash("IsDie");
+        sturn = Animator.StringToHash("IsSturn");
+        sturn2 = Animator.StringToHash("IsSturn2");
+        sturn3 = Animator.StringToHash("IsSturn3");
     }
 
     public Animator Anime { get { return anime; } set { anime = value; } }
@@ -80,5 +90,30 @@ public class MonsterAnimationController : MonoBehaviour
     public void PlayMonsterChargeAnime()
     {
         anime.SetTrigger(charge);
+    }
+
+    public void PlayMonsterBackMoveAnime()
+    {
+        anime.SetTrigger(bakcMove);
+    }
+
+    public void PlayMonsterDieAnime(bool TorF)
+    {
+        anime.SetBool(die, TorF);
+    }
+
+    public void PlayMonsterStrunAnime(bool TorF)
+    {
+        anime.SetBool(sturn, TorF);
+    }
+
+    public void PlayMonsterStrun2Anime()
+    {
+        anime.SetTrigger(sturn2);
+    }
+
+    public void PlayMonsterStrun3Anime()
+    {
+        anime.SetTrigger(sturn3);
     }
 }

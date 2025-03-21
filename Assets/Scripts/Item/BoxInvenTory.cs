@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+//사물함 인벤토리
+public class BoxInvenTory : MonoBehaviour
+{
+    InvenType invenType = InvenType.Box;
+
+    //현재 사물함 인덱스
+    int boxIndex = 1;
+    //사물함 최대갯수
+    int boxSize = 10;
+    //사물함 인벤토리
+    List<BaseItem> boxItems = new List<BaseItem>();
+    //현재 선택된 사물함 태그
+    ItemType boxTag;
+
+    bool isBoxOpen = false;
+
+    public bool IsBoxOpen { get => isBoxOpen; set => isBoxOpen = value; }
+    public List<BaseItem> BoxItems
+    {
+        get => boxItems;
+        set => boxItems = value;
+    }
+        
+
+    private void FixedUpdate()
+    {
+        if(isBoxOpen)
+        {
+            BoxInput();
+        }
+
+
+    }
+
+    public void BoxInput()
+    {
+        //사물함 왼쪽
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            boxIndex--;
+            if (boxIndex <= 0)
+            {
+                boxIndex = 1;
+            }
+        }
+        //사물함 오른쪽
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            boxIndex++;
+            if (boxIndex > boxSize)
+            {
+                boxIndex = boxSize;
+            }
+        }
+    }
+
+}

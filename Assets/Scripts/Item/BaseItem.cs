@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemType
 {
@@ -16,13 +17,27 @@ public enum Attribute
     Dragon
 }
 
+public enum TrapType
+{
+    Setup,Throw
+     
+}
+
 public class BaseItem
 {
+    public Sprite image;
+
     public string name;
     public ItemType type;
-    public int rarity;
-    public int count;
-    public int maxCount;
+    public string rarity;
+    public int count;//현재 들고있는 갯수
+    public int maxCount;//최대한 들고있을수 있는 갯수
+    public int allCount;//가지고있는 총 갯수  
+    public Color color;
+    
+    public string tooltip;
+    public int price;
+
 }
 
 public class Weapon : BaseItem
@@ -39,13 +54,16 @@ public class Armor : BaseItem
 
 public class Potion : BaseItem
 {
-    public int heal;
+    public int heal = 0;
     public int maxHeal;
+    public int stamina = 0;
+    public int maxStamina;
 }
 
 public class Trap : BaseItem
 {
     public GameObject trap;
+    public TrapType trapType;
 }
 
 

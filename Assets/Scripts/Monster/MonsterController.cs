@@ -15,7 +15,8 @@ public class MonsterController : MonoBehaviour
 {
     [SerializeField] private List<Vector3> moveTargetPos; //패트롤 돌아야하는 위치 좌표
     [SerializeField] private float roSpeed; //부드럽게 돌때 사용하는 변수
-    [SerializeField] private List<Collider> attackColliders;
+    [SerializeField] private List<Collider> attackColliders; //공격시 키고 끄는 콜라이더
+    [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     private NavMeshAgent agent; //네이메쉬
     private MonsterAnimationController anime; //애니메이션
     private List<Transform> _detectPlayers = new List<Transform>(); //감지되는 플레이어 목록
@@ -23,24 +24,31 @@ public class MonsterController : MonoBehaviour
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
-    private int _maxHP; //최대 HP
+    private uint _headMaxDamage; //도달하면 스턴 걸리는 수치
+    private uint _currentHeadDamage; //현재 머리에 얼마나 데미지 쌓였나?
+    private uint _maxHP; //최대 HP
     private int _lastAttack;
-    private float _currentHP; //현재 몬스터의 HP
-    private float _damage; //몬스터 데미지
-    private float _biteDamage; //몬스터 물기 데미지
-    private float _taileDamage; //꼬리 데미지
-    private float _chargeDamage; //돌진 데미지
-    private float _flyDamage; //비행공격 데미지
+    private uint _currentHP; //현재 몬스터의 HP
+    private uint _damage; //몬스터 데미지
+    private uint _biteDamage; //몬스터 물기 데미지
+    private uint _taileDamage; //꼬리 데미지
+    private uint _chargeDamage; //돌진 데미지
+    private uint _flyDamage; //비행공격 데미지
     private float _detectRange; //플레이어 감지 거리
     private float _attackRange; //몬스터 공격 거리
     private float _attackCoolTime; //몬스터 공격 쿨타임
-    private float _elapsedTime;
+    private float _elapsedTime; //쿨타임
+    private float _minAttackRange; //백무브 하는 범위
+    private float _sturnTime; //스턴 지속 시간
     private bool _isRo; //회전중인지?
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
-    [SerializeField] private bool _isBattle; //전투중인지?
+    private bool _isCanGetItem; //아이템 주울수 있는 상태
+    private bool _isBattle; //전투중인지?
     private bool _isAttack; //공격중인지?
-    private bool _isRoar;
+    private bool _isRoar; //포효중인지?
+    private bool _isBackMove; //뒤로 가는중인지
+    private bool _isStun; //스턴 상태인지?
 
     private void Awake()
     {
@@ -59,6 +67,10 @@ public class MonsterController : MonoBehaviour
         _detectRange = MonsterManager.Instance.MonsterSO.DetectRange;
         _attackRange = MonsterManager.Instance.MonsterSO.AttackRange;
         _attackCoolTime = MonsterManager.Instance.MonsterSO.AttackCoolTime;
+        _minAttackRange = MonsterManager.Instance.MonsterSO.MinAttackRange;
+        _headMaxDamage = MonsterManager.Instance.MonsterSO.HeadMaxDamage;
+        _sturnTime = MonsterManager.Instance.MonsterSO.SturnTime;
+        _currentHeadDamage = 0;
         _damage = 0;
         _elapsedTime = _attackCoolTime;
         _isBattle = false;
@@ -67,17 +79,22 @@ public class MonsterController : MonoBehaviour
         _isRoar = false;
         _isHit = false;
         _isAttack = false;
+        _isBackMove = false;
+        _isCanGetItem = false;
+        _isStun = false;
         agent.updatePosition = false;
         agent.updateRotation = false;
     }
 
-    //public List<Vector3> MoveTargetPos { get { return moveTargetPos; } set { moveTargetPos = value; } }
     public bool IsRo { get { return _isRo; } set { _isRo = value; } }
     public bool IsDie { get { return _isDie; } set { _isDie = value; } }
     public bool IsBattle { get { return _isBattle; } set { _isBattle = value; } }
     public bool IsRoar { get { return _isRoar; } set { _isRoar = value; } }
     public bool IsHit { get { return _isHit; } set { _isHit = value; } }
     public bool IsAttack { get { return _isAttack; } set { _isAttack = value; } }
+    public bool IsBackMove { get { return _isBackMove; } set { _isBackMove = value; } }
+    public bool IsCanGetItem { get { return _isCanGetItem; } set { _isCanGetItem = value; } }
+    public bool IsStun { get { return _isStun; } set { _isStun = value; } }
 
     public void SetTargetPos(Vector3 pos) //타깃 위치 정보 네비메쉬 등록
     {
@@ -166,6 +183,7 @@ public class MonsterController : MonoBehaviour
 
         if (Math.Abs(angle) < 30)
         {
+            Debug.Log("작은회전");
             StartCoroutine(SmoothTurn(dir));
         }
         else
@@ -184,47 +202,6 @@ public class MonsterController : MonoBehaviour
         transform.rotation = targetRo;
 
         //transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
-    }
-
-    private IEnumerator SmoothTurn(Vector3 direct) //30도 이하 자연스럽게 애니메이션 없이 회전
-    {
-        Quaternion targetRo = Quaternion.LookRotation(direct);
-
-        while(Quaternion.Angle(transform.rotation, targetRo) > 0.5f)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
-            yield return null;
-        }
-
-        transform.rotation = targetRo;
-        IsRo = false;
-    }
-    
-
-    private IEnumerator WaitForEndRotateAnime() //회전 애니메이션이 끝날때까지 대기
-    {
-        yield return new WaitForSeconds(0.3f);
-
-        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-
-        Vector3 dir;
-        if (IsBattle)
-        {
-            dir = (_targetPlayerPos - transform.position).normalized;
-        }
-        else
-        {
-            dir = (_targetPos - transform.position).normalized;
-        }
-
-        float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
-
-        if (Math.Abs(angle) < 30)
-        {
-            StartCoroutine(SmoothTurn(dir));
-        }
-        agent.enabled = true;
-        IsRo = false;
     }
 
     public void OnHit(Transform player) //선공 당했을때 (아직 안쓰는중)
@@ -253,6 +230,17 @@ public class MonsterController : MonoBehaviour
         float dis = Vector3.Distance(transform.position, _targetPlayerPos);
 
         if(dis <= _attackRange)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsTooClose()
+    {
+        float dis = Vector3.Distance(transform.position, _targetPlayerPos);
+
+        if (dis <= _minAttackRange)
         {
             return true;
         }
@@ -331,14 +319,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public IEnumerator WaitForEndRoarAnime()
-    {
-        yield return new WaitForSeconds(0.3f);
-        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-        IsRoar = false;
-    }
-
-    public void TakeDamage(float damage) //데미지 받기
+    public void TakeDamage(uint damage) //데미지 받기
     {
         _currentHP -= damage;
 
@@ -346,6 +327,24 @@ public class MonsterController : MonoBehaviour
         {
             _currentHP = 0;
             Die();
+            return;
+        }
+    }
+
+    public void TakeHeadDamage(uint damage) //머리에 데미지 받을때
+    {
+        uint restDamage;
+        if (!IsStun)
+        {
+            _currentHeadDamage += damage;
+        }
+
+        if (_currentHeadDamage >= _headMaxDamage)
+        {
+            restDamage = _currentHeadDamage - _headMaxDamage;
+            _currentHeadDamage = 0;
+            _currentHeadDamage += restDamage;
+            IsStun = true;
         }
     }
 
@@ -419,11 +418,62 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    private IEnumerator SmoothTurn(Vector3 direct) //30도 이하 자연스럽게 애니메이션 없이 회전
+    {
+        Debug.Log("스무스턴 들어옴");
+        Quaternion targetRo = Quaternion.LookRotation(direct);
+
+        while (Quaternion.Angle(transform.rotation, targetRo) > 1.4f)
+        {
+            Debug.Log("스무스 회전");
+            Debug.Log(Quaternion.Angle(transform.rotation, targetRo));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
+            Debug.Log(IsRo);
+            yield return null;
+        }
+
+        agent.enabled = true;
+        IsRo = false;
+        Debug.Log("스무스 회전");
+        transform.rotation = targetRo;
+    }
+
+
+    private IEnumerator WaitForEndRotateAnime() //회전 애니메이션이 끝날때까지 대기
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+
+        Vector3 dir;
+        if (IsBattle)
+        {
+            dir = (_targetPlayerPos - transform.position).normalized;
+        }
+        else
+        {
+            dir = (_targetPos - transform.position).normalized;
+        }
+
+        float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
+
+        if (Math.Abs(angle) < 30)
+        {
+            StartCoroutine(SmoothTurn(dir));
+        }
+        else
+        {
+            agent.enabled = true;
+            IsRo = false;
+        }
+    }
+
     public IEnumerator WaitForEndAttackAnime()
     {
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         CheckAttackOnCollider();
+        Debug.Log("애니메이션 완료");
         if(_lastAttack == 1)
         {
             agent.enabled = true;
@@ -431,18 +481,71 @@ public class MonsterController : MonoBehaviour
         _isAttack = false;
     }
 
+    public IEnumerator WaitForEndRoarAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        IsRoar = false;
+    }
+
+    public IEnumerator WaitForEndBackMoveAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isBackMove = false;
+    }
+
+    public IEnumerator WaitForEndDieAnime()
+    {
+        Debug.Log("죽음 코루틴");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isCanGetItem = true;
+    }
+
+    public IEnumerator WaitForEndSturnAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        anime.PlayMonsterStrun2Anime();
+        yield return new WaitForSeconds(_sturnTime);
+        anime.PlayMonsterStrun3Anime();
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        Debug.Log("스턴끝");
+        _isStun = false;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
             Debug.Log("플레이어 공격함");
-            //플레이어 데미지 공식 넣으면됨
             CheckAttackOnCollider();
+
+            Vector3 contactPoint = other.ClosestPoint(transform.position);
+            Transform current = other.transform;
+
+            while (current != null)
+            {
+                PlayerController player = current.GetComponent<PlayerController>();
+
+                if (player != null)
+                {
+                    Debug.Log("플레이어 발견! 오브젝트 이름: " + current.name);
+                    player.GetComponent<PlayerController>().TakeDamage(contactPoint, _damage);
+                    return;
+                }
+
+                current = current.parent;
+            }
+
         }
     }
 
     public void CheckAttackOnCollider()
     {
+        
         foreach(var co in attackColliders)
         {
             if(co.enabled)
