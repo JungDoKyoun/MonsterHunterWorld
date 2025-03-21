@@ -23,14 +23,14 @@ public class MonsterController : MonoBehaviour
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
-    private int _maxHP; //최대 HP
+    private uint _maxHP; //최대 HP
     private int _lastAttack;
-    private float _currentHP; //현재 몬스터의 HP
-    private float _damage; //몬스터 데미지
-    private float _biteDamage; //몬스터 물기 데미지
-    private float _taileDamage; //꼬리 데미지
-    private float _chargeDamage; //돌진 데미지
-    private float _flyDamage; //비행공격 데미지
+    private uint _currentHP; //현재 몬스터의 HP
+    private uint _damage; //몬스터 데미지
+    private uint _biteDamage; //몬스터 물기 데미지
+    private uint _taileDamage; //꼬리 데미지
+    private uint _chargeDamage; //돌진 데미지
+    private uint _flyDamage; //비행공격 데미지
     private float _detectRange; //플레이어 감지 거리
     private float _attackRange; //몬스터 공격 거리
     private float _attackCoolTime; //몬스터 공격 쿨타임
@@ -312,7 +312,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage) //데미지 받기
+    public void TakeDamage(uint damage) //데미지 받기
     {
         _currentHP -= damage;
 
@@ -484,11 +484,30 @@ public class MonsterController : MonoBehaviour
         {
             Debug.Log("플레이어 공격함");
             CheckAttackOnCollider();
+
+            Vector3 contactPoint = other.ClosestPoint(transform.position);
+            Transform current = other.transform;
+
+            while (current != null)
+            {
+                PlayerController player = current.GetComponent<PlayerController>();
+
+                if (player != null)
+                {
+                    Debug.Log("플레이어 발견! 오브젝트 이름: " + current.name);
+                    player.GetComponent<PlayerController>().TakeDamage(contactPoint, _damage);
+                    return;
+                }
+
+                current = current.parent;
+            }
+
         }
     }
 
     public void CheckAttackOnCollider()
     {
+        
         foreach(var co in attackColliders)
         {
             if(co.enabled)
