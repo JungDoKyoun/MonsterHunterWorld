@@ -458,11 +458,6 @@ MonoBehaviour:
   roomListPanel: {fileID: 1275455672}
   createRoomCanvas: {fileID: 1678676826}
   joinRoomCanvas: {fileID: 1804529324}
-  roomInfoCanvas: {fileID: 327858483}
-  playListPanel: {fileID: 480451795}
-  playerListPrefab: {fileID: 3465903608587958478, guid: 7a9761a77df68f24ba56de265cf86713, type: 3}
-  questStartButton: {fileID: 1231839039}
-  questReadyButton: {fileID: 1549352189}
 --- !u!4 &82450815
 Transform:
   m_ObjectHideFlags: 0
@@ -1844,8 +1839,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 82450814}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1209716206}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
         m_MethodName: LeaveRoom
         m_Mode: 1
         m_Arguments:
@@ -3138,7 +3133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726694730}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19424808, y: -0.000000016878642, z: 0.0000000033423064, w: 0.98095244}
+  m_LocalRotation: {x: 0.19424808, y: 0.000000016878642, z: -0.0000000033423064, w: 0.98095244}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4760,6 +4755,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176844797}
   m_CullTransparentMesh: 1
+--- !u!1 &1209716204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1209716205}
+  - component: {fileID: 1209716206}
+  m_Layer: 0
+  m_Name: RoomManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1209716205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209716204}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 257.39648, y: 726.4329, z: -0.30287898}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1209716206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209716204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45ca2ffa693b92428477982efae43a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomInfoCanvas: {fileID: 327858483}
+  playListPanel: {fileID: 480451795}
+  playerListPrefab: {fileID: 3465903608587958478, guid: 7a9761a77df68f24ba56de265cf86713, type: 3}
+  hostPlayerPrefab: {fileID: 2829595670119703068, guid: a4de77314fe822e4998aadea7ef33a2f, type: 3}
+  questStartButton: {fileID: 1231839039}
+  questReadyButton: {fileID: 1549352189}
 --- !u!1 &1218729258
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,8 +4964,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 82450814}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+      - m_Target: {fileID: 1209716206}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
         m_MethodName: InGame
         m_Mode: 1
         m_Arguments:
@@ -6215,9 +6260,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 82450814}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: InGame
+      - m_Target: {fileID: 1209716206}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+        m_MethodName: OnReady
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7262,7 +7307,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD018\uC2A4\uD2B8 \uC2DC\uC791"
+  m_Text: "\uD018\uC2A4\uD2B8 \uC900\uBE44"
 --- !u!222 &1884280810
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8493,6 +8538,8 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 82450815}
+  - {fileID: 1209716205}
   - {fileID: 933453893}
   - {fileID: 1088240247}
   - {fileID: 1398854926}
@@ -8502,6 +8549,5 @@ SceneRoots:
   - {fileID: 1728331326}
   - {fileID: 1921574733}
   - {fileID: 690944328}
-  - {fileID: 82450815}
   - {fileID: 181409075}
   - {fileID: 1110047276}
