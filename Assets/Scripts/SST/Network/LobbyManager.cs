@@ -22,6 +22,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] RectTransform playListPanel;
     [SerializeField] GameObject playerListPrefab;
 
+    [SerializeField] Button questStartButton;
+    [SerializeField] Button questReadyButton;
+
+    bool isReady = false;
+
     private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
 
     // 나중에 UI 스크롤 넘어가듯이 연출할 때 쓸 변수
@@ -54,6 +59,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         createRoomCanvas.gameObject.SetActive(false);
         joinRoomCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(false);
+        questStartButton.gameObject.SetActive(false);
+        questReadyButton.gameObject.SetActive(false);
 
     }
 
@@ -146,6 +153,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log("방이 생성되었습니다");
         createRoomCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(true);
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            questStartButton.gameObject.SetActive(true);
+        }
     }
 
     public override void OnJoinedRoom()
@@ -153,8 +165,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log("방에 입장하였습니다");
         joinRoomCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(true);
+        questReadyButton.gameObject.SetActive(true);
     }
 
+    // 호스트가 아닌 플레이어들의 레디 여부 판단할 버튼 Onclick 이벤트
+    public void OnReady()
+    {
+        isReady = true;
+    }
+
+    // 플레이어 입장시, 플레이어 리스트 업데이트
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " 님이 입장했습니다");
