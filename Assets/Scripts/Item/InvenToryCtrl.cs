@@ -24,6 +24,7 @@ public class InvenToryCtrl : MonoBehaviour
         }
     }
 
+
     public void ChangeItem(InvenType type, BaseItem item)
     {
         //인벤토리에서 아이템을 선택했을때

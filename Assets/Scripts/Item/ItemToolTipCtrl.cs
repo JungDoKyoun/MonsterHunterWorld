@@ -49,32 +49,23 @@ public class ItemToolTipCtrl : MonoBehaviour
         itemImage = image.GetComponent<Image>();
 
         //초기화 - 처음엔 아무것도 없으니까 비활성화
-        image.SetActive(false);
-        itemName.SetActive(false);
-        toolTip.SetActive(false);
-        rarity.SetActive(false);
-        gold.SetActive(false);
-        sellGold.SetActive(false);
-        count.SetActive(false);
-        slash.SetActive(false);
-        maxCount.SetActive(false);
-        allCount.SetActive(false);
+        TooltipClear(false);
 
     }
 
-    public void TooltipClear()
+    public void TooltipClear(bool set)
     {
         //아무것도 없는 아이템이면 비활성화
-        image.SetActive(false);
-        itemName.SetActive(false);
-        toolTip.SetActive(false);
-        rarity.SetActive(false);
-        gold.SetActive(false);
-        sellGold.SetActive(false);
-        count.SetActive(false);
-        slash.SetActive(false);
-        maxCount.SetActive(false);
-        allCount.SetActive(false);
+        image.SetActive(set);
+        itemName.SetActive(set);
+        toolTip.SetActive(set);
+        rarity.SetActive(set);
+        gold.SetActive(set);
+        sellGold.SetActive(set);
+        count.SetActive(set);
+        slash.SetActive(set);
+        maxCount.SetActive(set);
+        allCount.SetActive(set);
     }
 
     //자주 불릴예정이라 컴포넌트를 미리 정의해줬음
@@ -83,23 +74,13 @@ public class ItemToolTipCtrl : MonoBehaviour
         //아무것도 없는 아이템이면 비활성화
         if (value.name == "")
         {
-            TooltipClear();
+            TooltipClear(false);
             return;
         }
         //아이템이 있으면 활성화
         else
         {
-            image.SetActive(true);
-            itemName.SetActive(true);
-            toolTip.SetActive(true);
-            rarity.SetActive(true);
-            gold.SetActive(true);
-            sellGold.SetActive(true);
-            count.SetActive(true);
-            slash.SetActive(true);
-            maxCount.SetActive(true);
-            allCount.SetActive(true);
-
+            TooltipClear(true);
         }
 
         //값 적용

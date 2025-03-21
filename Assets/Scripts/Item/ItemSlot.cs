@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,9 +22,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     ItemToolTipCtrl tooltipBox;
 
+    private Coroutine fadeCoroutine;
+
     private void Start()
     {
         item = ItemDataBase.Instance.emptyItem;
+        tooltipBox = GameObject.Find("ItemTooltipBox").GetComponent<ItemToolTipCtrl>();
+
         //SlotSetItem(item);
     }
 
@@ -82,18 +87,64 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         //나중에 반짝반짝 할예정
-        gameObject.GetComponent<Image>().sprite = sprites[1];
+        var image = gameObject.GetComponent<Image>();
 
-        tooltipBox = GameObject.Find("ItemTooltipBox").GetComponent<ItemToolTipCtrl>();
+        image.sprite = sprites[1];
 
         tooltipBox.ToolTipSetItem(item);
+
+        //exit에서 해제 해도 되는듯 해서 일단 주석함
+        //if (fadeCoroutine != null)
+        //{
+        //    StopCoroutine(fadeCoroutine);
+        //}
+
+        fadeCoroutine = StartCoroutine(FadeAlphaLoop(image));
+
+    }
+
+    IEnumerator FadeAlphaLoop(Image targetImage)
+    {
+        bool fadingOut = true; // 처음에는 알파값을 낮추는 방향
+        float alpha = 1f; // 초기 알파값
+
+        float alphaSpeed = 2f; // 알파 변화 속도
+        float minAlpha = 0.3f; // 최소 알파값 (0~1)
+           
+        while (true) // 무한 루프
+        {
+            alpha += (fadingOut ? -1 : 1) * alphaSpeed * Time.deltaTime;
+
+            if (alpha <= minAlpha)
+            {
+                alpha = minAlpha;
+                fadingOut = false; // 증가 방향
+            }
+            else if (alpha >= 1f)
+            {
+                alpha = 1f;
+                fadingOut = true; // 감소 방향
+            }
+
+            targetImage.color = new Color(targetImage.color.r, targetImage.color.g, targetImage.color.b, alpha);
+            yield return null;
+        }
     }
 
     //아이템 슬롯에 마우스 빠져나갔을때 툴팁 끄고 원래대로
     public void OnPointerExit(PointerEventData eventData)
     {
-        gameObject.GetComponent<Image>().sprite = sprites[0];
+        var img = gameObject.GetComponent<Image>();
+
         //현재 선택된 정보가 아이템이 아니면 초기화
-        tooltipBox.TooltipClear();
+        tooltipBox.TooltipClear(false);
+        img.color = new Color(1, 1, 1, 1);
+        img.sprite = sprites[0];
+        //실행되던 코루틴 정지
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
     }
 }

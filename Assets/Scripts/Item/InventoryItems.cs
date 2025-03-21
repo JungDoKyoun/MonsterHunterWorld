@@ -26,7 +26,6 @@ public class InventoryItems : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("??");
 
         //테스트용 아이템 추가
         foreach (var item in ItemDataBase.Instance.items.ToList())
