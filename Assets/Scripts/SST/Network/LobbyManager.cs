@@ -15,13 +15,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomPrefab;
     [SerializeField] Transform roomListPanel;
 
-    [SerializeField] RectTransform createRoomPanel;
-    [SerializeField] RectTransform joinRoomPanel;
-
+    [SerializeField] Canvas createRoomCanvas;
+    [SerializeField] Canvas joinRoomCanvas;
     [SerializeField] Canvas roomInfoCanvas;
 
     [SerializeField] RectTransform playListPanel;
     [SerializeField] GameObject playerListPrefab;
+
+    private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
 
     float panelMoveSpeed = 10.0f;
 
@@ -33,7 +34,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(instance == null)
         {
             instance = this;
-        }        
+        }
+
+        NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged;
     }
 
     private void Start()
@@ -41,8 +44,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // ▼ UI 스크롤 이동 효과 나중에
         //createRoomPanel.anchoredPosition = originPos;
         //joinRoomPanel.anchoredPosition = originPos;
-        createRoomPanel.gameObject.SetActive(false);
-        joinRoomPanel.gameObject.SetActive(false);
+        createRoomCanvas.gameObject.SetActive(false);
+        joinRoomCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(false);
 
     }
@@ -99,13 +102,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 일단 누군가 방 만들면 조인룸 패널이 조작 가능한 위치로 오게 끔 설정
         // joinRoomPanel.anchoredPosition = Vector2.zero;
         Debug.Log("방이 생성되었습니다");
-        createRoomPanel.gameObject.SetActive(false);
+        createRoomCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(true);
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 입장하였습니다");
+        joinRoomCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(true);
     }
 
@@ -143,26 +147,47 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             var roomBtn = Instantiate(roomPrefab, roomListPanel);
             // ▼ 룸 이름을 버튼 텍스트에 담아줌
             roomBtn.GetComponentInChildren<Text>().text = room.Name;
+            roomBtn.GetComponent<Button>().onClick.AddListener(JoinRoom);
+        }
+    }
+
+    private void HandleNpcDetectionChanged(NpcCtrl npc, bool isActive)
+    {
+        if (isActive)
+        {
+            // NPC가 활성 상태일때 그 NPC가 리스트에 추가 안되어있으면 추가
+            if (!activeNpcs.Contains(npc))
+            {
+                activeNpcs.Add(npc);
+            }
+        }
+        else
+        {
+            // NPC가 활성 상태가 아닌데 리스트에 npc가 있다면 제거
+            if (activeNpcs.Contains(npc))
+            {
+                activeNpcs.Remove(npc);
+            }
         }
     }
 
     public void ActiveCreateRoomUI()
     {
-        createRoomPanel.gameObject.SetActive(true);
+        createRoomCanvas.gameObject.SetActive(true);
     }
 
     public void DeactiveCreateRoomUI()
     {
-        createRoomPanel.gameObject.SetActive(false);
+        createRoomCanvas.gameObject.SetActive(false);
     }
 
     public void ActiveJoinRoomUI()
     {
-        joinRoomPanel.gameObject.SetActive(true);
+        joinRoomCanvas.gameObject.SetActive(true);
     }
 
     public void DeactiveJoinRoomUI()
     {
-        joinRoomPanel.gameObject.SetActive(false);
+        joinRoomCanvas.gameObject.SetActive(false);
     }
 }
