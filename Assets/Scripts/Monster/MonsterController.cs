@@ -15,7 +15,8 @@ public class MonsterController : MonoBehaviour
 {
     [SerializeField] private List<Vector3> moveTargetPos; //패트롤 돌아야하는 위치 좌표
     [SerializeField] private float roSpeed; //부드럽게 돌때 사용하는 변수
-    [SerializeField] private List<Collider> attackColliders;
+    [SerializeField] private List<Collider> attackColliders; //공격시 키고 끄는 콜라이더
+    [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     private NavMeshAgent agent; //네이메쉬
     private MonsterAnimationController anime; //애니메이션
     private List<Transform> _detectPlayers = new List<Transform>(); //감지되는 플레이어 목록
@@ -23,19 +24,22 @@ public class MonsterController : MonoBehaviour
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
-    private int _maxHP; //최대 HP
+    private uint _headMaxDamage; //도달하면 스턴 걸리는 수치
+    private uint _currentHeadDamage; //현재 머리에 얼마나 데미지 쌓였나?
+    private uint _maxHP; //최대 HP
     private int _lastAttack;
-    private float _currentHP; //현재 몬스터의 HP
-    private float _damage; //몬스터 데미지
-    private float _biteDamage; //몬스터 물기 데미지
-    private float _taileDamage; //꼬리 데미지
-    private float _chargeDamage; //돌진 데미지
-    private float _flyDamage; //비행공격 데미지
+    private uint _currentHP; //현재 몬스터의 HP
+    private uint _damage; //몬스터 데미지
+    private uint _biteDamage; //몬스터 물기 데미지
+    private uint _taileDamage; //꼬리 데미지
+    private uint _chargeDamage; //돌진 데미지
+    private uint _flyDamage; //비행공격 데미지
     private float _detectRange; //플레이어 감지 거리
     private float _attackRange; //몬스터 공격 거리
     private float _attackCoolTime; //몬스터 공격 쿨타임
     private float _elapsedTime; //쿨타임
     private float _minAttackRange; //백무브 하는 범위
+    private float _sturnTime; //스턴 지속 시간
     private bool _isRo; //회전중인지?
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
@@ -64,6 +68,9 @@ public class MonsterController : MonoBehaviour
         _attackRange = MonsterManager.Instance.MonsterSO.AttackRange;
         _attackCoolTime = MonsterManager.Instance.MonsterSO.AttackCoolTime;
         _minAttackRange = MonsterManager.Instance.MonsterSO.MinAttackRange;
+        _headMaxDamage = MonsterManager.Instance.MonsterSO.HeadMaxDamage;
+        _sturnTime = MonsterManager.Instance.MonsterSO.SturnTime;
+        _currentHeadDamage = 0;
         _damage = 0;
         _elapsedTime = _attackCoolTime;
         _isBattle = false;
@@ -312,7 +319,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage) //데미지 받기
+    public void TakeDamage(uint damage) //데미지 받기
     {
         _currentHP -= damage;
 
@@ -320,6 +327,24 @@ public class MonsterController : MonoBehaviour
         {
             _currentHP = 0;
             Die();
+            return;
+        }
+    }
+
+    public void TakeHeadDamage(uint damage) //머리에 데미지 받을때
+    {
+        uint restDamage;
+        if (!IsStun)
+        {
+            _currentHeadDamage += damage;
+        }
+
+        if (_currentHeadDamage >= _headMaxDamage)
+        {
+            restDamage = _currentHeadDamage - _headMaxDamage;
+            _currentHeadDamage = 0;
+            _currentHeadDamage += restDamage;
+            IsStun = true;
         }
     }
 
@@ -476,6 +501,19 @@ public class MonsterController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         _isCanGetItem = true;
+    }
+
+    public IEnumerator WaitForEndSturnAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        anime.PlayMonsterStrun2Anime();
+        yield return new WaitForSeconds(_sturnTime);
+        anime.PlayMonsterStrun3Anime();
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => anime.Anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        Debug.Log("스턴끝");
+        _isStun = false;
     }
 
     public void OnTriggerEnter(Collider other)

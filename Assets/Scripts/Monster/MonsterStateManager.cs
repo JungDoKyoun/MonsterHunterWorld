@@ -26,10 +26,14 @@ public class MonsterStateManager : MonoBehaviour
     {
         currentState.Update();
         monsterController.UpdateAttackCoolTime();
-        //if(Input.GetKeyDown(KeyCode.Alpha1))
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
         //{
         //    monsterController.TakeDamage(100);
         //}
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            monsterController.TakeHeadDamage(120);
+        }
     }
 
     public void ChangeMonsterState(IMonsterState newState)
