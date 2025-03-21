@@ -7,6 +7,7 @@ using Photon.Pun;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
+[RequireComponent(typeof(PlayerCostume))]
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -41,6 +42,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             return _animator;
         }
     }
+
+    private bool _hasPlayerCostume = false;
+
+    private PlayerCostume _playerCostume = null;
+
+    private PlayerCostume getPlayerCostume
+    {
+        get
+        {
+            if(_hasPlayerCostume == false)
+            {
+                _hasPlayerCostume = TryGetComponent(out _playerCostume);
+            }
+            return _playerCostume;
+        }
+    }
+
     private Coroutine _coroutine = null;
 
     private Vector3 _forward = Vector3.zero;
@@ -359,7 +377,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void TakeDamage(Vector3 position, uint damage)
     {
-
+        if(_currentLife > 0)
+        {
+            //ÇÇ°Ý
+            if(damage < _currentLife)
+            {
+                _currentLife -= damage;
+            }
+            //»ç¸Á
+            else
+            {
+                _currentLife = 0;
+            }
+        }
     }
 
     public void Heal(uint value)
