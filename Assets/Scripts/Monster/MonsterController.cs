@@ -522,11 +522,30 @@ public class MonsterController : MonoBehaviour
         {
             Debug.Log("플레이어 공격함");
             CheckAttackOnCollider();
+
+            Vector3 contactPoint = other.ClosestPoint(transform.position);
+            Transform current = other.transform;
+
+            while (current != null)
+            {
+                PlayerController player = current.GetComponent<PlayerController>();
+
+                if (player != null)
+                {
+                    Debug.Log("플레이어 발견! 오브젝트 이름: " + current.name);
+                    player.GetComponent<PlayerController>().TakeDamage(contactPoint, _damage);
+                    return;
+                }
+
+                current = current.parent;
+            }
+
         }
     }
 
     public void CheckAttackOnCollider()
     {
+        
         foreach(var co in attackColliders)
         {
             if(co.enabled)

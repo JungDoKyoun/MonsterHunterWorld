@@ -1,7 +1,7 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using UnityEngine;
-using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private bool _hasTransform = false;
 
     private Transform _transform = null;
+
+    //hp,sp 게이지
+    [SerializeField] GageCtrl gageCtrl;
+
 
     private Transform getTransform
     {
@@ -32,7 +36,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Animator _animator = null;
 
-    private Animator getAnimator {
+    private Animator getAnimator
+    {
         get
         {
             if (_hasAnimator == false)
@@ -51,7 +56,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         get
         {
-            if(_hasPlayerCostume == false)
+            if (_hasPlayerCostume == false)
             {
                 _hasPlayerCostume = TryGetComponent(out _playerCostume);
             }
@@ -182,7 +187,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     photonView.RPC("Attack", RpcTarget.Others, attack);
                 }
-                if(attack == true)
+                if (attack == true)
                 {
                     _swing = true;
                 }
@@ -207,11 +212,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         Vector2 input = new Vector2(Mathf.Clamp(horizontal, MinInput, MaxInput), Mathf.Clamp(vertical, MinInput, MaxInput));
                         Vector3 forward = camera.transform.forward;
-                        if(jump == false)
+                        if (jump == false)
                         {
                             if (input != Vector2.zero)
                             {
-                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;                              
+                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
                                 if (_coroutine == null)
                                 {
                                     _coroutine = StartCoroutine(DoMoveStart());
@@ -246,7 +251,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                                     photonView.RPC("Dash", RpcTarget.Others, pressed);
                                                 }
                                             }
-                                            if(tag == true && pressed == true)
+                                            if (tag == true && pressed == true)
                                             {
                                                 Debug.Log("스태미나 소모");
                                                 //스태미나 소모
@@ -302,7 +307,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine == true && _swing == true && other.TryGetComponent(out MonsterController monsterController))
         {
+
             monsterController.TakeDamage(_damage);
+            
             StopSwing();
         }
     }
@@ -376,21 +383,28 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         return false;
     }
 
+
+
     public void TakeDamage(Vector3 position, uint damage)
     {
-        if(_currentLife > 0)
+
+        if (_currentLife > 0)
         {
             //피격
-            if(damage < _currentLife)
+            if (damage < _currentLife)
             {
                 _currentLife -= damage;
+
             }
             //사망
             else
             {
                 _currentLife = 0;
             }
+
+            gageCtrl.UpdateHP(_currentLife);
         }
+        
     }
 
     public void Heal(uint value)
