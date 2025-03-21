@@ -11,8 +11,6 @@ public class FillBar : MonoBehaviour
 {
     public FillBarType type;
     
-    PlayerController player;
-
     public Slider slider;
 
     float current;
@@ -20,31 +18,29 @@ public class FillBar : MonoBehaviour
 
     public void SetPlayer(PlayerController ctrl)
     {
-        player = ctrl;
-    }
-
-    void Start()
-    {
-        
 
         if (type == FillBarType.HP)
         {
-            slider.maxValue = max = (float)player.fullLife;
-            slider.value = current = (float)player.currentLife;
+            slider.maxValue = max = (float)ctrl.fullLife;
+            slider.value = current = (float)ctrl.currentLife;
 
         }
 
         else if (type == FillBarType.SP)
         {
-            slider.maxValue = max = player.fullStamina;
-            slider.value = current = player.currentStamina;
+            slider.maxValue = max = ctrl.fullStamina;
+            slider.value = current = ctrl.currentStamina;
         }
-
     }
+
 
     public void UpdateHP(float newHP)
     {
         current = Mathf.Clamp(newHP, 0, max);
         slider.value = current;
+
+        //Debug.Log(slider.maxValue);
+        //Debug.Log(slider.value);
+        //Debug.LogError("HP: " + current);
     }
 }
