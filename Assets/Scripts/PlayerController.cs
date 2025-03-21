@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
@@ -6,6 +7,7 @@ using Photon.Pun;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
+[RequireComponent(typeof(PlayerCostume))]
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -40,6 +42,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             return _animator;
         }
     }
+
+    private bool _hasPlayerCostume = false;
+
+    private PlayerCostume _playerCostume = null;
+
+    private PlayerCostume getPlayerCostume
+    {
+        get
+        {
+            if(_hasPlayerCostume == false)
+            {
+                _hasPlayerCostume = TryGetComponent(out _playerCostume);
+            }
+            return _playerCostume;
+        }
+    }
+
     private Coroutine _coroutine = null;
 
     private Vector3 _forward = Vector3.zero;
@@ -120,6 +139,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    [SerializeField]
+    private uint _damage = 0;
+
+    private bool _swing = false;
+
     private const float MinStamina = 0;
     private const float MaxStamina = int.MaxValue;
     private static readonly float MinInput = -1;
@@ -127,14 +151,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly float RotationDamping = 10;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
+    private static readonly string RunTag = "Run";
+    private static readonly string DashTag = "Dash";
     private static readonly string JumpTag = "Jump";
     private static readonly string AttackTag = "Attack";
-    private static readonly string RunClip = "Run";
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        
+        if (_fullLife < _currentLife)
+        {
+            _currentLife = _fullLife;
+        }
+        if (_fullStamina < _currentStamina)
+        {
+            _currentStamina = _fullStamina;
+        }
     }
 #endif
 
@@ -145,9 +177,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             bool attack = Input.GetMouseButton(0);
             if (attack != getAnimator.GetBool(AttackTag))
             {
-#if UNITY_EDITOR
-                Debug.Log("공격:" + attack);
-#endif
                 Attack(attack);
                 if (PhotonNetwork.InRoom == true)
                 {
@@ -155,7 +184,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 if(attack == true)
                 {
-
+                    _swing = true;
                 }
             }
             else
@@ -163,9 +192,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 bool jump = Input.GetButton(JumpTag);
                 if (jump == false && getAnimator.GetBool(JumpTag) == true)
                 {
-#if UNITY_EDITOR
-                    Debug.Log("점프 해제");
-#endif
                     Jump(false);
                     if (PhotonNetwork.InRoom == true)
                     {
@@ -185,36 +211,45 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                         {
                             if (input != Vector2.zero)
                             {
-                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
+                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;                              
                                 if (_coroutine == null)
                                 {
                                     _coroutine = StartCoroutine(DoMoveStart());
                                     IEnumerator DoMoveStart()
                                     {
-#if UNITY_EDITOR
-                                        Debug.Log("이동 시작");
-#endif
                                         Move();
                                         Vector3 forward = _forward;
                                         while (IsRunning() == false)
                                         {
-                                            yield return null;
-                                            Vector2 a = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
-                                            Vector2 b = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
-                                            if (Mathf.Abs(a.x) > Mathf.Abs(a.y) && (Mathf.Sign(a.x) != Mathf.Sign(b.x) || Mathf.Sign(a.y) != Mathf.Sign(b.y)))
+                                            Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
+                                            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
                                             {
-                                                Debug.Log(getAnimator.GetFloat(HorizontalTag) + " " + getAnimator.GetFloat(VerticalTag));
-                                                //Debug.Log(a + " " + b);
-                                                //Move(a);
-                                                //if (PhotonNetwork.InRoom == true)
-                                                //{
-                                                //    photonView.RPC("Move", RpcTarget.Others, a);
-                                                //}
-                                                forward = _forward;
+                                                Move(Vector2.zero);
+                                                if (PhotonNetwork.InRoom == true)
+                                                {
+                                                    photonView.RPC("Move", RpcTarget.Others, Vector2.zero);
+                                                }
+                                                _coroutine = null;
+                                                yield break;
                                             }
+                                            yield return null;
                                         }
                                         while (IsRunning() == true)
                                         {
+                                            bool pressed = Input.GetButton(DashTag);
+                                            bool tag = getAnimator.GetBool(DashTag);
+                                            if (pressed != tag)
+                                            {
+                                                Dash(pressed);
+                                                if (PhotonNetwork.InRoom == true)
+                                                {
+                                                    photonView.RPC("Dash", RpcTarget.Others, pressed);
+                                                }
+                                            }
+                                            if(tag == true && pressed == true)
+                                            {
+                                                //스태미나 소모
+                                            }
                                             getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
                                             yield return null;
                                         }
@@ -229,15 +264,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                     StopCoroutine(_coroutine);
                                     _coroutine = null;
                                 }
-#if UNITY_EDITOR
-                                Debug.Log("이동 멈춤");
-#endif
                                 _forward = Vector3.zero;
                                 Move();
                             }
                         }
                         else if (getAnimator.GetBool(JumpTag) == false)
                         {
+                            StopSwing();
                             if (_coroutine != null)
                             {
                                 StopCoroutine(_coroutine);
@@ -251,9 +284,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                             {
                                 _forward = getTransform.forward;
                             }
-#if UNITY_EDITOR
-                            Debug.Log("구르기");
-#endif
                             Move();
                             Jump(true);
                             if (PhotonNetwork.InRoom == true)
@@ -269,7 +299,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (photonView.IsMine == true && _swing == true && other.TryGetComponent(out MonsterController monsterController))
+        {
+            monsterController.TakeDamage(_damage);
+            StopSwing();
+        }
     }
 
     private void RotateLeft()
@@ -285,6 +319,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void RotateBack()
     {
         getTransform.forward = -getTransform.forward;
+    }
+
+    private void StopSwing()
+    {
+        _swing = false;
     }
 
     private void Move()
@@ -305,6 +344,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
+    private void Dash(bool value)
+    {
+        getAnimator.SetBool(DashTag, value);
+    }
+
+    [PunRPC]
     private void Jump(bool value)
     {
         getAnimator.SetBool(JumpTag, value);
@@ -322,7 +367,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         if (animatorClipInfos.Length > 0)
         {
             AnimationClip animationClip = animatorClipInfos[0].clip;
-            if (animationClip != null && animationClip.name == RunClip)
+            if (animationClip != null && (animationClip.name == RunTag || animationClip.name == DashTag))
             {
                 return true;
             }
@@ -332,7 +377,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void TakeDamage(Vector3 position, uint damage)
     {
-
+        if(_currentLife > 0)
+        {
+            //피격
+            if(damage < _currentLife)
+            {
+                _currentLife -= damage;
+            }
+            //사망
+            else
+            {
+                _currentLife = 0;
+            }
+        }
     }
 
     public void Heal(uint value)
