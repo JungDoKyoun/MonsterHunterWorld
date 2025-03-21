@@ -2621,9 +2621,10 @@ GameObject:
   - component: {fileID: 4007913049186408760}
   - component: {fileID: 8707521368301100518}
   - component: {fileID: 1105176559586679218}
+  - component: {fileID: 1977215589958650850}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2783,6 +2784,29 @@ MonoBehaviour:
   _fullStamina: 0
   _currentStamina: 0
   _damage: 0
+--- !u!136 &1977215589958650850
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081968324938285670}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.38
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &2095333985358932886
 GameObject:
   m_ObjectHideFlags: 0

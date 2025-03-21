@@ -378,7 +378,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void TakeDamage(Vector3 position, uint damage)
     {
-        if(_currentLife > 0)
+        if(photonView.IsMine == true && _currentLife > 0)
         {
             //ÇÇ°Ý
             if(damage < _currentLife)
@@ -407,5 +407,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_currentStamina);
+        }
+        else
+        {
+            _currentStamina = (float)stream.ReceiveNext();
+        }
     }
 }
