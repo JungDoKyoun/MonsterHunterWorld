@@ -6,7 +6,9 @@ public enum ItemType
     Weapon,
     Armor,
     Potion,
-    Trap
+    Trap,
+    Empty,
+    All
 }
 public enum Attribute
 {
@@ -65,5 +67,7 @@ public class Trap : BaseItem
     public GameObject trap;
     public TrapType trapType;
 }
+
+
 
 

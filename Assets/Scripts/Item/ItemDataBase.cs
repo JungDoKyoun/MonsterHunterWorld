@@ -8,7 +8,8 @@ public enum ItemImageNumber
     HunterArmor,
     RecoveryPotion,
     WellCookedMeat,
-    VineTrap
+    VineTrap,
+    Empty
 }
 
 public class ItemDataBase : MonoBehaviour
@@ -32,7 +33,8 @@ public class ItemDataBase : MonoBehaviour
             Instance = this;
         }
 
-        emptyItem = new BaseItem { image = itemImages[(int)ItemImageNumber.HunterKnife], name = "", type = ItemType.Weapon, rarity = "  ", count = 0, maxCount = 0, color = new Color32(255, 255, 255, 0), tooltip = "", price = 0 };
+        //스프라이트 none 인상태인거로 초기화
+        emptyItem = new BaseItem { image = itemImages[(int)ItemImageNumber.Empty], name = "", type = ItemType.Empty, rarity = "  ", count = 0, maxCount = 0, color = new Color32(255, 255, 255, 0), tooltip = "", price = 0 };
 
         //아이템 디폴트 데이터 생성
 
