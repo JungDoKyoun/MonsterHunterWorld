@@ -248,6 +248,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                             }
                                             if(tag == true && pressed == true)
                                             {
+                                                Debug.Log("스태미나 소모");
                                                 //스태미나 소모
                                             }
                                             getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);

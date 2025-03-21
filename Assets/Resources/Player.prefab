@@ -718,15 +718,15 @@ Transform:
   m_Children:
   - {fileID: 2687307396522334820}
   - {fileID: 6018434833072141269}
-  - {fileID: 3194414514140190935}
-  - {fileID: 2342471788043401695}
-  - {fileID: 8059907358830402379}
   - {fileID: 6058632062345281358}
   - {fileID: 6876772563712808519}
   - {fileID: 7339767208078892972}
+  - {fileID: 3194414514140190935}
+  - {fileID: 2342471788043401695}
+  - {fileID: 8059907358830402379}
+  - {fileID: 2693081795905937452}
   - {fileID: 3731135017550978271}
   - {fileID: 1522121968838479535}
-  - {fileID: 2693081795905937452}
   - {fileID: 9107408694110044389}
   - {fileID: 8809394820687913405}
   m_Father: {fileID: 0}
@@ -831,7 +831,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07282de7a596749887e8dc33921033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _helmRenderers: {fileID: 0}
+  _skinnedMeshRenderers:
+  - {fileID: 2158675996597947128}
+  - {fileID: 7426562593280189804}
+  - {fileID: 7679788270674026755}
+  - {fileID: 5871321117361706369}
+  - {fileID: 5780017249363376906}
+  - {fileID: 3472890476704965840}
+  - {fileID: 1745990908315366883}
+  - {fileID: 4957022561672412910}
+  - {fileID: 2689825837252196648}
+  - {fileID: 3489828868921196246}
+  - {fileID: 398669098494368100}
 --- !u!114 &5502547002686841266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4042,7 +4053,7 @@ Transform:
   m_GameObject: {fileID: 7721087504323326231}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4585,7 +4596,7 @@ Transform:
   m_GameObject: {fileID: 8582765148126871887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

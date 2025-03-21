@@ -1674,6 +1674,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6438637578410667109, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[8]
+      value: 
+      objectReference: {fileID: 347362160247985010}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[9]
+      value: 
+      objectReference: {fileID: 347362160247985012}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[10]
+      value: 
+      objectReference: {fileID: 347362160247985011}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[11]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[12]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[13]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862690862416939445, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+      propertyPath: _skinnedMeshRenderers.Array.data[14]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8005616352802372111, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -173
@@ -1719,6 +1755,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+--- !u!137 &347362160247985010 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 398669098494368100, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+  m_PrefabInstance: {fileID: 347362160247985007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &347362160247985011 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3489828868921196246, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+  m_PrefabInstance: {fileID: 347362160247985007}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &347362160247985012 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2689825837252196648, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+  m_PrefabInstance: {fileID: 347362160247985007}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543450652155349959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8005616352802372111, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
