@@ -27,6 +27,7 @@ public class MonsterIdleState : IMonsterState
         _tmepTime = 0;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
+        Debug.Log("대기상태");
     }
 
     public override void Exit()
@@ -42,6 +43,12 @@ public class MonsterIdleState : IMonsterState
     public override void Update()
     {
         _tmepTime += Time.deltaTime;
+
+        if(_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
 
         if(_monster.IsBattle && !_monster.IsHit)
         {
@@ -102,9 +109,7 @@ public class MonsterRotationState : IMonsterState
             _monster.CheckPlayer();
         }
         _monster.RotateToTarget();
-        Debug.Log(_monster.IsHit);
-        Debug.Log(_monster.IsBattle);
-        Debug.Log(_monster.IsRo);
+        Debug.Log("회전 들어옴");
     }
 
     public override void Exit()
@@ -115,10 +120,17 @@ public class MonsterRotationState : IMonsterState
     public override void Move()
     {
         _monster.CheckPlayer();
+        _monster.ApplyRootMotionMovement();
     }
 
     public override void Update()
     {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
         if (_monster.IsBattle && !_monster.IsHit)
         {
             _monster.IsHit = true;
@@ -128,7 +140,6 @@ public class MonsterRotationState : IMonsterState
 
         if (_monster.IsRo == false)
         {
-            Debug.Log("들어옴");
             if (_monster.IsBattle)
             {
                 _stateManager.ChangeMonsterState(new MonsterChaseState());
@@ -176,6 +187,12 @@ public class MonsterPatrolState : IMonsterState
 
     public override void Update()
     {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
         if (_monster.IsBattle && !_monster.IsHit && _monster.IsCanFindPlayer())
         {
             _monster.IsHit = true;
@@ -236,7 +253,13 @@ public class MonsterRoarState : IMonsterState
 
     public override void Update()
     {
-        if(!_monster.IsRoar)
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (!_monster.IsRoar)
         {
             if(_monster.IsNeedRo())
             {
@@ -277,12 +300,18 @@ public class MonsterChaseState : IMonsterState
     {
         _monster.CheckPlayer();
         _monster.ApplyRootMotionMovement();
+        _monster.SmothRotateToPlayer();
 
     }
 
     public override void Update()
     {
-        _monster.SmothRotateToPlayer();
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
         if (!_monster.IsCanFindPlayer())
         {
             _monster.ResetHit();
@@ -290,9 +319,15 @@ public class MonsterChaseState : IMonsterState
             return;
         }
 
-        if (_monster.IsCanAttackPlayer())
+        if (_monster.IsCanAttackPlayer() && !_monster.IsTooClose())
         {
             _stateManager.ChangeMonsterState(new MonsterAttackIdleState());
+            return;
+        }
+
+        if(_monster.IsTooClose())
+        {
+            _stateManager.ChangeMonsterState(new MonsterBackMoveState());
             return;
         }
     }
@@ -315,7 +350,6 @@ public class MonsterAttackIdleState : IMonsterState
 
     public override void Exit()
     {
-        Debug.Log("나감");
         _anime.PlayMonsterAttackIdleAnime(false);
     }
 
@@ -327,6 +361,12 @@ public class MonsterAttackIdleState : IMonsterState
 
     public override void Update()
     {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
         if (!_monster.IsCanFindPlayer())
         {
             _monster.ResetHit();
@@ -340,7 +380,13 @@ public class MonsterAttackIdleState : IMonsterState
             return;
         }
 
-        if(_monster.IsCoolTimeEnd())
+        if (_monster.IsTooClose())
+        {
+            _stateManager.ChangeMonsterState(new MonsterBackMoveState());
+            return;
+        }
+
+        if (_monster.IsCoolTimeEnd())
         {
             _stateManager.ChangeMonsterState(new MonsterAttackState());
             return;
@@ -377,12 +423,17 @@ public class MonsterAttackState : IMonsterState
 
     public override void Move()
     {
-        
+        _monster.CheckPlayer();
     }
 
     public override void Update()
     {
-        _monster.CheckPlayer();
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
         if (!_monster.IsAttack)
         {
             if (!_monster.IsCanFindPlayer())
@@ -398,6 +449,75 @@ public class MonsterAttackState : IMonsterState
             }
             _stateManager.ChangeMonsterState(new MonsterAttackIdleState());
             return;
+        }
+    }
+}
+
+public class MonsterBackMoveState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+    MonsterAnimationController _anime;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _anime = anime;
+        Debug.Log("너무 가까워서 뒤로감");
+        _monster.IsBackMove = true;
+        _anime.PlayMonsterBackMoveAnime();
+        _monster.StartCoroutine(_monster.WaitForEndBackMoveAnime());
+    }
+
+    public override void Exit()
+    {
+        
+    }
+
+    public override void Move()
+    {
+        _monster.CheckPlayer();
+    }
+
+    public override void Update()
+    {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (!_monster.IsBackMove)
+        {
+            if (_monster.IsTooClose())
+            {
+                Enter(_monster, _stateManager, _anime);
+            }
+            if (!_monster.IsCanFindPlayer())
+            {
+                _monster.ResetHit();
+                _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                return;
+            }
+
+            if (!_monster.IsCanAttackPlayer())
+            {
+                _stateManager.ChangeMonsterState(new MonsterChaseState());
+                return;
+            }
+
+            if (!_monster.IsTooClose() && _monster.IsCanAttackPlayer())
+            {
+                _stateManager.ChangeMonsterState(new MonsterAttackIdleState());
+                return;
+            }
+
+            if (_monster.IsNeedRo())
+            {
+                _stateManager.ChangeMonsterState(new MonsterRotationState());
+                return;
+            }
         }
     }
 }
@@ -422,11 +542,50 @@ public class MonsterStunState : IMonsterState
 
     public override void Move()
     {
-        
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
     }
 
     public override void Update()
     {
         
+    }
+}
+
+public class MonsterDieState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+    MonsterAnimationController _anime;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _anime = anime;
+        _anime.PlayMonsterDieAnime(true);
+        _monster.StartCoroutine(_monster.WaitForEndDieAnime());
+    }
+
+    public override void Exit()
+    {
+        _anime.PlayMonsterDieAnime(false);
+    }
+
+    public override void Move()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        if(!_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterIdleState());
+            return;
+        }
     }
 }

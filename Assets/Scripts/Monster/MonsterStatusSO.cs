@@ -21,6 +21,7 @@ public abstract class MonsterStatusSO : ScriptableObject
     public float AttackCoolTime;
     public float DetectRange;
     public float AttackRange;
+    public float MinAttackRange;
 }
 
 
