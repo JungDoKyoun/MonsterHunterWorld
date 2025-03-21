@@ -54,22 +54,40 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            ActiveCreateRoomUI();
-
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (activeNpcs.Count > 0)
             {
-                DeactiveCreateRoomUI();
+                Transform playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+                NpcCtrl selectedNpc = null;
+                float minDistance = Mathf.Infinity;
+
+                foreach(var npc in activeNpcs)
+                {
+                    float distance = Vector3.Distance(npc.transform.position, playerPos.position);
+
+                    if(distance < minDistance)
+                    {
+                        minDistance = distance;
+                        selectedNpc = npc;
+                    }
+                }
+
+                if (selectedNpc != null)
+                {
+                    if(selectedNpc.npcType == NpcCtrl.Type.Create)
+                    {
+                        ActiveCreateRoomUI();
+                    }
+                    else if(selectedNpc.npcType == NpcCtrl.Type.Join)
+                    {
+                        ActiveJoinRoomUI();
+                    }
+                }
             }
         }
-
-        else if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ActiveJoinRoomUI();
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                DeactiveJoinRoomUI();
-            }
+            DeactiveCreateRoomUI();
+            DeactiveJoinRoomUI();
         }
     }
 

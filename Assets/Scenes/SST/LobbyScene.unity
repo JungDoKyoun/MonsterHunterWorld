@@ -553,6 +553,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &85575923 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6295476608579908319, guid: 8dfa578ca5c65b4449850d064ead86a2, type: 3}
+  m_PrefabInstance: {fileID: 1110047276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &87689749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,6 +2769,7 @@ GameObject:
   - component: {fileID: 690944327}
   - component: {fileID: 690944326}
   - component: {fileID: 690944325}
+  - component: {fileID: 690944329}
   m_Layer: 0
   m_Name: JoinRoom NPC
   m_TagString: Untagged
@@ -2857,6 +2863,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &690944329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690944324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbb658175d7f574db9019bfdb5b4a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcType: 1
+  isPlayerInRange: 0
 --- !u!1 &693352153
 GameObject:
   m_ObjectHideFlags: 0
@@ -4593,13 +4613,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6295476608579908319, guid: 8dfa578ca5c65b4449850d064ead86a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1110047286}
   m_SourcePrefab: {fileID: 100100000, guid: 8dfa578ca5c65b4449850d064ead86a2, type: 3}
 --- !u!4 &1110047277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7349892949574610609, guid: 8dfa578ca5c65b4449850d064ead86a2, type: 3}
   m_PrefabInstance: {fileID: 1110047276}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1110047286
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85575923}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1176844797
 GameObject:
   m_ObjectHideFlags: 0
@@ -5743,7 +5789,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428388682}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22975291, y: -0.0000000187227, z: 0.0000000044198294, w: 0.973249}
+  m_LocalRotation: {x: 0.22975291, y: 0.0000000187227, z: -0.0000000044198294, w: 0.973249}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7098,6 +7144,7 @@ GameObject:
   - component: {fileID: 1921574732}
   - component: {fileID: 1921574731}
   - component: {fileID: 1921574730}
+  - component: {fileID: 1921574734}
   m_Layer: 0
   m_Name: CreateRoom NPC
   m_TagString: Untagged
@@ -7193,6 +7240,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1921574734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921574729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbb658175d7f574db9019bfdb5b4a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcType: 0
+  isPlayerInRange: 0
 --- !u!1 &1924438101
 GameObject:
   m_ObjectHideFlags: 0
