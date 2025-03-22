@@ -1837,7 +1837,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2531865449288048480}
-    m_Position: {x: -1070, y: 420, z: 0}
+    m_Position: {x: -1140, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2078999936833043831}
     m_Position: {x: -2100, y: -630, z: 0}
@@ -1846,7 +1846,7 @@ AnimatorStateMachine:
     m_Position: {x: -1960, y: -1050, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2028177051841040900}
-    m_Position: {x: -1700, y: 500, z: 0}
+    m_Position: {x: -1570, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8226994557297074400}
     m_Position: {x: -1910, y: 440, z: 0}
@@ -1879,19 +1879,19 @@ AnimatorStateMachine:
     m_Position: {x: -2180, y: -860, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4458670665211792394}
-    m_Position: {x: -1720, y: 60, z: 0}
+    m_Position: {x: -1650, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3362755497319170460}
-    m_Position: {x: -1860, y: 140, z: 0}
+    m_Position: {x: -1860, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3924857335596194870}
-    m_Position: {x: -1400, y: 200, z: 0}
+    m_Position: {x: -1440, y: -60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -943856514664797361}
     m_Position: {x: -2010, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8977281480830495180}
-    m_Position: {x: -890, y: 150, z: 0}
+    m_Position: {x: -1030, y: -80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6024328356733808658}
     m_Position: {x: -2490, y: -40, z: 0}
@@ -2213,31 +2213,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Horizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Jump
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dash
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -2700,7 +2700,7 @@ AnimatorStateTransition:
 --- !u!1102 &2028177051841040900
 AnimatorState:
   serializedVersion: 6
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}

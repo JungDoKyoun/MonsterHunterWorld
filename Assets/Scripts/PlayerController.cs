@@ -1,10 +1,12 @@
-using Photon.Pun;
 using System;
 using System.Collections;
 using UnityEngine;
+using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
 [RequireComponent(typeof(PlayerCostume))]
@@ -14,10 +16,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private bool _hasTransform = false;
 
     private Transform _transform = null;
-
-    //hp,sp 게이지
-    [SerializeField] GageCtrl gageCtrl;
-
 
     private Transform getTransform
     {
@@ -36,8 +34,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Animator _animator = null;
 
-    private Animator getAnimator
-    {
+    private Animator getAnimator {
         get
         {
             if (_hasAnimator == false)
@@ -56,7 +53,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         get
         {
-            if (_hasPlayerCostume == false)
+            if(_hasPlayerCostume == false)
             {
                 _hasPlayerCostume = TryGetComponent(out _playerCostume);
             }
@@ -151,9 +148,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private const float MinStamina = 0;
     private const float MaxStamina = int.MaxValue;
+    private const string IdleToLeftTag = "IdleToLeft";
+    private const string IdleToRightTag = "IdleToRight";
+    private const string IdleToBackTag = "IdleToBack";
     private static readonly float MinInput = -1;
     private static readonly float MaxInput = 1;
     private static readonly float RotationDamping = 10;
+    private static readonly float JumpStamina = 0.2f;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string RunTag = "Run";
@@ -189,6 +190,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 if (attack == true)
                 {
+                    Rotate();
                     _swing = true;
                 }
             }
@@ -212,11 +214,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         Vector2 input = new Vector2(Mathf.Clamp(horizontal, MinInput, MaxInput), Mathf.Clamp(vertical, MinInput, MaxInput));
                         Vector3 forward = camera.transform.forward;
-                        if (jump == false)
+                        if(jump == false)
                         {
                             if (input != Vector2.zero)
                             {
-                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
+                                _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(forward, Vector3.up).normalized;                              
                                 if (_coroutine == null)
                                 {
                                     _coroutine = StartCoroutine(DoMoveStart());
@@ -241,20 +243,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                         }
                                         while (IsRunning() == true)
                                         {
-                                            bool pressed = Input.GetButton(DashTag);
-                                            bool tag = getAnimator.GetBool(DashTag);
-                                            if (pressed != tag)
+                                            if(Input.GetButton(DashTag) == true)
                                             {
-                                                Dash(pressed);
-                                                if (PhotonNetwork.InRoom == true)
+                                                if(_currentStamina > 0)
                                                 {
-                                                    photonView.RPC("Dash", RpcTarget.Others, pressed);
+                                                    _currentStamina -= Time.deltaTime;
+                                                    TryDash(true);
+                                                    if(_currentStamina < 0)
+                                                    {
+                                                        _currentStamina = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    TryDash(false);
                                                 }
                                             }
-                                            if (tag == true && pressed == true)
+                                            else
                                             {
-                                                Debug.Log("스태미나 소모");
-                                                //스태미나 소모
+                                                TryDash(false);
                                             }
                                             getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
                                             yield return null;
@@ -274,8 +281,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                 Move();
                             }
                         }
-                        else if (getAnimator.GetBool(JumpTag) == false)
+                        else if (getAnimator.GetBool(JumpTag) == false && JumpStamina <= _currentStamina)
                         {
+                            _currentStamina -= JumpStamina;
                             StopSwing();
                             if (_coroutine != null)
                             {
@@ -307,10 +315,25 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine == true && _swing == true && other.TryGetComponent(out MonsterController monsterController))
         {
-
             monsterController.TakeDamage(_damage);
-            
             StopSwing();
+        }
+    }
+
+    private void Rotate()
+    {
+        string name = GetAnimationName();
+        switch (name)
+        {
+            case IdleToLeftTag:
+                RotateLeft();
+                break;
+            case IdleToRightTag:
+                RotateRight();
+                break;
+            case IdleToBackTag:
+                RotateBack();
+                break;
         }
     }
 
@@ -369,42 +392,53 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         getAnimator.SetBool(AttackTag, value);
     }
 
+    private bool TryDash(bool value)
+    {
+        if (getAnimator.GetBool(DashTag) == !value)
+        {
+            Dash(value);
+            if (PhotonNetwork.InRoom == true)
+            {
+                photonView.RPC("Dash", RpcTarget.Others, value);
+            }
+            return true;
+        }
+        return false;
+    }
+
     private bool IsRunning()
+    {
+        string name = GetAnimationName();
+        return name == RunTag || name == DashTag;
+    }
+
+    private string GetAnimationName()
     {
         AnimatorClipInfo[] animatorClipInfos = getAnimator.GetCurrentAnimatorClipInfo(0);
         if (animatorClipInfos.Length > 0)
         {
             AnimationClip animationClip = animatorClipInfos[0].clip;
-            if (animationClip != null && (animationClip.name == RunTag || animationClip.name == DashTag))
+            if (animationClip != null)
             {
-                return true;
+                return animationClip.name;
             }
         }
-        return false;
+        return null;
     }
-
-
 
     public void TakeDamage(Vector3 position, uint damage)
     {
-
-        if (_currentLife > 0)
+        if(photonView.IsMine == true && _currentLife > 0)
         {
-            //피격
-            if (damage < _currentLife)
+            if(damage < _currentLife)
             {
                 _currentLife -= damage;
-
             }
-            //사망
             else
             {
                 _currentLife = 0;
             }
-
-            gageCtrl.UpdateHP(_currentLife);
         }
-        
     }
 
     public void Heal(uint value)
@@ -421,5 +455,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_currentStamina);
+        }
+        else
+        {
+            _currentStamina = (float)stream.ReceiveNext();
+        }
     }
 }

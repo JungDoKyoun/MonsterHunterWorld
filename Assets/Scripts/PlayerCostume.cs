@@ -21,6 +21,10 @@ public class PlayerCostume : MonoBehaviour
     private SkinnedMeshRenderer[] _skinnedMeshRenderers = null;
 
 #if UNITY_EDITOR
+
+    [SerializeField]
+    private SkinnedMeshRenderer _skinnedMeshRenderer = null;
+
     private void OnValidate()
     {
         Sort(ref _skinnedMeshRenderers);
@@ -57,11 +61,15 @@ public class PlayerCostume : MonoBehaviour
         array = list.ToArray();
     }
 
+
+    [ContextMenu("ShowLocalCenter")]
+    public void ShowLocalCenter()
+    {
+        if (_skinnedMeshRenderer)
+        {
+            Debug.Log(_skinnedMeshRenderer.transform.InverseTransformPoint(_skinnedMeshRenderer.bounds.center));
+        }
+    }
 #endif
 
-
-    public void Set()
-    {
-
-    }
 }
