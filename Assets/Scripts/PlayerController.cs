@@ -5,6 +5,8 @@ using Photon.Pun;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
 [RequireComponent(typeof(PlayerCostume))]
@@ -146,9 +148,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private const float MinStamina = 0;
     private const float MaxStamina = int.MaxValue;
+    private const string IdleToLeftTag = "IdleToLeft";
+    private const string IdleToRightTag = "IdleToRight";
+    private const string IdleToBackTag = "IdleToBack";
     private static readonly float MinInput = -1;
     private static readonly float MaxInput = 1;
     private static readonly float RotationDamping = 10;
+    private static readonly float JumpStamina = 0.2f;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string RunTag = "Run";
@@ -182,8 +188,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     photonView.RPC("Attack", RpcTarget.Others, attack);
                 }
-                if(attack == true)
+                if (attack == true)
                 {
+                    Rotate();
                     _swing = true;
                 }
             }
@@ -274,8 +281,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                 Move();
                             }
                         }
-                        else if (getAnimator.GetBool(JumpTag) == false)
+                        else if (getAnimator.GetBool(JumpTag) == false && JumpStamina <= _currentStamina)
                         {
+                            _currentStamina -= JumpStamina;
                             StopSwing();
                             if (_coroutine != null)
                             {
@@ -309,6 +317,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             monsterController.TakeDamage(_damage);
             StopSwing();
+        }
+    }
+
+    private void Rotate()
+    {
+        string name = GetAnimationName();
+        switch (name)
+        {
+            case IdleToLeftTag:
+                RotateLeft();
+                break;
+            case IdleToRightTag:
+                RotateRight();
+                break;
+            case IdleToBackTag:
+                RotateBack();
+                break;
         }
     }
 
@@ -383,28 +408,32 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool IsRunning()
     {
+        string name = GetAnimationName();
+        return name == RunTag || name == DashTag;
+    }
+
+    private string GetAnimationName()
+    {
         AnimatorClipInfo[] animatorClipInfos = getAnimator.GetCurrentAnimatorClipInfo(0);
         if (animatorClipInfos.Length > 0)
         {
             AnimationClip animationClip = animatorClipInfos[0].clip;
-            if (animationClip != null && (animationClip.name == RunTag || animationClip.name == DashTag))
+            if (animationClip != null)
             {
-                return true;
+                return animationClip.name;
             }
         }
-        return false;
+        return null;
     }
 
     public void TakeDamage(Vector3 position, uint damage)
     {
         if(photonView.IsMine == true && _currentLife > 0)
         {
-            //ÇÇ°Ý
             if(damage < _currentLife)
             {
                 _currentLife -= damage;
             }
-            //»ç¸Á
             else
             {
                 _currentLife = 0;
