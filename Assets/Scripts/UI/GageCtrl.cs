@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class GageCtrl : MonoBehaviour
 {
-    [SerializeField] FillBar hpBar;
+    FillBar hpBar;
 
-    [SerializeField] FillBar spBar;
+    FillBar spBar;
 
     PlayerController playerCtrl;
 
@@ -12,6 +12,8 @@ public class GageCtrl : MonoBehaviour
     void Start()
     {
         playerCtrl = GetComponent<PlayerController>();
+        hpBar = GameObject.Find("HpBar").GetComponent<FillBar>();
+        spBar = GameObject.Find("StaminaBar ").GetComponent<FillBar>();
         hpBar.SetPlayer(playerCtrl);
         spBar.SetPlayer(playerCtrl);
     }

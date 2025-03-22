@@ -36,11 +36,29 @@ public class FillBar : MonoBehaviour
 
     public void UpdateHP(float newHP)
     {
-        current = Mathf.Clamp(newHP, 0, max);
-        slider.value = current;
+        if(type == FillBarType.HP)
+        {
+            current = Mathf.Clamp(newHP, 0, max);
+            slider.value = current;
+        }
+        else
+        {
+            Debug.Log("HP바에 SP값을 넣었습니다.");
+        }
+        
 
-        //Debug.Log(slider.maxValue);
-        //Debug.Log(slider.value);
-        //Debug.LogError("HP: " + current);
+    }
+
+    public void UpdateSP(float newSP)
+    {
+        if(type == FillBarType.SP)
+        {
+            current = Mathf.Clamp(newSP, 0, max);
+            slider.value = current;
+        }
+        else
+        {
+            Debug.Log("SP바에 HP값을 넣었습니다.");
+        }
     }
 }
