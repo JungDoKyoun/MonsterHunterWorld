@@ -313,10 +313,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (photonView.IsMine == true && _swing == true && other.TryGetComponent(out MonsterController monsterController))
+        if (photonView.IsMine == true && _swing == true)
         {
-            monsterController.TakeDamage(_damage);
-            StopSwing();
+            if (other.TryGetComponent(out MonsterController monsterController))
+            {
+                monsterController.TakeDamage(_damage);
+                StopSwing();
+            }
+            else if(other.tag == "MonsterHead")
+            {
+                Transform transform = other.transform.parent;
+                while(transform.parent != null)
+                {
+                    transform = transform.parent;
+                    if(transform.TryGetComponent(out monsterController))
+                    {
+                        monsterController.TakeHeadDamage(_damage);
+                        StopSwing();
+                        return;
+                    }
+                }
+            }
         }
     }
 
@@ -433,6 +450,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             if(damage < _currentLife)
             {
                 _currentLife -= damage;
+
+
             }
             else
             {
