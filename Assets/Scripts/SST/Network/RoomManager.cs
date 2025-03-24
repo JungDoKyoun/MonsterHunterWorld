@@ -26,7 +26,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         questReadyButton.gameObject.SetActive(false);
     }
 
-    #region Photon Callbacks for Room
+    #region 포톤콜백
 
     // 방에 입장했을 때 호출되는 콜백
     public override void OnJoinedRoom()
@@ -53,6 +53,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " 님이 입장했습니다");
+        UpdateStartButton();
         UpdatePlayerListUI();
     }
 
@@ -60,6 +61,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log(otherPlayer.NickName + " 님이 나갔습니다");
+        UpdateStartButton();
         UpdatePlayerListUI();
     }
 
@@ -68,6 +70,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (changedProps.ContainsKey("isReady"))
         {
+            UpdateStartButton();
             UpdatePlayerListUI();
         }
     }
@@ -81,7 +84,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region UI Update and Room Control
+    #region UI,룸 컨트롤
 
     // 플레이어 리스트 UI를 새로 고치는 함수
     private void UpdatePlayerListUI()
@@ -113,14 +116,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 if (player.CustomProperties.ContainsKey("isReady") && (bool)player.CustomProperties["isReady"])
                 {
                     Image readyImg = playerList.transform.Find("CheckReady").GetComponent<Image>();
-                    readyImg.color = Color.green;
-                    //playerList.GetComponentInChildren<Image>().color = Color.green;
+                    readyImg.color = Color.green;                    
                 }
                 else
                 {
                     Image readyImg = playerList.transform.Find("CheckReady").GetComponent<Image>();
-                    readyImg.color = Color.white;
-                    //playerList.GetComponentInChildren<Image>().color = Color.white;
+                    readyImg.color = Color.white;                    
                 }
             }
         }
@@ -130,10 +131,47 @@ public class RoomManager : MonoBehaviourPunCallbacks
     // 일반 플레이어가 준비 버튼을 누르면 호출되는 함수
     public void OnReady()
     {
-        // Photon Custom Properties를 통해 로컬 플레이어의 준비 상태를 true로 설정
+        // 현재의 bool값을 false로 일단 초기화
+        bool currentReady = false;
+
+        // 만약에 커스텀프로퍼티에 isReady키가 포함되어 있다면
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("isReady"))
+        {
+            // 현재 bool 값에 포함되어 있는 isReady값을 대입
+            currentReady = (bool)PhotonNetwork.LocalPlayer.CustomProperties["isReady"];
+        }
+
+        // 현재 bool값을 반대로 임시변수에 대입
+        bool newReady = !currentReady;
+
+        // Photon Custom Properties를 통해 로컬 플레이어의 준비 상태를 버튼을 누를때마다
+        // 반대로 대입하게 한다. ( Ready 상태를 껐다가 켰다가 하기 위해서 )
         ExitGames.Client.Photon.Hashtable readyProps = new ExitGames.Client.Photon.Hashtable();
-        readyProps["isReady"] = true;
+        readyProps["isReady"] = newReady;
         PhotonNetwork.LocalPlayer.SetCustomProperties(readyProps);
+    }
+
+    // 모든 플레이어가 레디 상태 인지를 체크해 반환해줌
+    private bool AreAllPlayerReady()
+    {
+        foreach(Player player in PhotonNetwork.PlayerList)
+        {
+            if(!PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("isReady")
+                || !(bool)player.CustomProperties["isReady"])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 방장의 스타트 버튼을 참가한 모든 플레이어가 레디 상태일 때만 활성화 되게 업데이트
+    private void UpdateStartButton()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            questStartButton.interactable = AreAllPlayerReady();
+        }
     }
 
     // 방장이 게임 시작 버튼을 누르면 호출되는 함수
@@ -141,8 +179,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            // 모든 플레이어와 함께 InGame 씬으로 전환
-            PhotonNetwork.LoadLevel("InGame");
+            // 모든 플레이어가 레디 상태라면
+            if (AreAllPlayerReady())
+            {
+                // 모든 플레이어와 함께 InGame 씬으로 전환
+                PhotonNetwork.LoadLevel("ALLTestScene");
+            }
+            else
+            {
+                Debug.Log("모든 플레이어가 준비가 되지 않았습니다");
+            }
         }
     }
 
