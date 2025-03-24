@@ -34,6 +34,8 @@ public class InventoryItems : MonoBehaviour
             //Debug.Log(item.name);
         }
 
+        InvenToryCtrl.Instance.AddItemByName(items, "회복약");
+
         //자식 오브젝트 연결
         var objs = GetComponentsInChildren<ItemSlot>();
         foreach (var item in objs)

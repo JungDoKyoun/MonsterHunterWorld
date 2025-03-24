@@ -2621,6 +2621,7 @@ GameObject:
   - component: {fileID: 4007913049186408760}
   - component: {fileID: 8707521368301100518}
   - component: {fileID: 1105176559586679218}
+  - component: {fileID: 7409870033294936746}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2778,11 +2779,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23167efa7554e040885dd720883a017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gageCtrl: {fileID: 7409870033294936746}
   _fullLife: 0
   _currentLife: 0
   _fullStamina: 0
   _currentStamina: 0
   _damage: 0
+--- !u!114 &7409870033294936746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081968324938285670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af892dea19dd68849881a9990b64c042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBar: {fileID: 0}
+  spBar: {fileID: 0}
 --- !u!1 &2095333985358932886
 GameObject:
   m_ObjectHideFlags: 0

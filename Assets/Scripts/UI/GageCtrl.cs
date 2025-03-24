@@ -2,18 +2,21 @@ using UnityEngine;
 
 public class GageCtrl : MonoBehaviour
 {
-    [SerializeField] FillBar hpBar;
+    FillBar hpBar;
 
-    [SerializeField] FillBar spBar;
+    FillBar spBar;
 
     PlayerController playerCtrl;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         playerCtrl = GetComponent<PlayerController>();
+        hpBar = GameObject.Find("HpBar").GetComponent<FillBar>();
+        spBar = GameObject.Find("StaminaBar ").GetComponent<FillBar>();
         hpBar.SetPlayer(playerCtrl);
         spBar.SetPlayer(playerCtrl);
+        GameObject.Find("HUDCanvas").SetActive(false);
     }
 
     public void UpdateHP(float newHP)

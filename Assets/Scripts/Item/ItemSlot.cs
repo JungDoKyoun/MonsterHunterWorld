@@ -42,29 +42,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         item = value;
         var img = itemImage.GetComponent<Image>();
 
-        //Debug.Log(img.name);
-        //Debug.Log(1 +". " + item.name);
-        //Debug.Log(img.color);
-        //Debug.Log(value.color);
-
-        //Debug.Log(img.material.color);
-        //img.material.color = value.color; // 기본 머티리얼 제거
         img.sprite = item.image;
         img.color = item.color;
 
-        //Debug.Log(2 + ". " + item.name);
-        //Debug.Log(img.color);
-        //Debug.Log(value.color);
-
         if (item.count > 0)
         {
-            countText.gameObject.SetActive(true);
             countText.text = item.count.ToString();
         }
         else
         {
-            countText.gameObject.SetActive(false);
+            countText.text = "";
         }
+
 
 
     }
@@ -72,13 +61,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 클릭시 해당 아이템 창고로 넘기기
     public void OnPointerClick(PointerEventData eventData)
     {
+        //변동수치 갱신
         item.count--;
+        countText.text = item.count.ToString();
+        tooltipBox.ToolTipSetItem(item);
+
         if (item.count <= 0)
         {
+            item.count = 0;
             item = ItemDataBase.Instance.emptyItem;
+            SlotSetItem(item);
+
         }
 
         InvenToryCtrl.Instance.ChangeItem(invenType, item);
+
 
 
     }
@@ -93,12 +90,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         tooltipBox.ToolTipSetItem(item);
 
-        //exit에서 해제 해도 되는듯 해서 일단 주석함
-        //if (fadeCoroutine != null)
-        //{
-        //    StopCoroutine(fadeCoroutine);
-        //}
-
         fadeCoroutine = StartCoroutine(FadeAlphaLoop(image));
 
     }
@@ -110,7 +101,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         float alphaSpeed = 2f; // 알파 변화 속도
         float minAlpha = 0.3f; // 최소 알파값 (0~1)
-           
+
         while (true) // 무한 루프
         {
             alpha += (fadingOut ? -1 : 1) * alphaSpeed * Time.deltaTime;
@@ -140,6 +131,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         tooltipBox.TooltipClear(false);
         img.color = new Color(1, 1, 1, 1);
         img.sprite = sprites[0];
+
         //실행되던 코루틴 정지
         if (fadeCoroutine != null)
         {
