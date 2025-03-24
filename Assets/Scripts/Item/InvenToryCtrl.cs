@@ -10,6 +10,11 @@ public enum InvenType
 //플레이어의 모든 인벤토리
 public class InvenToryCtrl : MonoBehaviour
 {
+    //현재 장착한 장비 인벤토리
+
+    //현재 흭득한 장비 인벤토리
+
+
     //현재 가지고있을 인벤토리
     public InventoryItems inventoryItems;
     //사물함 인벤토리

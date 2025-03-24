@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //사물함 인벤토리
@@ -16,6 +18,9 @@ public class BoxInvenTory : MonoBehaviour
 
     //사물함 슬롯
     List<GameObject> slot = new List<GameObject>();
+
+    [SerializeField]
+    Text boxIndexText;
 
     //현재 선택된 사물함 태그
     ItemType boxTag;
@@ -39,9 +44,29 @@ public class BoxInvenTory : MonoBehaviour
             slot.Add(item.gameObject);
         }
 
+        for(int i = 0; i < 1000; i++)
+        {
+            boxItems.Add(ItemDataBase.Instance.emptyItem);
+        }
 
+        //for (int i = 0; i < 30; i++)
+        //{
+        //    SetItem(index: i, item: ItemDataBase.Instance.GetItem((int)ItemImageNumber.RecoveryPotion));
+        //}
+
+        Debug.Log("박스인벤 시작");
     }
 
+    public void SetItem(BaseItem item , int index)
+    {
+        if(index < 0 || index >= 1000)
+        {
+            Debug.Log("인덱스 잘못넣었습니다.");
+            return;
+        }
+
+        boxItems[index] = item;
+    }
 
 
     public void NextBox(int index)
@@ -51,17 +76,19 @@ public class BoxInvenTory : MonoBehaviour
         for (int i = 0; i < 100; i++)
         {
             slot[i].GetComponent<ItemSlot>().SlotSetItem(boxItems[(boxIndex - 1) * 100 + i]);
-            Debug.Log((boxIndex - 1) * 100 + i);
+            //Debug.Log((boxIndex - 1) * 100 + i);
         }
 
-        
+        boxIndexText.text = index.ToString() + " / " + boxSize.ToString();
+
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isBoxOpen)
         {
             BoxInput();
+            //Debug.Log("박스인벤 업데이트");
         }
     }
 
@@ -76,6 +103,7 @@ public class BoxInvenTory : MonoBehaviour
                 boxIndex = 1;
             }
             NextBox(boxIndex);
+            Debug.Log("Q");
         }
         //사물함 오른쪽
         else if (Input.GetKeyDown(KeyCode.E))
@@ -86,8 +114,19 @@ public class BoxInvenTory : MonoBehaviour
                 boxIndex = boxSize;
             }
             NextBox(boxIndex);
-
+            Debug.Log("E");
         }
+
+        //Debug.Log("들어는왔나");
     }
+
+
+    public void SelectTag(ItemType tag)
+    {
+        boxTag = tag;
+        boxIndex = 0;
+        NextBox(boxIndex);
+    }
+
 
 }
