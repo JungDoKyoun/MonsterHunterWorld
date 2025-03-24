@@ -63,8 +63,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Coroutine _coroutine = null;
 
-    private Vector3 _forward = Vector3.zero;
-
     [Header("최대 체력"), SerializeField]
     private uint _fullLife;
 
@@ -211,27 +209,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                         Vector2 input = new Vector2(Mathf.Clamp(Input.GetAxis(HorizontalTag), MinInput, MaxInput), Mathf.Clamp(Input.GetAxis(VerticalTag), MinInput, MaxInput));
                         if (input != Vector2.zero)
                         {
-                            _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up).normalized;
+                            Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up).normalized;
                             if (_coroutine == null)
                             {
                                 _coroutine = StartCoroutine(DoMoveStart());
                                 IEnumerator DoMoveStart()
                                 {
-                                    Move();
-                                    Vector3 forward = _forward;
+                                    Move(forward);
                                     while (IsRunning() == false)
                                     {
-                                        Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
-                                        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-                                        {
-                                            Move(Vector2.zero);
-                                            if (PhotonNetwork.InRoom == true)
-                                            {
-                                                photonView.RPC("Move", RpcTarget.Others, Vector2.zero);
-                                            }
-                                            _coroutine = null;
-                                            yield break;
-                                        }
+                                        //Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
+                                        //if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                                        //{
+                                        //    Move(Vector2.zero);
+                                        //    if (PhotonNetwork.InRoom == true)
+                                        //    {
+                                        //        photonView.RPC("Move", RpcTarget.Others, Vector2.zero);
+                                        //    }
+                                        //    _coroutine = null;
+                                        //    yield break;
+                                        //}
                                         yield return null;
                                     }
                                     while (IsRunning() == true)
@@ -241,7 +238,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                             if (_currentStamina > 0)
                                             {
                                                 _currentStamina -= Time.deltaTime;
-                                                TryDash(true);
+                                                Dash(true);
                                                 if (_currentStamina < 0)
                                                 {
                                                     _currentStamina = 0;
@@ -249,29 +246,28 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                             }
                                             else
                                             {
-                                                TryDash(false);
+                                                Dash(false);
                                             }
                                         }
                                         else
                                         {
-                                            TryDash(false);
+                                            Dash(false);
                                         }
-                                        getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
+                                        getTransform.forward = Vector3.Lerp(getTransform.forward, forward, Time.deltaTime * RotationDamping);
                                         yield return null;
                                     }
                                     _coroutine = null;
                                 }
                             }
                         }
-                        else if (_forward != Vector3.zero)
+                        else if (getAnimator.GetFloat(HorizontalTag) != 0|| getAnimator.GetFloat(VerticalTag) != 0)
                         {
                             if (_coroutine != null)
                             {
                                 StopCoroutine(_coroutine);
                                 _coroutine = null;
                             }
-                            _forward = Vector3.zero;
-                            Move();
+                            Move(Vector3.zero);
                         }
                     }
                 }
@@ -346,21 +342,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         _swing = false;
     }
 
-    private void Move()
+    private void Dash(bool value)
     {
-        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+        if (getAnimator.GetBool(DashTag) == !value)
+        {
+            SetAnimation(DashTag, value);
+            if (PhotonNetwork.InRoom == true)
+            {
+                photonView.RPC("Dash", RpcTarget.Others, value);
+            }
+        }
+    }
+
+    private void Move(Vector3 forward)
+    {
+        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, forward), Vector3.Dot(getTransform.forward, forward));
         Move(direction);
         if (PhotonNetwork.InRoom == true)
         {
             photonView.RPC("Move", RpcTarget.Others, direction);
         }
-    }
-
-    [PunRPC]
-    private void Move(Vector2 direction)
-    {
-        getAnimator.SetFloat(HorizontalTag, direction.x);
-        getAnimator.SetFloat(VerticalTag, direction.y);
     }
 
     private void SetAnimation(string tag)
@@ -391,26 +392,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void SetBool(string tag, bool value)
     {
         getAnimator.SetBool(tag, value);
-    }
-
-    [PunRPC]
-    private void SetFloat(string tag, float value)
-    {
-        getAnimator.SetFloat(tag, value);
-    }
-
-    private bool TryDash(bool value)
-    {
-        if (getAnimator.GetBool(DashTag) == !value)
-        {
-            SetAnimation(DashTag, value);
-            if (PhotonNetwork.InRoom == true)
-            {
-                photonView.RPC("Dash", RpcTarget.Others, value);
-            }
-            return true;
-        }
-        return false;
     }
 
     private bool IsRunning()
@@ -481,7 +462,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Heal(uint value)
     {
+    }
 
+    [PunRPC]
+    public void Move(Vector2 direction)
+    {
+        getAnimator.SetFloat(HorizontalTag, direction.x);
+        getAnimator.SetFloat(VerticalTag, direction.y);
     }
 
     public override void OnDisable()
