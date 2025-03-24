@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using System.Threading.Tasks;
 using Firebase.Database;
+using Photon.Pun;
 
 public class AuthManager : MonoBehaviour
 {
@@ -92,6 +93,9 @@ public class AuthManager : MonoBehaviour
             user = loginTask.Result.User;
             nickField.text = user.DisplayName;
             Debug.Log("로그인 완료." + user.DisplayName + " 님 반갑습니다.");
+
+            // 로그인 성공 후 Photon 네트워크에 연결 시작
+            PhotonNetwork.ConnectUsingSettings();
         }
     }
 

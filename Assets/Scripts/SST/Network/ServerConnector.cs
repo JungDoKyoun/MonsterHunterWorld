@@ -15,26 +15,33 @@ public class ServerConnector : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
-    public void Connect()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
     public override void OnConnectedToMaster()
     {
         Debug.Log("서버 연결 완료");
 
-        PhotonNetwork.NickName = AuthManager.user.DisplayName;
+        if(AuthManager.user != null)
+        {
+            PhotonNetwork.NickName = AuthManager.user.DisplayName;
+        }
+        else
+        {
+            Debug.LogError("AuthManager.user 가 null 입니다");
+            PhotonNetwork.NickName = "Guest";
+        }
 
-        PhotonNetwork.JoinLobby();       
+        // 싱글플레이 모드용 방 "SingleRoom" 으로 입장
+        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
+        PhotonNetwork.JoinOrCreateRoom("SingleRoom", roomOptions, TypedLobby.Default);
     }
 
-    public override void OnJoinedLobby()
+    public override void OnJoinedRoom()
     {
-        Debug.Log("로비에 입장하였습니다");
+        Debug.Log("싱글룸에 입장하였습니다.");
 
-        SceneManager.LoadScene("LobbyScene");
-
-        //PhotonNetwork.JoinRandomRoom();
+        // 싱글플레이 씬으로 전환
+        if(SceneManager.GetActiveScene().name != "SingleRoom")
+        {
+            SceneManager.LoadScene("SingleRoom");
+        }
     }
 }
