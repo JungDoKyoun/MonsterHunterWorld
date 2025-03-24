@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class BoxCtrl : MonoBehaviour
@@ -19,8 +20,10 @@ public class BoxCtrl : MonoBehaviour
 
     }
 
+
+
     private void OnTriggerEnter(Collider other)
-    {
+    {        
         if (other.gameObject.tag == "Player")
         {
             activeButton.SetActive(true);
@@ -33,19 +36,21 @@ public class BoxCtrl : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                Debug.Log("f");
                 if (invenCanvas.gameObject.activeSelf == false)
                 {
                     invenCanvas.gameObject.SetActive(true);
-                    boxInvenTory.IsBoxOpen = true;
                     activeButton.SetActive(false);
                     other.gameObject.GetComponent<PlayerController>().enabled = false;
+                    other.gameObject.GetComponent<PlayerController>().Move(Vector2.zero);
 
+                    boxInvenTory.OpenBox();
                 }
                 else
                 {
                     invenCanvas.gameObject.SetActive(false);
-                    boxInvenTory.IsBoxOpen = false;
                     other.gameObject.GetComponent<PlayerController>().enabled = true;
+                    boxInvenTory.CloseBox();
                 }
             }
         }

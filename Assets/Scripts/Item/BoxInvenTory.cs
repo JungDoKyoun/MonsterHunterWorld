@@ -128,5 +128,26 @@ public class BoxInvenTory : MonoBehaviour
         NextBox(boxIndex);
     }
 
+    public void OpenBox()
+    {
+        isBoxOpen = true;
+        boxIndex = 1;
+        if(BoxItems.Count > 0)
+        {
+            NextBox(boxIndex);
+        }
 
+        //var islot = GetComponentsInChildren<ItemSlot>();
+
+        //foreach (var s in )
+        //{
+            
+        //}
+    }
+
+    public void CloseBox()
+    {
+        isBoxOpen = false;
+
+    }
 }
