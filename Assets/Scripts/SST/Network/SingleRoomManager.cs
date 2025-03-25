@@ -35,6 +35,9 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         // 초기에 로비 관련 UI 캔버스 비활성화
         questCreateCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(false);
+
+        // 룸정보에서 나오는 퀘스트 이름을 퀘스트 생성할 때 해당 퀘스트 이름으로 초기화
+        roomName.text = questName.text;
     }
 
     private void Update()
@@ -80,11 +83,14 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         string createQuestName = questName.text;
+        questCreateCanvas.gameObject.SetActive(false);
         RoomTransitionManager.Instance.GoToRoom(RoomType.SingleQuestRoom, createQuestName);
+        roomInfoCanvas.gameObject.SetActive(true);
     }
 
     public void LeaveRoom()
     {        
+        roomInfoCanvas.gameObject.SetActive(false);
         RoomTransitionManager.Instance.GoToRoom(RoomType.SingleRoom);
     }
 

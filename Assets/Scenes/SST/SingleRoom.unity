@@ -307,8 +307,6 @@ MonoBehaviour:
   roomInfoCanvas: {fileID: 327858483}
   questName: {fileID: 1539816344}
   roomName: {fileID: 1566465536}
-  playerPrefab: {fileID: 2081968324938285670, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
-  playerSpawnPos: {fileID: 138655207}
 --- !u!4 &82450815
 Transform:
   m_ObjectHideFlags: 0
@@ -4404,8 +4402,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.64, y: 2.5}
-  m_SizeDelta: {x: 285.1287, y: 79}
+  m_AnchoredPosition: {x: -164.1, y: 2.5}
+  m_SizeDelta: {x: 328.2, y: 79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1566465536
 MonoBehaviour:

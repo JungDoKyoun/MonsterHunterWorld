@@ -50,7 +50,7 @@ public class RoomTransitionManager : MonoBehaviourPunCallbacks
         // 원하는 룸 타입 설정
         nextRoom = roomType;
         // 퀘스트 룸 이름을 설정 (해당하는 경우)
-        questRoomName = roomName;
+        questRoomName = roomName;       
         // 현재 방을 떠나야만, 다음방 입장 가능하므로 방 떠남
         PhotonNetwork.LeaveRoom();
     }
@@ -58,15 +58,18 @@ public class RoomTransitionManager : MonoBehaviourPunCallbacks
     // 방 떠났을 때, 호출되는 함수
     public override void OnLeftRoom()
     {
-        // 방 떠남 체크용. 다음 룸 타입도 확인하기 위해서 출력
-        Debug.Log("방을 나갔습니다. 원하는 룸 : " +  nextRoom);
+        if(SceneManager.GetActiveScene().name == "SingleRoom" || SceneManager.GetActiveScene().name == "MeetingHouse")
+        {
+            // 방 떠남 체크용. 다음 룸 타입도 확인하기 위해서 출력
+            Debug.Log("방을 나갔습니다. 원하는 룸 : " + nextRoom);
 
-        StartCoroutine(WaitForJoinRoom());
+            StartCoroutine(WaitForJoinRoom());
+        }        
     }
 
     IEnumerator WaitForJoinRoom()
     {
-        while (!PhotonNetwork.InLobby)
+        while (!PhotonNetwork.IsConnectedAndReady)
         {
             yield return null;
         }
@@ -107,37 +110,40 @@ public class RoomTransitionManager : MonoBehaviourPunCallbacks
     // 새 방에 입장하면 호출되는 콜백
     public override void OnJoinedRoom()
     {
-        // 확인용. 현재 방 이름도 출력
-        Debug.Log("새로운 방에 입장했습니다 : " + PhotonNetwork.CurrentRoom.Name);
-
-        // 원하는 룸 타입에 따라 씬을 전환
-        switch (nextRoom)
+        if (SceneManager.GetActiveScene().name == "SingleRoom" || SceneManager.GetActiveScene().name == "MeetingHouse")
         {
-            // 룸 타입이 싱글룸
-            case RoomType.SingleRoom:
-                // 룸 타입이 싱글룸인데 현재 씬의 이름이 SingleRoom이 아니라면
-                if (SceneManager.GetActiveScene().name != "SingleRoom")
-                {
-                    // SingleRoom 씬으로 전환
-                    SceneManager.LoadScene("SingleRoom");
-                }
-                break;
+            // 확인용. 현재 방 이름도 출력
+            Debug.Log("새로운 방에 입장했습니다 : " + PhotonNetwork.CurrentRoom.Name);
 
-            // 싱글퀘스트룸 상태일때는 씬 전환은 안함
-            case RoomType.SingleQuestRoom:
-                break;
+            // 원하는 룸 타입에 따라 씬을 전환
+            switch (nextRoom)
+            {
+                // 룸 타입이 싱글룸
+                case RoomType.SingleRoom:
+                    // 룸 타입이 싱글룸인데 현재 씬의 이름이 SingleRoom이 아니라면
+                    if (SceneManager.GetActiveScene().name != "SingleRoom")
+                    {
+                        // SingleRoom 씬으로 전환
+                        SceneManager.LoadScene("SingleRoom");
+                    }
+                    break;
 
-            // 집회소 상태면 집회소로 씬 전환
-            case RoomType.MeetingHouse:
-                if (SceneManager.GetActiveScene().name != "MeetingHouse")
-                {
-                    SceneManager.LoadScene("MeetingHouse");
-                }
-                break;
+                // 싱글퀘스트룸 상태일때는 씬 전환은 안함
+                case RoomType.SingleQuestRoom:
+                    break;
 
-            // 멀티퀘스트 상태에선 씬 전환은 안함
-            case RoomType.MultiQuestRoom:
-                break;
+                // 집회소 상태면 집회소로 씬 전환
+                case RoomType.MeetingHouse:
+                    if (SceneManager.GetActiveScene().name != "MeetingHouse")
+                    {
+                        SceneManager.LoadScene("MeetingHouse");
+                    }
+                    break;
+
+                // 멀티퀘스트 상태에선 씬 전환은 안함
+                case RoomType.MultiQuestRoom:
+                    break;
+            }
         }
     }
 }
