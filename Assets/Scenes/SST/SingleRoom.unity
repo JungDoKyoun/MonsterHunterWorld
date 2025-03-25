@@ -305,8 +305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questCreateCanvas: {fileID: 1678676826}
   roomInfoCanvas: {fileID: 327858483}
-  questName: {fileID: 1539816344}
-  roomName: {fileID: 1566465536}
+  basicQuestName: {fileID: 1539816344}
+  questName: {fileID: 1566465536}
 --- !u!4 &82450815
 Transform:
   m_ObjectHideFlags: 0
@@ -1404,7 +1404,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 82450814}
         m_TargetAssemblyTypeName: SingleRoomManager, Assembly-CSharp
-        m_MethodName: LeaveRoom
+        m_MethodName: LeaveQuestRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3762,7 +3762,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 82450814}
         m_TargetAssemblyTypeName: SingleRoomManager, Assembly-CSharp
-        m_MethodName: CreateRoom
+        m_MethodName: CreateQuestRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4301,7 +4301,7 @@ GameObject:
   - component: {fileID: 1539816345}
   - component: {fileID: 1539816344}
   m_Layer: 5
-  m_Name: QuestNameText
+  m_Name: BasicQuestNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

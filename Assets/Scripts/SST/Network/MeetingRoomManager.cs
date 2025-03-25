@@ -6,7 +6,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
-public class MeetingRoomManager : MonoBehaviourPunCallbacks
+// ▼ 퀘스트 생성한 이후의 방을 관리하는 스크립트
+public partial class MeetingRoomManager : MonoBehaviourPunCallbacks
 {
     [Header("방 정보 UI")]
     [SerializeField] private Canvas roomInfoCanvas;          // 방 내부에서 보여지는 UI 캔버스
@@ -48,28 +49,29 @@ public class MeetingRoomManager : MonoBehaviourPunCallbacks
         UpdatePlayerListUI();
     }
 
-    // 새로운 플레이어가 방에 입장하면 플레이어 리스트를 갱신
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        Debug.Log(newPlayer.NickName + " 님이 입장했습니다");
-        UpdatePlayerListUI();
-    }
+    //// 새로운 플레이어가 방에 입장하면 플레이어 리스트를 갱신
+    //public override void OnPlayerEnteredRoom(Player newPlayer)
+    //{
+    //    Debug.Log(newPlayer.NickName + " 님이 입장했습니다");
+    //    UpdatePlayerListUI();
+    //}
 
-    // 플레이어가 방을 나가면 플레이어 리스트를 갱신
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        Debug.Log(otherPlayer.NickName + " 님이 나갔습니다");
-        UpdatePlayerListUI();
-    }
+    //// 플레이어가 방을 나가면 플레이어 리스트를 갱신
+    //public override void OnPlayerLeftRoom(Player otherPlayer)
+    //{
+    //    Debug.Log(otherPlayer.NickName + " 님이 나갔습니다");
+    //    UpdatePlayerListUI();
+    //}
 
+    // !! 커스텀프로퍼티 호출함수
     // 플레이어의 Custom Properties(예: "isReady")가 변경되면 호출됨
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
-    {
-        if (changedProps.ContainsKey("isReady"))
-        {
-            UpdatePlayerListUI();
-        }
-    }
+    //public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    //{
+    //    if (changedProps.ContainsKey("isReady"))
+    //    {
+    //        UpdatePlayerListUI();
+    //    }
+    //}
 
     #endregion
 
@@ -104,18 +106,17 @@ public class MeetingRoomManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
-        roomInfoCanvas.gameObject.SetActive(false);
-        RoomTransitionManager.Instance.GoToRoom(RoomType.MeetingHouse);
+        
     }
 
-    // 일반 플레이어가 준비 버튼을 누르면 호출되는 함수
-    public void OnReady()
-    {
-        // Photon Custom Properties를 통해 로컬 플레이어의 준비 상태를 true로 설정
-        ExitGames.Client.Photon.Hashtable readyProps = new ExitGames.Client.Photon.Hashtable();
-        readyProps["isReady"] = true;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(readyProps);
-    }
+    //// 일반 플레이어가 준비 버튼을 누르면 호출되는 함수
+    //public void OnReady()
+    //{
+    //    // Photon Custom Properties를 통해 로컬 플레이어의 준비 상태를 true로 설정
+    //    ExitGames.Client.Photon.Hashtable readyProps = new ExitGames.Client.Photon.Hashtable();
+    //    readyProps["isReady"] = true;
+    //    PhotonNetwork.LocalPlayer.SetCustomProperties(readyProps);
+    //}
 
     // 방장이 게임 시작 버튼을 누르면 호출되는 함수
     public void InGame()

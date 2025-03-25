@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// ▼ 집회소에 들어가는 상호작용을 위한 스크립트
 public class MeetingHouseCtrl : MonoBehaviour
 {
     private Collider meetingHouseZone;

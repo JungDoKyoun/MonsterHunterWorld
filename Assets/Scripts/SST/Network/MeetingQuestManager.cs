@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // ▼ 퀘스트 생성, 방 목록 업데이트, 퀘스트 입장 역할
-public class MeetingQuestManager : MonoBehaviourPunCallbacks
+public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
 {
     [Header("퀘스트 UI")]
     [SerializeField] Canvas createRoomCanvas;       // ◀ 퀘스트 생성 UI
@@ -91,14 +91,12 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        RoomTransitionManager.Instance.GoToRoom(RoomType.MultiQuestRoom, questNameText.text);
-        createRoomCanvas.gameObject.SetActive(false);
+        
     }
 
     public void JoinRoom()
     {
-        RoomTransitionManager.Instance.GoToRoom(RoomType.MultiQuestRoom, questNameText.text);
-        joinRoomCanvas.gameObject.SetActive(false);
+        
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

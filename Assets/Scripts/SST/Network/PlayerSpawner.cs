@@ -27,4 +27,9 @@ public class PlayerSpawner : MonoBehaviourPunCallbacks
         cam.LookAt = player.transform;
         cam.Follow = player.transform;
     }
+
+    public override void OnJoinedRoom()
+    {
+        SpawnPlayer();
+    }
 }

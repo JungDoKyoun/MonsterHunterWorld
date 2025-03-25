@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,11 +11,13 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     [Header("싱글플레이 UI 요소")]
     [SerializeField] Canvas questCreateCanvas;      // 퀘스트 생성 UI
     [SerializeField] Canvas roomInfoCanvas;         // 퀘스트 정보 UI
-    [SerializeField] Text questName;                // 퀘스트 이름 Text
-    [SerializeField] Text roomName;                 // 방 이름 Text
+    [SerializeField] Text basicQuestName;           // 기본 설정된 퀘스트 이름 Text
+    [SerializeField] Text questName;                // 퀘스트 정보에 표시될 퀘스트 이름 Text
 
     // NPC 감지 관련 변수 (싱글플레이에는 생성 NPC만 있음)
     private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
+
+    private string roomName = "SingleRoom";
 
     //Vector2 originPos = Vector2.up * 1500; // 추후 UI 스크롤 연출에 활용
 
@@ -36,8 +39,8 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         questCreateCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(false);
 
-        // 룸정보에서 나오는 퀘스트 이름을 퀘스트 생성할 때 해당 퀘스트 이름으로 초기화
-        roomName.text = questName.text;
+        // 룸정보에서 나오는 퀘스트 이름을 퀘스트 생성할 때 해당된 퀘스트 이름으로 초기화
+        questName.text = basicQuestName.text;
     }
 
     private void Update()
@@ -80,18 +83,23 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     }
 
     // 방 생성 요청: 방 이름을 이용해 Photon에 방 생성 요청
-    public void CreateRoom()
+    public void CreateQuestRoom()
     {
-        string createQuestName = questName.text;
+        StartCoroutine(WaitForCreateQuestRoom());
         questCreateCanvas.gameObject.SetActive(false);
-        RoomTransitionManager.Instance.GoToRoom(RoomType.SingleQuestRoom, createQuestName);
         roomInfoCanvas.gameObject.SetActive(true);
     }
 
-    public void LeaveRoom()
-    {        
+    public void LeaveQuestRoom()
+    {
+        StartCoroutine(WaitForCreateSingleRoom());
         roomInfoCanvas.gameObject.SetActive(false);
-        RoomTransitionManager.Instance.GoToRoom(RoomType.SingleRoom);
+        Debug.Log("싱글 퀘스트 룸을 떠났습니다.");
+    }
+
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("싱글 퀘스트 룸을 생성했습니다.");
     }
 
     // NPC 감지 이벤트 핸들러: 감지된 NPC를 리스트에 추가하거나 제거
@@ -112,6 +120,34 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         SceneManager.LoadScene("ALLTestScene");
+    }
+
+    IEnumerator WaitForCreateQuestRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        while (!PhotonNetwork.IsConnectedAndReady)
+        {
+            yield return null;
+        }
+
+        Debug.Log("방 생성할 준비가 되었습니다. 싱글 퀘스트 룸으로 이동합니다.");
+
+        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
+        PhotonNetwork.CreateRoom(basicQuestName.text, roomOptions);
+    }
+
+    IEnumerator WaitForCreateSingleRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        while (!PhotonNetwork.IsConnectedAndReady)
+        {
+            yield return null;
+        }
+
+        Debug.Log("방 생성할 준비가 되었습니다. 싱글룸으로 이동합니다.");
+
+        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 }
 
