@@ -101,6 +101,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    private Vector3 _forward = Vector3.zero;
+
     private Action<uint, uint> _lifeAction = null;
 
     [Header("최대 스태미너"), SerializeField, Range(MinStamina, MaxStamina)]
@@ -209,26 +211,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                         Vector2 input = new Vector2(Mathf.Clamp(Input.GetAxis(HorizontalTag), MinInput, MaxInput), Mathf.Clamp(Input.GetAxis(VerticalTag), MinInput, MaxInput));
                         if (input != Vector2.zero)
                         {
-                            Vector3 forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up).normalized;
+                            _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up).normalized;
                             if (_coroutine == null)
                             {
                                 _coroutine = StartCoroutine(DoMoveStart());
                                 IEnumerator DoMoveStart()
                                 {
-                                    Move(forward);
+                                    Vector2 previousDirection = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+                                    Move(previousDirection);
                                     while (IsRunning() == false)
                                     {
-                                        //Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
-                                        //if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-                                        //{
-                                        //    Move(Vector2.zero);
-                                        //    if (PhotonNetwork.InRoom == true)
-                                        //    {
-                                        //        photonView.RPC("Move", RpcTarget.Others, Vector2.zero);
-                                        //    }
-                                        //    _coroutine = null;
-                                        //    yield break;
-                                        //}
+                                        Vector2 currentDirection = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+                                        if (Mathf.Sign(previousDirection.x) != Mathf.Sign(currentDirection.x) || Mathf.Sign(previousDirection.y) != Mathf.Sign(currentDirection.y))
+                                        {
+                                            Move(currentDirection);
+                                            previousDirection = currentDirection;
+                                        }
                                         yield return null;
                                     }
                                     while (IsRunning() == true)
@@ -253,27 +251,29 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                         {
                                             Dash(false);
                                         }
-                                        getTransform.forward = Vector3.Lerp(getTransform.forward, forward, Time.deltaTime * RotationDamping);
+                                        getTransform.forward = Vector3.Lerp(getTransform.forward, _forward, Time.deltaTime * RotationDamping);
                                         yield return null;
                                     }
                                     _coroutine = null;
                                 }
                             }
                         }
-                        else if (getAnimator.GetFloat(HorizontalTag) != 0|| getAnimator.GetFloat(VerticalTag) != 0)
+                        else if (_forward != Vector3.zero)
                         {
                             if (_coroutine != null)
                             {
                                 StopCoroutine(_coroutine);
                                 _coroutine = null;
                             }
-                            Move(Vector3.zero);
+                            _forward = Vector3.zero;
+                            Move(Vector2.zero);
                         }
                     }
                 }
-                else if (getAnimator.GetBool(JumpTag) == false)
+                else if (getAnimator.GetBool(JumpTag) == false && _currentStamina >= JumpStamina)
                 {
                     SetAnimation(JumpTag, true);
+                    _currentStamina -= JumpStamina;
                 }
             }
         }
@@ -354,16 +354,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private void Move(Vector3 forward)
-    {
-        Vector2 direction = new Vector2(Vector3.Dot(getTransform.right, forward), Vector3.Dot(getTransform.forward, forward));
-        Move(direction);
-        if (PhotonNetwork.InRoom == true)
-        {
-            photonView.RPC("Move", RpcTarget.Others, direction);
-        }
-    }
-
     private void SetAnimation(string tag)
     {
         SetTrigger(tag);
@@ -382,6 +372,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    private void SetAnimation(string tag, float value)
+    {
+        SetFloat(tag, value);
+        if (PhotonNetwork.InRoom == true)
+        {
+            photonView.RPC("SetFloat", RpcTarget.Others, tag, value);
+        }
+    }
+
     [PunRPC]
     private void SetTrigger(string tag)
     {
@@ -392,6 +391,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void SetBool(string tag, bool value)
     {
         getAnimator.SetBool(tag, value);
+    }
+
+    [PunRPC]
+    private void SetFloat(string tag, float value)
+    {
+        getAnimator.SetFloat(tag, value);
+    }
+
+    [PunRPC]
+    private void SetLife(uint current, uint full)
+    {
+        _fullLife = full;
+        if (_fullLife < current)
+        {
+            _currentLife = _fullLife;
+        }
+        else
+        {
+            _currentLife = current;
+        }
+        _lifeAction?.Invoke(_currentLife, _fullLife);
     }
 
     private bool IsRunning()
@@ -419,7 +439,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         _lifeAction = lifeAction;
     }
 
-    public void TakeDamage(Vector3 position, uint damage)
+    public void TakeDamage(Vector3 position, uint damage, bool knockback = false)
     {
         if(photonView.IsMine == true && _currentLife > 0)
         {
@@ -454,21 +474,31 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             else
             {
                 _currentLife = 0;
+                _currentStamina = 0;
                 SetAnimation(DeadTag);
             }
-            _lifeAction?.Invoke(_currentLife, _fullLife);
+            SetLife(_currentLife, _fullLife);
+            if (PhotonNetwork.InRoom == true)
+            {
+                photonView.RPC("SetLife", RpcTarget.Others, _currentLife, _fullLife);
+            }
         }
     }
 
-    public void Heal(uint value)
+    public void Recover(uint value, uint extend)
     {
+
     }
 
-    [PunRPC]
+    public void Recover(float value, float extend)
+    {
+
+    }
+
     public void Move(Vector2 direction)
     {
-        getAnimator.SetFloat(HorizontalTag, direction.x);
-        getAnimator.SetFloat(VerticalTag, direction.y);
+        SetAnimation(HorizontalTag, direction.x);
+        SetAnimation(VerticalTag, direction.y);
     }
 
     public override void OnDisable()

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class EnemyTest : MonoBehaviour
 {
     private bool _hasTransform = false;
@@ -18,6 +19,9 @@ public class EnemyTest : MonoBehaviour
             return _transform;
         }
     }
+
+    [SerializeField]
+    private bool _knockback = false;
 
     [SerializeField]
     private uint _damage = 1;
@@ -45,6 +49,6 @@ public class EnemyTest : MonoBehaviour
     public void Attack()
     {
         Vector3 position = getTransform.position;
-        _playerController?.TakeDamage(position, _damage);
+        _playerController?.TakeDamage(position, _damage, _knockback);
     }
 }
