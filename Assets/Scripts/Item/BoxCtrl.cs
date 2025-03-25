@@ -42,6 +42,8 @@ public class BoxCtrl : MonoBehaviour
                 {
                     invenCanvas.gameObject.SetActive(true);
                     activeButton.SetActive(false);
+                    
+                    //플레이어 이동 제한
                     other.gameObject.GetComponent<PlayerController>().enabled = false;
                     other.gameObject.GetComponent<PlayerController>().Move(Vector2.zero);
 
@@ -51,7 +53,7 @@ public class BoxCtrl : MonoBehaviour
                 {
                     invenCanvas.gameObject.SetActive(false);
                     other.gameObject.GetComponent<PlayerController>().enabled = true;
-                    boxInvenTory.CloseBox();
+                    boxInvenTory.InvenClose();
                 }
             }
         }
