@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class SingleRoomManager : MonoBehaviourPunCallbacks
 {
-    public static SingleRoomManager Instance { get; private set; }
-
     [Header("싱글플레이 UI 요소")]
     [SerializeField] Canvas questCreateCanvas;      // 퀘스트 생성 UI
     [SerializeField] Canvas roomInfoCanvas;         // 퀘스트 정보 UI
@@ -22,15 +20,6 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         // NPC 감지 이벤트 구독
         NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged;
     }

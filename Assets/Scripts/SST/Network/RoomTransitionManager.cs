@@ -61,6 +61,17 @@ public class RoomTransitionManager : MonoBehaviourPunCallbacks
         // 방 떠남 체크용. 다음 룸 타입도 확인하기 위해서 출력
         Debug.Log("방을 나갔습니다. 원하는 룸 : " +  nextRoom);
 
+        StartCoroutine(WaitForJoinRoom());
+    }
+
+    IEnumerator WaitForJoinRoom()
+    {
+        while (!PhotonNetwork.InLobby)
+        {
+            yield return null;
+        }
+        Debug.Log("로비에 입장했습니다. 이제 새로운 방을 생성/입장 합니다");
+
         // 원하는 상태에 따라서 새 방을 생성하거나 입장함
         switch (nextRoom)
         {
@@ -79,7 +90,7 @@ public class RoomTransitionManager : MonoBehaviourPunCallbacks
             // 멀티 퀘스트(집회소) 타입
             case RoomType.MultiQuestRoom:
                 JoinOrCreateRoom(questRoomName, 4);
-                break;                
+                break;
         }
     }
 
