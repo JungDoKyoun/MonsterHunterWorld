@@ -217,15 +217,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                 _coroutine = StartCoroutine(DoMoveStart());
                                 IEnumerator DoMoveStart()
                                 {
-                                    Move(new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward)));
-                                    Vector3 forward = _forward;
+                                    Vector2 previousDirection = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+                                    Move(previousDirection);
                                     while (IsRunning() == false)
                                     {
-                                        Vector2 direction = new Vector2(Vector3.Dot(new Vector3(forward.z, forward.y, -forward.x), _forward), Vector3.Dot(forward, _forward));
-                                        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                                        Vector2 currentDirection = new Vector2(Vector3.Dot(getTransform.right, _forward), Vector3.Dot(getTransform.forward, _forward));
+                                        if (Mathf.Sign(previousDirection.x) != Mathf.Sign(currentDirection.x) || Mathf.Sign(previousDirection.y) != Mathf.Sign(currentDirection.y))
                                         {
-                                            Move(direction);
-                                            forward = _forward;
+                                            Move(currentDirection);
+                                            previousDirection = currentDirection;
                                         }
                                         yield return null;
                                     }
