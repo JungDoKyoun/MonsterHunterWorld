@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 using UnityEngine;
 
 
@@ -23,7 +22,7 @@ public class BoxCtrl : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other)
-    {        
+    {
         if (other.gameObject.tag == "Player")
         {
             activeButton.SetActive(true);
@@ -40,8 +39,9 @@ public class BoxCtrl : MonoBehaviour
                 if (invenCanvas.gameObject.activeSelf == false)
                 {
                     invenCanvas.gameObject.SetActive(true);
+                    Debug.Log("왜 안켜지지?");
                     activeButton.SetActive(false);
-                    
+
                     //플레이어 이동 제한
                     other.gameObject.GetComponent<PlayerController>().enabled = false;
                     other.gameObject.GetComponent<PlayerController>().Move(Vector2.zero);
@@ -53,6 +53,8 @@ public class BoxCtrl : MonoBehaviour
                     invenCanvas.gameObject.SetActive(false);
                     other.gameObject.GetComponent<PlayerController>().enabled = true;
                     boxInvenTory.InvenClose();
+                    activeButton.SetActive(true);
+
                 }
             }
         }

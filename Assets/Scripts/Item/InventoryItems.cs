@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 //현재 가지고있을 아이템 인벤토리
 public class InventoryItems : BaseInventory
@@ -10,18 +7,19 @@ public class InventoryItems : BaseInventory
     void Start()
     {
         invenType = InvenType.Inven;
-        
+
         //테스트용 아이템 추가
         foreach (var item in ItemDataBase.Instance.items.ToList())
         {
             items.Add(item);
             //Debug.Log(item.name);
         }
+        
+        //InvenToryCtrl.Instance.AddItemByName(items, "회복약");
+        AddItem(items, ItemDataBase.Instance.GetItem(ItemImageNumber.RecoveryPotion));
 
-        InvenToryCtrl.Instance.AddItemByName(items, "회복약");
 
-
-        SlotSetting(invenType);
+        SlotSetting(gameObject,invenType);
 
         //가지고있는 아이템이 있는경우
         if (items.Count > 0)

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum ItemType
 {
@@ -21,8 +20,8 @@ public enum Attribute
 
 public enum TrapType
 {
-    Setup,Throw
-     
+    Setup, Throw
+
 }
 
 public class BaseItem
@@ -36,9 +35,26 @@ public class BaseItem
     public int maxCount;//최대한 들고있을수 있는 갯수
     public int allCount;//가지고있는 총 갯수  
     public Color color;
-    
+
     public string tooltip;
     public int price;
+
+    public virtual BaseItem Clone()
+    {
+        return new BaseItem
+        {
+            image = this.image,
+            name = this.name,
+            type = this.type,
+            rarity = this.rarity,
+            count = this.count,
+            maxCount = this.maxCount,
+            allCount = this.allCount,
+            color = this.color,
+            tooltip = this.tooltip,
+            price = this.price
+        };
+    }
 
 }
 
