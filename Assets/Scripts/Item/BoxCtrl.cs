@@ -18,7 +18,6 @@ public class BoxCtrl : MonoBehaviour
     {
         invenCanvas.gameObject.SetActive(false);
         activeButton.SetActive(false);
-
     }
 
 
