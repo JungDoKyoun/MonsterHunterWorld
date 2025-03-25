@@ -10,6 +10,11 @@ public enum InvenType
 //플레이어의 모든 인벤토리
 public class InvenToryCtrl : MonoBehaviour
 {
+    //현재 장착한 장비 인벤토리
+
+    //현재 흭득한 장비 인벤토리
+
+
     //현재 가지고있을 인벤토리
     public InventoryItems inventoryItems;
     //사물함 인벤토리
@@ -34,6 +39,7 @@ public class InvenToryCtrl : MonoBehaviour
     {
         foreach (BaseItem item in itemList)
         {
+            //가지고 있는 템이 있는경우.
             if (item.name == targetName)
             {
                 item.count = Mathf.Min(item.count + 1, item.maxCount); // 최대치 초과 방지
@@ -41,6 +47,10 @@ public class InvenToryCtrl : MonoBehaviour
                 return;
             }
         }
+
+        //여기까지오면 가지고 있는 템이없음.
+        
+
 
         Debug.LogWarning($"'{targetName}' 이름의 아이템을 리스트에서 찾을 수 없습니다.");
     }
@@ -53,6 +63,7 @@ public class InvenToryCtrl : MonoBehaviour
         {
             if(boxInvenTory.BoxItems.Contains(item))
             {
+
                 AddItemByName(boxInvenTory.BoxItems, item.name);
             }
             else

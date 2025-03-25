@@ -13,6 +13,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     [SerializeField]
     Sprite[] sprites = new Sprite[2];
 
+    Image image;
+
     BaseItem item;
     public BaseItem Item => item;
 
@@ -30,6 +32,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         tooltipBox = GameObject.Find("ItemTooltipBox").GetComponent<ItemToolTipCtrl>();
 
         //SlotSetItem(item);
+
+        image = gameObject.GetComponent<Image>();
     }
 
     public void SetInvenType(InvenType type)
@@ -53,9 +57,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             countText.text = "";
         }
-
-
-
     }
 
     //아이템 클릭시 해당 아이템 창고로 넘기기
@@ -125,12 +126,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 슬롯에 마우스 빠져나갔을때 툴팁 끄고 원래대로
     public void OnPointerExit(PointerEventData eventData)
     {
-        var img = gameObject.GetComponent<Image>();
+       
 
         //현재 선택된 정보가 아이템이 아니면 초기화
         tooltipBox.TooltipClear(false);
-        img.color = new Color(1, 1, 1, 1);
-        img.sprite = sprites[0];
+        ClearSlot();
 
         //실행되던 코루틴 정지
         if (fadeCoroutine != null)
@@ -138,5 +138,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             StopCoroutine(fadeCoroutine);
             fadeCoroutine = null;
         }
+    }
+
+    public void ClearSlot()
+    {
+        image.color = new Color(1, 1, 1, 1);
+        image.sprite = sprites[0];
     }
 }
