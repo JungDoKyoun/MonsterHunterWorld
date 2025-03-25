@@ -8,6 +8,7 @@ public abstract class MonsterStatusSO : ScriptableObject
     public int ID;
     public string Name;
     public uint MaxHP;
+    public uint RoSpeed;
     public GameObject Prefab;
     //To-Do 아이템 클래스 추가
     //public List<> DropItem;
@@ -24,11 +25,13 @@ public abstract class MonsterStatusSO : ScriptableObject
     public float AttackRange;
     public float MinAttackRange;
     public float SturnTime;
+    public List<MonsterAttackData> MonsterAttackDatas;
 }
 
 
 [CreateAssetMenu(fileName = "BossMonster", menuName = "Monster/BossMonster")]
 public class BossMonster : MonsterStatusSO
 {
-
+    public List<MonsterProjectileData> ProjectileDatas;
+    public string Label;
 }

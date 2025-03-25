@@ -10,6 +10,7 @@ public class MonsterManager : MonoBehaviour
     private MonsterController _monsterController;
     private MonsterAnimationController _animationController;
     [SerializeField] private BossMonster _monsterSO;
+    [SerializeField] private MonsterProjectileSpawnManager _monsterProjectileSpawnManager;
 
     private void Awake()
     {
@@ -43,4 +44,5 @@ public class MonsterManager : MonoBehaviour
     public MonsterController MonsterController { get { return _monsterController; } private set { _monsterController = value; } }
     public MonsterAnimationController AnimationController { get { return _animationController; } private set { _animationController = value; } }
     public BossMonster MonsterSO { get { return _monsterSO; } private set { _monsterSO = value; } }
+    public MonsterProjectileSpawnManager MonsterProjectileSpawnManager { get { return _monsterProjectileSpawnManager; } private set { _monsterProjectileSpawnManager = value; } }
 }
