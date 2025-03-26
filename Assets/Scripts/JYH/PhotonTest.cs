@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
+using ExitGames.Client.Photon;
 
 public class PhotonTest : MonoBehaviourPunCallbacks
 {
@@ -23,7 +21,14 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("younghan");
-        //SceneManager.LoadScene("younghan");
+        //PhotonNetwork.LoadLevel("younghan");
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable hashtable)
+    {
+        foreach (string key in hashtable.Keys)
+        {
+            Debug.Log(key);
+        }
     }
 }
