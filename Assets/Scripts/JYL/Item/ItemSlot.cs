@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public Action<BaseItem> onClick;
 
     InvenType invenType;
 
@@ -109,6 +111,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         countText.text = item.count.ToString();
         tooltipBox.ToolTipSetItem(item);
         InvenToryCtrl.Instance.inventoryItems.RefreshUI();
+
+        onClick?.Invoke(item);
     }
 
     //æ∆¿Ã≈€ ΩΩ∑‘ø° ∏∂øÏΩ∫ ∞¨¥Ÿ ¥Ú¿ª∂ß ≈¯∆¡ ∂ÁøÏ±‚

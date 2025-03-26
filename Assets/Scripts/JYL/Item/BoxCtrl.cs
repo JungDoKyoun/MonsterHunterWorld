@@ -13,6 +13,7 @@ public class BoxCtrl : MonoBehaviour
     BoxInvenTory boxInvenTory;//사물함 인벤토리
 
     bool isPlayer = false;
+
     Collider player;
 
     void Start()
@@ -23,7 +24,7 @@ public class BoxCtrl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (isPlayer && Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("F");
 
@@ -65,11 +66,11 @@ public class BoxCtrl : MonoBehaviour
         {
             isPlayer = true;
             player = other;
+
         }
-        else
-        {
-            isPlayer = false;
-        }
+
+        Debug.Log(isPlayer);
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -77,6 +78,8 @@ public class BoxCtrl : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             activeButton.SetActive(false);
+            isPlayer = false;
+
         }
     }
 
