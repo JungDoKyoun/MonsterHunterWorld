@@ -15,27 +15,37 @@ public class PhotonTest : MonoBehaviourPunCallbacks
     [SerializeField]
     private Transform _contentTransform = null;
 
-    private Dictionary<string, Button> _buttonList = new Dictionary<string, Button>();
-
-    [Serializable]
-    private struct Test
-    {
-        public string key;
-        public string value;
-
-        public Test(string key, string value)
-        {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    [SerializeField]
-    private List<Test> list = new List<Test>();
+    private Dictionary<int, Button> _buttonList = new Dictionary<int, Button>();
 
     private void Awake()
     {
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    private void UpdateRoomInfo()
+    {
+        Dictionary<int, int> roomInfo = new Dictionary<int, int>();
+        Room room = PhotonNetwork.CurrentRoom;
+        if(room != null)
+        {
+            Dictionary<int, Player> players = room.Players;
+            foreach(Player player in players.Values)
+            {
+                Hashtable hashtable = player.CustomProperties;
+                if(hashtable.ContainsKey("Room") == true && int.TryParse(hashtable["Room"].ToString(), out int index))
+                {
+                    if(roomInfo.ContainsKey(index) == true)
+                    {
+                        roomInfo[index] += 1;
+                    }
+                    else
+                    {
+                        roomInfo.Add(index, 1);
+                    }
+                }
+            }
+        }
+
     }
 
     public override void OnConnectedToMaster()
@@ -54,44 +64,37 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         _roomText.Set(room.Name);
         if (room != null)
         {
-            room.SetCustomProperties(new Hashtable() { {"dd", "d"} });
+            Player player = PhotonNetwork.LocalPlayer;
 
-            //PhotonNetwork.LoadLevel("younghan");
+
+
+            Hashtable hashtable = player.CustomProperties;
+            if (hashtable.ContainsKey("Room") == true)
+            {
+                PhotonNetwork.LoadLevel("younghan");
+            }
         }
     }
 
-    public override void OnRoomPropertiesUpdate(Hashtable hashtable)
+    public override void OnPlayerLeftRoom(Player player)
     {
-        foreach (string key in hashtable.Keys)
+        UpdateRoomInfo();
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player player, Hashtable hashtable)
+    {
+        Debug.Log("입장");
+        if (hashtable.ContainsKey("Room") == true)
         {
-            if(_buttonList.ContainsKey(key) == true)
+            Debug.Log("삭제");
+            Room room = PhotonNetwork.CurrentRoom;
+            if (room != null)
             {
-                if (hashtable[key] != null)
+                Dictionary<int, Player> players = room.Players;
+                foreach(KeyValuePair<int, Player> keyValuePair in players)
                 {
-                    _buttonList[key].Set(hashtable[key].ToString());
+
                 }
-                else
-                {
-                    Destroy(_buttonList[key]);
-                    _buttonList.Remove(key);
-                }
-            }
-            else if(_contentTransform != null && _buttonPrefab != null)
-            {
-                Button button = Instantiate(_buttonPrefab, _contentTransform);
-                button.Set(hashtable[key].ToString());
-                _buttonList.Add(key, button);
-            }
-        }
-        list.Clear();
-        Room room = PhotonNetwork.CurrentRoom;
-        if(room != null)
-        {
-            hashtable = room.CustomProperties;
-            foreach (string key in hashtable.Keys)
-            {
-                string value = hashtable[key] != null ? hashtable[key].ToString() : null;
-                list.Add(new Test(key, value));
             }
         }
     }
