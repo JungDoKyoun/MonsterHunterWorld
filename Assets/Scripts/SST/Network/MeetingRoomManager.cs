@@ -18,7 +18,7 @@ public partial class MeetingRoomManager : MonoBehaviourPunCallbacks
     [SerializeField] private Button questStartButton;          // 방장이 게임 시작할 때 사용하는 버튼
     [SerializeField] private Button questReadyButton;          // 일반 플레이어가 준비 상태를 설정할 때 사용하는 버튼
 
-    private void Start()
+    private void Awake()
     {
         // 초기에 방 내부 UI는 비활성화
         roomInfoCanvas.gameObject.SetActive(false);

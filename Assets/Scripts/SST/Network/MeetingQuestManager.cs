@@ -22,6 +22,9 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        createRoomCanvas.gameObject.SetActive(false);
+        joinRoomCanvas.gameObject.SetActive(false);
+        
         // ▼ NPC 감지 이벤트 구독
         NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged;
     }
@@ -30,13 +33,6 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
     {
         // ▼ 파괴시 구독 해지
         NpcCtrl.OnNpcDetectionChanged -= HandleNpcDetectionChanged;
-    }
-
-    private void Start()
-    {
-        // ▼ 일단 퀘스트(방) 생성, 입장 UI 비활성화로 초기화
-        createRoomCanvas.gameObject.SetActive(false);
-        joinRoomCanvas.gameObject.SetActive(false);
     }
 
     private void Update()

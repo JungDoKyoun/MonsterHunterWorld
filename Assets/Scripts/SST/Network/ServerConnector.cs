@@ -34,14 +34,17 @@ public class ServerConnector : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("SingleRoom", roomOptions, TypedLobby.Default);
     }
 
-    public override void OnJoinedRoom()
+    public override void OnCreatedRoom()
     {
-        Debug.Log("싱글룸에 입장하였습니다.");
-
         // 싱글플레이 씬으로 전환
-        if(SceneManager.GetActiveScene().name != "SingleRoom")
+        if (SceneManager.GetActiveScene().name != "SingleRoom")
         {
             LoadingSceneManager.LoadSceneWithLoading("SingleRoom");
         }
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("싱글룸에 입장하였습니다.");
     }
 }

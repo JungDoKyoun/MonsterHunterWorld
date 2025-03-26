@@ -114,7 +114,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        SceneManager.LoadScene("ALLTestScene");
+        SceneManager.LoadScene("DoKyoun");
     }
 
     IEnumerator WaitForCreateQuestRoom()

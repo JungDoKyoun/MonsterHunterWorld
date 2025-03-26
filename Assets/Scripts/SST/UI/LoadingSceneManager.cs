@@ -17,9 +17,15 @@ public class LoadingSceneManager : MonoBehaviour
     private float fadeDuration = 1f;        // 페이드 효과 지속시간
     private float blinkSpeed = 10f;          // 텍스트 깜빡임 속도
 
+    Coroutine blinkCor;
+    Coroutine rotateCor;
+
     private void Start()
     {
         StartCoroutine(PlayLoadScene());
+        // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
+        blinkCor = StartCoroutine(BlinkText());
+        rotateCor = StartCoroutine(RotateImage());
     }
 
     IEnumerator PlayLoadScene()
@@ -28,10 +34,9 @@ public class LoadingSceneManager : MonoBehaviour
         float startTime = 0f;
 
         // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
-        Coroutine blinkCor = StartCoroutine(BlinkText());
-        Coroutine rotateCor = StartCoroutine(RotateImage());
+        //Coroutine blinkCor = StartCoroutine(BlinkText());
+        //Coroutine rotateCor = StartCoroutine(RotateImage());
 
-        // 캔버스 그룹 페이드인 될 때까지 대기
         yield return StartCoroutine(FadeCanvasGroup(loadingCanvas, 0f, 1f, fadeDuration));
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
