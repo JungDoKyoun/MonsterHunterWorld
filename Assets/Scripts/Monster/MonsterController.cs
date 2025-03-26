@@ -27,15 +27,15 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private Vector3 _targetPlayerPos; //타깃이된 플레이어 위치 정보
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private string _label; //어드레서블에서 불러올 라벨
-    private uint _roSpeed; //부드럽게 돌때 사용하는 변수
+    private int _roSpeed; //부드럽게 돌때 사용하는 변수
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
-    private uint _headMaxDamage; //도달하면 스턴 걸리는 수치
-    private uint _currentHeadDamage; //현재 머리에 얼마나 데미지 쌓였나?
-    private uint _maxHP; //최대 HP
+    private int _headMaxDamage; //도달하면 스턴 걸리는 수치
+    private int _currentHeadDamage; //현재 머리에 얼마나 데미지 쌓였나?
+    private int _maxHP; //최대 HP
     private int _lastAttack;
-    private uint _currentHP; //현재 몬스터의 HP
-    private uint _damage; //몬스터 데미지
+    private int _currentHP; //현재 몬스터의 HP
+    private int _damage; //몬스터 데미지
     //private uint _biteDamage; //몬스터 물기 데미지
     //private uint _taileDamage; //꼬리 데미지
     //private uint _chargeDamage; //돌진 데미지
@@ -408,7 +408,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void TakeDamage(uint damage) //데미지 받기
+    public void TakeDamage(int damage) //데미지 받기
     {
         _currentHP -= damage;
 
@@ -420,9 +420,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void TakeHeadDamage(uint damage) //머리에 데미지 받을때
+    public void TakeHeadDamage(int damage) //머리에 데미지 받을때
     {
-        uint restDamage;
+        int restDamage;
         if (!IsStun)
         {
             _currentHeadDamage += damage;
@@ -453,6 +453,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void ApplyRootMotionMovement() //루트모션 좌표 강제 이동
     {
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
         Vector3 rootMotionMove = _anime.deltaPosition;
         Vector3 navMeshMove = _agent.desiredVelocity.normalized * rootMotionMove.magnitude;
 

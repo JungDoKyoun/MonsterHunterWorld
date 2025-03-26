@@ -6,7 +6,7 @@ using UnityEngine;
 public class MonsterAttackData
 {
     public string AttackName;
-    public uint Damage;
+    public int Damage;
     public string AnimeName;
     public bool UsesProjectile;
     public ProjectileType ProjectileType;
