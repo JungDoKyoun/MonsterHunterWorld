@@ -57,6 +57,7 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
 
     public void ReturnProjectile(ProjectileType type, MonsterProjectile prefab)
     {
+        prefab.ResetProjectile();
         if(MonsterProjectilePool.TryGetValue(type, out var objectPool))
         {
             objectPool.Release(prefab);
