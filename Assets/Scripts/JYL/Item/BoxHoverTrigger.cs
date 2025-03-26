@@ -3,15 +3,15 @@ using UnityEngine.EventSystems;
 
 public class BoxHoverTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private ChangeBox arrowFx;
+    [SerializeField] private ChangeBox changeBox;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        arrowFx.OnBoxHover();
+        changeBox.OnBoxHover();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        arrowFx.OnExit();
+        changeBox.OnExit();
     }
 }

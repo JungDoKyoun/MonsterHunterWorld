@@ -87,6 +87,7 @@ public class ItemDataBase : MonoBehaviour
             key = ItemImageNumber.HunterArmor,
             name = "«Â≈Õ X ∏ﬁ¿œ",
             type = ItemType.Armor,
+            equipType = EquipSlot.Chest,
             rarity = "»Ò±Õµµ 8",
             count = 1,
             maxCount = 1,
@@ -161,7 +162,7 @@ public class ItemDataBase : MonoBehaviour
 
     public BaseItem GetItem(int index)
     {
-        return items[index];
+        return items[index].Clone();
     }
 
     public BaseItem GetItem(string name)
@@ -170,7 +171,7 @@ public class ItemDataBase : MonoBehaviour
         {
             if (item.name == name)
             {
-                return item;
+                return item.Clone();
             }
         }
         return null;
@@ -178,6 +179,6 @@ public class ItemDataBase : MonoBehaviour
 
     public BaseItem GetItem(ItemImageNumber itemImageNumber)
     {
-        return items[(int)itemImageNumber];
+        return items[(int)itemImageNumber].Clone();
     }
 }

@@ -1,60 +1,42 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipInventoryUI : MonoBehaviour
+//장비 인벤토리 UI
+public class EquipInventoryUI : BaseInventory
 {
-    [SerializeField] private Transform gridParent;
-    [SerializeField] private GameObject slotPrefab;
-    [SerializeField] private Text pageText;
-    [SerializeField] private EquipDetailUI detailUI;
+    [SerializeField] GameObject slotParent;
 
-    private List<BaseItem> allEquipItems;
-    private List<ItemSlot> slots = new();
-    private int itemsPerPage = 20;
-    private int currentPage = 0;
-
-    public void Open(List<BaseItem> allItems)
+    private void Start()
     {
-        allEquipItems = allItems.FindAll(i => i.type == ItemType.Weapon || i.type == ItemType.Armor);
-        currentPage = 0;
-        RefreshPage();
-    }
+        invenType = InvenType.EquipBox;
 
-    public void RefreshPage()
-    {
-        foreach (var slot in slots)
-            Destroy(slot.gameObject);
-        slots.Clear();
+        SlotSetting(slotParent, invenType);
 
-        int start = currentPage * itemsPerPage;
-        int end = Mathf.Min(start + itemsPerPage, allEquipItems.Count);
+        InvenInit();
 
-        for (int i = start; i < end; i++)
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.HunterKnife));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.HunterArmor));
+
+        //가지고있는 아이템이 있는경우
+        if (items.Count > 0)
         {
-            var go = Instantiate(slotPrefab, gridParent);
-            var slot = go.GetComponent<ItemSlot>();
-            slot.SlotSetItem(allEquipItems[i]);
-            slot.onClick = OnClickItem;
-            slots.Add(slot);
+            for (int i = 0; i < items.Count; i++)
+            {
+                slot[i].GetComponent<ItemSlot>().SlotSetItem(items[i]);
+            }
         }
-
-        pageText.text = $"{currentPage + 1} / {Mathf.CeilToInt((float)allEquipItems.Count / itemsPerPage)}";
-        detailUI.Clear();
     }
 
-    public void OnClickItem(BaseItem item)
+    private void OnEnable()
     {
-        detailUI.ShowDetail(item);
-        // 추후 "장착" 키 누르면 장비 전환 처리
+        StartCoroutine(DelayedRefresh());
     }
 
-    public void NextPage() => SetPage(currentPage + 1);
-    public void PrevPage() => SetPage(currentPage - 1);
-
-    private void SetPage(int page)
+    IEnumerator DelayedRefresh()
     {
-        currentPage = Mathf.Clamp(page, 0, (allEquipItems.Count - 1) / itemsPerPage);
-        RefreshPage();
+        yield return new WaitForSeconds(0.1f);
+        RefreshUI();
     }
 }

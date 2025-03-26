@@ -9,8 +9,20 @@ public enum ItemType
     Empty,
     All
 }
+public enum EquipSlot
+{
+    Weapon,
+    Head,
+    Chest,
+    Arms,
+    Waist,
+    Legs
+}
+
+
 public enum Attribute
 {
+    empty,//무속성
     Fire,
     Water,
     Lightning,
@@ -57,12 +69,22 @@ public class BaseItem
         };
     }
 
+    //EquipSlot? (nullable)로 하면 장비가 아닌 아이템은 null로 처리 가능
+    public virtual EquipSlot? GetEquipSlot()
+    {
+        return null; // 기본은 장착 불가
+    }
+
 }
 
 public class Weapon : BaseItem
 {
     public int damage;
     public Attribute attribute;
+    public override EquipSlot? GetEquipSlot()
+    {
+        return EquipSlot.Weapon;
+    }
 
     public override BaseItem Clone()
     {
@@ -88,6 +110,11 @@ public class Armor : BaseItem
 {
     public int defense;
     public Attribute attribute;
+    public EquipSlot equipType;
+    public override EquipSlot? GetEquipSlot()
+    {
+        return equipType; // Armor에 이미 정의된 장착 부위
+    }
 
     public override BaseItem Clone()
     {
@@ -97,6 +124,7 @@ public class Armor : BaseItem
             key = this.key,
             name = this.name,
             type = this.type,
+            equipType = this.equipType,
             rarity = this.rarity,
             count = this.count,
             maxCount = this.maxCount,

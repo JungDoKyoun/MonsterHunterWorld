@@ -23,17 +23,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public GameObject itemImage;
     public Text countText;
 
-
-    ItemToolTipCtrl tooltipBox;
+    //인벤용 툴팁 - 장비인벤에선 못씀 
+    //[SerializeField] ItemToolTipCtrl tooltipBox;
 
     private Coroutine fadeCoroutine;
 
     private void Start()
     {
         item = ItemDataBase.Instance.emptyItem;
-        tooltipBox = GameObject.Find("ItemTooltipBox").GetComponent<ItemToolTipCtrl>();
-
-        //SlotSetItem(item);
 
         image = gameObject.GetComponent<Image>();
     }
@@ -97,9 +94,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 클릭시 해당 아이템 반대편 인벤토리로 넘기기
     public void OnPointerClick(PointerEventData eventData)
     {
-        
+
         InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.key);
-        
+
 
         if (item.count <= 0)
         {
@@ -109,8 +106,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
 
         countText.text = item.count.ToString();
-        tooltipBox.ToolTipSetItem(item);
-        InvenToryCtrl.Instance.inventoryItems.RefreshUI();
+
+        if (invenType == InvenType.Inven || invenType == InvenType.Box)
+            InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
+
+        InvenToryCtrl.Instance.InventoryItems.RefreshUI();
 
         onClick?.Invoke(item);
     }
@@ -118,14 +118,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 슬롯에 마우스 갔다 댔을때 툴팁 띄우기
     public void OnPointerEnter(PointerEventData eventData)
     {
-
-
         //나중에 반짝반짝 할예정
         var image = gameObject.GetComponent<Image>();
 
         image.sprite = sprites[1];
 
-        tooltipBox.ToolTipSetItem(item);
+        if (invenType == InvenType.Inven ||
+            invenType == InvenType.Box)
+        {
+            InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
+        }
+
         Debug.Log(item.name);
 
         fadeCoroutine = StartCoroutine(FadeAlphaLoop(image));
@@ -164,9 +167,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void OnPointerExit(PointerEventData eventData)
     {
 
-
-        //현재 선택된 정보가 아이템이 아니면 초기화
-        tooltipBox.TooltipClear(false);
+        if (invenType == InvenType.Inven || invenType == InvenType.Box)
+            //현재 선택된 정보가 아이템이 아니면 초기화
+            InvenToryCtrl.Instance.ItemToolTipCtrl.TooltipClear(false);
 
         //실행되던 코루틴 정지
         if (fadeCoroutine != null)

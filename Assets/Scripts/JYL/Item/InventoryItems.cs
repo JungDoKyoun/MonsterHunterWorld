@@ -29,7 +29,6 @@ public class InventoryItems : BaseInventory
             for (int i = 0; i < items.Count; i++)
             {
                 slot[i].GetComponent<ItemSlot>().SlotSetItem(items[i]);
-                //Debug.Log(items[i].name + "이거있따아아아아아아아아앙아아아아아아아아");
             }
         }
         //없으면 고대로 하면됨

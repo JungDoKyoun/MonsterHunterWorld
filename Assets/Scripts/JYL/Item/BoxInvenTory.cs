@@ -27,7 +27,7 @@ public class BoxInvenTory : BaseInventory
 
         InvenInit();
 
-        Debug.Log("박스인벤 시작");
+        //Debug.Log("박스인벤 시작");
     }
 
     public void AddItem(BaseItem item, int index)
