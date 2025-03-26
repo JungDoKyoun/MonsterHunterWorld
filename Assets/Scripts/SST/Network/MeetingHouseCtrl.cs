@@ -21,13 +21,13 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
     private void Update()
     {
         if (isInMeetingZone && Input.GetKeyDown(KeyCode.F))
-        {
+        {           
             StartCoroutine(WaitForCreateMeetingRoom());            
         }
     }
 
     IEnumerator WaitForCreateMeetingRoom()
-    {
+    {        
         PhotonNetwork.LeaveRoom();
         while (!PhotonNetwork.IsConnectedAndReady)
         {
@@ -53,7 +53,7 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("πÊ ¿‘¿Â");
-        SceneManager.LoadScene("MeetingHouse");
+        LoadingSceneManager.LoadSceneWithLoading("MeetingHouse");
     }
 
     private void OnTriggerEnter(Collider other)
