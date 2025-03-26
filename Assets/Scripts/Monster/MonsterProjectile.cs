@@ -44,7 +44,7 @@ public class MonsterProjectile : MonoBehaviour
 
     public void Shoot()
     {
-        uint Projectilespeed = _data.speed;
+        int Projectilespeed = _data.speed;
         transform.Translate(Vector3.forward * Projectilespeed * Time.deltaTime, Space.Self);
     }
 
