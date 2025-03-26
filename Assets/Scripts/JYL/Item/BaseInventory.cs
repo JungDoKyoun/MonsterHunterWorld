@@ -121,6 +121,7 @@ public abstract class BaseInventory : MonoBehaviour
         int index = currentItems.FindIndex(i => i == changeItems);
         if (index >= 0)
         {
+            Debug.Log($"[RemoveItem] {changeItems.name} 제거됨 -> emptyItem으로 교체");
             currentItems[index] = emptyItem;
         }
     }
@@ -182,6 +183,8 @@ public abstract class BaseInventory : MonoBehaviour
     //아이템 슬롯 갱신
     public virtual void RefreshUI()
     {
+        Debug.Log("[RefreshUI] 호출됨");
+
         for (int i = 0; i < slot.Count; i++)
         {
             var slotComp = slot[i].GetComponent<ItemSlot>();
@@ -194,7 +197,7 @@ public abstract class BaseInventory : MonoBehaviour
             // item[i]가 null이면 emptyItem으로 대체
             BaseItem currentItem =
                 (i < items.Count && items[i] != null) ? items[i] : ItemDataBase.Instance.emptyItem;
-
+            Debug.Log($"슬롯 {i}: {items[i].name}, 타입: {items[i].type}, count: {items[i].count}");
             slotComp.SlotSetItem(currentItem);
         }
     }
