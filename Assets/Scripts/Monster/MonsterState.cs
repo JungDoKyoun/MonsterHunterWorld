@@ -109,6 +109,8 @@ public class MonsterRotationState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
+        _monster.IsRo = true;
+        Debug.Log(_monster.IsRo);
         if(!_monster.IsBattle)
         {
             _targetPos = _monster.GetNextPatrolPos();

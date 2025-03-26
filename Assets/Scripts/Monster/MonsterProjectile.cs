@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MonsterProjectile : MonoBehaviour
+public class MonsterProjectile : MonoBehaviourPunCallbacks
 {
     [SerializeField] private ProjectileType projectileType;
     [SerializeField] private ParticleSystem OnHitEffect;
@@ -73,6 +73,15 @@ public class MonsterProjectile : MonoBehaviour
         _ignorColliders.Clear();
     }
 
+    //[PunRPC]
+    //public void SpawnHitEffect(Vector3 pos)
+    //{
+    //    if (OnHitEffect != null)
+    //    {
+    //        Instantiate(OnHitEffect, pos, Quaternion.identity);
+    //    }
+    //}
+
     private void OnTriggerEnter(Collider other)
     {
         if (!PhotonNetwork.IsMasterClient) return;
@@ -96,11 +105,11 @@ public class MonsterProjectile : MonoBehaviour
             }
         }
 
-        if (OnHitEffect != null)
+        if (PhotonNetwork.IsMasterClient && OnHitEffect != null)
         {
-            var onHitObj = Instantiate(OnHitEffect, transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(OnHitEffect.name, transform.position, Quaternion.identity);
         }
 
-            _monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
+        _monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
     }
 }

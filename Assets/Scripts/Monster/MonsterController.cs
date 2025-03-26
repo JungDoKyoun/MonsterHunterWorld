@@ -254,12 +254,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (Math.Abs(angle) < 30)
         {
-            Debug.Log("작은회전");
             StartCoroutine(SmoothTurn(dir));
         }
         else
         {
-            SetAnime("IsRo", false);
+            SetAnime("IsRo", true);
             SetAnime("TurnAngle", angle);
             StartCoroutine(WaitForEndRotateAnime());
         }
@@ -408,8 +407,30 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void RequestTakeDamage(int damage)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("TakeDamage", RpcTarget.MasterClient, damage);
+        }
+    }
+
+    public void RequestTakeHeadDamage(int damage)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("TakeHeadDamage", RpcTarget.MasterClient, damage);
+        }
+    }
+
+    [PunRPC]
     public void TakeDamage(int damage) //데미지 받기
     {
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         _currentHP -= damage;
 
         if(_currentHP <= 0)
@@ -418,10 +439,20 @@ public class MonsterController : MonoBehaviourPunCallbacks
             photonView.RPC("Die", RpcTarget.All);
             return;
         }
+        else
+        {
+            SyncHP(_currentHP);
+        }
     }
 
+    [PunRPC]
     public void TakeHeadDamage(int damage) //머리에 데미지 받을때
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         int restDamage;
         if (!IsStun)
         {
@@ -434,6 +465,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
             _currentHeadDamage = 0;
             _currentHeadDamage += restDamage;
             photonView.RPC("Stun", RpcTarget.All);
+        }
+        else
+        {
+            SyncHeadDamage(_currentHeadDamage);
         }
     }
 
@@ -449,6 +484,18 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _isStun = true;
         StartCoroutine(WaitForEndSturnAnime());
+    }
+
+    [PunRPC]
+    public void SyncHP(int HP)
+    {
+        _currentHP = HP;
+    }
+
+    [PunRPC]
+    public void SyncHeadDamage(int currentHeadDamage)
+    {
+        _currentHeadDamage = currentHeadDamage;
     }
 
     public void ApplyRootMotionMovement() //루트모션 좌표 강제 이동
