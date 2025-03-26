@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
-using TMPro;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -64,10 +63,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Coroutine _coroutine = null;
 
-    [Header("최대 체력"), SerializeField]
-    private uint _fullLife;
+    [Header("최대 체력"), SerializeField, Range(MinValue, MaxLife)]
+    private int _fullLife;
 
-    public uint fullLife
+    public int fullLife
     {
         get
         {
@@ -75,7 +74,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         set
         {
-            _fullLife = (uint)Mathf.Clamp(value, MinValue, MaxLife);
+            _fullLife = Mathf.Clamp(value, MinValue, MaxLife);
             if (_fullLife < _currentLife)
             {
                 _currentLife = _fullLife;
@@ -83,10 +82,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [Header("현재 체력"), SerializeField]
-    private uint _currentLife;
+    [Header("현재 체력"), SerializeField, Range(MinValue, MaxLife)]
+    private int _currentLife;
 
-    public uint currentLife
+    public int currentLife
     {
         get
         {
@@ -94,7 +93,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         set
         {
-            _currentLife = (uint)Mathf.Clamp(value, MinValue, MaxLife);
+            _currentLife = Mathf.Clamp(value, MinValue, MaxLife);
             if (_fullLife < _currentLife)
             {
                 _currentLife = _fullLife;
@@ -104,7 +103,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Vector3 _forward = Vector3.zero;
 
-    private Action<uint, uint> _lifeAction = null;
+    private Action<int, int> _lifeAction = null;
 
     [Header("최대 스태미너"), SerializeField, Range(MinValue, MaxStamina)]
     private float _fullStamina;
@@ -145,12 +144,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [SerializeField]
-    private uint _damage = 0;
+    private int _damage = 0;
 
     private bool _swing = false;
 
-    private const uint MinValue = 0;
-    private const uint MaxLife = 200;
+    private const int MinValue = 0;
+    private const int MaxLife = 200;
     private const float MaxStamina = 250;
     private const string IdleToLeftTag = "IdleToLeft";
     private const string IdleToRightTag = "IdleToRight";
@@ -297,7 +296,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (other.TryGetComponent(out MonsterController monsterController))
             {
-                monsterController.TakeDamage(_damage);
+                //monsterController.TakeDamage(_damage);
                 StopSwing();
             }
             else if(other.tag == "MonsterHead")
@@ -308,7 +307,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     transform = transform.parent;
                     if(transform.TryGetComponent(out monsterController))
                     {
-                        monsterController.TakeHeadDamage(_damage);
+                        //monsterController.TakeHeadDamage(_damage);
                         StopSwing();
                         return;
                     }
@@ -412,9 +411,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    private void SetLife(uint current, uint full)
+    private void SetLife(int current, int full)
     {
-        _fullLife = (uint)Mathf.Clamp(full, MinValue, MaxLife);
+        _fullLife = Mathf.Clamp(full, MinValue, MaxLife);
         if (_fullLife < current)
         {
             _currentLife = _fullLife;
@@ -456,12 +455,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         return null;
     }
 
-    public void Initialize(Action<uint, uint> lifeAction)
+    public void Initialize(Action<int, int> lifeAction)
     {
         _lifeAction = lifeAction;
     }
 
-    public void TakeDamage(Vector3 position, uint damage, bool knockback = false)
+    public void TakeDamage(Vector3 position, int damage, bool knockback = false)
     {
         if(photonView.IsMine == true && _currentLife > 0)
         {
@@ -539,7 +538,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-    public bool TryRecover(uint value, uint extend = 0)
+    public bool TryRecover(int value, int extend = 0)
     {
         if (photonView.IsMine == true && (_currentLife > 0 || _fullLife == _currentLife) && _coroutine == null)
         {

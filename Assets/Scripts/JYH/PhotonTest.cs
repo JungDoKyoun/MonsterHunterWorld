@@ -1,9 +1,13 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using ExitGames.Client.Photon;
 
 public class PhotonTest : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    private Transform contentTransform = null;
+
     private void Awake()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -21,6 +25,8 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        Room room = PhotonNetwork.CurrentRoom;
+        
         //PhotonNetwork.LoadLevel("younghan");
     }
 
