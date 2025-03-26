@@ -43,53 +43,86 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void SlotSetItem(BaseItem value)
     {
+        //if (value == null)
+        //{
+        //    Debug.LogError("▶ SlotSetItem: value가 null입니다.");
+        //    return;
+        //}
+
         item = value;
+
+        //if (itemImage == null)
+        //{
+        //    Debug.LogError("▶ itemImage가 null입니다. 초기화 전에 호출됐을 수 있음.");
+        //    return;
+        //}
+
+
         var img = itemImage.GetComponent<Image>();
+
+        //if (img == null)
+        //{
+        //    Debug.LogError($"▶ itemImage '{itemImage.name}' 에 Image 컴포넌트가 없습니다.");
+        //    return;
+        //}
+
+        //if (item.image == null)
+        //{
+        //    Debug.LogWarning("▶ item.image가 null입니다.");
+        //    return;
+        //}
+
+
+
+        //Debug.Log($" SlotSetItem 성공: {item.name}");
 
         img.sprite = item.image;
         img.color = item.color;
 
-        if (item.count > 0)
-        {
-            countText.text = item.count.ToString();
-        }
-        else
-        {
-            countText.text = "";
-        }
+        countText.text = (item.count > 0) ? item.count.ToString() : "";
+
+        //위 코드로 수정했음
+        //if (item.count > 0)
+        //{
+        //    countText.text = item.count.ToString();
+        //}
+        //else
+        //{
+        //    countText.text = "";
+        //}
     }
 
-    //아이템 클릭시 해당 아이템 창고로 넘기기
+    //아이템 클릭시 해당 아이템 반대편 인벤토리로 넘기기
     public void OnPointerClick(PointerEventData eventData)
     {
-        //변동수치 갱신
-        item.count--;
-        countText.text = item.count.ToString();
-        tooltipBox.ToolTipSetItem(item);
+        
+        InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.key);
+        
 
         if (item.count <= 0)
         {
-            item.count = 0;
             item = ItemDataBase.Instance.emptyItem;
             SlotSetItem(item);
-
         }
 
-        InvenToryCtrl.Instance.ChangeItem(invenType, item);
 
-
-
+        countText.text = item.count.ToString();
+        tooltipBox.ToolTipSetItem(item);
+        InvenToryCtrl.Instance.inventoryItems.RefreshUI();
     }
 
     //아이템 슬롯에 마우스 갔다 댔을때 툴팁 띄우기
     public void OnPointerEnter(PointerEventData eventData)
     {
+
+
         //나중에 반짝반짝 할예정
         var image = gameObject.GetComponent<Image>();
 
         image.sprite = sprites[1];
 
         tooltipBox.ToolTipSetItem(item);
+        Debug.Log(item.name);
 
         fadeCoroutine = StartCoroutine(FadeAlphaLoop(image));
 
@@ -126,11 +159,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 슬롯에 마우스 빠져나갔을때 툴팁 끄고 원래대로
     public void OnPointerExit(PointerEventData eventData)
     {
-       
+
 
         //현재 선택된 정보가 아이템이 아니면 초기화
         tooltipBox.TooltipClear(false);
-        ClearSlot();
 
         //실행되던 코루틴 정지
         if (fadeCoroutine != null)
@@ -138,6 +170,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             StopCoroutine(fadeCoroutine);
             fadeCoroutine = null;
         }
+
+        ClearSlot();
     }
 
     public void ClearSlot()

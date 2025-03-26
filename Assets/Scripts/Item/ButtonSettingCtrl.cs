@@ -9,13 +9,13 @@ public enum ButtonValue
     Enter, Space, Backspace, Tab, CapsLock, Shift, Ctrl, Alt, Esc, Insert, Delete, Home, End, PageUp, PageDown,//기능키
     ArrowUp, ArrowDown, ArrowLeft, ArrowRight,//방향키
     //마우스 왼쪽, 오른쪽, 보조1, 보조2
-    MouseLeft, MouseRight, MouseSub1, MouseSub2, 
+    MouseLeft, MouseRight, MouseSub1, MouseSub2,
     //마우스 휠
-    MouseScrollUp, MouseScrollDown, MouseScrollclick, 
+    MouseScrollUp, MouseScrollDown, MouseScrollclick,
     //+, -, *, ,, ., :, ;, /, \
     Plus, Minus, Multiply, Comma, Period, Colon, Semicolon, Slash, BackSlash,
     //^, @ , [, ]
-    Caret, AtSymbol, OpenSquareBracket, CloseSquareBracket 
+    Caret, AtSymbol, OpenSquareBracket, CloseSquareBracket
 }
 
 
