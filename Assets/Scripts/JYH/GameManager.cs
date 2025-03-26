@@ -18,11 +18,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void OnGUI()
-    {
-        
-    }
-
     public override void OnDisable()
     {
         base.OnDisable();

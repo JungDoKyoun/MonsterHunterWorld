@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         set
         {
-            _fullLife = value;
+            _fullLife = (uint)Mathf.Clamp(value, MinValue, MaxLife);
             if (_fullLife < _currentLife)
             {
                 _currentLife = _fullLife;
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         set
         {
-            _currentLife = value;
+            _currentLife = (uint)Mathf.Clamp(value, MinValue, MaxLife);
             if (_fullLife < _currentLife)
             {
                 _currentLife = _fullLife;
@@ -105,7 +106,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Action<uint, uint> _lifeAction = null;
 
-    [Header("최대 스태미너"), SerializeField, Range(MinStamina, MaxStamina)]
+    [Header("최대 스태미너"), SerializeField, Range(MinValue, MaxStamina)]
     private float _fullStamina;
 
     public float fullStamina
@@ -116,7 +117,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         set
         {
-            _fullStamina = Mathf.Clamp(value, MinStamina, MaxStamina);
+            _fullStamina = Mathf.Clamp(value, MinValue, MaxStamina);
             if (_fullStamina < _currentStamina)
             {
                 _currentStamina = _fullStamina;
@@ -124,7 +125,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [Header("현재 스태미너"), SerializeField, Range(MinStamina, MaxStamina)]
+    [Header("현재 스태미너"), SerializeField, Range(MinValue, MaxStamina)]
     private float _currentStamina;
 
     public float currentStamina
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         set
         {
-            _currentStamina = Mathf.Clamp(value, MinStamina, MaxStamina);
+            _currentStamina = Mathf.Clamp(value, MinValue, MaxStamina);
             if (_fullStamina < _currentStamina)
             {
                 _currentStamina = _fullStamina;
@@ -148,8 +149,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool _swing = false;
 
-    private const float MinStamina = 0;
-    private const float MaxStamina = int.MaxValue;
+    private const uint MinValue = 0;
+    private const uint MaxLife = 200;
+    private const float MaxStamina = 250;
     private const string IdleToLeftTag = "IdleToLeft";
     private const string IdleToRightTag = "IdleToRight";
     private const string IdleToBackTag = "IdleToBack";
@@ -157,6 +159,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly float MaxInput = 1;
     private static readonly float RotationDamping = 10;
     private static readonly float JumpStamina = 0.2f;
+    private static readonly float RecoverTime = 2.3f;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string RunTag = "Run";
@@ -167,6 +170,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly string HitBackTag = "HitBack";
     private static readonly string HitLeftTag = "HitLeft";
     private static readonly string HitRightTag = "HitRight";
+    private static readonly string RecoverTag = "Recover";
     private static readonly string DeadTag = "Dead";
 
 #if UNITY_EDITOR
@@ -274,6 +278,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     SetAnimation(JumpTag, true);
                     _currentStamina -= JumpStamina;
+                }
+                else if(_fullStamina > _currentStamina)
+                {
+                    _currentStamina += Time.deltaTime;
+                    if(_currentStamina > _fullStamina)
+                    {
+                        _currentStamina = _fullStamina;
+                    }
                 }
             }
         }
@@ -402,7 +414,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void SetLife(uint current, uint full)
     {
-        _fullLife = full;
+        _fullLife = (uint)Mathf.Clamp(full, MinValue, MaxLife);
         if (_fullLife < current)
         {
             _currentLife = _fullLife;
@@ -412,6 +424,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             _currentLife = current;
         }
         _lifeAction?.Invoke(_currentLife, _fullLife);
+    }
+
+    [PunRPC]
+    private void SetStamina(float full)
+    {
+        _fullStamina = Mathf.Clamp(full, MinValue, MaxStamina);
+        if (_fullStamina < _currentStamina)
+        {
+            _currentStamina = _fullStamina;
+        }
     }
 
     private bool IsRunning()
@@ -443,7 +465,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(photonView.IsMine == true && _currentLife > 0)
         {
-            if(damage < _currentLife)
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
+            getPlayerCostume.SetWeapon(true);
+            if (damage < _currentLife)
             {
                 _currentLife -= damage;
                 Vector3 point = getTransform.position - position;
@@ -485,16 +513,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    public void Recover(uint value, uint extend)
-    {
-
-    }
-
-    public void Recover(float value, float extend)
-    {
-
-    }
-
     public void Move(Vector2 direction)
     {
         SetAnimation(HorizontalTag, direction.x);
@@ -518,5 +536,75 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             _currentStamina = (float)stream.ReceiveNext();
         }
+    }
+
+
+    public bool TryRecover(uint value, uint extend = 0)
+    {
+        if (photonView.IsMine == true && (_currentLife > 0 || _fullLife == _currentLife) && _coroutine == null)
+        {
+            _coroutine = StartCoroutine(DoRecoverStart());
+            IEnumerator DoRecoverStart()
+            {
+                getPlayerCostume.SetWeapon(false);
+                SetAnimation(RecoverTag);
+                yield return new WaitForSeconds(RecoverTime);
+                getPlayerCostume.SetWeapon(true);
+                bool change = false;
+                if (extend > 0 && _fullLife + extend <= MaxLife)
+                {
+                    bool full = _fullLife == _currentLife;
+                    _fullLife += extend;
+                    if (full == true)
+                    {
+                        _currentLife = _fullLife;
+                    }
+                    change = true;
+                }
+                if (value > 0 && _currentLife + value <= _fullLife)
+                {
+                    _currentLife += value;
+                    change = true;
+                }
+                if (change == true)
+                {
+                    SetLife(_currentLife, _fullLife);
+                    if (PhotonNetwork.InRoom == true)
+                    {
+                        photonView.RPC("SetLife", RpcTarget.Others, _currentLife, _fullLife);
+                    }
+                }
+                _coroutine = null;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public bool TryRecover(float value)
+    {
+        if (photonView.IsMine == true && (_currentLife > 0 || _fullLife == _currentLife) && _coroutine == null)
+        {
+            _coroutine = StartCoroutine(DoRecoverStart());
+            IEnumerator DoRecoverStart()
+            {
+                getPlayerCostume.SetWeapon(false);
+                SetAnimation(RecoverTag);
+                yield return new WaitForSeconds(RecoverTime);
+                getPlayerCostume.SetWeapon(true);
+                if (value > 0 && _fullStamina + value <= MaxStamina)
+                {
+                    _fullStamina += value;
+                    SetStamina(_fullStamina);
+                    if (PhotonNetwork.InRoom == true)
+                    {
+                        photonView.RPC("SetStamina", RpcTarget.Others, _fullStamina);
+                    }
+                }
+                _coroutine = null;
+            }
+            return true;
+        }
+        return false;
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class EnemyTest : MonoBehaviour
+public class InteractionTest : MonoBehaviour
 {
     private bool _hasTransform = false;
 
@@ -43,7 +43,6 @@ public class EnemyTest : MonoBehaviour
             Gizmos.DrawRay(position, direction);
         }
     }
-#endif
 
     [ContextMenu("공격")]
     public void Attack()
@@ -51,4 +50,17 @@ public class EnemyTest : MonoBehaviour
         Vector3 position = getTransform.position;
         _playerController?.TakeDamage(position, _damage, _knockback);
     }
+
+    [ContextMenu("체력 회복")]
+    public void RecoverLife()
+    {
+        _playerController?.TryRecover(10, 2);
+    }
+
+    [ContextMenu("스태미나 회복")]
+    public void RecoverStamina()
+    {
+        _playerController?.TryRecover(10f);
+    }
+#endif
 }

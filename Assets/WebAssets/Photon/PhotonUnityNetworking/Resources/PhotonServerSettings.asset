@@ -54,11 +54,10 @@ MonoBehaviour:
   - SetBool
   - SetFloat
   - SetLife
-  - ShootProjectile
-  - Die
-  - Stun
-  - Roar
-  - BackMove
+  - SetStamina
+  - Add
+  - CreateRoom
+  - Remove
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

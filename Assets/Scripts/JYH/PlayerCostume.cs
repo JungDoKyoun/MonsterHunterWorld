@@ -65,8 +65,20 @@ public class PlayerCostume : MonoBehaviour
         Waist5Start = 74,
         Waist5End = 76,
         Waist6Start = 77,
-        Waist6End = 78,
+        Waist6End = 77,
+        OneHandSwordStart = 78,
+        OneHandSwordEnd = 79,
     }
+
+    public enum Weapon: byte
+    {
+        OneHandSword,
+        GreatSword,
+        End
+    }
+
+    [SerializeField]
+    private Weapon _weapon = Weapon.OneHandSword;
 
     [SerializeField]
     private GameObject[] _costumes = new GameObject[0];
@@ -507,5 +519,21 @@ public class PlayerCostume : MonoBehaviour
         SetHead(index);
         SetLeg(index);
         SetWaist(index);
+    }
+
+    public void SetWeapon(bool value)
+    {
+        switch (_weapon)
+        {
+            case Weapon.OneHandSword:
+                for (int i = (int)Index.OneHandSwordStart; i <= (int)Index.OneHandSwordEnd; i++)
+                {
+                    if (i < _costumes.Length && _costumes[i] != null)
+                    {
+                        _costumes[i].SetActive(value);
+                    }
+                }
+                break;
+        }
     }
 }
