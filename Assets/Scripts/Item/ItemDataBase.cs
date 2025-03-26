@@ -33,7 +33,7 @@ public class ItemDataBase : MonoBehaviour
         {
             Instance = this;
         }
-        
+
         if (itemImages.Count <= (int)ItemImageNumber.Empty ||
             itemImages[(int)ItemImageNumber.Empty] == null)
         {
@@ -44,6 +44,7 @@ public class ItemDataBase : MonoBehaviour
         emptyItem = new BaseItem
         {
             image = itemImages[(int)ItemImageNumber.Empty],
+            key = ItemImageNumber.Empty,
             name = "",
             type = ItemType.Empty,
             rarity = "  ",
@@ -67,6 +68,7 @@ public class ItemDataBase : MonoBehaviour
         items.Add(new Weapon
         {
             image = itemImages[(int)ItemImageNumber.HunterKnife],
+            key = ItemImageNumber.HunterKnife,
             name = "ÇåÅÍ ³ªÀÌÇÁ I",
             type = ItemType.Weapon,
             rarity = "Èñ±Íµµ 1",
@@ -82,6 +84,7 @@ public class ItemDataBase : MonoBehaviour
         items.Add(new Armor
         {
             image = itemImages[(int)ItemImageNumber.HunterArmor],
+            key = ItemImageNumber.HunterArmor,
             name = "ÇåÅÍ X ¸ÞÀÏ",
             type = ItemType.Armor,
             rarity = "Èñ±Íµµ 8",
@@ -97,6 +100,7 @@ public class ItemDataBase : MonoBehaviour
         items.Add(new Potion
         {
             image = itemImages[(int)ItemImageNumber.RecoveryPotion],
+            key = ItemImageNumber.RecoveryPotion,
             name = "È¸º¹¾à",
             type = ItemType.Potion,
             rarity = "Èñ±Íµµ 1",
@@ -111,6 +115,7 @@ public class ItemDataBase : MonoBehaviour
         items.Add(new Potion
         {
             image = itemImages[(int)ItemImageNumber.WellCookedMeat],
+            key = ItemImageNumber.WellCookedMeat,
             name = "Àß ÀÍÀº °í±â",
             type = ItemType.Potion,
             rarity = "Èñ±Íµµ 1",
@@ -125,6 +130,7 @@ public class ItemDataBase : MonoBehaviour
         items.Add(new Trap
         {
             image = itemImages[(int)ItemImageNumber.VineTrap],
+            key = ItemImageNumber.VineTrap,
             name = "±¸¸Û ÇÔÁ¤",
             type = ItemType.Trap,
             rarity = "Èñ±Íµµ 3",

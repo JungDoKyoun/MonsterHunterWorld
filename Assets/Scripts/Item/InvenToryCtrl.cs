@@ -27,12 +27,14 @@ public class InvenToryCtrl : MonoBehaviour
             Instance = this;
         }
     }
+
     public void ChangeItemByKey(InvenType fromType, ItemImageNumber itemKey)
     {
         BaseInventory from = (fromType == InvenType.Inven) ? inventoryItems : boxInvenTory;
         BaseInventory to = (fromType == InvenType.Inven) ? boxInvenTory : inventoryItems;
 
         BaseItem original = ItemDataBase.Instance.itemDB[itemKey];
+
         int fromIndex = from.Items.FindIndex(i => i.name == original.name);
 
         if (fromIndex >= 0)
@@ -49,8 +51,8 @@ public class InvenToryCtrl : MonoBehaviour
         inventoryItems.CompactItemList();
         boxInvenTory.CompactItemList();
 
-        inventoryItems.RefreshUI(inventoryItems.Slot, inventoryItems.Items);
-        boxInvenTory.RefreshUI(boxInvenTory.Slot, boxInvenTory.Items);
+        inventoryItems.RefreshUI();
+        boxInvenTory.RefreshUI();
     }
 
 

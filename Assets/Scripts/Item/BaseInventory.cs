@@ -35,12 +35,24 @@ public abstract class BaseInventory : MonoBehaviour
 
     }
 
-    public bool TryAddItemToInventory(BaseItem newItem)
+    protected void InvenInit()
     {
+        // 슬롯 수만큼 아이템 리스트에 emptyItem 채워넣기
+        for (int i = 0; i < slot.Count; i++)
+        {
+            items.Add(ItemDataBase.Instance.emptyItem);
+        }
+    }
+
+    //흭득 아이템 인벤토리로 넣기
+    public bool GetItemToInventory(BaseItem newItem)
+    {
+        //Debug.Log(newItem.name + " 흭득!");
+
         if (newItem == null || newItem.type == ItemType.Empty)
             return false;
 
-        // 1. 같은 이름의 아이템이 있으면 → count 증가
+        // 1. 같은 이름의 아이템이 있으면 -> count 증가
         int index = items.FindIndex(i => i.name == newItem.name);
 
         if (index >= 0)
@@ -64,19 +76,9 @@ public abstract class BaseInventory : MonoBehaviour
         if (emptyIndex >= 0)
         {
             // 새로운 BaseItem 생성해서 넣어줘야 참조 충돌 없음
-            items[emptyIndex] = new BaseItem
-            {
-                image = newItem.image,
-                name = newItem.name,
-                type = newItem.type,
-                rarity = newItem.rarity,
-                count = 1,
-                maxCount = newItem.maxCount,
-                allCount = newItem.allCount,
-                color = newItem.color,
-                tooltip = newItem.tooltip,
-                price = newItem.price
-            };
+            BaseItem copy = newItem.Clone();
+            copy.count = 1; // 새로 들어오는 아이템이니까 수량은 1로 초기화
+            items[emptyIndex] = copy;
 
             return true;
         }
@@ -98,20 +100,20 @@ public abstract class BaseInventory : MonoBehaviour
         }
     }
 
-    //아이템 추가
-    public void AddItem(List<BaseItem> currentItems, BaseItem changeItems)
-    {
-        int index = currentItems.FindIndex(i => i == emptyItem);
-        if (index >= 0)
-        {
-            Debug.Log(changeItems.name);
-            currentItems[index] = changeItems;
-        }
-        else
-        {
-            currentItems.Add(changeItems);
-        }
-    }
+    ////아이템 추가
+    //public void AddItem(List<BaseItem> currentItems, BaseItem changeItems)
+    //{
+    //    int index = currentItems.FindIndex(i => i == emptyItem);
+    //    if (index >= 0)
+    //    {
+    //        Debug.Log(changeItems.name);
+    //        currentItems[index] = changeItems;
+    //    }
+    //    else
+    //    {
+    //        currentItems.Add(changeItems);
+    //    }
+    //}
 
     //아이템 삭제
     public void RemoveItem(List<BaseItem> currentItems, BaseItem changeItems)
@@ -124,54 +126,65 @@ public abstract class BaseInventory : MonoBehaviour
     }
 
     //아이템 교환
-public bool ChangeItem(List<BaseItem> current, ItemImageNumber itemKey)
-{
-    if (!ItemDataBase.Instance.itemDB.ContainsKey(itemKey))
+    public bool ChangeItem(List<BaseItem> current, ItemImageNumber itemKey)
     {
-        Debug.LogWarning("itemDB에 해당 키가 없습니다.");
-        return false;
-    }
+        Debug.Log(current.Count);
 
-    BaseItem baseItem = ItemDataBase.Instance.itemDB[itemKey];
+        int emptyCount = current.Count(i => i.type == ItemType.Empty);
+        Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
 
-    // 1. 이미 같은 아이템이 있으면 → count++
-    int index = current.FindIndex(i => i.name == baseItem.name);
-    if (index >= 0)
-    {
-        if (current[index].count < current[index].maxCount)
+
+        if (!ItemDataBase.Instance.itemDB.ContainsKey(itemKey))
         {
-            current[index].count++;
-            return true;
-        }
-        else
-        {
-            Debug.Log("최대 수량 도달");
+            Debug.LogWarning("itemDB에 해당 키가 없습니다.");
             return false;
         }
-    }
 
-    // 2. 빈 슬롯이 있으면 → 복사해서 추가
-    int emptyIndex = current.FindIndex(i => i.type == ItemType.Empty);
-    if (emptyIndex >= 0)
-    {
-        BaseItem copy = baseItem.Clone();
-        copy.count = 1; // 복사할 때 count 조정 필요
-        current[emptyIndex] = copy;
-        return true;
-    }
+        BaseItem baseItem = ItemDataBase.Instance.itemDB[itemKey];
 
-    Debug.Log("슬롯이 가득 찼습니다.");
-    return false;
-}
+        // 1. 이미 같은 아이템이 있으면 -> count++
+        int index = current.FindIndex(i => i.name == baseItem.name);
+        if (index >= 0)
+        {
+            if (current[index].count < current[index].maxCount)
+            {
+                current[index].count++;
+                return true;
+            }
+            else
+            {
+                Debug.Log("최대 수량 도달");
+                return false;
+            }
+        }
+
+        // 2. 빈 슬롯이 있으면 -> 복사해서 추가
+        int emptyIndex = current.FindIndex(i => i.type == ItemType.Empty);
+
+        if (emptyIndex >= 0)
+        {
+            //자꾸 같은아이템 복사해서 넣어주면 참조가 같아져서 count가 같이 증가함
+            //그래서 클론메서드 만듬
+            BaseItem copy = baseItem.Clone();
+            copy.count = 1; // 복사할 때 count 조정 필요
+
+            Debug.Log($"[ChangeItem] 새로운 아이템 추가됨: {copy.name} → 슬롯 {emptyIndex}");
+            current[emptyIndex] = copy;
+            return true;
+        }
+
+        Debug.Log("슬롯이 가득 찼습니다.");
+        return false;
+    }
 
 
 
     //아이템 슬롯 갱신
-    public virtual void RefreshUI(List<GameObject> slots, List<BaseItem> item)
+    public virtual void RefreshUI()
     {
-        for (int i = 0; i < slots.Count; i++)
+        for (int i = 0; i < slot.Count; i++)
         {
-            var slotComp = slots[i].GetComponent<ItemSlot>();
+            var slotComp = slot[i].GetComponent<ItemSlot>();
             if (slotComp == null)
             {
                 Debug.LogWarning($"슬롯 {i}번에 ItemSlot 컴포넌트가 없습니다.");
@@ -180,7 +193,7 @@ public bool ChangeItem(List<BaseItem> current, ItemImageNumber itemKey)
 
             // item[i]가 null이면 emptyItem으로 대체
             BaseItem currentItem =
-                (i < item.Count && item[i] != null) ? item[i] : ItemDataBase.Instance.emptyItem;
+                (i < items.Count && items[i] != null) ? items[i] : ItemDataBase.Instance.emptyItem;
 
             slotComp.SlotSetItem(currentItem);
         }

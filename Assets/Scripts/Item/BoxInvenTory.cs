@@ -19,18 +19,13 @@ public class BoxInvenTory : BaseInventory
     //현재 선택된 사물함 태그
     ItemType selectBoxTag;
 
-
-    //public List<BaseItem> BoxItems
-    //{
-    //    get => items;
-    //    set => items = value;
-    //}
-
     private void Start()
     {
         invenType = InvenType.Box;
 
         SlotSetting(gameObject, invenType);
+
+        InvenInit();
 
         Debug.Log("박스인벤 시작");
     }
@@ -46,7 +41,7 @@ public class BoxInvenTory : BaseInventory
         items[index] = item;
     }
 
-    override public void RefreshUI(List<GameObject> slots, List<BaseItem> item)
+    override public void RefreshUI()
     {
         for (int i = 0; i < 100; i++)
         {
