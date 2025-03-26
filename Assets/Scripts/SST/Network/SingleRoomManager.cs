@@ -83,23 +83,18 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     }
 
     // 방 생성 요청: 방 이름을 이용해 Photon에 방 생성 요청
-    public void CreateQuestRoom()
+    public void CreateQuest()
     {
-        StartCoroutine(WaitForCreateQuestRoom());
+        //StartCoroutine(WaitForCreateQuestRoom());
         questCreateCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(true);
     }
 
-    public void LeaveQuestRoom()
+    public void LeaveQuest()
     {
-        StartCoroutine(WaitForCreateSingleRoom());
+        //StartCoroutine(WaitForCreateSingleRoom());
         roomInfoCanvas.gameObject.SetActive(false);
-        Debug.Log("싱글 퀘스트 룸을 떠났습니다.");
-    }
-
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("싱글 퀘스트 룸을 생성했습니다.");
+        Debug.Log("싱글 퀘스트 창에서 나갔습니다.");
     }
 
     // NPC 감지 이벤트 핸들러: 감지된 NPC를 리스트에 추가하거나 제거

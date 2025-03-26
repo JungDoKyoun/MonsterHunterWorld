@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1da14cd8e083347955fbc097abce13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2081968324938285670, guid: 0fb92ebc2d5784a438c6584d7f59eee5, type: 3}
+  playerPrefab: {fileID: 4646173490247177517, guid: 3435b8f7b3271a246a6234618ae91f91, type: 3}
   spawnPos: {fileID: 138655207}
   cam: {fileID: 181409074}
 --- !u!4 &138655207
@@ -1404,7 +1404,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 82450814}
         m_TargetAssemblyTypeName: SingleRoomManager, Assembly-CSharp
-        m_MethodName: LeaveQuestRoom
+        m_MethodName: LeaveQuest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3762,7 +3762,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 82450814}
         m_TargetAssemblyTypeName: SingleRoomManager, Assembly-CSharp
-        m_MethodName: CreateQuestRoom
+        m_MethodName: CreateQuest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
