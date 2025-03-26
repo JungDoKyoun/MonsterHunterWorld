@@ -15955,7 +15955,7 @@ GameObject:
   - component: {fileID: 7116461360313808096}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16184,6 +16184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07282de7a596749887e8dc33921033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weapon: 0
   _costumes:
   - {fileID: 5495718591199040915}
   - {fileID: 4606846407911621403}
