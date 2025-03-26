@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,32 +12,27 @@ public class BoxInvenTory : BaseInventory
     int boxIndex = 1;
     //사물함 최대갯수
     int boxMaxIndex = 10;
- 
+
     [SerializeField]
     Text boxIndexText;
 
     //현재 선택된 사물함 태그
     ItemType selectBoxTag;
 
-
-    public List<BaseItem> BoxItems
-    {
-        get => items;
-        set => items = value;
-    }
-
     private void Start()
     {
         invenType = InvenType.Box;
 
-        SlotSetting(invenType);
+        SlotSetting(gameObject, invenType);
+
+        InvenInit();
 
         Debug.Log("박스인벤 시작");
     }
 
-    public void AddItem(BaseItem item , int index)
+    public void AddItem(BaseItem item, int index)
     {
-        if(index < 0 || index >= 1000)
+        if (index < 0 || index >= 1000)
         {
             Debug.Log("인덱스 잘못넣었습니다.");
             return;
@@ -46,6 +41,31 @@ public class BoxInvenTory : BaseInventory
         items[index] = item;
     }
 
+    override public void RefreshUI()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            var slotComp = slot[i].GetComponent<ItemSlot>();
+            if (slotComp == null)
+            {
+                Debug.LogWarning($"슬롯 {i}번에 ItemSlot 컴포넌트가 없습니다.");
+                continue;
+            }
+
+            int targetIndex = (boxIndex - 1) * 100 + i;
+
+            if (targetIndex < items.Count && items[targetIndex] != null)
+            {
+                slotComp.SlotSetItem(items[targetIndex]);
+            }
+            else
+            {
+                slotComp.SlotSetItem(ItemDataBase.Instance.emptyItem);
+            }
+        }
+
+        boxIndexText.text = $"{boxIndex} / {boxMaxIndex}";
+    }
 
     public void NextBox(int index)
     {
@@ -53,7 +73,7 @@ public class BoxInvenTory : BaseInventory
 
         for (int i = 0; i < 100; i++)
         {
-            if (items[(boxIndex - 1) * 100 + i] != null)
+            if ((boxIndex - 1) * 100 + i < items.Count)
             {
                 slot[i].GetComponent<ItemSlot>().SlotSetItem(items[(boxIndex - 1) * 100 + i]);
             }
@@ -109,16 +129,16 @@ public class BoxInvenTory : BaseInventory
     public void SelectTag(ItemType tag)
     {
         selectBoxTag = tag;
-        boxIndex = 0;
+        boxIndex = 1;
         NextBox(boxIndex);
     }
 
     public void OpenBox()
     {
-        
+
         boxIndex = 1;
         InvenOpen();
-        if (BoxItems.Count > 0)
+        if (items.Count > 0)
         {
             NextBox(boxIndex);
         }
