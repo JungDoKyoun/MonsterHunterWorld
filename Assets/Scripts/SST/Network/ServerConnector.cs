@@ -41,7 +41,7 @@ public class ServerConnector : MonoBehaviourPunCallbacks
         // 싱글플레이 씬으로 전환
         if(SceneManager.GetActiveScene().name != "SingleRoom")
         {
-            SceneManager.LoadScene("SingleRoom");
+            LoadingSceneManager.LoadSceneWithLoading("SingleRoom");
         }
     }
 }
