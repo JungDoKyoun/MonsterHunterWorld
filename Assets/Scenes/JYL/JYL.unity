@@ -3871,6 +3871,8 @@ RectTransform:
   m_Children:
   - {fileID: 632224999}
   - {fileID: 156537059}
+  - {fileID: 389844493}
+  - {fileID: 1434547741}
   m_Father: {fileID: 1371180080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4865,12 +4867,12 @@ RectTransform:
   m_Children:
   - {fileID: 1468466870}
   - {fileID: 1062095161}
-  m_Father: {fileID: 1371180080}
+  m_Father: {fileID: 294330794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 97.063, y: -63.167}
-  m_SizeDelta: {x: 604.709, y: 853.66003}
+  m_AnchoredPosition: {x: 704.7085, y: 0.0009765625}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389844494
 MonoBehaviour:
@@ -12151,7 +12153,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1434547740}
+      - m_Target: {fileID: 294330793}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -12491,19 +12493,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1062095163}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 655494310}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1062095163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14912,8 +14902,6 @@ RectTransform:
   m_Children:
   - {fileID: 1934410928}
   - {fileID: 294330794}
-  - {fileID: 389844493}
-  - {fileID: 1434547741}
   m_Father: {fileID: 655494314}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -15589,12 +15577,12 @@ RectTransform:
   m_Children:
   - {fileID: 1042351678}
   - {fileID: 548716589}
-  m_Father: {fileID: 1371180080}
+  m_Father: {fileID: 294330794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 97.063, y: -63.17}
-  m_SizeDelta: {x: 604.709, y: 853.66003}
+  m_AnchoredPosition: {x: 704.7085, y: -0.0020141602}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434547742
 MonoBehaviour:
@@ -15958,7 +15946,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 389844492}
+      - m_Target: {fileID: 294330793}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -18328,7 +18316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662238553}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22975291, y: 0.0000000187227, z: -0.0000000044198294, w: 0.973249}
+  m_LocalRotation: {x: 0.22975291, y: -0.0000000187227, z: 0.0000000044198294, w: 0.973249}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

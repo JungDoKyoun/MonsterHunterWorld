@@ -197,7 +197,7 @@ public abstract class BaseInventory : MonoBehaviour
             // item[i]가 null이면 emptyItem으로 대체
             BaseItem currentItem =
                 (i < items.Count && items[i] != null) ? items[i] : ItemDataBase.Instance.emptyItem;
-            Debug.Log($"슬롯 {i}: {items[i].name}, 타입: {items[i].type}, count: {items[i].count}");
+            //Debug.Log($"슬롯 {i}: {items[i].name}, 타입: {items[i].type}, count: {items[i].count}");
             slotComp.SlotSetItem(currentItem);
         }
     }
