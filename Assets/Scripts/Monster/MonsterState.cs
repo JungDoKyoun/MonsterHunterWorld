@@ -23,7 +23,7 @@ public class MonsterIdleState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _anime.PlayMonsterIdleAnime(true);
+        _monster.SetAnime("IsIdle", true);
         _tmepTime = 0;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
@@ -32,7 +32,7 @@ public class MonsterIdleState : IMonsterState
 
     public override void Exit()
     {
-        _anime.PlayMonsterIdleAnime(false);
+        _monster.SetAnime("IsIdle", false);
     }
 
     public override void Move()
@@ -103,7 +103,6 @@ public class MonsterRotationState : IMonsterState
     MonsterStateManager _stateManager;
     MonsterAnimationController _anime;
     Vector3 _targetPos;
-    Vector3 _targetPlayer;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
     {
@@ -125,7 +124,7 @@ public class MonsterRotationState : IMonsterState
 
     public override void Exit()
     {
-        _anime.PlayMonsterRotateAnime(false);
+        _monster.SetAnime("IsRo", false);
     }
 
     public override void Move()
@@ -187,13 +186,13 @@ public class MonsterPatrolState : IMonsterState
         _monster.IsBattle = false;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
-        _anime.PlayMonsterMoveAnime(true);
+        _monster.SetAnime("IsMove", true);
         Debug.Log("순찰 들어옴");
     }
 
     public override void Exit()
     {
-        _anime.PlayMonsterMoveAnime(false);
+        _monster.SetAnime("IsMove", false);
     }
 
     public override void Move()
@@ -258,9 +257,8 @@ public class MonsterRoarState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _monster.IsRoar = true;
-        _anime.PlayMonsterRoarAnime();
-        _monster.StartCoroutine(_monster.WaitForEndRoarAnime());
+        _monster.SetAnime("Roar");
+        _monster.OnRoar();
         Debug.Log("포효 다시 들어옴");
     }
 
@@ -316,13 +314,13 @@ public class MonsterChaseState : IMonsterState
         _stateManager = stateManager;
         _anime = anime;
         _monster.CheckPlayer();
-        _anime.PlayMonsterChaseAnime(true);
+        _monster.SetAnime("IsChase", true);
         Debug.Log("다시 추격");
     }
 
     public override void Exit()
     {
-        _anime.PlayMonsterChaseAnime(false);
+        _monster.SetAnime("IsChase", false);
     }
 
     public override void Move()
@@ -380,12 +378,12 @@ public class MonsterAttackIdleState : IMonsterState
         _stateManager = stateManager;
         _anime = anime;
         Debug.Log("공격 대기상태 들어옴");
-        _anime.PlayMonsterAttackIdleAnime(true);
+        _monster.SetAnime("IsAttackIdle", true);
     }
 
     public override void Exit()
     {
-        _anime.PlayMonsterAttackIdleAnime(false);
+        _monster.SetAnime("IsAttackIdle", false);
     }
 
     public override void Move()
@@ -446,7 +444,8 @@ public class MonsterAttackState : IMonsterState
     MonsterController _monster;
     MonsterStateManager _stateManager;
     MonsterAnimationController _anime;
-
+    int index;
+        
     public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
     {
         _monster = monster;
@@ -454,7 +453,7 @@ public class MonsterAttackState : IMonsterState
         _anime = anime;
         Debug.Log("공격 들어옴");
         _monster.IsAttack = true;
-        _monster.Attack();
+        _monster.ChooseAttackType();
     }
 
     public override void Exit()
@@ -512,9 +511,8 @@ public class MonsterBackMoveState : IMonsterState
         _stateManager = stateManager;
         _anime = anime;
         Debug.Log("너무 가까워서 뒤로감");
-        _monster.IsBackMove = true;
-        _anime.PlayMonsterBackMoveAnime();
-        _monster.StartCoroutine(_monster.WaitForEndBackMoveAnime());
+        _monster.SetAnime("BackMove");
+        _monster.OnBackMove();
     }
 
     public override void Exit()
@@ -586,13 +584,12 @@ public class MonsterStunState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _anime.PlayMonsterStrunAnime(true);
-        _monster.StartCoroutine(_monster.WaitForEndSturnAnime());
+        _monster.SetAnime("IsSturn", true);
     }
 
     public override void Exit()
     {
-        _anime.PlayMonsterStrunAnime(false);
+        _monster.SetAnime("IsSturn", false);
         _monster.CheckPlayer();
     }
 
@@ -636,13 +633,12 @@ public class MonsterDieState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _anime = anime;
-        _anime.PlayMonsterDieAnime(true);
-        _monster.StartCoroutine(_monster.WaitForEndDieAnime());
+        _monster.SetAnime("IsDie", true);
     }
 
     public override void Exit()
     {
-        _anime.PlayMonsterDieAnime(false);
+        _monster.SetAnime("IsDie", false);
     }
 
     public override void Move()

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BossMonster
   m_EditorClassIdentifier: Assembly-CSharp::BossMonster
   ID: 0
-  Name: re
+  Name: Rathian
   MaxHP: 1000
+  RoSpeed: 3
   Prefab: {fileID: 2104358004636197693, guid: 0f9913d1ebc9adb44a6a18216ffdbc3b, type: 3}
   BiteDamage: 10
   TaileDamage: 10
@@ -27,3 +28,42 @@ MonoBehaviour:
   AttackRange: 9
   MinAttackRange: 3
   SturnTime: 3
+  MonsterAttackDatas:
+  - AttackName: Bite
+    Damage: 10
+    AnimeName: attack1
+    UsesProjectile: 0
+    ProjectileType: 0
+    AttackColliderName: BiteCollider
+  - AttackName: TaileAttack
+    Damage: 20
+    AnimeName: attack2
+    UsesProjectile: 0
+    ProjectileType: 0
+    AttackColliderName: TaileAttackCollider
+  - AttackName: Charge
+    Damage: 30
+    AnimeName: attack3
+    UsesProjectile: 0
+    ProjectileType: 0
+    AttackColliderName: ChargeCollider
+  - AttackName: FireBall
+    Damage: 0
+    AnimeName: attack4
+    UsesProjectile: 1
+    ProjectileType: 0
+    AttackColliderName: 
+  ProjectileDatas:
+  - ProjectileType: 0
+    defaultCapacity: 5
+    damage: 10
+    speed: 5
+    lifeTime: 5
+    hitEffect: {fileID: 0}
+  - ProjectileType: 1
+    defaultCapacity: 5
+    damage: 10
+    speed: 5
+    lifeTime: 5
+    hitEffect: {fileID: 0}
+  Label: Rathian
