@@ -195,7 +195,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
                         RoomOptions roomOptions = new RoomOptions
                         {
                             MaxPlayers = MaxPlayerCount,
-                            CustomRoomProperties = new Hashtable() { { HuntingRoomTag, userId } }
+                            CustomRoomProperties = new Hashtable() { { HuntingRoomTag, userId } },
+                            CustomRoomPropertiesForLobby = new string[] { HuntingRoomTag }
                         };
                         PhotonNetwork.CreateRoom(roomName, roomOptions);
                         break;
@@ -207,11 +208,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 foreach (RoomInfo roomInfo in roomInfos)
                 {
                     hashtable = roomInfo.CustomProperties;
-                    foreach(string key in hashtable.Keys)
-                    {
-                        Debug.Log(key);
-                    }
-                    Debug.Log(hashtable.Count);
                     if(hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
                     {
                         PhotonNetwork.JoinRoom(roomInfo.Name);
@@ -237,14 +233,24 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerLeftRoom(Player player)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Player localPlayer = PhotonNetwork.LocalPlayer;
         Hashtable hashtable = localPlayer.CustomProperties;
-        if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == player.UserId)
+        if (hashtable.ContainsKey(HuntingRoomTag) == true)
         {
-            Debug.Log("방장 나감");
-            localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+            Dictionary<int, Player> players = PhotonNetwork.CurrentRoom.Players;
+            foreach (Player player in players.Values)
+            {
+                if (player.UserId == hashtable[HuntingRoomTag].ToString())
+                {
+                    return;
+                }
+            }
+            if (PhotonNetwork.InRoom == true)
+            {
+                localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+            }
         }
     }
 
