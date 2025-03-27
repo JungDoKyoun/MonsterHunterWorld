@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // ▼ 집회소에 들어가는 상호작용을 위한 스크립트
 public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
@@ -11,11 +12,16 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
     private int index = 1;
     private Collider meetingHouseZone;
 
+    private PlayerController player;
+    private Transform targetPanel;
+
     private bool isInMeetingZone = false;
 
     private void Start()
     {
         meetingHouseZone = GetComponent<Collider>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        targetPanel = player.transform.Find("Move Panel");
     }
 
     private void Update()
@@ -61,6 +67,7 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
         if (other.CompareTag("Player"))
         {
             isInMeetingZone = true;
+            targetPanel.gameObject.SetActive(true);
         }
     }
 
@@ -69,6 +76,7 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
         if (other.CompareTag("Player"))
         {
             isInMeetingZone = false;
+            targetPanel.gameObject.SetActive(false);
         }
     }
 }    
