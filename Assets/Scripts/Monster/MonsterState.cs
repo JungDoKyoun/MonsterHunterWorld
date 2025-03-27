@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class IMonsterState
 {
-    public abstract void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime);
+    public abstract void Enter(MonsterController monster, MonsterStateManager stateManager);
     public abstract void Exit();
     public abstract void Move();
     public abstract void Update();
@@ -14,15 +14,13 @@ public class MonsterIdleState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
     float _tmepTime;
     Vector3 _targetPos;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         _monster.SetAnime("IsIdle", true);
         _tmepTime = 0;
         _targetPos = _monster.GetNextPatrolPos();
@@ -47,6 +45,12 @@ public class MonsterIdleState : IMonsterState
         if(_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if(_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
             return;
         }
 
@@ -79,7 +83,7 @@ public class MonsterIdleState : IMonsterState
                 }
                 else
                 {
-                    _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                    _stateManager.ChangeMonsterState(new MonsterTakeOffState());
                     return;
                 }
             }
@@ -91,7 +95,7 @@ public class MonsterIdleState : IMonsterState
         }
         else
         {
-            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            _stateManager.ChangeMonsterState(new MonsterTakeOffState());
             return;
         }
     }
@@ -101,14 +105,14 @@ public class MonsterRotationState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
     Vector3 _targetPos;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
+        _monster.IsRo = true;
+        Debug.Log(_monster.IsRo);
         if(!_monster.IsBattle)
         {
             _targetPos = _monster.GetNextPatrolPos();
@@ -124,13 +128,20 @@ public class MonsterRotationState : IMonsterState
 
     public override void Exit()
     {
-        _monster.SetAnime("IsRo", false);
+        if(!_monster.IsFly)
+        {
+            _monster.SetAnime("IsRo", false);
+        }
+        else if (_monster.IsFly)
+        {
+            _monster.SetAnime("IsFlyRo", false);
+        }
     }
 
     public override void Move()
     {
         _monster.CheckPlayer();
-        _monster.ApplyRootMotionMovement();
+        //_monster.ApplyRootMotionMovement();
     }
 
     public override void Update()
@@ -138,6 +149,12 @@ public class MonsterRotationState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
             return;
         }
 
@@ -163,9 +180,78 @@ public class MonsterRotationState : IMonsterState
             }
             else
             {
-                _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                if(_monster.IsFly)
+                {
+                    _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                    return;
+                }
+                else if(!_monster.IsFly)
+                {
+                    _stateManager.ChangeMonsterState(new MonsterTakeOffState());
+                    return;
+                }
+            }
+        }
+    }
+}
+
+public class MonsterTakeOffState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _monster.IsTakeOff = true;
+        _monster.TakeOff();
+    }
+
+    public override void Exit()
+    {
+        
+    }
+
+    public override void Move()
+    {
+        _monster.ApplyRootMotionMovement();
+    }
+
+    public override void Update()
+    {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if(!_monster.IsFly)
+        {
+            if (_monster.IsTrap)
+            {
+                _stateManager.ChangeMonsterState(new MonsterTrapState());
                 return;
             }
+
+            if (_monster.IsStun)
+            {
+                _stateManager.ChangeMonsterState(new MonsterStunState());
+                return;
+            }
+
+            if (_monster.IsBattle && !_monster.IsHit && _monster.IsCanFindPlayer())
+            {
+                _monster.IsHit = true;
+                _stateManager.ChangeMonsterState(new MonsterRoarState());
+                return;
+            }
+        }
+
+        if(_monster.IsFly && !_monster.IsTakeOff)
+        {
+            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            return;
         }
     }
 }
@@ -174,25 +260,23 @@ public class MonsterPatrolState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
     Vector3 _targetPos;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
 
         _monster.IsBattle = false;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
-        _monster.SetAnime("IsMove", true);
+        _monster.Patrol();
         Debug.Log("순찰 들어옴");
     }
 
     public override void Exit()
     {
-        _monster.SetAnime("IsMove", false);
+        _monster.SetAnime("Patrol2", false);
     }
 
     public override void Move()
@@ -209,38 +293,57 @@ public class MonsterPatrolState : IMonsterState
             return;
         }
 
-        if (_monster.IsStun)
-        {
-            _stateManager.ChangeMonsterState(new MonsterStunState());
-            return;
-        }
-
-        if (_monster.IsBattle && !_monster.IsHit && _monster.IsCanFindPlayer())
-        {
-            _monster.IsHit = true;
-            _stateManager.ChangeMonsterState(new MonsterRoarState());
-            return;
-        }
-
         if (_monster.IsReachTarget())
         {
+            _monster.UpdatePatrolIndex();
             if (_monster.IsRestPos())
             {
-                _monster.UpdatePatrolIndex();
-                _stateManager.ChangeMonsterState(new MonsterIdleState());
+                _stateManager.ChangeMonsterState(new MonsterLandingState());
                 return;
             }
             else if(_monster.IsNeedRo())
             {
-                _monster.UpdatePatrolIndex();
                 _stateManager.ChangeMonsterState(new MonsterRotationState());
                 return;
             }
         }
+    }
+}
 
-        if(_monster.IsNeedRo())
+public class MonsterLandingState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _monster.IsLanding = true;
+        _monster.Landing();
+    }
+
+    public override void Exit()
+    {
+        _monster.IsFly = false;
+    }
+
+    public override void Move()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        if (_monster.IsDie)
         {
-            _stateManager.ChangeMonsterState(new MonsterRotationState());
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if(!_monster.IsLanding)
+        {
+            _stateManager.ChangeMonsterState(new MonsterIdleState());
             return;
         }
     }
@@ -250,15 +353,13 @@ public class MonsterRoarState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         _monster.SetAnime("Roar");
-        _monster.OnRoar();
+        _monster.RequestRoar();
         Debug.Log("포효 다시 들어옴");
     }
 
@@ -277,6 +378,12 @@ public class MonsterRoarState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
             return;
         }
 
@@ -306,13 +413,11 @@ public class MonsterChaseState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
-    {
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    { 
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         _monster.CheckPlayer();
         _monster.SetAnime("IsChase", true);
         Debug.Log("다시 추격");
@@ -336,6 +441,12 @@ public class MonsterChaseState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
             return;
         }
 
@@ -370,13 +481,11 @@ public class MonsterAttackIdleState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         Debug.Log("공격 대기상태 들어옴");
         _monster.SetAnime("IsAttackIdle", true);
     }
@@ -397,6 +506,12 @@ public class MonsterAttackIdleState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
             return;
         }
 
@@ -443,14 +558,11 @@ public class MonsterAttackState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
-    int index;
-        
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         Debug.Log("공격 들어옴");
         _monster.IsAttack = true;
         _monster.ChooseAttackType();
@@ -471,6 +583,12 @@ public class MonsterAttackState : IMonsterState
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
             return;
         }
 
@@ -503,16 +621,14 @@ public class MonsterBackMoveState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         Debug.Log("너무 가까워서 뒤로감");
         _monster.SetAnime("BackMove");
-        _monster.OnBackMove();
+        _monster.RequestBackMove();
     }
 
     public override void Exit()
@@ -533,6 +649,12 @@ public class MonsterBackMoveState : IMonsterState
             return;
         }
 
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
+            return;
+        }
+
         if (_monster.IsStun)
         {
             _stateManager.ChangeMonsterState(new MonsterStunState());
@@ -543,7 +665,7 @@ public class MonsterBackMoveState : IMonsterState
         {
             if (_monster.IsTooClose())
             {
-                Enter(_monster, _stateManager, _anime);
+                Enter(_monster, _stateManager);
             }
             if (!_monster.IsCanFindPlayer())
             {
@@ -577,13 +699,11 @@ public class MonsterStunState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
-    {
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    { 
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         _monster.SetAnime("IsSturn", true);
     }
 
@@ -606,8 +726,68 @@ public class MonsterStunState : IMonsterState
             return;
         }
 
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
+            return;
+        }
+
         if (!_monster.IsStun)
         {
+            if (_monster.IsNeedRo())
+            {
+                _stateManager.ChangeMonsterState(new MonsterRotationState());
+                return;
+            }
+            else
+            {
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
+                return;
+            }
+        }
+    }
+}
+
+public class MonsterTrapState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _monster.RequestTrap();
+        _monster.SetAnime("IsTrap", true);
+        Debug.Log("스턴 들어옴");
+    }
+
+    public override void Exit()
+    {
+        _monster.SetAnime("IsTrap", false);
+    }
+
+    public override void Move()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if(!_monster.IsTrap)
+        {
+            if (_monster.IsStun)
+            {
+                _stateManager.ChangeMonsterState(new MonsterStunState());
+                return;
+            }
+
             if (_monster.IsNeedRo())
             {
                 _stateManager.ChangeMonsterState(new MonsterRotationState());
@@ -626,13 +806,11 @@ public class MonsterDieState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    MonsterAnimationController _anime;
 
-    public override void Enter(MonsterController monster, MonsterStateManager stateManager, MonsterAnimationController anime)
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
         _monster = monster;
         _stateManager = stateManager;
-        _anime = anime;
         _monster.SetAnime("IsDie", true);
     }
 

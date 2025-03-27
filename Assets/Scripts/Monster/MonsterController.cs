@@ -17,6 +17,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private List<GameObject> moveTargetPos; //패트롤 돌아야하는 위치 좌표
     [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     [SerializeField] private Transform shootPos; //투사체 쏘는 장소
+    [SerializeField] private Collider trapColliders;
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
     private MonsterProjectileSpawnManager _projectileSpawnManager; //투사체 스폰 매니저
@@ -46,6 +47,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private float _elapsedTime; //쿨타임
     private float _minAttackRange; //백무브 하는 범위
     private float _sturnTime; //스턴 지속 시간
+    private float _trapTime; //트랩 지속 시간
     private bool _isRo; //회전중인지?
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
@@ -55,6 +57,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isRoar; //포효중인지?
     private bool _isBackMove; //뒤로 가는중인지
     private bool _isStun; //스턴 상태인지?
+    private bool _isTrap; //함정에 걸린 상태인지?
+    private bool _isPendingStun; //함정에 걸린도중에 스턴이 걸렸나?
+    private bool _isFly;
+    private bool _isTakeOff;
+    private bool _isLanding;
+    private bool _isTooHigh;
 
     private void Awake()
     {
@@ -80,6 +88,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         _projectileSpawnManager = MonsterManager.Instance.MonsterProjectileSpawnManager;
         _monsterAttackData = MonsterManager.Instance.MonsterSO.MonsterAttackDatas;
+        _trapTime = 5f;
         _currentHeadDamage = 0;
         _damage = 0;
         _elapsedTime = _attackCoolTime;
@@ -92,6 +101,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isBackMove = false;
         _isCanGetItem = false;
         _isStun = false;
+        _isTrap = false;
+        _isPendingStun = false;
+        _isFly = false;
+        _isTakeOff = false;
+        _isLanding = false;
+        _isTooHigh = false;
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
@@ -106,6 +121,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsBackMove { get { return _isBackMove; } set { _isBackMove = value; } }
     public bool IsCanGetItem { get { return _isCanGetItem; } set { _isCanGetItem = value; } }
     public bool IsStun { get { return _isStun; } set { _isStun = value; } }
+    public bool IsTrap { get { return _isTrap; } set { _isTrap = value; } }
+    public bool IsFly { get { return _isFly; } set { _isFly = value; } }
+    public bool IsTakeOff { get { return _isTakeOff; } set { _isTakeOff = value; } }
+    public bool IsLanding { get { return _isLanding; } set { _isLanding = value; } }
 
     public void InitProjectile()
     {
@@ -167,6 +186,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _anime.SetFloat(tag, value);
     }
+
     public void SetTargetPos(Vector3 pos) //타깃 위치 정보 네비메쉬 등록
     {
         _targetPos = pos;
@@ -217,6 +237,14 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public bool IsReachTarget() //패트롤 목표로한 좌표에 도달 했는가?
     {
+        if(!_agent.enabled || !_agent.isOnNavMesh)
+        {
+            Vector3 currentPos = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 target = moveTargetPos[_nextPatrolIndex].transform.position;
+            Vector3 targetPos = new Vector3(target.x, 0, target.z);
+
+            return Vector3.Distance(currentPos, targetPos) < 5.0f;
+        }
         return !_agent.pathPending && _agent.remainingDistance < 5.0f;
     }
 
@@ -248,19 +276,29 @@ public class MonsterController : MonoBehaviourPunCallbacks
         {
             dir = (_targetPos - transform.position).normalized;
         }
+        dir.y = 0;
+        dir.Normalize();
 
         float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
         _agent.enabled = false;
 
         if (Math.Abs(angle) < 30)
         {
-            Debug.Log("작은회전");
             StartCoroutine(SmoothTurn(dir));
         }
         else
         {
-            SetAnime("IsRo", false);
-            SetAnime("TurnAngle", angle);
+            if(!_isFly)
+            {
+                SetAnime("IsRo", true);
+                SetAnime("TurnAngle", angle);
+            }
+            else if(_isFly)
+            {
+                SetAnime("IsFlyRo", true);
+                SetAnime("TurnAngle", angle);
+            }
+
             StartCoroutine(WaitForEndRotateAnime());
         }
     }
@@ -268,6 +306,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void SmothRotateToPlayer() //추적할때 자연스럽게 플레이어 바라보며 갈 수 있도록 회전
     {
         Vector3 dir = (_targetPlayerPos - transform.position).normalized;
+        dir.y = 0;
+        dir.Normalize();
 
         Quaternion targetRo = Quaternion.LookRotation(dir);
         transform.rotation = targetRo;
@@ -275,14 +315,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
         //transform.rotation = Quaternion.Slerp(transform.rotation, targetRo, roSpeed);
     }
 
-    public void OnRoar()
+    public void RequestRoar()
     {
-        Debug.Log("들어옴1");
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("들어옴2");
-            photonView.RPC("Roar", RpcTarget.All);
-        }
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("Roar", RpcTarget.All);
     }
 
     [PunRPC]
@@ -408,8 +445,27 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void RequestTakeDamage(int damage)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("TakeDamage", RpcTarget.MasterClient, damage);
+        }
+    }
+
+    public void RequestTakeHeadDamage(int damage)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("TakeHeadDamage", RpcTarget.MasterClient, damage);
+        }
+    }
+
+    [PunRPC]
     public void TakeDamage(int damage) //데미지 받기
     {
+        //if (!PhotonNetwork.IsMasterClient) return;
+
         _currentHP -= damage;
 
         if(_currentHP <= 0)
@@ -418,10 +474,17 @@ public class MonsterController : MonoBehaviourPunCallbacks
             photonView.RPC("Die", RpcTarget.All);
             return;
         }
+        else
+        {
+            photonView.RPC("SyncHP", RpcTarget.All, _currentHP);
+        }
     }
 
+    [PunRPC]
     public void TakeHeadDamage(int damage) //머리에 데미지 받을때
     {
+        //CheckMaster();
+
         int restDamage;
         if (!IsStun)
         {
@@ -430,10 +493,19 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (_currentHeadDamage >= _headMaxDamage)
         {
-            restDamage = _currentHeadDamage - _headMaxDamage;
             _currentHeadDamage = 0;
-            _currentHeadDamage += restDamage;
-            photonView.RPC("Stun", RpcTarget.All);
+            if (_isTrap)
+            {
+                _isPendingStun = true;
+            }
+            else
+            {
+                photonView.RPC("Stun", RpcTarget.All);
+            }
+        }
+        else
+        {
+            photonView.RPC("SyncHeadDamage", RpcTarget.All, _currentHeadDamage);
         }
     }
 
@@ -451,31 +523,46 @@ public class MonsterController : MonoBehaviourPunCallbacks
         StartCoroutine(WaitForEndSturnAnime());
     }
 
+    [PunRPC]
+    public void SyncHP(int HP)
+    {
+        _currentHP = HP;
+    }
+
+    [PunRPC]
+    public void SyncHeadDamage(int currentHeadDamage)
+    {
+        _currentHeadDamage = currentHeadDamage;
+    }
+
     public void ApplyRootMotionMovement() //루트모션 좌표 강제 이동
     {
-        if(!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
+        //if (!PhotonNetwork.IsMasterClient) return;
+
         Vector3 rootMotionMove = _anime.deltaPosition;
-        Vector3 navMeshMove = _agent.desiredVelocity.normalized * rootMotionMove.magnitude;
 
-        Vector3 finalMove = Vector3.Lerp(rootMotionMove, navMeshMove, 0.5f);
-
-        transform.position += finalMove;
-        if (_agent.desiredVelocity.sqrMagnitude > 0.1f)
+        if (_isFly) 
         {
-            Quaternion targetRotation = Quaternion.LookRotation(_agent.desiredVelocity.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _roSpeed);
+            transform.position += rootMotionMove;
+        }
+        else
+        {
+            Vector3 navMeshMove = _agent.desiredVelocity.normalized * rootMotionMove.magnitude;
+
+            Vector3 finalMove = Vector3.Lerp(rootMotionMove, navMeshMove, 0.5f);
+
+            transform.position += finalMove;
+            if (_agent.desiredVelocity.sqrMagnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_agent.desiredVelocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _roSpeed);
+            }
         }
     }
 
     public void ChooseAttackType()
     {
-        if(!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
+        if (!PhotonNetwork.IsMasterClient) return;
 
         int attackType;
         while (true)
@@ -567,12 +654,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
         //}
     }
     
-    public void OnShootProjectileAnimationEvent()
+    public void RequestShootProjectileAnimationEvent()
     {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("ShootProjectile", RpcTarget.All, _lastAttack);
-        }
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("ShootProjectile", RpcTarget.All, _lastAttack);
     }
 
     [PunRPC]
@@ -594,8 +680,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnBackMove()
+    public void RequestBackMove()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+        
         photonView.RPC("BackMove", RpcTarget.All);
     }
 
@@ -604,6 +692,35 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _isBackMove = true;
         StartCoroutine(WaitForEndBackMoveAnime());
+    }
+
+    public void RequestTrap()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("Trap", RpcTarget.All, _trapTime);
+    }
+
+    [PunRPC]
+    public void Trap(float time)
+    {
+        Debug.Log("트랩");
+        StartCoroutine(WaitForEndTrap(time));
+    }
+
+    public void TakeOff()
+    {
+        StartCoroutine(WaitForEndTakeOffAnime());
+    }
+
+    public void Patrol()
+    {
+        StartCoroutine(WaitForEndPatrolAnime());
+    }
+
+    public void Landing()
+    {
+        StartCoroutine(WaitForEndLandingAnime());
     }
 
     private IEnumerator SmoothTurn(Vector3 direct) //30도 이하 자연스럽게 애니메이션 없이 회전
@@ -637,6 +754,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
         {
             dir = (_targetPos - transform.position).normalized;
         }
+        dir.y = 0;
+        dir.Normalize();
 
         float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
 
@@ -689,6 +808,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         SetAnime("IsSturn2");
+        yield return new WaitForSeconds(0.3f);
         yield return new WaitForSeconds(_sturnTime);
         SetAnime("IsSturn3");
         yield return new WaitForSeconds(0.3f);
@@ -696,9 +816,77 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isStun = false;
     }
 
+    public IEnumerator WaitForEndTrap(float time)
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("IsTrap2");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(time);
+        SetAnime("IsTrap3");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isTrap = false;
+
+        if (_isPendingStun && _currentHeadDamage >= _headMaxDamage)
+        {
+            _isPendingStun = false;
+
+            _currentHeadDamage = 0;
+
+            photonView.RPC("Stun", RpcTarget.All);
+        }
+    }
+
+    public IEnumerator WaitForEndTakeOffAnime()
+    {
+        SetAnime("TakeOff");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil( () => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isFly = true;
+        SetAnime("TakeOff2");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("TakeOff3");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isTakeOff = false;
+    }
+
+    public IEnumerator WaitForEndPatrolAnime()
+    {
+        if(!_isTooHigh)
+        {
+            SetAnime("Patrol");
+            yield return new WaitForSeconds(0.3f);
+            yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+            _isTooHigh = true;
+        }
+        Debug.Log("순찰코루틴");
+        SetAnime("Patrol2", true);
+    }
+
+    public IEnumerator WaitForEndLandingAnime()
+    {
+        SetAnime("Landing");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("Landing2");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("Landing3");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("Landing4");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isLanding = false;
+        _isTooHigh = false;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        //CheckMaster();
 
         if (other.CompareTag("Player"))
         {
@@ -720,6 +908,13 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 current = current.parent;
             }
 
+        }
+
+        if (other.CompareTag("Trap"))
+        {
+            _isTrap = true;
+            Debug.Log(_currentHeadDamage);
+            Debug.Log(_isPendingStun);
         }
     }
 
