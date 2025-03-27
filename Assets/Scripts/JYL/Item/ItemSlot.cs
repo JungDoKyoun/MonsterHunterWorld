@@ -94,23 +94,34 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 클릭시 해당 아이템 반대편 인벤토리로 넘기기
     public void OnPointerClick(PointerEventData eventData)
     {
-
-        InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.key);
-
-
-        if (item.count <= 0)
+        if (invenType == InvenType.Inven || invenType == InvenType.Box)
         {
-            item = ItemDataBase.Instance.emptyItem;
-            SlotSetItem(item);
+            InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.key);
+
+
+            if (item.count <= 0)
+            {
+                item = ItemDataBase.Instance.emptyItem;
+                SlotSetItem(item);
+            }
+
+            //InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
+            countText.text = item.count.ToString();
+
+        }
+        else
+        {
+            if (invenType == InvenType.EquipBox)
+            {
+                InvenToryCtrl.Instance.EquipItem(item.key);
+            }
+            else
+            {
+                InvenToryCtrl.Instance.UnEquipItem(item.key);
+            }
         }
 
-
-        countText.text = item.count.ToString();
-
-        if (invenType == InvenType.Inven || invenType == InvenType.Box)
-            InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
-
-        InvenToryCtrl.Instance.InventoryItems.RefreshUI();
+        //InvenToryCtrl.Instance.InventoryItems.RefreshUI();
 
         onClick?.Invoke(item);
     }
@@ -123,10 +134,23 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         image.sprite = sprites[1];
 
-        if (invenType == InvenType.Inven ||
-            invenType == InvenType.Box)
+        //
+        if (invenType == InvenType.Inven || invenType == InvenType.Box)
         {
             InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
+        }
+        else
+        {
+            //장비인벤일때
+            if (item.type == ItemType.Weapon)
+            {
+                InvenToryCtrl.Instance.EquipItemToolTipCtrl.SetWeapon(item as Weapon);
+            }
+            else if (item.type == ItemType.Armor)
+            {
+                InvenToryCtrl.Instance.EquipItemToolTipCtrl.SetArmor(item as Armor);
+
+            }
         }
 
         Debug.Log(item.name);
@@ -168,9 +192,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
 
         if (invenType == InvenType.Inven || invenType == InvenType.Box)
+        { 
             //현재 선택된 정보가 아이템이 아니면 초기화
             InvenToryCtrl.Instance.ItemToolTipCtrl.TooltipClear(false);
-
+        }
+        else
+        {
+            InvenToryCtrl.Instance.EquipItemToolTipCtrl.TooltipClear(false, item.type);
+        }
         //실행되던 코루틴 정지
         if (fadeCoroutine != null)
         {

@@ -18,6 +18,10 @@ public class InvenToryCtrl : MonoBehaviour
     //현재 흭득한 장비 인벤토리
     [SerializeField] EquipInventoryUI equipInventoryUI;
     public EquipInventoryUI EquipInventoryUI => equipInventoryUI;
+    
+    //장비용 툴팁 UI
+    [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
+    public EquipItemToolTipCtrl EquipItemToolTipCtrl => equipItemToolTipCtrl;
 
     //현재 가지고있을 인벤토리
     [SerializeField] InventoryItems inventoryItems;
@@ -30,9 +34,6 @@ public class InvenToryCtrl : MonoBehaviour
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
     public ItemToolTipCtrl ItemToolTipCtrl => itemToolTipCtrl;
 
-    //장비용 툴팁 UI
-    [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
-    public EquipItemToolTipCtrl EquipItemToolTipCtrl => equipItemToolTipCtrl;
 
     public static InvenToryCtrl Instance;
 
@@ -102,6 +103,8 @@ public class InvenToryCtrl : MonoBehaviour
         }
 
         equippedInventoryUI.ChangeItem(equippedInventoryUI.Items, itemKey);
+        equippedInventoryUI.EquipItem(item);
+
         equipInventoryUI.ChangeItem(equipInventoryUI.Items, itemKey);
         equippedInventoryUI.RefreshUI();
         equipInventoryUI.RefreshUI();

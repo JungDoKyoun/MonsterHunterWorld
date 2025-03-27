@@ -2,12 +2,13 @@ using UnityEngine;
 
 public enum ItemType
 {
+    All,
     Weapon,
     Armor,
+    Accessory,
     Potion,
     Trap,
-    Empty,
-    All
+    Empty
 }
 public enum EquipSlot
 {
@@ -16,7 +17,11 @@ public enum EquipSlot
     Chest,
     Arms,
     Waist,
-    Legs
+    Legs,    
+    band,
+    neck,
+    end
+
 }
 
 
@@ -108,9 +113,15 @@ public class Weapon : BaseItem
 }
 public class Armor : BaseItem
 {
-    public int defense;
-    public Attribute attribute;
     public EquipSlot equipType;
+    public int defense;
+    public int level;//강화 레벨
+    public int fireDef;
+    public int waterDef;
+    public int LightningDef;
+    public int IceDef;
+    public int DragonDef;
+
     public override EquipSlot? GetEquipSlot()
     {
         return equipType; // Armor에 이미 정의된 장착 부위
@@ -133,7 +144,12 @@ public class Armor : BaseItem
             tooltip = this.tooltip,
             price = this.price,
             defense = this.defense,
-            attribute = this.attribute
+            level = this.level,
+            fireDef = this.fireDef,
+            waterDef = this.waterDef,
+            LightningDef = this.LightningDef,
+            IceDef = this.IceDef,
+            DragonDef = this.DragonDef
         };
 
     }

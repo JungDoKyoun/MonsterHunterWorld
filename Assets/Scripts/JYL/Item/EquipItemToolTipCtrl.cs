@@ -5,69 +5,135 @@ using UnityEngine.UI;
 
 public class EquipItemToolTipCtrl : MonoBehaviour
 {
+
     //참조해올 오브젝트들
-    BaseItem item;
+    [Header("공통 세팅")]
     [SerializeField]
-    GameObject image;
+    Image image;
     [SerializeField]
-    GameObject itemName;
+    Text itemName;
     [SerializeField]
-    GameObject toolTip;
+    Text toolTip;
     [SerializeField]
-    GameObject rarity;    
+    Text sellGold;
+
+    [Header("무기 세팅")]
     [SerializeField]
-    GameObject sellGold;
+    GameObject weaponObj;
+    [SerializeField]
+    Text weaponRarity;
+    [SerializeField]
+    Text damage;
+    [SerializeField]
+    Text attribute;
     
-    //적용시킬 값들
-    Text itemNameText;
-    Text tooltipText;
-    Text rarityText;
-    Text goldText;
-    Text countText;
-    Text maxCountText;
-    Text allCountText;
-    Image itemImage;
+    [Header("방어구 세팅")]
+    [SerializeField]
+    GameObject ArmorObj;
+    [SerializeField]
+    Text armorRarity;
+    [SerializeField]
+    Text level;
+    [SerializeField]
+    Text defense;
+    [SerializeField]
+    Text fireDef;
+    [SerializeField]
+    Text waterDef;
+    [SerializeField]
+    Text LightningDef;
+    [SerializeField]
+    Text IceDef;
+    [SerializeField]
+    Text DragonDef;
 
 
     private void Awake()
     {
-        //겟컴포넌트를 최소화 하기위한 일.
-        itemNameText = itemName.GetComponent<Text>();
-        tooltipText = toolTip.GetComponent<Text>();
-        rarityText = rarity.GetComponent<Text>();
-
-        itemImage = image.GetComponent<Image>();
         //초기화 - 처음엔 아무것도 없으니까 비활성화
-        TooltipClear(false);
+        TooltipClear(false,ItemType.Empty);
     }
 
-    public void TooltipClear(bool set)
+    public void TooltipClear(bool set ,ItemType type)
     {
-        //아무것도 없는 아이템이면 비활성화
-        image.SetActive(set);
-        itemName.SetActive(set);
-        toolTip.SetActive(set);
-        rarity.SetActive(set);
-        sellGold.SetActive(set);
+        image.gameObject.SetActive(set);
+        itemName.gameObject.SetActive(set);
+        toolTip.gameObject.SetActive(set);
+        sellGold.gameObject.SetActive(set);
 
+        //무기
+        if(type == ItemType.Weapon)
+        {
+            weaponObj.SetActive(set);
+            damage.gameObject.SetActive(set);
+            weaponRarity.gameObject.SetActive(set);
+            attribute.gameObject.SetActive(set);
+        }        
+
+        //방어구
+        else if (type == ItemType.Armor)
+        {
+            ArmorObj.SetActive(set);
+            armorRarity.gameObject.SetActive(set);
+            level.gameObject.SetActive(set);
+            defense.gameObject.SetActive(set);
+            fireDef.gameObject.SetActive(set);
+            waterDef.gameObject.SetActive(set);
+            LightningDef.gameObject.SetActive(set);
+            IceDef.gameObject.SetActive(set);
+            DragonDef.gameObject.SetActive(set);
+        }
+        
     }
 
-    public void SetItem(BaseItem item)
+    public void SetWeapon(Weapon item)
     {
-        this.item = item;
         if (item == null)
         {
-            TooltipClear(false);
+            TooltipClear(false, ItemType.Weapon);
             return;
         }
-        itemNameText.text = item.name;
-        tooltipText.text = item.tooltip;
-        rarityText.text = item.rarity.ToString();
-        goldText.text = item.price.ToString();
-        countText.text = item.count.ToString();
-        maxCountText.text = item.maxCount.ToString();
-        allCountText.text = item.allCount.ToString();
-        itemImage.sprite = item.image;
-        TooltipClear(true);
+        image.sprite = item.image;
+        itemName.text = item.name;
+        toolTip.text = item.tooltip;
+        weaponRarity.text = item.rarity.ToString();
+        sellGold.text = item.price.ToString();
+
+        damage.text = item.damage.ToString();
+        attribute.text = item.attribute.ToString();
+
+
+
+        TooltipClear(true,ItemType.Weapon);
+    }
+
+    public void SetArmor(Armor item)
+    {
+        if (item == null)
+        {
+            TooltipClear(false,ItemType.Armor);
+            return;
+        }
+
+        image.sprite = item.image;
+        itemName.text = item.name;
+        armorRarity.text = item.rarity.ToString();
+        toolTip.text = item.tooltip;
+        
+        defense.text = item.defense.ToString();
+        level.text = item.level.ToString();
+        fireDef.text = item.fireDef.ToString();
+        waterDef.text = item.waterDef.ToString();
+        LightningDef.text = item.LightningDef.ToString();
+        IceDef.text = item.IceDef.ToString();
+        DragonDef.text = item.DragonDef.ToString();
+
+
+
+
+        sellGold.text = item.price.ToString();
+
+        TooltipClear(true, ItemType.Armor);
+
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3238773305706628011}
   - component: {fileID: 892674315244717741}
   - component: {fileID: 6625470338755379941}
+  - component: {fileID: 6248186016333202561}
   m_Layer: 5
   m_Name: EquipSlot
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6248186016333202561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742823209772482782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c425493e4a318ec4aaa636e21f9bac78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 6997522979136038822}
+  itemName: {fileID: 2717807631110979866}
 --- !u!1 &4682785100800097842
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,8 +128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 0}
-  m_SizeDelta: {x: 373, y: 50}
+  m_AnchoredPosition: {x: 33.169, y: 0}
+  m_SizeDelta: {x: 295.31, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4932420342728868729
 CanvasRenderer:
@@ -192,8 +207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.099976, y: -22.5}
-  m_SizeDelta: {x: 500, y: 20}
+  m_AnchoredPosition: {x: 5.2936, y: -22.5}
+  m_SizeDelta: {x: 359.7673, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &957843248788726644
 CanvasRenderer:
@@ -268,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -201.7, y: 0.000013828}
+  m_AnchoredPosition: {x: -149.59007, y: 0.000013828}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8159501661454273385
@@ -343,8 +358,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.099976, y: 22.5}
-  m_SizeDelta: {x: 500, y: 20}
+  m_AnchoredPosition: {x: 5.2936, y: 22.5}
+  m_SizeDelta: {x: 359.7673, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6957391488437809532
 CanvasRenderer:
@@ -442,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

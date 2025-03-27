@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //장비 인벤토리 UI
-public class EquipInventoryUI : BaseInventory
+public class EquipInventoryUI : BaseInventory, IClosableUI
 {
     [SerializeField] GameObject slotParent;
+
+    public bool IsOpen => gameObject.activeSelf;
 
     private void Start()
     {
@@ -37,6 +39,15 @@ public class EquipInventoryUI : BaseInventory
     IEnumerator DelayedRefresh()
     {
         yield return new WaitForSeconds(0.1f);
-        RefreshUI();
+        RefreshUI(); UIManager.Instance.RegisterUI(this);
+    }
+
+    public void CloseUI()
+    {
+        gameObject.SetActive(false);
+    }
+    private void OnDisable()
+    {
+        UIManager.Instance.UnregisterUI(this);
     }
 }

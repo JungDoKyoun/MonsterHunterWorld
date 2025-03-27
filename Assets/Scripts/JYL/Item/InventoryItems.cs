@@ -2,10 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 //현재 가지고있을 아이템 인벤토리
-public class InventoryItems : BaseInventory
+public class InventoryItems : BaseInventory, IClosableUI
 {
     public GameObject upSlot;
     public GameObject downSlot;
+    
+    public bool IsOpen => gameObject.activeSelf;
 
     void Start()
     {
@@ -43,6 +45,15 @@ public class InventoryItems : BaseInventory
     {
         yield return new WaitForSeconds(0.1f);
         RefreshUI();
+        UIManager.Instance.RegisterUI(this);
     }
 
+    private void OnDisable()
+    {
+        UIManager.Instance.UnregisterUI(this);
+    }
+    public void CloseUI()
+    {
+        gameObject.SetActive(false);
+    }
 }

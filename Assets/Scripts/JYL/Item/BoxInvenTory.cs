@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 //사물함 인벤토리
-public class BoxInvenTory : BaseInventory
+public class BoxInvenTory : BaseInventory, IClosableUI
 {
 
     //현재 사물함 인덱스
@@ -18,6 +18,8 @@ public class BoxInvenTory : BaseInventory
 
     //현재 선택된 사물함 태그
     ItemType selectBoxTag;
+
+    public bool IsOpen => gameObject.activeSelf;
 
     private void Start()
     {
@@ -143,5 +145,19 @@ public class BoxInvenTory : BaseInventory
             NextBox(boxIndex);
         }
     }
+    public void CloseUI()
+    {
+        gameObject.SetActive(false);
+    }
 
+    private void OnEnable()
+    {
+       // RefreshUI();
+        UIManager.Instance.RegisterUI(this);
+    }
+
+    private void OnDisable()
+    {
+        UIManager.Instance.UnregisterUI(this);
+    }
 }

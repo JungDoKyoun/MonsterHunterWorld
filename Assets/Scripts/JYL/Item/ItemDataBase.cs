@@ -3,12 +3,7 @@ using UnityEngine;
 
 public enum ItemImageNumber
 {
-    HunterKnife,
-    HunterArmor,
-    RecoveryPotion,
-    WellCookedMeat,
-    VineTrap,
-    Empty
+   weapon,Head, Chest, Arms, Waist, Legs, band, neck, Potion, Meat, Trap, Empty
 }
 
 public class ItemDataBase : MonoBehaviour
@@ -85,18 +80,24 @@ public class ItemDataBase : MonoBehaviour
         {
             image = itemImages[(int)ItemImageNumber.HunterArmor],
             key = ItemImageNumber.HunterArmor,
-            name = "헌터 X 메일",
+            name = "레더 헤드",
             type = ItemType.Armor,
             equipType = EquipSlot.Chest,
+            level = 1,
             rarity = "희귀도 8",
             count = 1,
             maxCount = 1,
             defense = 82,
-            attribute = Attribute.Fire,
+            fireDef = 1,
+            waterDef = 1,
+            LightningDef = 1,
+            IceDef = 1,
+            DragonDef = 1,
             color = new Color32(170, 239, 255, 255),
             tooltip = "실용적으로 만들어져 인기가 많은 헌터용 몸통 방어구. 역시 최상급 모델은 다르다.",
             price = 150
         });
+
 
         items.Add(new Potion
         {
