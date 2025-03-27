@@ -43,6 +43,6 @@ public class MonsterStateManager : MonoBehaviour
             currentState.Exit();
         }
         currentState = newState;
-        currentState.Enter(monsterController, this, anime);
+        currentState.Enter(monsterController, this);
     }
 }
