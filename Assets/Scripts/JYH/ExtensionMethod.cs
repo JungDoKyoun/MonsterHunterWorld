@@ -28,4 +28,12 @@ public static class ExtensionMethod
             button.GetComponentInChildren<Text>().Set(value);
         }
     }
+
+    public static void Set(this Button button, bool value)
+    {
+        if(button != null)
+        {
+            button.interactable = value;
+        }
+    }
 }
