@@ -1,5 +1,3 @@
-using System.Text;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -9,212 +7,170 @@ using ExitGames.Client.Photon;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     private static readonly int MaxPlayerCount = 4;
-    private static readonly string RoomName = "Room";
+    private static readonly string ReadyTag = "Ready";
+    public static readonly string HuntingRoomTag = "HuntingRoom";
 
-    public void CreateRoom()
+    private List<RoomInfo> _roomList = new List<RoomInfo>();
+
+    [PunRPC]
+    private void LeaveRoom(string userId)
+    {
+        Hashtable hashtable = PhotonNetwork.LocalPlayer.CustomProperties;
+        if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+    }
+
+    public bool TryCreateRoom()
     {
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null)
         {
-            int index = 1;
-            string userId = PhotonNetwork.LocalPlayer.UserId;
-            Hashtable hashtable = room.CustomProperties;
-            foreach(string key in hashtable.Keys)
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            if (localPlayer.CustomProperties.ContainsKey(HuntingRoomTag) == false)
             {
-                List<string> list = hashtable[key] != null ? hashtable[key].ToString().Split(' ').ToList() : new List<string>();
-                if(list.Contains(userId) == true)
-                {
-                    return;
-                }
-                if (key == RoomName + index)
-                {
-                    index++;
-                }
+                localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, localPlayer.UserId }, {ReadyTag, true}});
+                return true;
             }
-            room.SetCustomProperties(new Hashtable() { { RoomName + index, userId } });
         }
+        return false;
     }
 
-    //[PunRPC]
-    //private void CreateRoom(string userId)
-    //{
-    //    Room room = PhotonNetwork.CurrentRoom;
-    //    Hashtable hashtable = room.CustomProperties;
-    //    int index = 1;
-    //    while (hashtable.ContainsKey(RoomName + index) == false || string.IsNullOrEmpty(hashtable[RoomName + index].ToString()) == false)
-    //    {
-    //        index++;
-    //    }
-    //    room.SetCustomProperties(new Hashtable() { { RoomName + index, userId } });
-    //}
+    public bool TryJoinRoom()
+    {
+        return TryJoinRoom(null);
+    }
 
-    //[PunRPC]
-    //private void Add(string roomName, string userId)
-    //{
-    //    Room room = PhotonNetwork.CurrentRoom;
-    //    Hashtable hashtable = room.CustomProperties;
-    //    room.SetCustomProperties(new Hashtable() { { roomName, hashtable[roomName].ToString() + ' ' + userId } });
-    //}
+    public bool TryJoinRoom(string userId)
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
+        {
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            if (localPlayer.CustomProperties.ContainsKey(HuntingRoomTag) == false)
+            {
+                Dictionary<int, Player> players = room.Players;
+                if(string.IsNullOrEmpty(userId) == false)
+                {
+                    int count = 0;
+                    foreach(Player player in players.Values)
+                    {
+                        if (player != localPlayer)
+                        {
+                            Hashtable hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                    if(count > 0 && count < MaxPlayerCount)
+                    {
+                        localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, userId }, { ReadyTag, false } });
+                        return true;
+                    }
+                }
+                else
+                {
+                    Dictionary<string, int> roomInfos = new Dictionary<string, int>();
+                    foreach (Player player in players.Values)
+                    {
+                        if (player != localPlayer)
+                        {
+                            Hashtable hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true)
+                            {
+                                string value = hashtable[HuntingRoomTag].ToString();
+                                if (roomInfos.ContainsKey(value) == true)
+                                {
+                                    roomInfos[value] += 1;
+                                }
+                                else
+                                {
+                                    roomInfos.Add(value, 1);
+                                }
+                            }
+                        }
+                    }
+                    foreach(KeyValuePair<string, int> keyValuePair in roomInfos)
+                    {
+                        if(keyValuePair.Value < MaxPlayerCount)
+                        {
+                            localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, keyValuePair.Key }, { ReadyTag, false } });
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-    //[PunRPC]
-    //private void Remove(string roomName, string userId)
-    //{
-    //    Room room = PhotonNetwork.CurrentRoom;
-    //    Hashtable hashtable = room.CustomProperties;
-    //    List<string> list = hashtable[roomName].ToString().Split(' ').ToList();
-    //    if (list.Count > 0 && list[0] == userId)
-    //    {
-    //        room.SetCustomProperties(new Hashtable() { { roomName, null} });
-    //    }
-    //    else
-    //    {
-    //        list.Remove(userId);
-    //        StringBuilder stringBuilder = new StringBuilder();
-    //        for (int i = 0; i < list.Count; i++)
-    //        {
-    //            if (i == 0)
-    //            {
-    //                stringBuilder.Append(list[i]);
-    //            }
-    //            else
-    //            {
-    //                stringBuilder.Append(' ' + list[i]);
-    //            }
-    //        }
-    //        room.SetCustomProperties(new Hashtable() { { roomName, stringBuilder.ToString() } });
-    //    }
-    //}
+    public bool TryLeaveRoom()
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
+        {
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            Hashtable hashtable = localPlayer.CustomProperties;
+            if (hashtable.ContainsKey(HuntingRoomTag) == true)
+            {
+                string userId = hashtable[HuntingRoomTag].ToString();
+                localPlayer.SetCustomProperties(new Hashtable() { {HuntingRoomTag, null}, { ReadyTag, null } });
+                if(userId == localPlayer.UserId)
+                {
+                    Dictionary<int, Player> players = room.Players;
+                    foreach(Player player in players.Values)
+                    {
+                        if(localPlayer != player)
+                        {
+                            hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+                            {
+                                player.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
-    //[ContextMenu("¹æ »ý¼º")]
-    //public bool TryCreateRoom()
-    //{
-    //    Room room = PhotonNetwork.CurrentRoom;
-    //    if(room != null)
-    //    {
-    //        string userId = PhotonNetwork.LocalPlayer.UserId;
-    //        Hashtable hashtable = room.CustomProperties;
-    //        foreach(string value in hashtable.Values)
-    //        {
-    //            List<string> list = value.Split(' ').ToList();
-    //            if (list.Contains(userId) == true)
-    //            {
-    //                return false;
-    //            }
-    //        }
-    //        if(PhotonNetwork.IsMasterClient == true)
-    //        {
-    //            CreateRoom(userId);
-    //        }
-    //        else
-    //        {
-    //            photonView.RPC("CreateRoom", RpcTarget.MasterClient, userId);
-    //        }
-    //        return true;
-    //    }
-    //    return false;
-    //}
+    public bool TryStartRoom()
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
+        {
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            Hashtable hashtable = localPlayer.CustomProperties;
+            if(hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == localPlayer.UserId)
+            {
+                LeaveRoom(localPlayer.UserId);
+                photonView.RPC("LeaveRoom", RpcTarget.Others, localPlayer.UserId);
+            }
+        }
+        return false;
+    }
 
-    //public bool TryJoinRoom()
-    //{
-    //    return TryJoinRoom(null);
-    //}
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        _roomList = roomList;
+    }
 
-    //public bool TryJoinRoom(string roomName)
-    //{
-    //    Room room = PhotonNetwork.CurrentRoom;
-    //    if (room != null)
-    //    {
-    //        string userId = PhotonNetwork.LocalPlayer.UserId;
-    //        Hashtable hashtable = room.CustomProperties;
-    //        foreach (string value in hashtable.Values)
-    //        {
-    //            List<string> list = value.Split(' ').ToList();
-    //            if (list.Contains(userId) == true)
-    //            {
-    //                return false;
-    //            }
-    //        }
-    //        if (string.IsNullOrEmpty(roomName) == true)
-    //        {
-    //            foreach (string key in hashtable.Keys)
-    //            {
-    //                List<string> list = hashtable[key].ToString().Split(' ').ToList();
-    //                if(list.Count < MaxPlayerCount)
-    //                {
-    //                    if(PhotonNetwork.IsMasterClient == true)
-    //                    {
-    //                        Add(key, userId);
-    //                    }
-    //                    else
-    //                    {
-    //                        photonView.RPC("Add", RpcTarget.MasterClient, key, userId);
-    //                    }
-    //                    return true;
-    //                }
-    //            }
-    //        }
-    //        else if(hashtable.ContainsKey(roomName) == true)
-    //        {
-    //            List<string> list = hashtable[roomName].ToString().Split(' ').ToList();
-    //            if (list.Count < MaxPlayerCount)
-    //            {
-    //                if (PhotonNetwork.IsMasterClient == true)
-    //                {
-    //                    Add(roomName, userId);
-    //                }
-    //                else
-    //                {
-    //                    photonView.RPC("Add", RpcTarget.MasterClient, roomName, userId);
-    //                }
-    //                return true;
-    //            }
-    //        }
-    //    }
-    //    return false;
-    //}
-
-    //public bool TryLeaveRoom()
-    //{
-    //    Room room = PhotonNetwork.CurrentRoom;
-    //    if (room != null)
-    //    {
-    //        string userId = PhotonNetwork.LocalPlayer.UserId;
-    //        Hashtable hashtable = room.CustomProperties;
-    //        foreach (string key in hashtable.Keys)
-    //        {
-    //            List<string> list = hashtable[key].ToString().Split(' ').ToList();
-    //            if (list.Contains(userId) == true)
-    //            {
-    //                if(PhotonNetwork.IsMasterClient == true)
-    //                {
-    //                    Remove(key, userId);
-    //                }
-    //                else
-    //                {
-    //                    photonView.RPC("Remove", RpcTarget.MasterClient, key, userId);
-    //                }
-    //                return true;
-    //            }
-    //        }
-    //    }
-    //    return false;
-    //}
-
-    //public override void OnPlayerLeftRoom(Player player)
-    //{
-    //    if(PhotonNetwork.IsMasterClient == true)
-    //    {
-    //        string userId = player.UserId;
-    //        Hashtable hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
-    //        foreach (string key in hashtable.Keys)
-    //        {
-    //            List<string> list = hashtable[key].ToString().Split(' ').ToList();
-    //            if (list.Contains(userId) == true)
-    //            {
-    //                Remove(key, userId);
-    //                return;
-    //            }
-    //        }
-    //    }
-    //}
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        string userId = player.UserId;
+        Dictionary<int, Player> players = PhotonNetwork.CurrentRoom.Players;
+        foreach(Player otherPlayer in players.Values)
+        {
+            Hashtable hashtable = otherPlayer.CustomProperties;
+            if(hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+            {
+                otherPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+            }
+        }
+    }
 }
