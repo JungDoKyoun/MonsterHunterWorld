@@ -9,6 +9,7 @@ public class NpcCtrl : MonoBehaviour
     // NPC 타입에 따른 역할 분리
     public enum Type
     {
+        SingleQuest, // 싱글 퀘스트 생성
         Create, // 퀘스트(룸) 생성
         Join // 퀘스트(룸) 입장
     }

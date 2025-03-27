@@ -66,7 +66,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
                 if (selectedNpc != null)
                 {
-                    if (selectedNpc.npcType == NpcCtrl.Type.Create)
+                    if (selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
                     {
                         questCreateCanvas.gameObject.SetActive(true);
                     }
