@@ -1,13 +1,21 @@
-using Photon.Pun;
-using Photon.Realtime;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 // ▼ 퀘스트 생성, 퀘스트 입장, 입장할 방 목록 업데이트, 방 정보 관리하는 역할
-public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Canvas))]
+public class MeetingQuestManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    private Text purposeText;
+    [SerializeField]
+    private Text itemText;
+
+
     [Header("퀘스트 패널")]
     [SerializeField] RectTransform createRoomPanel;     // ◀ 퀘스트 생성 패널
     [SerializeField] RectTransform joinRoomPanel;       // ◀ 퀘스트 입장 패널
@@ -16,7 +24,7 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
     [Header("퀘스트 UI 요소")]
     [SerializeField] Text questNameText;            // ◀ 퀘스트(방) 이름 텍스트
     [SerializeField] RectTransform roomListPanel;   // ◀ 퀘스트(방) 목록 패널
-    [SerializeField] GameObject roomPrefab;         // ◀ 목록에 채워질 퀘스트(방) 프리팹
+    [SerializeField] Button roomPrefab;             // ◀ 목록에 채워질 퀘스트(방) 프리팹 버튼
 
     [Header("방 정보 UI")]
     [SerializeField] private RectTransform playListPanel;      // 플레이어 리스트가 표시될 패널
@@ -28,21 +36,35 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     // ▼ 감지 범위에 플레이어가 들어와서 활성화 된 NPC 담을 리스트
     private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
+    private Dictionary<string, Button> buttonDictionary = new Dictionary<string, Button>();
+
+    private enum Mode: byte
+    {
+        None,
+        Create,
+        Join,
+        Wait
+    }
+
+#if UNITY_EDITOR
+
+    [SerializeField]
+    private Mode mode = Mode.None;
+
+    private void OnValidate()
+    {
+        Show(mode);
+    }
+#endif
 
     private void Awake()
-    {
-        createRoomPanel.gameObject.SetActive(false);
-        joinRoomPanel.gameObject.SetActive(false);
-        roomInfoPanel.gameObject.SetActive(false);
-        
-        // ▼ NPC 감지 이벤트 구독
-        NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged;
+    {    
+        NpcCtrl.OnNpcDetectionChanged += HandleNpcDetectionChanged; //NPC 감지 이벤트 구독
     }
 
     private void OnDestroy()
     {
-        // ▼ 파괴시 구독 해지
-        NpcCtrl.OnNpcDetectionChanged -= HandleNpcDetectionChanged;
+        NpcCtrl.OnNpcDetectionChanged -= HandleNpcDetectionChanged; //파괴시 구독 해지
     }
 
     private void Update()
@@ -114,14 +136,75 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
         }
     }
 
-    // 콜백함수로 썼었던 기능입니다. 룸 리스트를 업데이트 합니다.
-    // 누군가 방을 만들면 퀘스트 입장 UI에서 해당 방정보를 담은 버튼 프리팹을
-    // 방 목록 패널에 생성합니다. 버튼에 해당 방에 입장할 수 있는 OnClick 이벤트를 넣어줍니다.
-    public void RoomListUpdate(List<RoomInfo> roomList)
+    private void Show(Mode mode)
     {
-        GameObject roomBtn = Instantiate(roomPrefab, roomListPanel);
-        roomBtn.GetComponentInChildren<Text>().text = questNameText.text;
-        //roomBtn.GetComponent<Button>().onClick.AddListener(JoinRoom);
+        switch(mode)
+        {
+            case Mode.None:
+                break;
+            case Mode.Create:
+                purposeText.Set("퀘스트 카운터");
+                itemText.Set("집회소 퀘스트");
+                break;
+            case Mode.Join:
+                purposeText.Set("퀘스트 받기");
+                itemText.Set("집회소 퀘스트 목록");
+                break;
+        }
+    }
+
+
+    // 플레이어 리스트 UI를 새로 고치는 함수
+    private void UpdateRoomInfo()
+    {
+        Dictionary<string, int> roomInfo = new Dictionary<string, int>();
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
+        {
+            Dictionary<int, Player> players = room.Players;
+            foreach (Player player in players.Values)
+            {
+                Hashtable hashtable = player.CustomProperties;
+                if (hashtable.ContainsKey(RoomManager.HuntingRoomTag) == true)
+                {
+                    string userId = hashtable[RoomManager.HuntingRoomTag].ToString();
+                    if (roomInfo.ContainsKey(userId) == true)
+                    {
+                        roomInfo[userId] += 1;
+                    }
+                    else
+                    {
+                        roomInfo.Add(userId, 1);
+                    }
+                }
+            }
+        }
+        //foreach (string key in roomInfo.Keys)
+        //{
+        //    if (buttonDictionary.ContainsKey(key) == true)
+        //    {
+        //        buttonDictionary[key].Set(roomInfo[key].ToString());
+        //        buttonDictionary[key].gameObject.SetActive(true);
+        //    }
+        //    else if (roomPrefab != null && roomListPanel != null)
+        //    {
+        //        Button button = Instantiate(roomPrefab, roomListPanel);
+        //        button.onClick.AddListener(() => { _selection = key; });
+        //        button.GetComponentInChildren<Text>().Set(roomInfo[key].ToString());
+        //        buttonDictionary.Add(key, button);
+        //    }
+        //}
+        //foreach (string key in buttonDictionary.Keys)
+        //{
+        //    if (roomInfo.ContainsKey(key) == false)
+        //    {
+        //        buttonDictionary[key].gameObject.SetActive(false);
+        //        if (key == _selection)
+        //        {
+        //            _selection = null;
+        //        }
+        //    }
+        //}
     }
 
     // 콜백함수로 썼었던 기능입니다. 플레이어 리스트를 업데이트 합니다.
@@ -168,32 +251,6 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
     //    }
     //}
 
-    //// 플레이어 리스트 UI를 새로 고치는 함수
-    //private void UpdatePlayerListUI()
-    //{
-    //    // 기존 리스트 항목 모두 제거
-    //    foreach (Transform child in playListPanel)
-    //    {
-    //        Destroy(child.gameObject);
-    //    }
-    //    // 현재 방에 있는 모든 플레이어 정보 기반으로 리스트 생성
-    //    foreach (Player player in PhotonNetwork.PlayerList)
-    //    {
-    //        GameObject listItem = Instantiate(playerListPrefab, playListPanel);
-    //        listItem.GetComponentInChildren<Text>().text = player.NickName;
-
-    //        // 플레이어가 준비 상태라면 이미지 색상을 초록색으로 표시
-    //        if (player.CustomProperties.ContainsKey("isReady") && (bool)player.CustomProperties["isReady"])
-    //        {
-    //            listItem.GetComponent<Image>().color = Color.green;
-    //        }
-    //        else
-    //        {
-    //            listItem.GetComponent<Image>().color = Color.white;
-    //        }
-    //    }
-    //}
-
     //// 일반 플레이어가 준비 버튼을 누르면 호출되는 함수
     //public void OnReady()
     //{
@@ -213,25 +270,6 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
     //    }
     //}
 
-    //// 방에 입장했을 때 호출되는 콜백
-    //public override void OnJoinedRoom()
-    //{
-    //    Debug.Log("방에 입장하였습니다");
-
-    //    // 방장이면 게임 시작 버튼, 일반 플레이어면 준비 버튼을 활성화
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        questReadyButton.gameObject.SetActive(false);
-    //        questStartButton.gameObject.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        questStartButton.gameObject.SetActive(false);
-    //        questReadyButton.gameObject.SetActive(true);
-    //    }
-
-    //    UpdatePlayerListUI();
-    //}
 
     //// 새로운 플레이어가 방에 입장하면 플레이어 리스트를 갱신
     //public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -256,7 +294,20 @@ public partial class MeetingQuestManager : MonoBehaviourPunCallbacks
     //        UpdatePlayerListUI();
     //    }
     //}
-
     #endregion
 
+    public override void OnJoinedRoom()
+    {
+
+        UpdateRoomInfo();
+    }
+
+    public override void OnPlayerLeftRoom(Player player)
+    {
+        UpdateRoomInfo();
+    }
+    public override void OnPlayerPropertiesUpdate(Player player, Hashtable hashtable)
+    {
+        UpdateRoomInfo();
+    }
 }
