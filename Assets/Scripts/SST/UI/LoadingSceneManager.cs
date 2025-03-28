@@ -10,6 +10,8 @@ using Photon.Realtime;
 public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
     public static string sceneToLoad;
+    static RoomOptions selectRoomOption;
+    private int index = 1;
 
     [Header("로딩 효과")]
     [SerializeField] CanvasGroup loadingCanvas;         // 페이드인,아웃 화면
@@ -22,20 +24,33 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     Coroutine blinkCor;
     Coroutine rotateCor;
 
-    RoomOptions single = new RoomOptions { MaxPlayers = 1 };
 
     private void Start()
     {
+        loadingCanvas.gameObject.SetActive(false);
         // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
         blinkCor = StartCoroutine(BlinkText());
         rotateCor = StartCoroutine(RotateImage());
         StartCoroutine(PlayLoadScene());
-        SetCreateRoom(sceneToLoad, single);
+
+        if(selectRoomOption.MaxPlayers == 1)
+        {
+            CreateSingleRoom(sceneToLoad, selectRoomOption);
+        }
+        else
+        {
+            CreateMeetingRoom(sceneToLoad, selectRoomOption);
+        }
     }
 
-    public void SetCreateRoom(string toWhere, RoomOptions roomOptions)
+    public void CreateSingleRoom(string toWhere, RoomOptions roomOptions)
     {
         PhotonNetwork.CreateRoom(toWhere, roomOptions);
+    }
+
+    public void CreateMeetingRoom(string toWhere, RoomOptions roomOptions)
+    {
+        PhotonNetwork.JoinOrCreateRoom(toWhere, roomOptions, TypedLobby.Default);
     }
 
     IEnumerator PlayLoadScene()
@@ -63,6 +78,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             yield return null;
         }
 
+        yield return new WaitUntil( () => PhotonNetwork.InRoom == true);
+
         // 비동기씬 과정 완료되면 이미지 회전, 텍스트 깜빡임 코루틴 중지
         StopCoroutine(blinkCor);
         StopCoroutine(rotateCor);
@@ -70,7 +87,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         // 페이드 아웃 대기
         yield return StartCoroutine(FadeCanvasGroup(loadingCanvas, 1f, 0f, fadeDuration));
 
-        yield return new WaitUntil( () => PhotonNetwork.InRoom == true);
 
         asyncOperation.allowSceneActivation = true;
     }
@@ -80,7 +96,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     {
         float elapsed = 0f;
         cg.alpha = start;
-
+        cg.gameObject.SetActive(true);
+        
         if(elapsed < duration)
         {
             cg.alpha = Mathf.Lerp(start, end, elapsed / duration);
@@ -112,9 +129,10 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public static void LoadSceneWithLoading(string targetScene)
+    public static void LoadSceneWithLoading(string targetScene, RoomOptions roomOptions)
     {
         sceneToLoad = targetScene;
+        selectRoomOption = roomOptions;
 
         SceneManager.LoadScene("LoadingScene");
     }
@@ -122,5 +140,16 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 입장하였습니다");
+        Debug.Log(selectRoomOption.MaxPlayers);
+    }
+
+    // 만약에 위의 16명 설정한 방이 꽉찰 경우 예외처리를 위해 만든 콜백 함수
+    // 위의 방에 들어가는게 실패하면 새로 방을 만든다 index를 증가시켜서
+    // MeetingHouse1 방에 못들어가면 index++ -> MeetingHouse2 방 참가 없으면 만들기
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        index++;
+        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 16 };
+        PhotonNetwork.JoinOrCreateRoom("MeetingHouse" + index, roomOptions, TypedLobby.Default);
     }
 }

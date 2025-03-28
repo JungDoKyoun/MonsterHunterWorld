@@ -9,6 +9,8 @@ using Photon.Pun.Demo.Asteroids;
 
 public class ServerConnector : MonoBehaviourPunCallbacks
 {
+    RoomOptions singleRoomOption = new RoomOptions { MaxPlayers = 1};
+
     private void Awake()
     {
         // 방장이 씬 넘기면 다 같이 넘어감
@@ -29,6 +31,6 @@ public class ServerConnector : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = "Guest";
         }
 
-        LoadingSceneManager.LoadSceneWithLoading("SingleRoom");
+        LoadingSceneManager.LoadSceneWithLoading("SingleRoom", singleRoomOption);
     }
 }
