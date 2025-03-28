@@ -11,7 +11,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private static readonly string ReadyTag = "Ready";
     public static readonly string HuntingRoomTag = "HuntingRoom";
 
-    public bool TryCreateRoom()
+    public bool TryCreateQuest()
     {
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null)
@@ -26,12 +26,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         return false;
     }
 
-    public bool TryJoinRoom()
+    public bool TryJoinQuest()
     {
-        return TryJoinRoom(null);
+        return TryJoinQuest(null);
     }
 
-    public bool TryJoinRoom(string userId)
+    public bool TryJoinQuest(string userId)
     {
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null)
@@ -96,7 +96,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         return false;
     }
 
-    public bool TryReadyRoom()
+    public bool TryReadyQuest()
     {
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null)
@@ -136,7 +136,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         return false;
     }
 
-    public bool TryLeaveRoom()
+    public bool TryLeaveQuest()
     {
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null)
