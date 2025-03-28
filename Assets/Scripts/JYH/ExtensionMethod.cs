@@ -13,7 +13,7 @@ public static class ExtensionMethod
         }
     }
 
-    public static void Set(this Text text, string value)
+    public static void SetText(this Text text, string value)
     {
         if (text != null)
         {
@@ -21,19 +21,43 @@ public static class ExtensionMethod
         }
     }
 
-    public static void Set(this Button button, string value)
+    public static void SetText(this Button button, string value)
     {
         if (button != null)
         {
-            button.GetComponentInChildren<Text>().Set(value);
+            button.GetComponentInChildren<Text>().SetText(value);
         }
     }
 
-    public static void Set(this Button button, bool value)
+    public static void SetInteractable(this Button button, bool value)
+    {
+        if (button != null)
+        {
+            button.interactable = value;
+        }
+    }
+
+    public static void SetActive(this Button button, bool value)
     {
         if(button != null)
         {
-            button.interactable = value;
+            button.gameObject.SetActive(value);
+        }
+    }
+
+    public static void SetActive(this Transform transform, bool value)
+    {
+        if(transform != null)
+        {
+            transform.gameObject.SetActive(value);
+        }
+    }
+
+    public static void Set(this GameObject gameObject, bool value)
+    {
+        if(gameObject != null)
+        {
+            gameObject.SetActive(value);
         }
     }
 }
