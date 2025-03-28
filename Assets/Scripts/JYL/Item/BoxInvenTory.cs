@@ -19,6 +19,8 @@ public class BoxInvenTory : BaseInventory
     //현재 선택된 사물함 태그
     ItemType selectBoxTag;
 
+    public bool IsOpen => gameObject.activeSelf;
+
     private void Start()
     {
         invenType = InvenType.Box;
@@ -27,7 +29,7 @@ public class BoxInvenTory : BaseInventory
 
         InvenInit();
 
-        Debug.Log("박스인벤 시작");
+        //Debug.Log("박스인벤 시작");
     }
 
     public void AddItem(BaseItem item, int index)
@@ -142,6 +144,10 @@ public class BoxInvenTory : BaseInventory
         {
             NextBox(boxIndex);
         }
+    }
+    public void CloseUI()
+    {
+        gameObject.SetActive(false);
     }
 
 }

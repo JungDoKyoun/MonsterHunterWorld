@@ -96,7 +96,6 @@ public class ItemToolTipCtrl : MonoBehaviour
         maxCountText.text = item.maxCount.ToString();
         allCountText.text = item.allCount.ToString();
 
-        Debug.Log("? : " + value.GetType());
     }
 
 }

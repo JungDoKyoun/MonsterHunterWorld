@@ -71,7 +71,7 @@ public abstract class BaseInventory : MonoBehaviour
         }
 
         // 2. 아니면 빈 슬롯에 새로 추가
-        int emptyIndex = items.FindIndex(i => i.type == ItemType.Empty);
+        int emptyIndex = items.FindIndex(i => i.id == ItemName.Empty);
 
         if (emptyIndex >= 0)
         {
@@ -127,7 +127,7 @@ public abstract class BaseInventory : MonoBehaviour
     }
 
     //아이템 교환
-    public bool ChangeItem(List<BaseItem> current, ItemImageNumber itemKey)
+    public bool ChangeItem(List<BaseItem> current, ItemName itemKey)
     {
         Debug.Log(current.Count);
 
@@ -183,7 +183,7 @@ public abstract class BaseInventory : MonoBehaviour
     //아이템 슬롯 갱신
     public virtual void RefreshUI()
     {
-        Debug.Log("[RefreshUI] 호출됨");
+        //Debug.Log("[RefreshUI] 호출됨");
 
         for (int i = 0; i < slot.Count; i++)
         {

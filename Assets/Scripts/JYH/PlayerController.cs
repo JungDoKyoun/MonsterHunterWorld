@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using System.Collections.Generic;
+using Photon.Realtime;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -140,6 +142,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 _currentStamina = _fullStamina;
             }
+        }
+    }
+
+    public Player player
+    {
+        get
+        {
+            return photonView.Owner;
         }
     }
 
@@ -522,6 +532,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         base.OnDisable();
         StopAllCoroutines();
+        Move(Vector2.zero);
+        SetAnimation(AttackTag, false);
+        SetAnimation(JumpTag, false);
         _coroutine = null;
     }
 

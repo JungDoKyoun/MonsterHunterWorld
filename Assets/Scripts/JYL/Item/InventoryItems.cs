@@ -6,6 +6,8 @@ public class InventoryItems : BaseInventory
 {
     public GameObject upSlot;
     public GameObject downSlot;
+    
+    public bool IsOpen => gameObject.activeSelf;
 
     void Start()
     {
@@ -17,11 +19,11 @@ public class InventoryItems : BaseInventory
         InvenInit();
 
         //아이템 흭득
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.RecoveryPotion));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.RecoveryPotion));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.WellCookedMeat));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.VineTrap));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.WellCookedMeat));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
 
         //가지고있는 아이템이 있는경우
         if (items.Count > 0)
@@ -29,7 +31,6 @@ public class InventoryItems : BaseInventory
             for (int i = 0; i < items.Count; i++)
             {
                 slot[i].GetComponent<ItemSlot>().SlotSetItem(items[i]);
-                //Debug.Log(items[i].name + "이거있따아아아아아아아아앙아아아아아아아아");
             }
         }
         //없으면 고대로 하면됨
@@ -45,5 +46,6 @@ public class InventoryItems : BaseInventory
         yield return new WaitForSeconds(0.1f);
         RefreshUI();
     }
+
 
 }
