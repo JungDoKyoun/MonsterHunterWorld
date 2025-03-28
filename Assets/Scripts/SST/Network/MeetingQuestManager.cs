@@ -266,6 +266,9 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                 Player localPlayer = PhotonNetwork.LocalPlayer;
                 if (localPlayer.CustomProperties.ContainsKey(HuntingRoomTag) == false)
                 {
+
+
+
                     //Dictionary<string, List<string>> roomInfos = new Dictionary<string, List<string>>();
                     Dictionary<int, Player> players = room.Players;
                     if (string.IsNullOrEmpty(userId) == false)
