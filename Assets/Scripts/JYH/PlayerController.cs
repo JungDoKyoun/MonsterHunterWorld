@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
+using Photon.Realtime;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -141,6 +142,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 _currentStamina = _fullStamina;
             }
+        }
+    }
+
+    public Player player
+    {
+        get
+        {
+            return photonView.Owner;
         }
     }
 
