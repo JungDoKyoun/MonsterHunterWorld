@@ -65,6 +65,11 @@ MonoBehaviour:
   - Stun
   - StartRoom
   - LeaveRoom
+  - SyncHeadDamage
+  - SyncHP
+  - TakeDamage
+  - TakeHeadDamage
+  - Trap
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
