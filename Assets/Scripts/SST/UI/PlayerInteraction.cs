@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -8,4 +6,21 @@ public class PlayerInteraction : MonoBehaviour
     public Transform createQuestPanel;
     public Transform joinQuestPanel;
     public Transform movePanel;
+
+    public enum State
+    {
+        Hide,
+        SingleQuest,
+        CreateQuest,
+        JoinQuest,
+        Move
+    }
+
+    public void Show(State state)
+    {
+        singleQuestPanel.SetActive(state == State.SingleQuest);
+        createQuestPanel.SetActive(state == State.CreateQuest);
+        joinQuestPanel.SetActive(state == State.JoinQuest);
+        movePanel.SetActive(state == State.Move);
+    }
 }
