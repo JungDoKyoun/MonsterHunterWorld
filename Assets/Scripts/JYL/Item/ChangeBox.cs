@@ -34,13 +34,13 @@ public class ChangeBox : MonoBehaviour
             arrowTransforms[i] = arrowObjects[i].GetComponent<RectTransform>();
         }
     }
-
+    // 화살표 애니메이션 시작
     public void StartArrowAnimation(Direction dir)
     {
         StopArrowAnimation();
         animCoroutine = StartCoroutine(AnimateArrow(dir));
     }
-
+    // 화살표 애니메이션 멈춤
     public void StopArrowAnimation()
     {
         if (animCoroutine != null)
@@ -52,24 +52,25 @@ public class ChangeBox : MonoBehaviour
         ResetIcons();
     }
 
+    // 화살표 애니메이션
     private IEnumerator AnimateArrow(Direction dir)
     {
         // 방향 설정
-        float rotationZ = dir == Direction.ToBox ? 90f : -90f;
-        foreach (var rect in arrowTransforms)
+        float rotationZ = dir == Direction.ToBox ? 90f : -90f; //box로 가는 방향이면 90도, inventory로 가는 방향이면 -90도
+        foreach (var rect in arrowTransforms)//화살표 이미지들을 회전
         {
             rect.rotation = Quaternion.Euler(0, 0, rotationZ);
         }
 
         // 아이콘 강조
-        if (dir == Direction.ToBox)
+        if (dir == Direction.ToBox)//box로 가는 방향이면 왼쪽 아이콘 강조
         {
-            for(int i = 0; i < leftIcon.Length; i++)
+            for (int i = 0; i < leftIcon.Length; i++)
             {
                 leftIcon[i].color = highlightColor;
                 rightIcon[i].color = normalColor;
             }
-            
+
         }
         else
         {

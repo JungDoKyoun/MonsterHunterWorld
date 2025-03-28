@@ -69,7 +69,7 @@ public class BoxCtrl : MonoBehaviour
 
         }
 
-        Debug.Log(isPlayer);
+        //Debug.Log(isPlayer);
 
     }
 
