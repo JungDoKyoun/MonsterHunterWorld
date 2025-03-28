@@ -10,11 +10,11 @@ public class LoadingSceneManager : MonoBehaviour
     public static string sceneToLoad;
 
     [Header("로딩 효과")]
-    [SerializeField] CanvasGroup loadingCanvas;     // 페이드인,아웃 화면
+    [SerializeField] CanvasGroup loadingCanvas;         // 페이드인,아웃 화면
     [SerializeField] Image loadingImage;                // 회전할 로딩 이미지
     [SerializeField] Text loadingText;                  // 깜빡이는 로딩 텍스트
 
-    private float fadeDuration = 1f;        // 페이드 효과 지속시간
+    private float fadeDuration = 1f;         // 페이드 효과 지속시간
     private float blinkSpeed = 10f;          // 텍스트 깜빡임 속도
 
     Coroutine blinkCor;
@@ -22,10 +22,10 @@ public class LoadingSceneManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(PlayLoadScene());
         // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
         blinkCor = StartCoroutine(BlinkText());
         rotateCor = StartCoroutine(RotateImage());
+        StartCoroutine(PlayLoadScene());
     }
 
     IEnumerator PlayLoadScene()

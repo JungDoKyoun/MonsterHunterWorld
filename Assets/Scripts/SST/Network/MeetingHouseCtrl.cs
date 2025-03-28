@@ -48,7 +48,8 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
             yield return null;
         }
         // 플레이어 자식에 있는 Move Panel을 찾아서 담아준다
-        targetPanel = player.transform.Find("Move Panel");
+        targetPanel = player.GetComponent<PlayerInteraction>().movePanel;
+        targetPanel.gameObject.SetActive(false);
     }
 
     IEnumerator WaitForCreateMeetingRoom()

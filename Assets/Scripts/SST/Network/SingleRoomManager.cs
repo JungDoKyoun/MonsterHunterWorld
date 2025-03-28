@@ -14,6 +14,9 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     [SerializeField] Text basicQuestName;           // 기본 설정된 퀘스트 이름 Text
     [SerializeField] Text questName;                // 퀘스트 정보에 표시될 퀘스트 이름 Text
 
+    PlayerController player;
+    private Transform singleQuestPanel;
+
     // NPC 감지 관련 변수 (싱글플레이에는 생성 NPC만 있음)
     private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
 
@@ -41,6 +44,8 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
         // 룸정보에서 나오는 퀘스트 이름을 퀘스트 생성할 때 해당된 퀘스트 이름으로 초기화
         questName.text = basicQuestName.text;
+
+        StartCoroutine(WaitForFindPlayer());
     }
 
     private void Update()
@@ -50,13 +55,12 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         {
             if (activeNpcs.Count > 0)
             {
-                Transform playerPos = GameObject.FindGameObjectWithTag("Player").transform;
                 NpcCtrl selectedNpc = null;
                 float minDistance = Mathf.Infinity;
 
                 foreach (var npc in activeNpcs)
                 {
-                    float distance = Vector3.Distance(npc.transform.position, playerPos.position);
+                    float distance = Vector3.Distance(npc.transform.position, player.transform.position);
                     if (distance < minDistance)
                     {
                         minDistance = distance;
@@ -100,6 +104,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     // NPC 감지 이벤트 핸들러: 감지된 NPC를 리스트에 추가하거나 제거
     private void HandleNpcDetectionChanged(NpcCtrl npc, bool isActive)
     {
+        singleQuestPanel.gameObject.SetActive(isActive);
         if (isActive)
         {
             if (!activeNpcs.Contains(npc))
@@ -115,6 +120,23 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         SceneManager.LoadScene("DoKyoun");
+    }
+
+    IEnumerator WaitForFindPlayer()
+    {
+        while(player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+            if(playerObj != null)
+            {
+                player = playerObj.GetComponent<PlayerController>();
+            }
+            yield return null;
+        }
+
+        singleQuestPanel = player.GetComponent<PlayerInteraction>().singleQuestPanel;
+        singleQuestPanel.gameObject.SetActive(false);
     }
 
     IEnumerator WaitForCreateQuestRoom()
