@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
         }
         if (isBox && Input.GetKeyDown(KeyCode.F))
         {
-            if (uiMap[UIType.AllVillageUI].activeSelf == false)
+            if (openStack.Count == 0)
             {
                 StackUIOpen(UIType.AllVillageUI);
                 //플레이어 이동 제한

@@ -98,16 +98,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.id);
 
-
             if (item.count <= 0)
             {
                 item = ItemDataBase.Instance.emptyItem;
                 SlotSetItem(item);
             }
-
-            //InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
-            countText.text = item.count.ToString();
-
         }
         else
         {
@@ -119,9 +114,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             {
                 InvenToryCtrl.Instance.UnEquipItem(item.id);
             }
-        }
 
-        //InvenToryCtrl.Instance.InventoryItems.RefreshUI();
+            if (item.count <= 0)
+            {
+                SlotSetItem(ItemDataBase.Instance.emptyItem);
+            }
+        }
 
         onClick?.Invoke(item);
     }
@@ -134,7 +132,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         image.sprite = sprites[1];
 
-        //
         if (invenType == InvenType.Inven || invenType == InvenType.Box)
         {
             InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
