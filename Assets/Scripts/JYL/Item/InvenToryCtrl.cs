@@ -49,7 +49,7 @@ public class InvenToryCtrl : MonoBehaviour
 
 
     //소지 인벤토리와 창고 인벤토리 전용
-    public void ChangeItemByKey(InvenType fromType, ItemImageNumber itemKey)
+    public void ChangeItemByKey(InvenType fromType, ItemName itemKey)
     {
         if (fromType == InvenType.Equipped || fromType == InvenType.EquipBox)
         {
@@ -64,7 +64,7 @@ public class InvenToryCtrl : MonoBehaviour
         //위 코드에서 클론 매서드(주소형에서 값형으로 변환후 반환) 만들어둔거 사용해서 바꿈
         BaseItem original = ItemDataBase.Instance.GetItem(itemKey);
 
-        int fromIndex = from.Items.FindIndex(i => i.key == original.key);
+        int fromIndex = from.Items.FindIndex(i => i.id == original.id);
 
         if (fromIndex >= 0)
         {
@@ -86,7 +86,7 @@ public class InvenToryCtrl : MonoBehaviour
 
 
     //장비 인벤토리에서 장비 장착 하기
-    public void EquipItem(ItemImageNumber itemKey)
+    public void EquipItem(ItemName itemKey)
     {
         BaseItem item = ItemDataBase.Instance.GetItem(itemKey);
 
@@ -111,7 +111,7 @@ public class InvenToryCtrl : MonoBehaviour
     }
 
     //장비 인벤토리에서 장비 해제 하기
-    public void UnEquipItem(ItemImageNumber itemKey)
+    public void UnEquipItem(ItemName itemKey)
     {
         BaseItem item = ItemDataBase.Instance.GetItem(itemKey);
 

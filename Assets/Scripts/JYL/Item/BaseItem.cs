@@ -17,7 +17,7 @@ public enum EquipSlot
     Chest,
     Arms,
     Waist,
-    Legs,    
+    Legs,
     band,
     neck,
     end
@@ -44,7 +44,7 @@ public enum TrapType
 public class BaseItem
 {
     public Sprite image;
-    public ItemImageNumber key;
+    public ItemName id;
     public string name;
     public ItemType type;
     public string rarity;
@@ -61,7 +61,7 @@ public class BaseItem
         return new BaseItem
         {
             image = this.image,
-            key = this.key,
+            id = this.id,
             name = this.name,
             type = this.type,
             rarity = this.rarity,
@@ -96,7 +96,7 @@ public class Weapon : BaseItem
         return new Weapon
         {
             image = this.image,
-            key = this.key,
+            id = this.id,
             name = this.name,
             type = this.type,
             rarity = this.rarity,
@@ -132,7 +132,7 @@ public class Armor : BaseItem
         return new Armor
         {
             image = this.image,
-            key = this.key,
+            id = this.id,
             name = this.name,
             type = this.type,
             equipType = this.equipType,
@@ -167,7 +167,7 @@ public class Potion : BaseItem
         return new Potion
         {
             image = this.image,
-            key = this.key,
+            id = this.id,
             name = this.name,
             type = this.type,
             rarity = this.rarity,
@@ -198,7 +198,7 @@ public class Trap : BaseItem
         {
             trap = this.trap,
             image = this.image,
-            key = this.key,
+            id = this.id,
             name = this.name,
             type = this.type,
             rarity = this.rarity,

@@ -96,7 +96,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if (invenType == InvenType.Inven || invenType == InvenType.Box)
         {
-            InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.key);
+            InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.id);
 
 
             if (item.count <= 0)
@@ -113,11 +113,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             if (invenType == InvenType.EquipBox)
             {
-                InvenToryCtrl.Instance.EquipItem(item.key);
+                InvenToryCtrl.Instance.EquipItem(item.id);
             }
             else
             {
-                InvenToryCtrl.Instance.UnEquipItem(item.key);
+                InvenToryCtrl.Instance.UnEquipItem(item.id);
             }
         }
 

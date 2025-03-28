@@ -19,11 +19,11 @@ public class InventoryItems : BaseInventory, IClosableUI
         InvenInit();
 
         //아이템 흭득
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.RecoveryPotion));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.RecoveryPotion));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.WellCookedMeat));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.VineTrap));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.WellCookedMeat));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
 
         //가지고있는 아이템이 있는경우
         if (items.Count > 0)

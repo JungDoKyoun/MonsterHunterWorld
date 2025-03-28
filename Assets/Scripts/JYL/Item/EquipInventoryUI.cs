@@ -18,8 +18,8 @@ public class EquipInventoryUI : BaseInventory, IClosableUI
 
         InvenInit();
 
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.HunterKnife));
-        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemImageNumber.HunterArmor));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.HuntersKnife_I));
+        GetItemToInventory(ItemDataBase.Instance.GetItem(ItemName.LeatherVest));
 
         //가지고있는 아이템이 있는경우
         if (items.Count > 0)
