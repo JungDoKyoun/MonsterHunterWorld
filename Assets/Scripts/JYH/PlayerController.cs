@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using System.Collections.Generic;
 using Photon.Realtime;
 
 [DisallowMultipleComponent]
@@ -11,7 +12,6 @@ using Photon.Realtime;
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
 [RequireComponent(typeof(PlayerCostume))]
-[RequireComponent(typeof(PlayerInteraction))]
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -60,22 +60,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 _hasPlayerCostume = TryGetComponent(out _playerCostume);
             }
             return _playerCostume;
-        }
-    }
-
-    private bool _hasPlayerInteraction = false;
-
-    private PlayerInteraction _playerInteraction = null;
-
-    private PlayerInteraction getPlayerInteraction
-    {
-        get
-        {
-            if(_hasPlayerInteraction == false)
-            {
-                _hasPlayerInteraction = TryGetComponent(out _playerInteraction);
-            }
-            return _playerInteraction;
         }
     }
 
@@ -161,17 +145,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [SerializeField]
-    private int _damage = 0;
-
-    private bool _swing = false;
-
-    public bool attackable
-    {
-        private get;
-        set;
-    }
-
     public Player player
     {
         get
@@ -179,6 +152,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             return photonView.Owner;
         }
     }
+
+    [SerializeField]
+    private int _damage = 0;
+
+    private bool _swing = false;
 
     private const int MinValue = 0;
     private const int MaxLife = 200;
@@ -225,10 +203,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             bool attack = Input.GetMouseButton(0);
             if (attack != getAnimator.GetBool(AttackTag))
             {
-                if(attackable == false && attack == true)
-                {
-                    return;
-                }
                 SetAnimation(AttackTag, attack);
                 if (attack == true)
                 {
@@ -546,11 +520,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 photonView.RPC("SetLife", RpcTarget.Others, _currentLife, _fullLife);
             }
         }
-    }
-
-    public void Show(PlayerInteraction.State state)
-    {
-        getPlayerInteraction.Show(state);
     }
 
     public void Move(Vector2 direction)

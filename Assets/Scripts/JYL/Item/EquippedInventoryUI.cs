@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //ÀåÂøÁß ÀÎº¥ UI
-public class EquippedInventoryUI : BaseInventory, IClosableUI
+public class EquippedInventoryUI : BaseInventory
 {
     public GameObject[] equipSlot;
     public bool IsOpen => gameObject.activeSelf;
@@ -37,16 +37,6 @@ public class EquippedInventoryUI : BaseInventory, IClosableUI
         gameObject.SetActive(false);
     }
 
-    private void OnEnable()
-    {
-        RefreshUI();
-        //UIManager.Instance.RegisterUI(this);
-    }
-
-    private void OnDisable()
-    {
-        //UIManager.Instance.UnregisterUI(this);
-    }
 
     //public void RefreshUI()
     //{
