@@ -47,7 +47,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
         foreach(Button button in _buttonList)
         {
-            button.Set(false);
+            button.SetInteractable(false);
         }
     }
 
@@ -79,14 +79,14 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         {
             if(_dictionary.ContainsKey(key) == true)
             {
-                _dictionary[key].Set(roomInfo[key].ToString());
+                _dictionary[key].SetText(roomInfo[key].ToString());
                 _dictionary[key].gameObject.SetActive(true);
             }
             else if(_buttonPrefab != null && _contentTransform != null)
             {
                 Button button = Instantiate(_buttonPrefab, _contentTransform);
                 button.onClick.AddListener(() => { _selection = key; });
-                button.GetComponentInChildren<Text>().Set(roomInfo[key].ToString());
+                button.GetComponentInChildren<Text>().SetText(roomInfo[key].ToString());
                 _dictionary.Add(key, button);
             }
         }
@@ -105,41 +105,41 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        bool done = getRoomManager.TryCreateRoom();
+        bool done = getRoomManager.TryCreateQuest();
         if(done == true)
         {
-            _roomText.Set("방 생성 성공");
+            _roomText.SetText("방 생성 성공");
         }
         else
         {
             Room room = PhotonNetwork.CurrentRoom;
             if(room != null)
             {
-                _roomText.Set("이미 방에 참여 중");
+                _roomText.SetText("이미 방에 참여 중");
             }
             else
             {
-                _roomText.Set("집회소에 없음");
+                _roomText.SetText("집회소에 없음");
             }
         }
     }
 
     public void JoinRoom()
     {
-        bool done = getRoomManager.TryJoinRoom(_selection);
+        bool done = getRoomManager.TryJoinQuest(_selection);
         if(done == true)
         {
-            _roomText.Set("방 참가 성공");
+            _roomText.SetText("방 참가 성공");
         }
         else
         {
-            _roomText.Set("방 참가 실패");
+            _roomText.SetText("방 참가 실패");
         }
     }
 
     public void ReadyRoom()
     {
-        bool done = getRoomManager.TryReadyRoom();
+        bool done = getRoomManager.TryReadyQuest();
         if(done == true)
         {
 
@@ -152,14 +152,14 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
-        bool done = getRoomManager.TryLeaveRoom();
+        bool done = getRoomManager.TryLeaveQuest();
         if (done == true)
         {
-            _roomText.Set("방 나가기 성공");
+            _roomText.SetText("방 나가기 성공");
         }
         else
         {
-            _roomText.Set("방에 참여한 상태가 아님");
+            _roomText.SetText("방에 참여한 상태가 아님");
         }
     }
 
@@ -182,7 +182,7 @@ public class PhotonTest : MonoBehaviourPunCallbacks
     {
         foreach (Button button in _buttonList)
         {
-            button.Set(true);
+            button.SetInteractable(true);
         }
         UpdateRoomInfo();
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -522,6 +523,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         base.OnDisable();
         StopAllCoroutines();
+        Move(Vector2.zero);
+        SetAnimation(AttackTag, false);
+        SetAnimation(JumpTag, false);
         _coroutine = null;
     }
 
