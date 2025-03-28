@@ -15,6 +15,7 @@ public class EquippedInventoryUI : BaseInventory
         SlotSetting(gameObject, invenType);
         InvenInit();
     }
+
     public void EquipItem(BaseItem value)
     {
         var index = (int)value.GetEquipSlot();
@@ -36,23 +37,4 @@ public class EquippedInventoryUI : BaseInventory
     {
         gameObject.SetActive(false);
     }
-
-
-    //public void RefreshUI()
-    //{
-    //    for (int i = 0; i < equipSlot.Length; i++)
-    //    {
-    //        var slotComp = equipSlot[i].GetComponent<ItemSlot>();
-    //        if (slotComp == null)
-    //        {
-    //            Debug.LogWarning($"슬롯 {i}번에 ItemSlot 컴포넌트가 없습니다.");
-    //            continue;
-    //        }
-    //        if (items[i] != null)
-    //        {
-    //            slotComp.SlotSetItem(items[i]);
-    //        }
-    //    }
-    //}
-
 }

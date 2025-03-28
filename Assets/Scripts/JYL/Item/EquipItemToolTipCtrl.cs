@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +15,12 @@ public class EquipItemToolTipCtrl : MonoBehaviour
     Text toolTip;
     [SerializeField]
     Text sellGold;
+    [SerializeField]
+    Text pageIndex;
+
+    [SerializeField]
+    List<GameObject> pageUI;
+
 
     [Header("무기 세팅")]
     [SerializeField]
@@ -26,7 +31,7 @@ public class EquipItemToolTipCtrl : MonoBehaviour
     Text damage;
     [SerializeField]
     Text attribute;
-    
+
     [Header("방어구 세팅")]
     [SerializeField]
     GameObject ArmorObj;
@@ -47,14 +52,67 @@ public class EquipItemToolTipCtrl : MonoBehaviour
     [SerializeField]
     Text DragonDef;
 
+    int index = 0;
+    int maxIndex = 2;
+
 
     private void Awake()
     {
         //초기화 - 처음엔 아무것도 없으니까 비활성화
-        TooltipClear(false,ItemType.Empty);
+        TooltipClear(false, ItemType.Empty);
+
     }
 
-    public void TooltipClear(bool set ,ItemType type)
+    private void OnEnable()
+    {
+        pageIndex.text = 1.ToString() + " / " + maxIndex.ToString();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            NextPage();
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            PrevPage();
+        }
+    }
+
+    public void NextPage()
+    {
+        if (index + 1 >= maxIndex)
+            return;
+
+        PageClose(index);
+        index++;
+
+        PageOpen(index);
+    }
+
+    public void PrevPage()
+    {
+        if (index - 1 < 0)
+            return;
+
+        PageClose(index);
+        index--;
+        PageOpen(index);
+    }
+
+    void PageOpen(int index)
+    {
+        pageUI[index].SetActive(true);
+        pageIndex.text = (index + 1).ToString() + " / " + maxIndex.ToString();
+
+    }
+    void PageClose(int index)
+    {
+        pageUI[index].SetActive(false);
+    }
+
+    public void TooltipClear(bool set, ItemType type)
     {
         image.gameObject.SetActive(set);
         itemName.gameObject.SetActive(set);
@@ -62,13 +120,13 @@ public class EquipItemToolTipCtrl : MonoBehaviour
         sellGold.gameObject.SetActive(set);
 
         //무기
-        if(type == ItemType.Weapon)
+        if (type == ItemType.Weapon)
         {
             weaponObj.SetActive(set);
             damage.gameObject.SetActive(set);
             weaponRarity.gameObject.SetActive(set);
             attribute.gameObject.SetActive(set);
-        }        
+        }
 
         //방어구
         else if (type == ItemType.Armor)
@@ -83,7 +141,7 @@ public class EquipItemToolTipCtrl : MonoBehaviour
             IceDef.gameObject.SetActive(set);
             DragonDef.gameObject.SetActive(set);
         }
-        
+
     }
 
     public void SetWeapon(Weapon item)
@@ -104,14 +162,14 @@ public class EquipItemToolTipCtrl : MonoBehaviour
 
 
 
-        TooltipClear(true,ItemType.Weapon);
+        TooltipClear(true, ItemType.Weapon);
     }
 
     public void SetArmor(Armor item)
     {
         if (item == null)
         {
-            TooltipClear(false,ItemType.Armor);
+            TooltipClear(false, ItemType.Armor);
             return;
         }
 
@@ -119,7 +177,7 @@ public class EquipItemToolTipCtrl : MonoBehaviour
         itemName.text = item.name;
         armorRarity.text = item.rarity.ToString();
         toolTip.text = item.tooltip;
-        
+
         defense.text = item.defense.ToString();
         level.text = item.level.ToString();
         fireDef.text = item.fireDef.ToString();

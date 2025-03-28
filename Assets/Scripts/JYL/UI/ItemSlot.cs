@@ -78,7 +78,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         img.sprite = item.image;
         img.color = item.color;
 
-        countText.text = (item.count > 0) ? item.count.ToString() : "";
+        
+        if(value.type > ItemType.Accessory)
+        {
+            countText.text = (item.count > 0) ? item.count.ToString() : "";
+        }
 
         //위 코드로 수정했음
         //if (item.count > 0)
@@ -110,7 +114,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             {
                 InvenToryCtrl.Instance.EquipItem(item.id);
             }
-            else
+            else if(invenType == InvenType.Equipped)
             {
                 InvenToryCtrl.Instance.UnEquipItem(item.id);
             }

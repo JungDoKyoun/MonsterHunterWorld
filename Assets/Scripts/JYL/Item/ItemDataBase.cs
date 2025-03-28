@@ -113,6 +113,6 @@ public class ItemDataBase : MonoBehaviour
 
     public BaseItem GetItem(ItemName id)
     {
-        return itemDB[id];
+        return itemDB[id].Clone();
     }
 }

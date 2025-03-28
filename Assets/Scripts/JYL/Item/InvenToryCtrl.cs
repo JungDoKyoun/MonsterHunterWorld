@@ -85,6 +85,42 @@ public class InvenToryCtrl : MonoBehaviour
     }
 
 
+    public void ChangeEquipItemByKey(InvenType fromType, ItemName itemKey)
+    {
+        if (fromType == InvenType.Equipped || fromType == InvenType.EquipBox)
+        {
+            Debug.LogError("장비 인벤토리에서는 아이템을 교환할 수 없습니다.");
+            return;
+        }
+
+        BaseInventory from = (fromType == InvenType.Inven) ? inventoryItems : boxInvenTory;
+        BaseInventory to = (fromType == InvenType.Inven) ? boxInvenTory : inventoryItems;
+
+        //BaseItem original = ItemDataBase.Instance.itemDB[itemKey];
+        //위 코드에서 클론 매서드(주소형에서 값형으로 변환후 반환) 만들어둔거 사용해서 바꿈
+        BaseItem original = ItemDataBase.Instance.GetItem(itemKey);
+
+        int fromIndex = from.Items.FindIndex(i => i.id == original.id);
+
+        if (fromIndex >= 0)
+        {
+            from.Items[fromIndex].count--;
+            if (from.Items[fromIndex].count <= 0)
+            {
+                from.Items[fromIndex] = ItemDataBase.Instance.emptyItem;
+            }
+        }
+
+        to.ChangeItem(to.Items, itemKey);
+
+        inventoryItems.CompactItemList();
+        boxInvenTory.CompactItemList();
+
+        inventoryItems.RefreshUI();
+        boxInvenTory.RefreshUI();
+    }
+
+
     //장비 인벤토리에서 장비 장착 하기
     public void EquipItem(ItemName itemKey)
     {
@@ -102,10 +138,13 @@ public class InvenToryCtrl : MonoBehaviour
             return;
         }
 
+
+
         equippedInventoryUI.ChangeItem(equippedInventoryUI.Items, itemKey);
         equippedInventoryUI.EquipItem(item);
 
-        equipInventoryUI.ChangeItem(equipInventoryUI.Items, itemKey);
+        //equipInventoryUI.ChangeItem(equipInventoryUI.Items, itemKey);
+
         equippedInventoryUI.RefreshUI();
         equipInventoryUI.RefreshUI();
     }

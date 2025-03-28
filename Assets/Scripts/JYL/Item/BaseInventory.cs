@@ -134,14 +134,14 @@ public abstract class BaseInventory : MonoBehaviour
         int emptyCount = current.Count(i => i.type == ItemType.Empty);
         Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
 
-
+        
         if (!ItemDataBase.Instance.itemDB.ContainsKey(itemKey))
         {
             Debug.LogWarning("itemDB에 해당 키가 없습니다.");
             return false;
         }
 
-        BaseItem baseItem = ItemDataBase.Instance.itemDB[itemKey];
+        BaseItem baseItem = ItemDataBase.Instance.GetItem(itemKey);
 
         // 1. 이미 같은 아이템이 있으면 -> count++
         int index = current.FindIndex(i => i.name == baseItem.name);
