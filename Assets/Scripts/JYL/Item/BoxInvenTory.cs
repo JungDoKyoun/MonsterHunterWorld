@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 //사물함 인벤토리
-public class BoxInvenTory : BaseInventory, IClosableUI
+public class BoxInvenTory : BaseInventory
 {
 
     //현재 사물함 인덱스
@@ -150,14 +150,4 @@ public class BoxInvenTory : BaseInventory, IClosableUI
         gameObject.SetActive(false);
     }
 
-    private void OnEnable()
-    {
-       // RefreshUI();
-        UIManager.Instance.RegisterUI(this);
-    }
-
-    private void OnDisable()
-    {
-        UIManager.Instance.UnregisterUI(this);
-    }
 }

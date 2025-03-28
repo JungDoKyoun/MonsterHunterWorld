@@ -40,6 +40,8 @@ public class UiManager : MonoBehaviour
     {
         float elapsedTime = 0f;
         canvas.alpha = 0f;
+        canvas.gameObject.SetActive(true);
+        canvas.interactable = false;
 
         while (elapsedTime < duration)
         {
@@ -48,7 +50,7 @@ public class UiManager : MonoBehaviour
             yield return null;
         }
         canvas.alpha = 1f;
-        canvas.gameObject.SetActive(true);
+        canvas.interactable = true;
     }
 
     public void FadeOutUI(CanvasGroup canvas)

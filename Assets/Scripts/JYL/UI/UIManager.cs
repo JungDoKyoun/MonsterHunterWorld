@@ -1,67 +1,163 @@
 using System.Collections.Generic;
 using UnityEngine;
-public interface IClosableUI
+public enum UIType
 {
-    void CloseUI();
-    bool IsOpen { get; }
+    None,
+    AllVillageUI,
+    SelectButtonUI,
+    ItemButtonSelectUI,
+    EquipButtonSelectUI,
+    ItemChangeUI,
+    ItemSellUI,
+    EquipSelectUI,
+    EquipInvenUI,
+    BoxSelectUI,
+
 }
+
+[System.Serializable]
+public class UIData
+{
+    public UIType type;
+    public GameObject uiObject;
+}
+
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    private Stack<IClosableUI> openUIs = new();
+
+    [SerializeField] private List<UIData> uiList = new();
+
+    private Dictionary<UIType, GameObject> uiMap = new();
+    private Stack<UIType> openStack = new();
+
+    public bool isBox = false;
+    public Collider player;
 
     private void Awake()
     {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
+
+        foreach (var ui in uiList)
+        {
+            if (!uiMap.ContainsKey(ui.type))
+            {
+                uiMap.Add(ui.type, ui.uiObject);
+            }
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            player.gameObject.GetComponent<PlayerController>().enabled = true;
             CloseTopUI();
         }
-    }
-
-    public void RegisterUI(IClosableUI ui)
-    {
-        if (!openUIs.Contains(ui))
+        if (isBox && Input.GetKeyDown(KeyCode.F))
         {
-            openUIs.Push(ui);
-        }
-    }
-
-    public void UnregisterUI(IClosableUI ui)
-    {
-        if (openUIs.Contains(ui))
-        {
-            var temp = new Stack<IClosableUI>();
-            while (openUIs.Count > 0)
+            if (uiMap[UIType.AllVillageUI].activeSelf == false)
             {
-                var top = openUIs.Pop();
-                if (top != ui) temp.Push(top);
+                StackUIOpen(UIType.AllVillageUI);
+                //플레이어 이동 제한
+                player.gameObject.GetComponent<PlayerController>().enabled = false;
+                player.gameObject.GetComponent<PlayerController>().Move(Vector2.zero);
+                CloseUI(UIType.BoxSelectUI);
             }
-            while (temp.Count > 0) openUIs.Push(temp.Pop());
+            else
+            {
+                player.gameObject.GetComponent<PlayerController>().enabled = true;
+
+                CloseAll();
+                OpenUI(UIType.BoxSelectUI);
+            }
         }
     }
 
+    //일반 UI오픈
+    public void OpenUI(UIType type)
+    {
+        if (!uiMap.ContainsKey(type)) return;
+
+        var go = uiMap[type];
+        if (!go.activeSelf)
+        {
+            go.SetActive(true);
+        }
+    }
+
+    //스택에 쌓인 UI 다 지우고 UI 새로여는 메서드
+    public void EndOpenUI(UIType key)
+    {
+        while (openStack.Count > 0)
+        {
+            var type = openStack.Pop();
+            if (uiMap.ContainsKey(type))
+            {
+                uiMap[type].SetActive(false);
+            }
+        }
+
+        GameObject go = uiMap[key];
+        if (!go.activeSelf)
+        {
+            go.SetActive(true);
+            openStack.Push(key);
+        }
+    }
+
+    //스택UI 오픈
+    public void StackUIOpen(UIType type)
+    {
+
+        if (!uiMap.ContainsKey(type)) return;
+
+        GameObject go = uiMap[type];
+        if (!go.activeSelf)
+        {
+            go.SetActive(true);
+            openStack.Push(type);
+        }
+    }
+
+
+
+    //일반 UI 닫기
+    public void CloseUI(UIType type)
+    {
+        var go = uiMap[type];
+        if (go.activeSelf)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    //제일 마지막 UI 제거
     public void CloseTopUI()
     {
-        if (openUIs.Count > 0)
+        if (openStack.Count > 0)
         {
-            var topUI = openUIs.Pop();
-            topUI.CloseUI();
+            var type = openStack.Pop();
+            if (uiMap.ContainsKey(type))
+            {
+                uiMap[type].SetActive(false);
+            }
         }
     }
 
+    //UI 모두 제거
     public void CloseAll()
     {
-        while (openUIs.Count > 0)
+        while (openStack.Count > 0)
         {
-            openUIs.Pop().CloseUI();
+            var type = openStack.Pop();
+            if (uiMap.ContainsKey(type))
+            {
+                uiMap[type].SetActive(false);
+            }
         }
     }
 }

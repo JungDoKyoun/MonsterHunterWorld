@@ -115,7 +115,7 @@ public class ItemDataBase : MonoBehaviour
 
         //고기색 기본색이상해서 바꿈
         items[(int)ItemName.WellDoneSteak].color = new Color32(255 ,178, 86,255);
-        Debug.Log(items.Count); 
+        //Debug.Log(items.Count); 
         //데이터 베이스 초기화
         foreach(var item in items)
         {

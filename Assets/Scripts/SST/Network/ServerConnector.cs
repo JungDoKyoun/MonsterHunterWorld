@@ -9,6 +9,8 @@ using Photon.Pun.Demo.Asteroids;
 
 public class ServerConnector : MonoBehaviourPunCallbacks
 {
+    RoomOptions singleRoomOption = new RoomOptions { MaxPlayers = 1};
+
     private void Awake()
     {
         // 방장이 씬 넘기면 다 같이 넘어감
@@ -29,22 +31,6 @@ public class ServerConnector : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = "Guest";
         }
 
-        // 싱글플레이 모드용 방 "SingleRoom" 으로 입장
-        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
-        PhotonNetwork.JoinOrCreateRoom("SingleRoom", roomOptions, TypedLobby.Default);
-    }
-
-    public override void OnCreatedRoom()
-    {
-        // 싱글플레이 씬으로 전환
-        if (SceneManager.GetActiveScene().name != "SingleRoom")
-        {
-            LoadingSceneManager.LoadSceneWithLoading("SingleRoom");
-        }
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("싱글룸에 입장하였습니다.");
+        LoadingSceneManager.LoadSceneWithLoading("SingleRoom", singleRoomOption);
     }
 }
