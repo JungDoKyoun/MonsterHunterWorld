@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using Photon.Pun;
-using System.Collections.Generic;
 using Photon.Realtime;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -12,7 +11,7 @@ using Photon.Realtime;
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PhotonTransformView))]
 [RequireComponent(typeof(PlayerCostume))]
-
+[RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     private bool _hasTransform = false;
@@ -36,7 +35,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Animator _animator = null;
 
-    private Animator getAnimator {
+    private Animator getAnimator
+    {
         get
         {
             if (_hasAnimator == false)
@@ -55,11 +55,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         get
         {
-            if(_hasPlayerCostume == false)
+            if (_hasPlayerCostume == false)
             {
                 _hasPlayerCostume = TryGetComponent(out _playerCostume);
             }
             return _playerCostume;
+        }
+    }
+    private bool _hasPlayerInteraction = false;
+
+    private PlayerInteraction _playerInteraction = null;
+
+    private PlayerInteraction getPlayerInteraction
+    {
+        get
+        {
+            if (_hasPlayerInteraction == false)
+            {
+                _hasPlayerInteraction = TryGetComponent(out _playerInteraction);
+            }
+            return _playerInteraction;
         }
     }
 
@@ -145,6 +160,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+
+    public bool attackable
+    {
+        private get;
+        set;
+    }
     public Player player
     {
         get
@@ -203,6 +224,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             bool attack = Input.GetMouseButton(0);
             if (attack != getAnimator.GetBool(AttackTag))
             {
+                if (attackable == false && attack == true)
+                {
+                    return;
+                }
                 SetAnimation(AttackTag, attack);
                 if (attack == true)
                 {
@@ -210,9 +235,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     _swing = true;
                 }
             }
-            else if(attack == false)
+            else if (attack == false)
             {
-                if(Input.GetButton(JumpTag) == false)
+                if (Input.GetButton(JumpTag) == false)
                 {
                     if (getAnimator.GetBool(JumpTag) == true)
                     {
@@ -288,10 +313,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     SetAnimation(JumpTag, true);
                     _currentStamina -= JumpStamina;
                 }
-                else if(_fullStamina > _currentStamina)
+                else if (_fullStamina > _currentStamina)
                 {
                     _currentStamina += Time.deltaTime;
-                    if(_currentStamina > _fullStamina)
+                    if (_currentStamina > _fullStamina)
                     {
                         _currentStamina = _fullStamina;
                     }
@@ -309,13 +334,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 //monsterController.TakeDamage(_damage);
                 StopSwing();
             }
-            else if(other.tag == "MonsterHead")
+            else if (other.tag == "MonsterHead")
             {
                 Transform transform = other.transform.parent;
-                while(transform.parent != null)
+                while (transform.parent != null)
                 {
                     transform = transform.parent;
-                    if(transform.TryGetComponent(out monsterController))
+                    if (transform.TryGetComponent(out monsterController))
                     {
                         //monsterController.TakeHeadDamage(_damage);
                         StopSwing();
@@ -472,7 +497,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void TakeDamage(Vector3 position, int damage, bool knockback = false)
     {
-        if(photonView.IsMine == true && _currentLife > 0)
+        if (photonView.IsMine == true && _currentLife > 0)
         {
             if (_coroutine != null)
             {
@@ -498,7 +523,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                 {
-                    if(direction.x > 0)
+                    if (direction.x > 0)
                     {
                         SetAnimation(HitLeftTag);
                     }
@@ -520,6 +545,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 photonView.RPC("SetLife", RpcTarget.Others, _currentLife, _fullLife);
             }
         }
+    }
+    public void Show(PlayerInteraction.State state)
+    {
+        getPlayerInteraction.Show(state);
     }
 
     public void Move(Vector2 direction)
