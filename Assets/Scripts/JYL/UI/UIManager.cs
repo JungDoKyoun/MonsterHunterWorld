@@ -12,6 +12,7 @@ public enum UIType
     EquipSelectUI,
     EquipInvenUI,
     BoxSelectUI,
+    InGameUI
 
 }
 
