@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class LoadingSceneManager : MonoBehaviour
+public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
     public static string sceneToLoad;
 
@@ -20,12 +22,20 @@ public class LoadingSceneManager : MonoBehaviour
     Coroutine blinkCor;
     Coroutine rotateCor;
 
+    RoomOptions single = new RoomOptions { MaxPlayers = 1 };
+
     private void Start()
     {
         // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
         blinkCor = StartCoroutine(BlinkText());
         rotateCor = StartCoroutine(RotateImage());
         StartCoroutine(PlayLoadScene());
+        SetCreateRoom(sceneToLoad, single);
+    }
+
+    public void SetCreateRoom(string toWhere, RoomOptions roomOptions)
+    {
+        PhotonNetwork.CreateRoom(toWhere, roomOptions);
     }
 
     IEnumerator PlayLoadScene()
@@ -59,6 +69,8 @@ public class LoadingSceneManager : MonoBehaviour
 
         // 페이드 아웃 대기
         yield return StartCoroutine(FadeCanvasGroup(loadingCanvas, 1f, 0f, fadeDuration));
+
+        yield return new WaitUntil( () => PhotonNetwork.InRoom == true);
 
         asyncOperation.allowSceneActivation = true;
     }
@@ -105,5 +117,10 @@ public class LoadingSceneManager : MonoBehaviour
         sceneToLoad = targetScene;
 
         SceneManager.LoadScene("LoadingScene");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("방에 입장하였습니다");
     }
 }
