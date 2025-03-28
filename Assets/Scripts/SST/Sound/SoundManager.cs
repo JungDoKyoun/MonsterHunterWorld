@@ -6,10 +6,12 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    [SerializeField] AudioSource bgmSource;
-    [SerializeField] AudioSource sfxSource;
+    [Header("오디오 소스")]
+    [SerializeField] AudioSource bgmSource;     // BGM 재생용
+    [SerializeField] AudioSource sfxSource;     // 효과음 재생용
 
-    [SerializeField] AudioClip bgmClip;
+    [Header("오디오 클립")]
+    [SerializeField] AudioClip bgmClip;         // 마을BGM 클립
 
     private void Awake()
     {
