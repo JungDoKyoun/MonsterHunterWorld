@@ -21,29 +21,23 @@ public class BoxInvenTory : BaseInventory
 
     public bool IsOpen => gameObject.activeSelf;
 
+
     private void Start()
     {
         invenType = InvenType.Box;
 
         SlotSetting(gameObject, invenType);
+        items = InvenToryCtrl.Instance.boxInven;
 
-        InvenInit();
+        //InvenInit(items);
 
-        //Debug.Log("박스인벤 시작");
-    }
-
-    public void AddItem(BaseItem item, int index)
-    {
-        if (index < 0 || index >= 1000)
+        InvenToryCtrl.Instance.OnInventoryChanged += () =>
         {
-            Debug.Log("인덱스 잘못넣었습니다.");
-            return;
-        }
-
-        items[index] = item;
+            RefreshUI(items);
+        };
     }
 
-    override public void RefreshUI()
+    override public void RefreshUI(List<BaseItem> list)
     {
         for (int i = 0; i < 100; i++)
         {
@@ -56,9 +50,9 @@ public class BoxInvenTory : BaseInventory
 
             int targetIndex = (boxIndex - 1) * 100 + i;
 
-            if (targetIndex < items.Count && items[targetIndex] != null)
+            if (targetIndex < list.Count && list[targetIndex] != null)
             {
-                slotComp.SlotSetItem(items[targetIndex]);
+                slotComp.SlotSetItem(list[targetIndex]);
             }
             else
             {
