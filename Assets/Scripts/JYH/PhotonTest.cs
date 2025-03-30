@@ -6,26 +6,9 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(RoomManager))]
 
 public class PhotonTest : MonoBehaviourPunCallbacks
 {
-    private bool _hasRoomManager = false;
-
-    private RoomManager _roomManager = null;
-
-    private RoomManager getRoomManager
-    {
-        get
-        {
-            if(_hasRoomManager == false)
-            {
-                _hasRoomManager = TryGetComponent(out _roomManager); 
-            }
-            return _roomManager;
-        }
-    }
-
     [SerializeField]
     private Text _roomText = null;
 
@@ -39,8 +22,9 @@ public class PhotonTest : MonoBehaviourPunCallbacks
     private List<Button> _buttonList = new List<Button>();
     private Dictionary<string, Button> _dictionary = new Dictionary<string, Button>();
 
-    [SerializeField]
-    private string _selection = null;
+    private static readonly int MaxPlayerCount = 4;
+    private static readonly string ReadyTag = "Ready";
+    public static readonly string HuntingRoomTag = "HuntingRoom";
 
     private void Awake()
     {
@@ -84,8 +68,9 @@ public class PhotonTest : MonoBehaviourPunCallbacks
             }
             else if(_buttonPrefab != null && _contentTransform != null)
             {
+                string selection = key;
                 Button button = Instantiate(_buttonPrefab, _contentTransform);
-                button.onClick.AddListener(() => { _selection = key; });
+                button.onClick.AddListener(() => { JoinRoom(selection); });
                 button.GetComponentInChildren<Text>().SetText(roomInfo[key].ToString());
                 _dictionary.Add(key, button);
             }
@@ -95,9 +80,67 @@ public class PhotonTest : MonoBehaviourPunCallbacks
             if (roomInfo.ContainsKey(key) == false)
             {
                 _dictionary[key].gameObject.SetActive(false);
-                if(key == _selection)
+            }
+        }
+    }
+
+    private void JoinRoom(string userId)
+    {
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
+        {
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            if (localPlayer.CustomProperties.ContainsKey(HuntingRoomTag) == false)
+            {
+                Dictionary<int, Player> players = room.Players;
+                if (string.IsNullOrEmpty(userId) == false)
                 {
-                    _selection = null;
+                    int count = 0;
+                    foreach (Player player in players.Values)
+                    {
+                        if (player != localPlayer)
+                        {
+                            Hashtable hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                    if (count > 0 && count < MaxPlayerCount)
+                    {
+                        localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, userId }, { ReadyTag, false } });
+                    }
+                }
+                else
+                {
+                    Dictionary<string, int> roomInfos = new Dictionary<string, int>();
+                    foreach (Player player in players.Values)
+                    {
+                        if (player != localPlayer)
+                        {
+                            Hashtable hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true)
+                            {
+                                string value = hashtable[HuntingRoomTag].ToString();
+                                if (roomInfos.ContainsKey(value) == true)
+                                {
+                                    roomInfos[value] += 1;
+                                }
+                                else
+                                {
+                                    roomInfos.Add(value, 1);
+                                }
+                            }
+                        }
+                    }
+                    foreach (KeyValuePair<string, int> keyValuePair in roomInfos)
+                    {
+                        if (keyValuePair.Value < MaxPlayerCount)
+                        {
+                            localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, keyValuePair.Key }, { ReadyTag, false } });
+                        }
+                    }
                 }
             }
         }
@@ -105,62 +148,86 @@ public class PhotonTest : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        bool done = getRoomManager.TryCreateQuest();
-        if(done == true)
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
         {
-            _roomText.SetText("방 생성 성공");
-        }
-        else
-        {
-            Room room = PhotonNetwork.CurrentRoom;
-            if(room != null)
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            if (localPlayer.CustomProperties.ContainsKey(HuntingRoomTag) == false)
             {
-                _roomText.SetText("이미 방에 참여 중");
+                localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, localPlayer.UserId }, { ReadyTag, false } });
+                _roomText.SetText("방 생성 성공");
             }
-            else
-            {
-                _roomText.SetText("집회소에 없음");
-            }
-        }
-    }
-
-    public void JoinRoom()
-    {
-        bool done = getRoomManager.TryJoinQuest(_selection);
-        if(done == true)
-        {
-            _roomText.SetText("방 참가 성공");
-        }
-        else
-        {
-            _roomText.SetText("방 참가 실패");
         }
     }
 
     public void ReadyRoom()
     {
-        bool done = getRoomManager.TryReadyQuest();
-        if(done == true)
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
         {
-
-        }
-        else
-        {
-
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            Hashtable hashtable = localPlayer.CustomProperties;
+            if (hashtable.ContainsKey(HuntingRoomTag) == true)
+            {
+                string userId = hashtable[HuntingRoomTag].ToString();
+                if (userId == localPlayer.UserId)
+                {
+                    Dictionary<int, Player> players = room.Players;
+                    foreach (Player player in players.Values)
+                    {
+                        if (player != localPlayer)
+                        {
+                            hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId &&
+                                (hashtable.ContainsKey(ReadyTag) == false || bool.TryParse(hashtable[ReadyTag].ToString(), out bool ready) == false || ready == false))
+                            {
+                                return;
+                            }
+                        }
+                    }
+                    localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, userId }, { ReadyTag, true } });
+                }
+                else
+                {
+                    string value = hashtable.ContainsKey(ReadyTag) == true ? hashtable[ReadyTag].ToString() : null;
+                    bool ready = bool.TryParse(value, out bool result) == true ? result : false;
+                    localPlayer.SetCustomProperties(new Hashtable() { { ReadyTag, !ready } });
+                }
+            }
         }
     }
 
     public void LeaveRoom()
     {
-        bool done = getRoomManager.TryLeaveQuest();
-        if (done == true)
+        Room room = PhotonNetwork.CurrentRoom;
+        if (room != null)
         {
-            _roomText.SetText("방 나가기 성공");
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            Hashtable hashtable = localPlayer.CustomProperties;
+            if (hashtable.ContainsKey(HuntingRoomTag) == true)
+            {
+                string userId = hashtable[HuntingRoomTag].ToString();
+                localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+                if (userId == localPlayer.UserId)
+                {
+                    Dictionary<int, Player> players = room.Players;
+                    foreach (Player player in players.Values)
+                    {
+                        if (localPlayer != player)
+                        {
+                            hashtable = player.CustomProperties;
+                            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+                            {
+                                player.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+                            }
+                        }
+                    }
+                }
+                _roomText.SetText("방 나가기 성공");
+                return;
+            }
         }
-        else
-        {
-            _roomText.SetText("방에 참여한 상태가 아님");
-        }
+        _roomText.SetText("방에 참여한 상태가 아님");
     }
 
     public override void OnConnectedToMaster()
@@ -178,8 +245,69 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnRoomListUpdate(List<RoomInfo> roomInfos)
+    {
+        Player localPlayer = PhotonNetwork.LocalPlayer;
+        Hashtable hashtable = localPlayer.CustomProperties;
+        if (hashtable.ContainsKey(HuntingRoomTag) == true)
+        {
+            string userId = hashtable[HuntingRoomTag].ToString();
+            if (userId == localPlayer.UserId) //방장인 경우 방 만들어야함
+            {
+                List<string> list = new List<string>();
+                foreach (RoomInfo roomInfo in roomInfos)
+                {
+                    list.Add(roomInfo.Name);
+                }
+                int index = 1;
+                while (true)
+                {
+                    string roomName = HuntingRoomTag + index;
+                    if (list.Contains(roomName) == true)
+                    {
+                        index++;
+                    }
+                    else
+                    {
+                        RoomOptions roomOptions = new RoomOptions
+                        {
+                            MaxPlayers = MaxPlayerCount,
+                            CustomRoomProperties = new Hashtable() { { HuntingRoomTag, userId } },
+                            CustomRoomPropertiesForLobby = new string[] { HuntingRoomTag }
+                        };
+                        PhotonNetwork.CreateRoom(roomName, roomOptions);
+                        break;
+                    }
+                }
+            }
+            else //입장자는 방을 조회해서 참여
+            {
+                foreach (RoomInfo roomInfo in roomInfos)
+                {
+                    hashtable = roomInfo.CustomProperties;
+                    if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+                    {
+                        PhotonNetwork.JoinRoom(roomInfo.Name);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     public override void OnJoinedRoom()
     {
+        Player localPlayer = PhotonNetwork.LocalPlayer;
+        Hashtable hashtable = localPlayer.CustomProperties;
+        if (hashtable.ContainsKey(HuntingRoomTag) == true)
+        {
+            string userId = hashtable[HuntingRoomTag].ToString();
+            hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
+            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+            {
+                PhotonNetwork.LoadLevel("younghan"); //이거 바꿔야함
+            }
+        }
         foreach (Button button in _buttonList)
         {
             button.SetInteractable(true);
@@ -187,13 +315,43 @@ public class PhotonTest : MonoBehaviourPunCallbacks
         UpdateRoomInfo();
     }
 
-    public override void OnPlayerLeftRoom(Player player)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        Player localPlayer = PhotonNetwork.LocalPlayer;
+        Hashtable hashtable = localPlayer.CustomProperties;
+        if (hashtable.ContainsKey(HuntingRoomTag) == true)
+        {
+            Dictionary<int, Player> players = PhotonNetwork.CurrentRoom.Players;
+            foreach (Player player in players.Values)
+            {
+                if (player.UserId == hashtable[HuntingRoomTag].ToString())
+                {
+                    return;
+                }
+            }
+            if (PhotonNetwork.InRoom == true)
+            {
+                localPlayer.SetCustomProperties(new Hashtable() { { HuntingRoomTag, null }, { ReadyTag, null } });
+            }
+        }
         UpdateRoomInfo();
     }
 
     public override void OnPlayerPropertiesUpdate(Player player, Hashtable hashtable)
     {
+        if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable.ContainsKey(ReadyTag) == true && hashtable[ReadyTag] != null
+           && bool.TryParse(hashtable[ReadyTag].ToString(), out bool ready) == true && ready == true)
+        {
+            string userId = hashtable[HuntingRoomTag].ToString();
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            hashtable = localPlayer.CustomProperties;
+            if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
+            {
+                localPlayer.SetCustomProperties(new Hashtable() { { ReadyTag, null } });
+                PhotonNetwork.LeaveRoom();
+                return;
+            }
+        }
         UpdateRoomInfo();
     }
 }
