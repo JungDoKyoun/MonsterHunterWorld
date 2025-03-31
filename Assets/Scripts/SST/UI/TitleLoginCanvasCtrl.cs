@@ -12,10 +12,6 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
     [SerializeField] CanvasGroup titleCanvas;
     [SerializeField] CanvasGroup loginCanvas;
 
-    [Header("¹è°æ À½¾Ç")]
-    [SerializeField] AudioClip titleBgm;
-
-
     private void Start()
     {
         basicCanvas.gameObject.SetActive(true);
@@ -23,7 +19,7 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
         loginCanvas.gameObject.SetActive(false);
 
         UiManager.Instance.FadeInUI(titleCanvas);
-        SoundManager.Instance.PlayBGM(titleBgm, 0.2f);
+        SoundManager.Instance.PlayBGM(SoundManager.SoundType.Login, 0.6f);
         //StartCoroutine(FadeInUI(titleCanvas));
     }
 

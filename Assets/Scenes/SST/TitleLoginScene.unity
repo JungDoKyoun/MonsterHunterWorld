@@ -1232,7 +1232,6 @@ MonoBehaviour:
   basicCanvas: {fileID: 1906907164}
   titleCanvas: {fileID: 1550373361}
   loginCanvas: {fileID: 1414128181}
-  titleBgm: {fileID: 8300000, guid: c71c543755c7fcc45b78fad546dd0bbc, type: 3}
 --- !u!1 &383469458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,8 +3575,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 1692077866}
   sfxSource: {fileID: 1692077865}
-  titleBgmClip: {fileID: 8300000, guid: c71c543755c7fcc45b78fad546dd0bbc, type: 3}
-  singleRoomBgmClip: {fileID: 8300000, guid: 933ddfd11e66e4948b7e21000d778804, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: c71c543755c7fcc45b78fad546dd0bbc, type: 3}
+  - {fileID: 8300000, guid: 933ddfd11e66e4948b7e21000d778804, type: 3}
+  - {fileID: 8300000, guid: 7a2d2b38ce4e19042ba5fe21f90b81b6, type: 3}
 --- !u!4 &1692077864
 Transform:
   m_ObjectHideFlags: 0

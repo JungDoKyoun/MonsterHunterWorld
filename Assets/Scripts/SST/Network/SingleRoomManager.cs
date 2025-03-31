@@ -15,9 +15,6 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     [SerializeField] Text basicQuestName;           // 기본 설정된 퀘스트 이름 Text
     [SerializeField] Text questName;                // 퀘스트 정보에 표시될 퀘스트 이름 Text
 
-    [Header("싱글룸 BGM")]
-    [SerializeField] AudioClip singleRoomBGM;
-
     PlayerController player;
     private Transform singleQuestPanel;
 
@@ -49,7 +46,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         // 룸정보에서 나오는 퀘스트 이름을 퀘스트 생성할 때 해당된 퀘스트 이름으로 초기화
         questName.text = basicQuestName.text;
 
-        SoundManager.Instance.PlayBGM(singleRoomBGM, 0.6f);
+        SoundManager.Instance.PlayBGM(SoundManager.SoundType.Single, 0.4f);
 
         StartCoroutine(WaitForFindPlayer());
     }
