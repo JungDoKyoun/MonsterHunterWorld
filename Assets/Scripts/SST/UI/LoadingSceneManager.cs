@@ -11,7 +11,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
     public static string sceneToLoad;
     static RoomOptions selectRoomOption;
-    private int index = 1;
+    private int singleRoomIndex = 1;
+    private int meetingRoomIndex = 1;
 
     [Header("로딩 효과")]
     [SerializeField] CanvasGroup loadingCanvas;         // 페이드인,아웃 화면
@@ -148,8 +149,15 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     // MeetingHouse1 방에 못들어가면 index++ -> MeetingHouse2 방 참가 없으면 만들기
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        index++;
+        meetingRoomIndex++;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = 16 };
-        PhotonNetwork.JoinOrCreateRoom("MeetingHouse" + index, roomOptions, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom("MeetingHouse" + meetingRoomIndex, roomOptions, TypedLobby.Default);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        singleRoomIndex++;
+        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
+        PhotonNetwork.CreateRoom("SingleRoom" + singleRoomIndex, roomOptions, TypedLobby.Default);
     }
 }

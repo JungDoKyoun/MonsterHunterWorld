@@ -11,7 +11,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource sfxSource;     // 효과음 재생용
 
     [Header("오디오 클립")]
-    [SerializeField] AudioClip bgmClip;         // 마을BGM 클립
+    [SerializeField] AudioClip titleBgmClip;            // 타이틀 BGM 클립
+    [SerializeField] AudioClip singleRoomBgmClip;       // 싱글 마을BGM 클립
 
     private void Awake()
     {
@@ -23,11 +24,8 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(Instance);
         }
-    }
 
-    private void Start()
-    {
-        PlayBGM(bgmClip);
+        DontDestroyOnLoad(Instance);
     }
 
     public void PlayBGM(AudioClip audioClip, float volume = 1.0f)
