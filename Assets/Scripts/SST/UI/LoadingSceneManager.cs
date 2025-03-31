@@ -149,6 +149,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     // MeetingHouse1 방에 못들어가면 index++ -> MeetingHouse2 방 참가 없으면 만들기
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
+        Debug.Log("집회소 룸 입장에 실패했습니다. 새로운 집회소 룸을 생성합니다");
         meetingRoomIndex++;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = 16 };
         PhotonNetwork.JoinOrCreateRoom("MeetingHouse" + meetingRoomIndex, roomOptions, TypedLobby.Default);
@@ -156,6 +157,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
+        Debug.Log("싱글룸 생성에 실패했습니다. 새로운 싱글룸을 생성합니다");
         singleRoomIndex++;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
         PhotonNetwork.CreateRoom("SingleRoom" + singleRoomIndex, roomOptions, TypedLobby.Default);
