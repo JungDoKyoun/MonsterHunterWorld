@@ -10,7 +10,7 @@ public class MonsterManager : MonoBehaviour
     private MonsterController _monsterController;
     private MonsterAnimationController _animationController;
     [SerializeField] private BossMonster _monsterSO;
-    [SerializeField] private MonsterProjectileSpawnManager _monsterProjectileSpawnManager;
+    private MonsterProjectileSpawnManager _monsterProjectileSpawnManager;
 
     private void Awake()
     {
@@ -26,6 +26,7 @@ public class MonsterManager : MonoBehaviour
         MonsterStateManager = GetComponent<MonsterStateManager>();
         MonsterController = GetComponent<MonsterController>();
         AnimationController = GetComponent<MonsterAnimationController>();
+        MonsterProjectileSpawnManager = FindObjectOfType<MonsterProjectileSpawnManager>();
     }
 
     public static MonsterManager Instance
