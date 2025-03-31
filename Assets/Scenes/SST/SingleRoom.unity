@@ -307,6 +307,7 @@ MonoBehaviour:
   roomInfoCanvas: {fileID: 327858483}
   basicQuestName: {fileID: 1539816344}
   questName: {fileID: 1566465536}
+  singleRoomBGM: {fileID: 8300000, guid: 933ddfd11e66e4948b7e21000d778804, type: 3}
 --- !u!4 &82450815
 Transform:
   m_ObjectHideFlags: 0
@@ -4271,7 +4272,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 1389461660}
   sfxSource: {fileID: 1389461663}
-  bgmClip: {fileID: 8300000, guid: 933ddfd11e66e4948b7e21000d778804, type: 3}
+  titleBgmClip: {fileID: 0}
+  singleRoomBgmClip: {fileID: 0}
 --- !u!4 &1389461662
 Transform:
   m_ObjectHideFlags: 0

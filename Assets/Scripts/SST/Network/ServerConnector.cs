@@ -4,8 +4,10 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Firebase.Auth;
+using Firebase.Database;
 using UnityEngine.SceneManagement;
 using Photon.Pun.Demo.Asteroids;
+using Firebase.Extensions;
 
 public class ServerConnector : MonoBehaviourPunCallbacks
 {
@@ -30,7 +32,7 @@ public class ServerConnector : MonoBehaviourPunCallbacks
             Debug.LogError("AuthManager.user 가 null 입니다");
             PhotonNetwork.NickName = "Guest";
         }
-
+      
         LoadingSceneManager.LoadSceneWithLoading("SingleRoom", singleRoomOption);
     }
 }

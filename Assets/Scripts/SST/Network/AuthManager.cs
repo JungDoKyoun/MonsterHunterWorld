@@ -8,7 +8,7 @@ using System;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Photon.Pun;
-using TMPro;
+using Firebase.Extensions;
 
 [Serializable]
 public class Data
@@ -107,14 +107,36 @@ public class AuthManager : MonoBehaviour
             Debug.Log("로그인 완료." + user.DisplayName + " 님 반갑습니다.");
 
             string userEmail = user.Email.Trim();
-            Debug.Log(userEmail);
-            int index = 3;
+            int index = 0;
             Data playerData = new Data(index);
 
             string JsonData = JsonUtility.ToJson(playerData);
 
             dbRef.Child(user.UserId).SetRawJsonValueAsync(JsonData);
 
+            dbRef.Child(user.UserId).GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsCanceled)
+                {
+                    Debug.Log("로드 취소");
+                }
+                else if (task.IsFaulted)
+                {
+                    Debug.Log("로드 실패");
+                }
+                else
+                {
+                    DataSnapshot dataSnapshot = task.Result;
+                    string key = dataSnapshot.Child("Equipment").Key;
+                    int value = 0;
+                    //int value = (int)dataSnapshot.Child("Equipment").Value;
+
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+                    {
+                        {key, value}
+                    });
+                }
+            });
 
             // 로그인 성공 후 Photon 네트워크에 연결 시작
             PhotonNetwork.ConnectUsingSettings();

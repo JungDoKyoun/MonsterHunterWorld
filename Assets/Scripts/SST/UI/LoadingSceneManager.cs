@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using Photon.Pun;
 using Photon.Realtime;
+using Firebase.Database;
 
 public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
