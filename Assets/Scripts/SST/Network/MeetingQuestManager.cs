@@ -69,7 +69,15 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
     private float InteractionRange = 2f;
     private bool _hasRoom = false;
 
+    [SerializeField] 
+    private GameObject loadingObject;
+    [SerializeField] 
+    private Image loadingImage;                // 회전할 로딩 이미지
+    [SerializeField] 
+    private Text loadingText;                  // 깜빡이는 로딩 텍스트
+
     private static readonly int MaxPlayerCount = 4;
+    private static readonly float BlinkSpeed = 10f;             // 텍스트 깜빡임 속도
     private static readonly string UserIdTag = "UserId";
     private static readonly string ReadyTag = "Ready";
     private static readonly string HuntingRoomTag = "HuntingRoom";
@@ -110,8 +118,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
     }
 #endif
 
-    [SerializeField]
-    private bool _testMode = false;
+    private bool _quickPlay = false;
 
     private void Awake()
     {
@@ -119,19 +126,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
         {
             _createButton.onClick.AddListener(CreateQuest);
         }
-        if (_testMode == true)
-        {
-            StartCoroutine(DoStart());
-            System.Collections.IEnumerator DoStart()
-            {
-                PhotonNetwork.ConnectUsingSettings();
-                yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
-                PhotonNetwork.JoinLobby();
-                yield return new WaitUntil(predicate: () => PhotonNetwork.InLobby);
-                PhotonNetwork.JoinRandomOrCreateRoom();
-            }
-        }
-        else if (PhotonNetwork.InRoom == true)
+        if (PhotonNetwork.InRoom == true)
         {
             Player localPlayer = PhotonNetwork.LocalPlayer;
             localPlayer.SetCustomProperties(new Hashtable() { { UserIdTag, localPlayer.UserId } });
@@ -140,6 +135,19 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                 GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
                 _playerController = gameObject.GetComponent<PlayerController>();
                 FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
+            }
+        }
+        else
+        {
+            _quickPlay = true;
+            StartCoroutine(DoStart());
+            System.Collections.IEnumerator DoStart()
+            {
+                PhotonNetwork.ConnectUsingSettings();
+                yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
+                PhotonNetwork.JoinLobby();
+                yield return new WaitUntil(predicate: () => PhotonNetwork.InLobby);
+                PhotonNetwork.JoinRandomOrCreateRoom();
             }
         }
     }
@@ -508,11 +516,11 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
             hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
             if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
             {
-                PhotonNetwork.LoadLevel("younghan");
+                PhotonNetwork.LoadLevel("ALLTestScene");
                 return;
             }
         }
-        if (_testMode == true && _playerPrefab != null)
+        if (_quickPlay == true && _playerPrefab != null)
         {
             GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
             _playerController = gameObject.GetComponent<PlayerController>();
@@ -559,36 +567,27 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                 loadingObject.Set(true);
                 StartCoroutine(BlinkText());
                 StartCoroutine(RotateImage());
+                System.Collections.IEnumerator RotateImage()
+                {
+                    while (true)
+                    {
+                        loadingImage.transform.Rotate(0, 0, -140f * Time.deltaTime);
+                        yield return null;
+                    }
+                }
+                System.Collections.IEnumerator BlinkText()
+                {
+                    Color basicColor = loadingText.color;
+                    while (true)
+                    {
+                        float alpha = Mathf.PingPong(Time.deltaTime * BlinkSpeed, 1f);
+                        loadingText.color = new Color(basicColor.r, basicColor.g, basicColor.b, alpha);
+                        yield return null;
+                    }
+                }
                 return;
             }
         }
         UpdateRoomInfo();
     }
-
-    // 회전하는 이미지 효과 코루틴
-    System.Collections.IEnumerator RotateImage()
-    {
-        while (true)
-        {
-            loadingImage.transform.Rotate(0, 0, -140f * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    // 텍스트 깜빡이는 효과 코루틴
-    System.Collections.IEnumerator BlinkText()
-    {
-        Color basicColor = loadingText.color;
-        while (true)
-        {
-            float alpha = Mathf.PingPong(Time.deltaTime * BlinkSpeed, 1f);
-            loadingText.color = new Color(basicColor.r, basicColor.g, basicColor.b, alpha);
-            yield return null;
-        }
-    }
-
-    [SerializeField] private GameObject loadingObject;
-    [SerializeField] private Image loadingImage;                // 회전할 로딩 이미지
-    [SerializeField] private Text loadingText;                  // 깜빡이는 로딩 텍스트
-    private static readonly float BlinkSpeed = 10f;             // 텍스트 깜빡임 속도
 }
