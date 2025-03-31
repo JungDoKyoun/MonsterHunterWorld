@@ -29,7 +29,11 @@ public class EquipInventoryUI : BaseInventory
 
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
     }
+    private void OnDisable()
+    {
+        UIManager.Instance.CloseAll();
 
+    }
     IEnumerator DelayedRefresh()
     {
         yield return new WaitForSeconds(0.1f);
