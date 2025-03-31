@@ -78,7 +78,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         img.sprite = item.image;
         img.color = item.color;
 
-        countText.text = (item.count > 0) ? item.count.ToString() : "";
+
+        if (value.type > ItemType.Accessory)
+        {
+            countText.text = (item.count > 0) ? item.count.ToString() : "";
+        }
 
         //위 코드로 수정했음
         //if (item.count > 0)
@@ -94,34 +98,34 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     //아이템 클릭시 해당 아이템 반대편 인벤토리로 넘기기
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (invenType == InvenType.Inven || invenType == InvenType.Box)
+        var ctrl = InvenToryCtrl.Instance;
+
+        switch (invenType)
         {
-            InvenToryCtrl.Instance.ChangeItemByKey(invenType, item.id);
-
-            if (item.count <= 0)
-            {
-                item = ItemDataBase.Instance.emptyItem;
-                SlotSetItem(item);
-            }
+            case InvenType.Inven:                
+                ctrl.ChangeItemByKey(ctrl.inventory, ctrl.boxInven, item.id);
+                break;
+            case InvenType.Box:                
+                ctrl.ChangeItemByKey(ctrl.boxInven, ctrl.inventory, item.id);
+                break;
+            case InvenType.Equipped:
+                ctrl.ChangeItemByKey(ctrl.equippedInventory, ctrl.equipInventory, item.id);
+                
+                break;
+            case InvenType.EquipBox:
+                ctrl.ChangeItemByKey(ctrl.equipInventory, ctrl.equippedInventory, item.id);
+                break;
+            default:
+                Debug.LogError("잘못된 타입입니다.");
+                break;
         }
-        else
+        if (item.count <= 0)
         {
-            if (invenType == InvenType.EquipBox)
-            {
-                InvenToryCtrl.Instance.EquipItem(item.id);
-            }
-            else
-            {
-                InvenToryCtrl.Instance.UnEquipItem(item.id);
-            }
-
-            if (item.count <= 0)
-            {
-                SlotSetItem(ItemDataBase.Instance.emptyItem);
-            }
+            item = ItemDataBase.Instance.emptyItem;
+            SlotSetItem(item);
         }
 
-        onClick?.Invoke(item);
+        InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
     }
 
     //아이템 슬롯에 마우스 갔다 댔을때 툴팁 띄우기
@@ -129,25 +133,32 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         //나중에 반짝반짝 할예정
         var image = gameObject.GetComponent<Image>();
+        var ctrl = InvenToryCtrl.Instance;
 
         image.sprite = sprites[1];
-
-        if (invenType == InvenType.Inven || invenType == InvenType.Box)
+        switch (invenType)
         {
-            InvenToryCtrl.Instance.ItemToolTipCtrl.ToolTipSetItem(item);
-        }
-        else
-        {
-            //장비인벤일때
-            if (item.type == ItemType.Weapon)
-            {
-                InvenToryCtrl.Instance.EquipItemToolTipCtrl.SetWeapon(item as Weapon);
-            }
-            else if (item.type == ItemType.Armor)
-            {
-                InvenToryCtrl.Instance.EquipItemToolTipCtrl.SetArmor(item as Armor);
+            case InvenType.Inven:
+            case InvenType.Box:
+                ctrl.ItemToolTipCtrl.ToolTipSetItem(item);
+                break;
 
-            }
+            case InvenType.Equipped:
+            case InvenType.EquipBox:
+
+                if (item.type == ItemType.Weapon)
+                {
+                    ctrl.EquipItemToolTipCtrl.SetWeapon(item as Weapon);
+                }
+                else if (item.type == ItemType.Armor)
+                {
+                    ctrl.EquipItemToolTipCtrl.SetArmor(item as Armor);
+                }
+                break;
+            default:
+                Debug.LogError("잘못된 타입입니다.");
+                break;
+
         }
 
         Debug.Log(item.name);
@@ -189,7 +200,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
 
         if (invenType == InvenType.Inven || invenType == InvenType.Box)
-        { 
+        {
             //현재 선택된 정보가 아이템이 아니면 초기화
             InvenToryCtrl.Instance.ItemToolTipCtrl.TooltipClear(false);
         }

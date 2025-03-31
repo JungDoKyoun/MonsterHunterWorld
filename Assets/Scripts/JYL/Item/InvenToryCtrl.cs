@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum InvenType
@@ -8,132 +10,241 @@ public enum InvenType
     EquipBox
 }
 
+public enum InvenSize
+{
+    Inventory = 24,
+    BoxInven = 100,
+    EquipInven = 50,
+    EquipedInven = 9
+}
+
 //플레이어의 모든 인벤토리
 public class InvenToryCtrl : MonoBehaviour
 {
     //현재 장착한 장비 인벤토리
-    [SerializeField] EquippedInventoryUI equippedInventoryUI;
-    public EquippedInventoryUI EquippedInventoryUI => equippedInventoryUI;
+    //[SerializeField] EquippedInventoryUI equippedInventoryUI;
+    //public EquippedInventoryUI EquippedInventoryUI => equippedInventoryUI;
+
+    public List<BaseItem> equippedInventory = new List<BaseItem>();
 
     //현재 흭득한 장비 인벤토리
-    [SerializeField] EquipInventoryUI equipInventoryUI;
-    public EquipInventoryUI EquipInventoryUI => equipInventoryUI;
-    
+    //[SerializeField] EquipInventoryUI equipInventoryUI;
+    //public EquipInventoryUI EquipInventoryUI => equipInventoryUI;
+
+    public List<BaseItem> equipInventory = new List<BaseItem>();
+
+
     //장비용 툴팁 UI
     [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
-    public EquipItemToolTipCtrl EquipItemToolTipCtrl => equipItemToolTipCtrl;
+    public EquipItemToolTipCtrl EquipItemToolTipCtrl { get; set; }
 
     //현재 가지고있을 인벤토리
-    [SerializeField] InventoryItems inventoryItems;
-    public InventoryItems InventoryItems => inventoryItems;
+    //[SerializeField] InventoryItems inventoryItems;
+    //public InventoryItems InventoryItems => inventoryItems;
+
+    public List<BaseItem> inventory = new List<BaseItem>();
+
     //사물함 인벤토리
-    [SerializeField] BoxInvenTory boxInvenTory;
-    public BoxInvenTory BoxInvenTory => boxInvenTory;
+    //[SerializeField] BoxInvenTory boxInvenTory;
+    //public BoxInvenTory BoxInvenTory => boxInvenTory;
+
+    public List<BaseItem> boxInven = new List<BaseItem>();
+
 
     //인벤용 툴팁 UI
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
-    public ItemToolTipCtrl ItemToolTipCtrl => itemToolTipCtrl;
+    public ItemToolTipCtrl ItemToolTipCtrl { get; set; }
 
+    public System.Action OnInventoryChanged;
+    public System.Action OnEquippedChanged;
 
     public static InvenToryCtrl Instance;
 
     private void Awake()
     {
-        if (Instance != null )
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
+
+        InvenInit(inventory, (int)InvenSize.Inventory);
+        InvenInit(boxInven, (int)InvenSize.BoxInven);
+        InvenInit(equipInventory, (int)InvenSize.EquipInven);
+        InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+
+    }
+
+    private void Start()
+    {
+        //아이템 흭득
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
+
+        //장비인벤 아이템흭득
+        GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.HuntersKnife_I));
+        GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.LeatherVest));
+    }
+
+    /// <summary>
+    /// 인벤 빈 아이템 세팅
+    /// </summary>
+    /// <param name="list">세팅할 인벤 </param>
+    /// <param name="count">세팅할 인벤 크기</param>
+    void InvenInit(List<BaseItem> list, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            list.Add(ItemDataBase.Instance.emptyItem);
+        }
     }
 
 
-    //소지 인벤토리와 창고 인벤토리 전용
-    public void ChangeItemByKey(InvenType fromType, ItemName itemKey)
+    /// <summary>
+    /// 소지 인벤토리와 창고 인벤토리 전용
+    /// </summary>
+    /// <param name="from">보낼 인벤</param>
+    /// <param name="to">받을 인벤</param>
+    /// <param name="itemKey"> 아이템 키 </param>
+    public void ChangeItemByKey(List<BaseItem> from, List<BaseItem> to, ItemName itemKey)
     {
-        if (fromType == InvenType.Equipped || fromType == InvenType.EquipBox)
-        {
-            Debug.LogError("장비 인벤토리에서는 아이템을 교환할 수 없습니다.");
-            return;
-        }
-
-        BaseInventory from = (fromType == InvenType.Inven) ? inventoryItems : boxInvenTory;
-        BaseInventory to = (fromType == InvenType.Inven) ? boxInvenTory : inventoryItems;
-
-        //BaseItem original = ItemDataBase.Instance.itemDB[itemKey];
-        //위 코드에서 클론 매서드(주소형에서 값형으로 변환후 반환) 만들어둔거 사용해서 바꿈
         BaseItem original = ItemDataBase.Instance.GetItem(itemKey);
 
-        int fromIndex = from.Items.FindIndex(i => i.id == original.id);
+        int fromIndex = from.FindIndex(i => i.id == original.id);
 
         if (fromIndex >= 0)
         {
-            from.Items[fromIndex].count--;
-            if (from.Items[fromIndex].count <= 0)
+            from[fromIndex].count--;
+            if (from[fromIndex].count <= 0)
             {
-                from.Items[fromIndex] = ItemDataBase.Instance.emptyItem;
+                from[fromIndex] = ItemDataBase.Instance.emptyItem;
             }
         }
 
-        to.ChangeItem(to.Items, itemKey);
+        ChangeItem(to, itemKey);
 
-        inventoryItems.CompactItemList();
-        boxInvenTory.CompactItemList();
+        CompactItemList(from);
+        CompactItemList(to);
 
-        inventoryItems.RefreshUI();
-        boxInvenTory.RefreshUI();
     }
 
-
-    //장비 인벤토리에서 장비 장착 하기
-    public void EquipItem(ItemName itemKey)
+    /// <summary>
+    /// 아이템 정렬 =>빈칸 뒤로 미룸
+    /// </summary>
+    /// <param name="list">정렬할 인벤토리</param>
+    void CompactItemList(List<BaseItem> list)
     {
-        BaseItem item = ItemDataBase.Instance.GetItem(itemKey);
+        var validItems = list.Where(i => i.type != ItemType.Empty).ToList();
+        int emptyCount = list.Count - validItems.Count;
 
-        if (item.type != ItemType.Weapon &&
-            item.type != ItemType.Armor)
+        list = new List<BaseItem>(validItems);
+
+        for (int i = 0; i < emptyCount; i++)
         {
-            Debug.LogError("장비 아이템이 아닙니다.");
-            return;
+            list.Add(ItemDataBase.Instance.emptyItem);
         }
-        if (equippedInventoryUI.Items.FindIndex(i => i.name == item.name) >= 0)
-        {
-            Debug.LogError("이미 장착한 아이템입니다.");
-            return;
-        }
-
-        equippedInventoryUI.ChangeItem(equippedInventoryUI.Items, itemKey);
-        equippedInventoryUI.EquipItem(item);
-
-        equipInventoryUI.ChangeItem(equipInventoryUI.Items, itemKey);
-        equippedInventoryUI.RefreshUI();
-        equipInventoryUI.RefreshUI();
     }
 
-    //장비 인벤토리에서 장비 해제 하기
-    public void UnEquipItem(ItemName itemKey)
+    /// <summary>
+    /// 아이템 교환
+    /// </summary>
+    /// <param name="current">받을 인벤토리</param>
+    /// <param name="itemKey">아이템 키</param>
+    /// <returns></returns>
+    public bool ChangeItem(List<BaseItem> toList, ItemName itemKey)
     {
-        BaseItem item = ItemDataBase.Instance.GetItem(itemKey);
+        int emptyCount = toList.Count(i => i.type == ItemType.Empty);
+        Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
 
-        
-        if (item.type != ItemType.Weapon && item.type != ItemType.Armor)
+
+        if (!ItemDataBase.Instance.itemDB.ContainsKey(itemKey))
         {
-            Debug.LogError("장비 아이템이 아닙니다.");
-            return;
-        }
-        if (equippedInventoryUI.Items.FindIndex(i => i.name == item.name) < 0)
-        {
-            Debug.LogError("장착한 아이템이 아닙니다.");
-            return;
+            Debug.LogWarning("itemDB에 해당 키가 없습니다.");
+            return false;
         }
 
-        equippedInventoryUI.ChangeItem(equippedInventoryUI.Items, itemKey);
-        equipInventoryUI.ChangeItem(equipInventoryUI.Items, itemKey);
-        equippedInventoryUI.RefreshUI();
-        equipInventoryUI.RefreshUI();
+        BaseItem baseItem = ItemDataBase.Instance.GetItem(itemKey);
+
+        // 1. 이미 같은 아이템이 있으면 -> count++
+        int index = toList.FindIndex(i => i.name == baseItem.name);
+        if (index >= 0)
+        {
+            if (toList[index].count < toList[index].maxCount)
+            {
+                toList[index].count++;
+                return true;
+            }
+            else
+            {
+                Debug.Log("최대 수량 도달");
+                return false;
+            }
+        }
+
+        // 2. 빈 슬롯이 있으면 -> 복사해서 추가
+        int emptyIndex = toList.FindIndex(i => i.type == ItemType.Empty);
+
+        if (emptyIndex >= 0)
+        {
+            //자꾸 같은아이템 복사해서 넣어주면 참조가 같아져서 count가 같이 증가함
+            //그래서 클론메서드 만듬
+            BaseItem copy = baseItem.Clone();
+            copy.count = 1; // 복사할 때 count 조정 필요
+
+            Debug.Log($"[ChangeItem] 새로운 아이템 추가됨: {copy.name} → 슬롯 {emptyIndex}");
+            toList[emptyIndex] = copy;
+            return true;
+        }
+
+        Debug.Log("슬롯이 가득 찼습니다.");
+        return false;
     }
 
+    //흭득 아이템 인벤토리로 넣기
+    public bool GetItemToInventory(List<BaseItem> list, BaseItem newItem)
+    {
+        //Debug.Log(newItem.name + " 흭득!");
 
+        if (newItem == null || newItem.type == ItemType.Empty)
+            return false;
 
+        // 1. 같은 이름의 아이템이 있으면 -> count 증가
+        int index = list.FindIndex(i => i.name == newItem.name);
+
+        if (index >= 0)
+        {
+            var target = list[index];
+            if (target.count < target.maxCount)
+            {
+                target.count++;
+                return true;
+            }
+            else
+            {
+                Debug.Log("최대 수량 초과");
+                return false;
+            }
+        }
+
+        // 2. 아니면 빈 슬롯에 새로 추가
+        int emptyIndex = list.FindIndex(i => i.id == ItemName.Empty);
+
+        if (emptyIndex >= 0)
+        {
+            // 새로운 BaseItem 생성해서 넣어줘야 참조 충돌 없음
+            BaseItem copy = newItem.Clone();
+            copy.count = 1; // 새로 들어오는 아이템이니까 수량은 1로 초기화
+            list[emptyIndex] = copy;
+
+            return true;
+        }
+
+        Debug.Log("빈 슬롯 없음");
+        return false;
+    }
 
 }

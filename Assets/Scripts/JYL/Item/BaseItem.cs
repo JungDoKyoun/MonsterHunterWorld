@@ -2,7 +2,6 @@ using UnityEngine;
 
 public enum ItemType
 {
-    All,
     Weapon,
     Armor,
     Accessory,

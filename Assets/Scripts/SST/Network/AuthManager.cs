@@ -8,6 +8,18 @@ using System;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Photon.Pun;
+using TMPro;
+
+[Serializable]
+public class Data
+{
+    public int Equipment;
+
+    public Data(int index)
+    {
+        this.Equipment = index;
+    }
+}
 
 public class AuthManager : MonoBehaviour
 {
@@ -93,6 +105,16 @@ public class AuthManager : MonoBehaviour
             user = loginTask.Result.User;
             nickField.text = user.DisplayName;
             Debug.Log("로그인 완료." + user.DisplayName + " 님 반갑습니다.");
+
+            string userEmail = user.Email.Trim();
+            Debug.Log(userEmail);
+            int index = 3;
+            Data playerData = new Data(index);
+
+            string JsonData = JsonUtility.ToJson(playerData);
+
+            dbRef.Child(user.UserId).SetRawJsonValueAsync(JsonData);
+
 
             // 로그인 성공 후 Photon 네트워크에 연결 시작
             PhotonNetwork.ConnectUsingSettings();
