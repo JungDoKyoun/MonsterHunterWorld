@@ -217,6 +217,29 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 #endif
 
+    private void Start()
+    {
+        if (photonView.IsMine == true)
+        {
+            Player player = PhotonNetwork.LocalPlayer;
+            if (player != null)
+            {
+                ExitGames.Client.Photon.Hashtable hashtable = player.CustomProperties;
+                if (hashtable.ContainsKey(PlayerCostume.EquipmentTag) && hashtable[PlayerCostume.EquipmentTag] != null &&
+                    int.TryParse(hashtable[PlayerCostume.EquipmentTag].ToString(), out int index))
+                {
+                    Equip(index);
+                    photonView.RPC("Equip", RpcTarget.Others, index);
+                }
+                else
+                {
+                    Equip(0);
+                    photonView.RPC("Equip", RpcTarget.Others, 0);
+                }
+            }
+        }
+    }
+
     private void Update()
     {
         if (photonView.IsMine == true && (_currentLife > 0 || _fullLife == _currentLife))
@@ -546,6 +569,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
     }
+
+    [PunRPC]
+    public void Equip(int index)
+    {
+        getPlayerCostume.Equip(index);
+    }
+
     public void Show(PlayerInteraction.State state)
     {
         getPlayerInteraction.Show(state);
