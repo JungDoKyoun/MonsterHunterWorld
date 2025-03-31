@@ -71,7 +71,7 @@ public class InvenToryCtrl : MonoBehaviour
         InvenInit(equipInventory, (int)InvenSize.EquipInven);
         InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
 
-
+       
         //æ∆¿Ã≈€ ≈âµÊ
         GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
         GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
@@ -80,8 +80,12 @@ public class InvenToryCtrl : MonoBehaviour
         GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
 
         //¿Â∫Ò¿Œ∫• æ∆¿Ã≈€≈âµÊ
-        GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.HuntersKnife_I));
-        GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.LeatherVest));
+        for(int i = (int)ItemName.HuntersKnife_I; i <= (int)ItemName.AnjaGreavesS; i++)
+        {
+            GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem((ItemName)i));
+        }
+        //GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.HuntersKnife_I));
+        //GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.LeatherVest));
     }
 
     /// <summary>

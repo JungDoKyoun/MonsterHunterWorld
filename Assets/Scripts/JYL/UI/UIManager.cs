@@ -11,6 +11,7 @@ public enum UIType
     ItemSellUI,
     EquipSelectUI,
     EquipInvenUI,
+    EquipInfoUI,    
     BoxSelectUI,
     InGameUI
 

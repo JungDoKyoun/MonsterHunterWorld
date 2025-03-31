@@ -6,9 +6,6 @@ using UnityEngine.UI;
 //장비 인벤토리 UI
 public class EquipInventoryUI : BaseInventory
 {
-    //[SerializeField] GameObject slotParent;
-
-    public bool IsOpen => gameObject.activeSelf;
     private void Awake()
     {
         invenType = InvenType.EquipBox;
@@ -18,7 +15,6 @@ public class EquipInventoryUI : BaseInventory
 
     private void Start()
     {
-        
         InvenToryCtrl.Instance.OnInventoryChanged += () =>
         {
             RefreshUI(items);
@@ -30,6 +26,8 @@ public class EquipInventoryUI : BaseInventory
         items = InvenToryCtrl.Instance.equipInventory;
 
         StartCoroutine(DelayedRefresh());
+
+        UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
     }
 
     IEnumerator DelayedRefresh()
