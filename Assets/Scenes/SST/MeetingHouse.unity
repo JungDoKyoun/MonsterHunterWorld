@@ -9040,15 +9040,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parrentObj: {fileID: 1878020373}
   equipSlot:
-  - {fileID: 1586538472}
-  - {fileID: 1089936757}
-  - {fileID: 1067619048}
-  - {fileID: 139308957}
-  - {fileID: 426097476}
-  - {fileID: 2051516705}
-  - {fileID: 1431040439}
-  - {fileID: 235797817}
-  - {fileID: 1573320617}
+  - {fileID: 1586538474}
+  - {fileID: 1089936759}
+  - {fileID: 1067619050}
+  - {fileID: 139308959}
+  - {fileID: 426097478}
+  - {fileID: 2051516707}
+  - {fileID: 1431040441}
+  - {fileID: 235797819}
+  - {fileID: 1573320619}
 --- !u!1 &176450451
 GameObject:
   m_ObjectHideFlags: 0
@@ -102699,16 +102699,16 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 44
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 44
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 0
   m_Text: 
 --- !u!222 &2003843301

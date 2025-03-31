@@ -46,7 +46,7 @@ public class InvenToryCtrl : MonoBehaviour
 
     //¿Ã∫•∆Æ
     public System.Action OnInventoryChanged;
-    public System.Action OnEquippedChanged;
+    public System.Action<ItemName> OnEquippedChanged;
 
     //ΩÃ±€≈Ê
     public static InvenToryCtrl Instance;
@@ -157,7 +157,7 @@ public class InvenToryCtrl : MonoBehaviour
     public bool TryEquipItem(BaseItem item)
     {
 
-        Debug.Log(equippedUIslot.Length);
+        //Debug.Log(equippedUIslot.Length);
         
 
         var slotIndex = GetSlotIndexFromItem(item);
@@ -179,6 +179,7 @@ public class InvenToryCtrl : MonoBehaviour
             equippedInventory[slotIndex] = item.Clone();
 
             OnInventoryChanged?.Invoke();
+            OnEquippedChanged?.Invoke(item.id);
             return true;
         }
         else

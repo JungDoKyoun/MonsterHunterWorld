@@ -10,7 +10,6 @@ public class EquippedInventoryUI : BaseInventory
         invenType = InvenType.Equipped;
         //// 리스트 크기 보정 (슬롯 수와 같게)
         //EnsureEquipListSize();
-        InvenToryCtrl.Instance.equippedUIslot = equipSlot;
     }
 
     private void Start()
@@ -22,6 +21,7 @@ public class EquippedInventoryUI : BaseInventory
         {
             equipSlot[i].SetType((EquipSlot)i);
         }
+        InvenToryCtrl.Instance.equippedUIslot = equipSlot;
 
         Debug.Log(equipSlot.Length);
 

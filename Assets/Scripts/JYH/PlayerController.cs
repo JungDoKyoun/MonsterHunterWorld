@@ -216,11 +216,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 #endif
+    private void OnEquipChanged(ItemName itemKey)
+    {
+        int index = (int)itemKey;
+
+        // 내 장비 적용
+        Equip(index);
+
+        // 네트워크로 다른 유저들에게도 장비 적용
+        if (PhotonNetwork.InRoom)
+        {
+            photonView.RPC("Equip", RpcTarget.Others, index);
+        }
+    }
 
     private void Start()
     {
         if (photonView.IsMine == true)
         {
+            InvenToryCtrl.Instance.OnEquippedChanged += OnEquipChanged;
+
             Player player = PhotonNetwork.LocalPlayer;
             if (player != null)
             {
@@ -228,6 +243,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 if (hashtable.ContainsKey(PlayerCostume.EquipmentTag) && hashtable[PlayerCostume.EquipmentTag] != null &&
                     int.TryParse(hashtable[PlayerCostume.EquipmentTag].ToString(), out int index))
                 {
+                    
                     Equip(index);
                     if (PhotonNetwork.InRoom)
                     {
