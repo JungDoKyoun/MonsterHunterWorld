@@ -343,7 +343,7 @@ MonoBehaviour:
   headCollider: {fileID: 546558403154450771}
   shootPos: {fileID: 5753665227102424856}
   _groundRayDis: 10
-  _flyHigh: 100
+  _flyHigh: 250
   _blockDis: 0
 --- !u!114 &3826498751250122022
 MonoBehaviour:
@@ -380,7 +380,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2
-  m_Speed: 1
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
