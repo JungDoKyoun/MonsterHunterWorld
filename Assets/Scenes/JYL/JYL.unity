@@ -10328,7 +10328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662238553}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22975291, y: 0.0000000187227, z: -0.0000000044198294, w: 0.973249}
+  m_LocalRotation: {x: 0.22975291, y: -0.0000000187227, z: 0.0000000044198294, w: 0.973249}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -79069,7 +79069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8723434894377589152}
   m_Layer: 5
-  m_Name: VillageUI
+  m_Name: BoxUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90037,7 +90037,7 @@ GameObject:
   - component: {fileID: 2556842730050923481}
   - component: {fileID: 2394333301148176936}
   m_Layer: 5
-  m_Name: VillageUICanvas
+  m_Name: InventoryUICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

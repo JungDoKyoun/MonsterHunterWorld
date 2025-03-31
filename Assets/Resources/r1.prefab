@@ -336,14 +336,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTargetPos:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9079135013900976087, guid: 3d733b4b04bde934ba61718bec622184, type: 3}
+  - {fileID: 6725917872001012906, guid: 6aad8c684e26ade4a8a6726c493ebf86, type: 3}
+  - {fileID: 1202344659544237037, guid: dc90ecc4e22174d4a84d6db65d046b4c, type: 3}
+  - {fileID: 4904368203855838216, guid: f8f4b7565e36571459a0681cb32a69ed, type: 3}
   headCollider: {fileID: 546558403154450771}
   shootPos: {fileID: 5753665227102424856}
   _groundRayDis: 10
   _flyHigh: 100
+  _blockDis: 0
 --- !u!114 &3826498751250122022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _monsterSO: {fileID: 11400000, guid: 3665e5ce5a3cbe543b009017d6d87ba5, type: 2}
-  _monsterProjectileSpawnManager: {fileID: 0}
 --- !u!114 &5584208265966351522
 MonoBehaviour:
   m_ObjectHideFlags: 0

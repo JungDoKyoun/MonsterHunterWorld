@@ -18,6 +18,7 @@ public class GageCtrl : MonoBehaviour
         //spBar.SetPlayer(playerCtrl);
         //인게임 전에 HUD 비활성화 테스트
         //GameObject.Find("HUDCanvas").SetActive(false);
+
     }
 
     public void UpdateHP(float newHP)

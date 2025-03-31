@@ -3868,6 +3868,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214045471}
   m_CullTransparentMesh: 1
+--- !u!1 &1233203742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233203744}
+  - component: {fileID: 1233203743}
+  m_Layer: 0
+  m_Name: MonsterProjectileSpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1233203743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233203742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83a3a16ab2c94649ad0f6a64c105d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1233203744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233203742}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1287322364
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6375,7 +6419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 4646173490247177517, guid: 3435b8f7b3271a246a6234618ae91f91, type: 3}
-  _monsterPrefab: {fileID: 6995886858314772640, guid: cc6f94971137a2e4698384721f7a7ecc, type: 3}
+  _monsterPrefab: {fileID: 342189898198089240, guid: cc6f94971137a2e4698384721f7a7ecc, type: 3}
 --- !u!64 &1739141560
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7166,3 +7210,4 @@ SceneRoots:
   - {fileID: 461861098}
   - {fileID: 1594115087}
   - {fileID: 1712375307}
+  - {fileID: 1233203744}
