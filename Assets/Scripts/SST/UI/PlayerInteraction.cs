@@ -21,7 +21,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
-        UIManager.Instance.AddUI(UIType.BoxSelectUI, boxPanel.gameObject);
+        //UIManager.Instance.AddUI(UIType.BoxSelectUI, boxPanel.gameObject);
         Debug.Log("?");
     }
 

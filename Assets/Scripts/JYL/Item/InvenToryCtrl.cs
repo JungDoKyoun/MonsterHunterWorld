@@ -99,7 +99,7 @@ public class InvenToryCtrl : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            list.Add(ItemDataBase.Instance.emptyItem);
+            //list.Add(ItemDataBase.Instance.emptyItem);
         }
     }
 

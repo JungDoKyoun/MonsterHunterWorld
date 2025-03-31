@@ -142,7 +142,6 @@ public class MonsterRotationState : IMonsterState
     public override void Move()
     {
         _monster.CheckPlayer();
-        //_monster.ApplyRootMotionMovement();
     }
 
     public override void Update()
@@ -216,7 +215,7 @@ public class MonsterTakeOffState : IMonsterState
 
     public override void Move()
     {
-        _monster.ApplyRootMotionMovement();
+        //_monster.ApplyRootMotionMovement();
     }
 
     public override void Update()
@@ -283,7 +282,7 @@ public class MonsterPatrolState : IMonsterState
     public override void Move()
     {
         _monster.CheckPlayer();
-        _monster.ApplyRootMotionMovement();
+        //_monster.ApplyRootMotionMovement();
     }
 
     public override void Update()
@@ -420,26 +419,26 @@ public class MonsterChaseState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _monster.CheckPlayer();
+        _monster.TurnOnAgent();
         _monster.SetAnime("IsChase", true);
         Debug.Log("다시 추격");
     }
 
     public override void Exit()
     {
+        _monster.TurnOffAgent();
         _monster.SetAnime("IsChase", false);
     }
 
     public override void Move()
     {
         _monster.CheckPlayer();
-        _monster.ApplyRootMotionMovement();
-        _monster.SmothRotateToPlayer();
-        _monster.IsBlock();
 
     }
 
     public override void Update()
     {
+        _monster.Link();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -461,7 +460,7 @@ public class MonsterChaseState : IMonsterState
         if (!_monster.IsCanFindPlayer())
         {
             _monster.ResetHit();
-            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            _stateManager.ChangeMonsterState(new MonsterIdleState());
             return;
         }
 
@@ -573,12 +572,14 @@ public class MonsterAttackState : IMonsterState
     public override void Exit()
     {
         _monster.ResetCoolTime();
-        _monster.ApplyRootMotionMovement();
+        //_monster.ApplyRootMotionMovement();
     }
 
     public override void Move()
     {
         _monster.CheckPlayer();
+        _monster.IsBlock();
+        _monster.BlockMove();
     }
 
     public override void Update()

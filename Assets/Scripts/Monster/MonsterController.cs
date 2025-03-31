@@ -67,6 +67,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isLanding;
     private bool _isTooHigh;
     private bool _isGround;
+    private bool _isBlock;
+    private bool _isLink;
 
     private void Awake()
     {
@@ -112,6 +114,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isLanding = false;
         _isTooHigh = false;
         _isGround = true;
+        _isBlock = false;
+        _isLink = false;
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
@@ -574,10 +578,17 @@ public class MonsterController : MonoBehaviourPunCallbacks
         RaycastHit hit;
         if(Physics.Raycast(transform.position + Vector3.up * 5f, Vector3.down, out hit, 20f, LayerMask.GetMask("Ground")))
         {
-            Debug.Log("µé¾î¿È¤±¤±¤±");
             return hit.point.y;
         }
         return transform.position.y;
+    }
+
+    public void Link()
+    {
+        if (_agent.isOnOffMeshLink && !_isLink)
+        {
+            StartCoroutine(WaitForEndLink());
+        }
     }
 
     public void ChooseAttackType()
@@ -760,19 +771,33 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    public bool IsBlock()
+    public void IsBlock()
     {
         RaycastHit hit;
-        _playerPos = transform.position;
-        Debug.Log(Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.forward, out hit, _blockDis, LayerMask.GetMask("Ground")));
-        return Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.forward, out hit, _blockDis, LayerMask.GetMask("Ground"));
+        if(Physics.Raycast(transform.position + Vector3.up * 2f, transform.forward, out hit, _blockDis, LayerMask.GetMask("Ground")))
+        {
+            _isBlock = true;
+        }
+        else
+        {
+            _playerPos = transform.position;
+            _isBlock = false;
+        }
+    }
+
+    public void BlockMove()
+    {
+        if(_isBlock)
+        {
+            transform.position = _playerPos;
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position + Vector3.forward * _blockDis, 1f);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * _blockDis, 1f);
     }
 
     public void TakeOff()
@@ -956,6 +981,31 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isTooHigh = false;
     }
 
+    public IEnumerator WaitForEndLink()
+    {
+        _isLink = true;
+        TurnOffAgent();
+
+        OffMeshLinkData linkData = _agent.currentOffMeshLinkData;
+        Vector3 endPos = linkData.endPos + Vector3.up * _agent.baseOffset;
+
+        SetAnime("IsLink", true);
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("Link");
+
+        while (Vector3.Distance(transform.position, endPos) > 0.05f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, endPos, Time.deltaTime * 5f);
+            yield return null;
+        }
+        SetAnime("IsLink", false);
+        _agent.CompleteOffMeshLink();
+        TurnOnAgent();
+        _isLink = false;
+        SetAnime("IsChase", true);
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         //CheckMaster();
@@ -997,5 +1047,17 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 co.enabled = false;
             }
         }
+    }
+
+    public void TurnOnAgent()
+    {
+        _agent.updatePosition = true;
+        _agent.updateRotation = true;
+    }
+
+    public void TurnOffAgent()
+    {
+        _agent.updatePosition = false;
+        _agent.updateRotation = false;
     }
 }
