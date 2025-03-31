@@ -233,7 +233,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         photonView.RPC("Equip", RpcTarget.Others, index);
                     }
-                    //AuthManager.dbRef.Child(AuthManager.user.Email).SetValueAsync();
                 }
                 else
                 {
@@ -242,7 +241,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         photonView.RPC("Equip", RpcTarget.Others, 0);
                     }
-                    //AuthManager.dbRef.Child(AuthManager.user.Email).SetValueAsync();
                 }
             }
         }
@@ -455,6 +453,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
+    private void Equip(int index)
+    {
+        getPlayerCostume.Equip(index);
+    }
+
+    [PunRPC]
     private void Rebind()
     {
         getAnimator.Rebind();
@@ -578,12 +582,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 photonView.RPC("SetLife", RpcTarget.Others, _currentLife, _fullLife);
             }
         }
-    }
-
-    [PunRPC]
-    public void Equip(int index)
-    {
-        getPlayerCostume.Equip(index);
     }
 
     public void Show(PlayerInteraction.State state)
