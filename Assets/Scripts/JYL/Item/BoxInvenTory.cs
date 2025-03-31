@@ -21,20 +21,29 @@ public class BoxInvenTory : BaseInventory
 
     public bool IsOpen => gameObject.activeSelf;
 
-
-    private void Start()
+    private void Awake()
     {
         invenType = InvenType.Box;
 
+        //슬롯세팅
         SlotSetting(gameObject, invenType);
-        items = InvenToryCtrl.Instance.boxInven;
 
-        //InvenInit(items);
+    }
+    private void Start()
+    {
 
+        //인벤 변경시 UI 초기화
         InvenToryCtrl.Instance.OnInventoryChanged += () =>
         {
             RefreshUI(items);
         };
+    }
+
+    private void OnEnable()
+    {
+        items = InvenToryCtrl.Instance.boxInven;
+        boxIndex = 1;
+        RefreshUI(items);
     }
 
     override public void RefreshUI(List<BaseItem> list)
@@ -129,19 +138,5 @@ public class BoxInvenTory : BaseInventory
         NextBox(boxIndex);
     }
 
-    public void OpenBox()
-    {
-
-        boxIndex = 1;
-        InvenOpen();
-        if (items.Count > 0)
-        {
-            NextBox(boxIndex);
-        }
-    }
-    public void CloseUI()
-    {
-        gameObject.SetActive(false);
-    }
 
 }

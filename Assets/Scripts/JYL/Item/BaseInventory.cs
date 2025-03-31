@@ -37,58 +37,16 @@ public abstract class BaseInventory : MonoBehaviour
 
     }
 
-    protected void InvenInit(List<BaseItem> list)
-    {
-        // 슬롯 수만큼 아이템 리스트에 emptyItem 채워넣기
-        for (int i = 0; i < slot.Count; i++)
-        {
-            list.Add(ItemDataBase.Instance.emptyItem);
-        }
-    }
+    //protected void InvenInit(List<BaseItem> list)
+    //{
+    //    // 슬롯 수만큼 아이템 리스트에 emptyItem 채워넣기
+    //    for (int i = 0; i < slot.Count; i++)
+    //    {
+    //        list.Add(ItemDataBase.Instance.emptyItem);
+    //    }
+    //}
 
-    //흭득 아이템 인벤토리로 넣기
-    public bool GetItemToInventory(List<BaseItem> list,BaseItem newItem)
-    {
-        //Debug.Log(newItem.name + " 흭득!");
-
-        if (newItem == null || newItem.type == ItemType.Empty)
-            return false;
-
-        // 1. 같은 이름의 아이템이 있으면 -> count 증가
-        int index = list.FindIndex(i => i.name == newItem.name);
-
-        if (index >= 0)
-        {
-            var target = list[index];
-            if (target.count < target.maxCount)
-            {
-                target.count++;
-                return true;
-            }
-            else
-            {
-                Debug.Log("최대 수량 초과");
-                return false;
-            }
-        }
-
-        // 2. 아니면 빈 슬롯에 새로 추가
-        int emptyIndex = list.FindIndex(i => i.id == ItemName.Empty);
-
-        if (emptyIndex >= 0)
-        {
-            // 새로운 BaseItem 생성해서 넣어줘야 참조 충돌 없음
-            BaseItem copy = newItem.Clone();
-            copy.count = 1; // 새로 들어오는 아이템이니까 수량은 1로 초기화
-            list[emptyIndex] = copy;
-
-            return true;
-        }
-
-        Debug.Log("빈 슬롯 없음");
-        return false;
-    }
-
+   
 
     //슬롯 세팅
     public void SlotSetting(GameObject current, InvenType type)

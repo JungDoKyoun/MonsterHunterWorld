@@ -65,6 +65,8 @@ public class EquipItemToolTipCtrl : MonoBehaviour
 
     private void OnEnable()
     {
+        InvenToryCtrl.Instance.EquipItemToolTipCtrl = this;
+
         pageIndex.text = 1.ToString() + " / " + maxIndex.ToString();
     }
 

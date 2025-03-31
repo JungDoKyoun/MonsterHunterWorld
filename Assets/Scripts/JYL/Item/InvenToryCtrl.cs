@@ -30,13 +30,13 @@ public class InvenToryCtrl : MonoBehaviour
     //현재 흭득한 장비 인벤토리
     //[SerializeField] EquipInventoryUI equipInventoryUI;
     //public EquipInventoryUI EquipInventoryUI => equipInventoryUI;
-    
+
     public List<BaseItem> equipInventory = new List<BaseItem>();
 
 
     //장비용 툴팁 UI
     [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
-    public EquipItemToolTipCtrl EquipItemToolTipCtrl => equipItemToolTipCtrl;
+    public EquipItemToolTipCtrl EquipItemToolTipCtrl { get; set; }
 
     //현재 가지고있을 인벤토리
     //[SerializeField] InventoryItems inventoryItems;
@@ -53,7 +53,7 @@ public class InvenToryCtrl : MonoBehaviour
 
     //인벤용 툴팁 UI
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
-    public ItemToolTipCtrl ItemToolTipCtrl => itemToolTipCtrl;
+    public ItemToolTipCtrl ItemToolTipCtrl { get; set; }
 
     public System.Action OnInventoryChanged;
     public System.Action OnEquippedChanged;
@@ -62,7 +62,7 @@ public class InvenToryCtrl : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null )
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
@@ -76,7 +76,26 @@ public class InvenToryCtrl : MonoBehaviour
 
     }
 
-    void InvenInit(List<BaseItem> list ,int count)
+    private void Start()
+    {
+        //아이템 흭득
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
+
+        //장비인벤 아이템흭득
+        GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.HuntersKnife_I));
+        GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem(ItemName.LeatherVest));
+    }
+
+    /// <summary>
+    /// 인벤 빈 아이템 세팅
+    /// </summary>
+    /// <param name="list">세팅할 인벤 </param>
+    /// <param name="count">세팅할 인벤 크기</param>
+    void InvenInit(List<BaseItem> list, int count)
     {
         for (int i = 0; i < count; i++)
         {
@@ -85,8 +104,13 @@ public class InvenToryCtrl : MonoBehaviour
     }
 
 
-    //소지 인벤토리와 창고 인벤토리 전용
-    public void ChangeItemByKey(List<BaseItem> from, List<BaseItem> to ,ItemName itemKey)
+    /// <summary>
+    /// 소지 인벤토리와 창고 인벤토리 전용
+    /// </summary>
+    /// <param name="from">보낼 인벤</param>
+    /// <param name="to">받을 인벤</param>
+    /// <param name="itemKey"> 아이템 키 </param>
+    public void ChangeItemByKey(List<BaseItem> from, List<BaseItem> to, ItemName itemKey)
     {
         BaseItem original = ItemDataBase.Instance.GetItem(itemKey);
 
@@ -108,7 +132,10 @@ public class InvenToryCtrl : MonoBehaviour
 
     }
 
-    //아이템 정렬 =>빈칸 뒤로 미룸
+    /// <summary>
+    /// 아이템 정렬 =>빈칸 뒤로 미룸
+    /// </summary>
+    /// <param name="list">정렬할 인벤토리</param>
     void CompactItemList(List<BaseItem> list)
     {
         var validItems = list.Where(i => i.type != ItemType.Empty).ToList();
@@ -122,10 +149,15 @@ public class InvenToryCtrl : MonoBehaviour
         }
     }
 
-    //아이템 교환
-    public bool ChangeItem(List<BaseItem> current, ItemName itemKey)
+    /// <summary>
+    /// 아이템 교환
+    /// </summary>
+    /// <param name="current">받을 인벤토리</param>
+    /// <param name="itemKey">아이템 키</param>
+    /// <returns></returns>
+    public bool ChangeItem(List<BaseItem> toList, ItemName itemKey)
     {
-        int emptyCount = current.Count(i => i.type == ItemType.Empty);
+        int emptyCount = toList.Count(i => i.type == ItemType.Empty);
         Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
 
 
@@ -138,12 +170,12 @@ public class InvenToryCtrl : MonoBehaviour
         BaseItem baseItem = ItemDataBase.Instance.GetItem(itemKey);
 
         // 1. 이미 같은 아이템이 있으면 -> count++
-        int index = current.FindIndex(i => i.name == baseItem.name);
+        int index = toList.FindIndex(i => i.name == baseItem.name);
         if (index >= 0)
         {
-            if (current[index].count < current[index].maxCount)
+            if (toList[index].count < toList[index].maxCount)
             {
-                current[index].count++;
+                toList[index].count++;
                 return true;
             }
             else
@@ -154,7 +186,7 @@ public class InvenToryCtrl : MonoBehaviour
         }
 
         // 2. 빈 슬롯이 있으면 -> 복사해서 추가
-        int emptyIndex = current.FindIndex(i => i.type == ItemType.Empty);
+        int emptyIndex = toList.FindIndex(i => i.type == ItemType.Empty);
 
         if (emptyIndex >= 0)
         {
@@ -164,11 +196,54 @@ public class InvenToryCtrl : MonoBehaviour
             copy.count = 1; // 복사할 때 count 조정 필요
 
             Debug.Log($"[ChangeItem] 새로운 아이템 추가됨: {copy.name} → 슬롯 {emptyIndex}");
-            current[emptyIndex] = copy;
+            toList[emptyIndex] = copy;
             return true;
         }
 
         Debug.Log("슬롯이 가득 찼습니다.");
+        return false;
+    }
+
+    //흭득 아이템 인벤토리로 넣기
+    public bool GetItemToInventory(List<BaseItem> list, BaseItem newItem)
+    {
+        //Debug.Log(newItem.name + " 흭득!");
+
+        if (newItem == null || newItem.type == ItemType.Empty)
+            return false;
+
+        // 1. 같은 이름의 아이템이 있으면 -> count 증가
+        int index = list.FindIndex(i => i.name == newItem.name);
+
+        if (index >= 0)
+        {
+            var target = list[index];
+            if (target.count < target.maxCount)
+            {
+                target.count++;
+                return true;
+            }
+            else
+            {
+                Debug.Log("최대 수량 초과");
+                return false;
+            }
+        }
+
+        // 2. 아니면 빈 슬롯에 새로 추가
+        int emptyIndex = list.FindIndex(i => i.id == ItemName.Empty);
+
+        if (emptyIndex >= 0)
+        {
+            // 새로운 BaseItem 생성해서 넣어줘야 참조 충돌 없음
+            BaseItem copy = newItem.Clone();
+            copy.count = 1; // 새로 들어오는 아이템이니까 수량은 1로 초기화
+            list[emptyIndex] = copy;
+
+            return true;
+        }
+
+        Debug.Log("빈 슬롯 없음");
         return false;
     }
 
