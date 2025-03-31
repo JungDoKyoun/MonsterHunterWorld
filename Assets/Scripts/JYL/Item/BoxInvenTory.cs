@@ -21,29 +21,32 @@ public class BoxInvenTory : BaseInventory
 
     public bool IsOpen => gameObject.activeSelf;
 
-    private void Start()
+    private void Awake()
     {
         invenType = InvenType.Box;
 
+        //슬롯세팅
         SlotSetting(gameObject, invenType);
 
-        InvenInit();
-
-        //Debug.Log("박스인벤 시작");
     }
-
-    public void AddItem(BaseItem item, int index)
+    private void Start()
     {
-        if (index < 0 || index >= 1000)
-        {
-            Debug.Log("인덱스 잘못넣었습니다.");
-            return;
-        }
 
-        items[index] = item;
+        //인벤 변경시 UI 초기화
+        InvenToryCtrl.Instance.OnInventoryChanged += () =>
+        {
+            RefreshUI(items);
+        };
     }
 
-    override public void RefreshUI()
+    private void OnEnable()
+    {
+        items = InvenToryCtrl.Instance.boxInven;
+        boxIndex = 1;
+        RefreshUI(items);
+    }
+
+    override public void RefreshUI(List<BaseItem> list)
     {
         for (int i = 0; i < 100; i++)
         {
@@ -56,9 +59,9 @@ public class BoxInvenTory : BaseInventory
 
             int targetIndex = (boxIndex - 1) * 100 + i;
 
-            if (targetIndex < items.Count && items[targetIndex] != null)
+            if (targetIndex < list.Count && list[targetIndex] != null)
             {
-                slotComp.SlotSetItem(items[targetIndex]);
+                slotComp.SlotSetItem(list[targetIndex]);
             }
             else
             {
@@ -135,19 +138,5 @@ public class BoxInvenTory : BaseInventory
         NextBox(boxIndex);
     }
 
-    public void OpenBox()
-    {
-
-        boxIndex = 1;
-        InvenOpen();
-        if (items.Count > 0)
-        {
-            NextBox(boxIndex);
-        }
-    }
-    public void CloseUI()
-    {
-        gameObject.SetActive(false);
-    }
 
 }

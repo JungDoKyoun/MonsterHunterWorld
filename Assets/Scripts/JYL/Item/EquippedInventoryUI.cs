@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 //장착중 인벤 UI
 public class EquippedInventoryUI : BaseInventory
@@ -8,13 +6,61 @@ public class EquippedInventoryUI : BaseInventory
     public GameObject[] equipSlot;
     public bool IsOpen => gameObject.activeSelf;
 
-    private void Start()
+    private void Awake()
     {
         invenType = InvenType.Equipped;
-
-        SlotSetting(gameObject, invenType);
-        InvenInit();
+        //// 리스트 크기 보정 (슬롯 수와 같게)
+        //EnsureEquipListSize();
     }
+    private void Start()
+    {
+
+
+
+        items = InvenToryCtrl.Instance.equippedInventory;
+
+
+
+        // 변화 감지 이벤트 연결
+        InvenToryCtrl.Instance.OnInventoryChanged += RefreshUI;
+
+        // 초기 세팅
+        RefreshUI();
+
+    }
+
+    //// 리스트 크기가 부족하면 빈 슬롯으로 채움
+    //private void EnsureEquipListSize()
+    //{
+    //    int targetCount = equipSlot.Length;
+
+    //    while (items.Count < targetCount)
+    //    {
+    //        items.Add(ItemDataBase.Instance.emptyItem);
+    //    }
+    //}
+    // UI 갱신
+    public void RefreshUI()
+    {
+        for (int i = 0; i < equipSlot.Length; i++)
+        {
+            var slotCtrl = equipSlot[i].GetComponent<EquipslotCtrl>();
+            if (slotCtrl == null)
+            {
+                Debug.LogWarning($"[EquippedInventoryUI] {i}번 슬롯에 EquipslotCtrl 없음");
+                continue;
+            }
+
+            var item = (i < items.Count && items[i] != null)
+                ? items[i]
+                : ItemDataBase.Instance.emptyItem;
+
+            slotCtrl.SlotListSetting(item);
+        }
+    }
+
+
+
     public void EquipItem(BaseItem value)
     {
         var index = (int)value.GetEquipSlot();
@@ -26,8 +72,6 @@ public class EquippedInventoryUI : BaseInventory
         }
 
         equipSlot[index].GetComponent<EquipslotCtrl>().SlotListSetting(value);
-        
-
         //items[index] = value;
     }
 
@@ -36,23 +80,4 @@ public class EquippedInventoryUI : BaseInventory
     {
         gameObject.SetActive(false);
     }
-
-
-    //public void RefreshUI()
-    //{
-    //    for (int i = 0; i < equipSlot.Length; i++)
-    //    {
-    //        var slotComp = equipSlot[i].GetComponent<ItemSlot>();
-    //        if (slotComp == null)
-    //        {
-    //            Debug.LogWarning($"슬롯 {i}번에 ItemSlot 컴포넌트가 없습니다.");
-    //            continue;
-    //        }
-    //        if (items[i] != null)
-    //        {
-    //            slotComp.SlotSetItem(items[i]);
-    //        }
-    //    }
-    //}
-
 }

@@ -53,6 +53,11 @@ public class ItemToolTipCtrl : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+         InvenToryCtrl.Instance.ItemToolTipCtrl = this;
+    }
+
     public void TooltipClear(bool set)
     {
         //아무것도 없는 아이템이면 비활성화
