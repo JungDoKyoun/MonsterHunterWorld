@@ -116,14 +116,25 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
         {
             _createButton.onClick.AddListener(CreateQuest);
         }
-        StartCoroutine(DoStart());  //나중에 지울거임
-        System.Collections.IEnumerator DoStart()
+        //StartCoroutine(DoStart());
+        //System.Collections.IEnumerator DoStart()
+        //{
+        //    PhotonNetwork.ConnectUsingSettings();
+        //    yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
+        //    PhotonNetwork.JoinLobby();
+        //    yield return new WaitUntil(predicate: () => PhotonNetwork.InLobby);
+        //    PhotonNetwork.JoinRandomOrCreateRoom();
+        //}
+        if (PhotonNetwork.InRoom == true)
         {
-            PhotonNetwork.ConnectUsingSettings();
-            yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
-            PhotonNetwork.JoinLobby();
-            yield return new WaitUntil(predicate: () => PhotonNetwork.InLobby);
-            PhotonNetwork.JoinRandomOrCreateRoom();
+            Player localPlayer = PhotonNetwork.LocalPlayer;
+            localPlayer.SetCustomProperties(new Hashtable() { { UserIdTag, localPlayer.UserId } });
+            if (_playerPrefab != null)
+            {
+                GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
+                _playerController = gameObject.GetComponent<PlayerController>();
+                FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
+            }
         }
     }
 
@@ -491,16 +502,17 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
             hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
             if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
             {
-                PhotonNetwork.LoadLevel("younghan"); //이거 바꿔야함
+                PhotonNetwork.LoadLevel("younghan");
+                return;
             }
         }
-        if (_playerPrefab != null)
-        {
-            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
-            _playerController = gameObject.GetComponent<PlayerController>();
-            FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
-            localPlayer.SetCustomProperties(new Hashtable() { {UserIdTag, localPlayer.UserId} });
-        }
+        //if (_playerPrefab != null)
+        //{
+        //    GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
+        //    _playerController = gameObject.GetComponent<PlayerController>();
+        //    FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
+        //    localPlayer.SetCustomProperties(new Hashtable() { {UserIdTag, localPlayer.UserId} });
+        //}
         UpdateRoomInfo();
     }
 
@@ -538,9 +550,39 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
             {
                 localPlayer.SetCustomProperties(new Hashtable() { { ReadyTag, null } });
                 PhotonNetwork.LeaveRoom();
+                loadingObject.Set(true);
+                StartCoroutine(BlinkText());
+                StartCoroutine(RotateImage());
                 return;
             }
         }
         UpdateRoomInfo();
     }
+
+    // 회전하는 이미지 효과 코루틴
+    System.Collections.IEnumerator RotateImage()
+    {
+        while (true)
+        {
+            loadingImage.transform.Rotate(0, 0, -140f * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    // 텍스트 깜빡이는 효과 코루틴
+    System.Collections.IEnumerator BlinkText()
+    {
+        Color basicColor = loadingText.color;
+        while (true)
+        {
+            float alpha = Mathf.PingPong(Time.deltaTime * BlinkSpeed, 1f);
+            loadingText.color = new Color(basicColor.r, basicColor.g, basicColor.b, alpha);
+            yield return null;
+        }
+    }
+
+    [SerializeField] private GameObject loadingObject;
+    [SerializeField] private Image loadingImage;                // 회전할 로딩 이미지
+    [SerializeField] private Text loadingText;                  // 깜빡이는 로딩 텍스트
+    private static readonly float BlinkSpeed = 10f;             // 텍스트 깜빡임 속도
 }
