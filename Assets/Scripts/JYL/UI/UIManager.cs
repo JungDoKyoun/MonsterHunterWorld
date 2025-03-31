@@ -78,6 +78,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void AddUI(UIType type,GameObject obj)
+    {
+        if (!uiMap.ContainsKey(type))
+        {
+            uiMap.Add(type, obj);
+        }
+    }
+
     //ÀÏ¹Ý UI¿ÀÇÂ
     public void OpenUI(UIType type)
     {
