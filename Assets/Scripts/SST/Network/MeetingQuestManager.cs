@@ -110,22 +110,28 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
     }
 #endif
 
+    [SerializeField]
+    private bool _testMode = false;
+
     private void Awake()
     {
         if(_createButton != null)
         {
             _createButton.onClick.AddListener(CreateQuest);
         }
-        //StartCoroutine(DoStart());
-        //System.Collections.IEnumerator DoStart()
-        //{
-        //    PhotonNetwork.ConnectUsingSettings();
-        //    yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
-        //    PhotonNetwork.JoinLobby();
-        //    yield return new WaitUntil(predicate: () => PhotonNetwork.InLobby);
-        //    PhotonNetwork.JoinRandomOrCreateRoom();
-        //}
-        if (PhotonNetwork.InRoom == true)
+        if (_testMode == true)
+        {
+            StartCoroutine(DoStart());
+            System.Collections.IEnumerator DoStart()
+            {
+                PhotonNetwork.ConnectUsingSettings();
+                yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
+                PhotonNetwork.JoinLobby();
+                yield return new WaitUntil(predicate: () => PhotonNetwork.InLobby);
+                PhotonNetwork.JoinRandomOrCreateRoom();
+            }
+        }
+        else if (PhotonNetwork.InRoom == true)
         {
             Player localPlayer = PhotonNetwork.LocalPlayer;
             localPlayer.SetCustomProperties(new Hashtable() { { UserIdTag, localPlayer.UserId } });
@@ -506,13 +512,13 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                 return;
             }
         }
-        //if (_playerPrefab != null)
-        //{
-        //    GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
-        //    _playerController = gameObject.GetComponent<PlayerController>();
-        //    FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
-        //    localPlayer.SetCustomProperties(new Hashtable() { {UserIdTag, localPlayer.UserId} });
-        //}
+        if (_testMode == true && _playerPrefab != null)
+        {
+            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
+            _playerController = gameObject.GetComponent<PlayerController>();
+            FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
+            localPlayer.SetCustomProperties(new Hashtable() { { UserIdTag, localPlayer.UserId } });
+        }
         UpdateRoomInfo();
     }
 

@@ -86,6 +86,8 @@ public class PlayerCostume : MonoBehaviour
     private static readonly int SetIndexStart = 0;
     private static readonly int SetIndexEnd = 5;
 
+    public static readonly string EquipmentTag = "Equipment";
+
 #if UNITY_EDITOR
 
     private void OnValidate()
@@ -96,43 +98,43 @@ public class PlayerCostume : MonoBehaviour
     [ContextMenu("장비 없음")]
     private void Set0()
     {
-        Set(-1);
+        Equip(-1);
     }
 
     [ContextMenu("장비 1")]
     private void Set1()
     {
-        Set(0);
+        Equip(0);
     }
 
     [ContextMenu("장비 2")]
     private void Set2()
     {
-        Set(1);
+        Equip(1);
     }
 
     [ContextMenu("장비 3")]
     private void Set3()
     {
-        Set(2);
+        Equip(2);
     }
 
     [ContextMenu("장비 4")]
     private void Set4()
     {
-        Set(3);
+        Equip(3);
     }
 
     [ContextMenu("장비 5")]
     private void Set5()
     {
-        Set(4);
+        Equip(4);
     }
 
     [ContextMenu("장비 6")]
     private void Set6()
     {
-        Set(5);
+        Equip(5);
     }
 #endif
 
@@ -481,7 +483,7 @@ public class PlayerCostume : MonoBehaviour
         }
     }
 
-    public void Set(int index)
+    public void Equip(int index)
     {
         SetHand(index);
         SetBreast(index);
