@@ -18,13 +18,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     Image image;
 
     BaseItem item;
-    public BaseItem Item => item;
 
     public GameObject itemImage;
     public Text countText;
-
-    //인벤용 툴팁 - 장비인벤에선 못씀 
-    //[SerializeField] ItemToolTipCtrl tooltipBox;
 
     private Coroutine fadeCoroutine;
 
@@ -108,10 +104,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             case InvenType.Box:                
                 ctrl.ChangeItemByKey(ctrl.boxInven, ctrl.inventory, item.id);
                 break;
-            case InvenType.Equipped:
-                ctrl.ChangeItemByKey(ctrl.equippedInventory, ctrl.equipInventory, item.id);
-                
-                break;
+
             case InvenType.EquipBox:
                 ctrl.ChangeItemByKey(ctrl.equipInventory, ctrl.equippedInventory, item.id);
                 break;
@@ -154,7 +147,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 {
                     ctrl.EquipItemToolTipCtrl.SetArmor(item as Armor);
                 }
-                break;
+                else
+                {
+                    ctrl.EquipItemToolTipCtrl.TooltipClear(false, ItemType.Empty);
+                }
+                    break;
             default:
                 Debug.LogError("잘못된 타입입니다.");
                 break;

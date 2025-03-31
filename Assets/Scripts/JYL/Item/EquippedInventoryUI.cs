@@ -4,7 +4,6 @@ using UnityEngine;
 public class EquippedInventoryUI : BaseInventory
 {
     public GameObject[] equipSlot;
-    public bool IsOpen => gameObject.activeSelf;
 
     private void Awake()
     {
@@ -15,30 +14,28 @@ public class EquippedInventoryUI : BaseInventory
     private void Start()
     {
 
-
-
-        items = InvenToryCtrl.Instance.equippedInventory;
-
-
-
         // 변화 감지 이벤트 연결
         InvenToryCtrl.Instance.OnInventoryChanged += RefreshUI;
+
+        for (int i = 0; i < equipSlot.Length; i++)
+        {
+            var slotCtrl = equipSlot[i].GetComponent<EquipslotCtrl>();
+            slotCtrl.SetType((EquipSlot)i);
+        }
 
         // 초기 세팅
         RefreshUI();
 
     }
 
-    //// 리스트 크기가 부족하면 빈 슬롯으로 채움
-    //private void EnsureEquipListSize()
-    //{
-    //    int targetCount = equipSlot.Length;
+    private void OnEnable()
+    {
+        items = InvenToryCtrl.Instance.equippedInventory;
+        RefreshUI();
 
-    //    while (items.Count < targetCount)
-    //    {
-    //        items.Add(ItemDataBase.Instance.emptyItem);
-    //    }
-    //}
+        UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);  
+    }
+
     // UI 갱신
     public void RefreshUI()
     {
@@ -55,25 +52,11 @@ public class EquippedInventoryUI : BaseInventory
                 ? items[i]
                 : ItemDataBase.Instance.emptyItem;
 
+            
             slotCtrl.SlotListSetting(item);
         }
     }
 
-
-
-    public void EquipItem(BaseItem value)
-    {
-        var index = (int)value.GetEquipSlot();
-
-        if (index < 0 || index >= equipSlot.Length || value.name == "")
-        {
-            Debug.Log("값이 잘못됬습니다.");
-            return;
-        }
-
-        equipSlot[index].GetComponent<EquipslotCtrl>().SlotListSetting(value);
-        //items[index] = value;
-    }
 
 
     public void CloseUI()
