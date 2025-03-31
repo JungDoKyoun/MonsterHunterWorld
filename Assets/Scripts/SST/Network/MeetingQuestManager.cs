@@ -6,6 +6,7 @@ using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using SimpleJSON;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Canvas))]
@@ -86,6 +87,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
     {
         Create,
         Join,
+        Box,
         End
     }
 
@@ -120,6 +122,24 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     private bool _quickPlay = false;
 
+    private bool _hasCinemachineFreeLook = false;
+
+    private CinemachineFreeLook _cinemachineFreeLook = null;
+
+    private CinemachineFreeLook getCinemachineFreeLook
+    {
+        get
+        {
+            if(_hasCinemachineFreeLook == false)
+            {
+                _hasCinemachineFreeLook = true;
+                _cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
+            }
+            return _cinemachineFreeLook;
+        }
+    }
+
+
     private void Awake()
     {
         if(_createButton != null)
@@ -134,7 +154,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
             {
                 GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
                 _playerController = gameObject.GetComponent<PlayerController>();
-                FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
+                getCinemachineFreeLook.Set(_playerController.transform);
             }
         }
         else
@@ -194,6 +214,16 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                                 Show(Mode.Join);
                             }
                             break;
+                        case Mode.Box:
+                            _playerController.Show(PlayerInteraction.State.Box);
+                            if (Input.GetKeyDown(KeyCode.F))
+                            {
+                                _playerController.enabled = false;
+                                getCinemachineFreeLook.SetEnabled(false);
+                                _playerController.Show(PlayerInteraction.State.Hide);
+                                UIManager.Instance.StackUIOpen(UIType.AllVillageUI);
+                            }
+                            break;
                         default:
                             _playerController.Show(PlayerInteraction.State.Hide);
                             break;
@@ -202,6 +232,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                 case false:
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
+                        getCinemachineFreeLook.SetEnabled(true);
                         _playerController.enabled = true;
                         Show(Mode.End);
                     }
@@ -524,7 +555,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
         {
             GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, Vector3.zero, Quaternion.Euler(new Vector3(0, 180, 0)), 0);
             _playerController = gameObject.GetComponent<PlayerController>();
-            FindObjectOfType<CinemachineFreeLook>().Set(_playerController.transform);
+            getCinemachineFreeLook.Set(_playerController.transform);
             localPlayer.SetCustomProperties(new Hashtable() { { UserIdTag, localPlayer.UserId } });
         }
         UpdateRoomInfo();

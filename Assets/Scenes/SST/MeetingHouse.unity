@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -51486,6 +51486,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!4 &939319724 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6237933561620579734, guid: 8862909dad10d5d418957c760b71c2c1, type: 3}
+  m_PrefabInstance: {fileID: 939319717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &939663979
 GameObject:
   m_ObjectHideFlags: 0
@@ -108943,6 +108948,7 @@ MonoBehaviour:
   _questTransforms:
   - {fileID: 2027910073}
   - {fileID: 1856344278}
+  - {fileID: 939319724}
   _createButton: {fileID: 698776572}
   _purposeText: {fileID: 254304791}
   _itemText: {fileID: 1873651156}

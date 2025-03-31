@@ -14,6 +14,14 @@ public static class ExtensionMethod
         }
     }
 
+    public static void SetEnabled(this CinemachineFreeLook cinemachineFreeLook, bool value)
+    {
+        if(cinemachineFreeLook != null)
+        {
+            cinemachineFreeLook.enabled = value;
+        }
+    }
+
     public static void SetText(this Text text, string value)
     {
         if (text != null)
