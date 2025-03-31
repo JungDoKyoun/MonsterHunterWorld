@@ -79,7 +79,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        yield return new WaitUntil( () => PhotonNetwork.InRoom == true);
+        yield return new WaitUntil( () => PhotonNetwork.CurrentRoom != null);
 
         // 비동기씬 과정 완료되면 이미지 회전, 텍스트 깜빡임 코루틴 중지
         StopCoroutine(blinkCor);
@@ -141,7 +141,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 입장하였습니다");
-        Debug.Log(selectRoomOption.MaxPlayers);
+        Debug.Log(sceneToLoad + selectRoomOption.MaxPlayers);
     }
 
     // 만약에 위의 16명 설정한 방이 꽉찰 경우 예외처리를 위해 만든 콜백 함수
@@ -149,6 +149,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     // MeetingHouse1 방에 못들어가면 index++ -> MeetingHouse2 방 참가 없으면 만들기
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
+        Debug.Log("집회소 룸 입장에 실패했습니다. 새로운 집회소 룸을 생성합니다");
         meetingRoomIndex++;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = 16 };
         PhotonNetwork.JoinOrCreateRoom("MeetingHouse" + meetingRoomIndex, roomOptions, TypedLobby.Default);
@@ -156,6 +157,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
+        Debug.Log("싱글룸 생성에 실패했습니다. 새로운 싱글룸을 생성합니다");
         singleRoomIndex++;
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
         PhotonNetwork.CreateRoom("SingleRoom" + singleRoomIndex, roomOptions, TypedLobby.Default);

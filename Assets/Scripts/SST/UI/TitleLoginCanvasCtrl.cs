@@ -12,6 +12,10 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
     [SerializeField] CanvasGroup titleCanvas;
     [SerializeField] CanvasGroup loginCanvas;
 
+    [Header("¹è°æ À½¾Ç")]
+    [SerializeField] AudioClip titleBgm;
+
+
     private void Start()
     {
         basicCanvas.gameObject.SetActive(true);

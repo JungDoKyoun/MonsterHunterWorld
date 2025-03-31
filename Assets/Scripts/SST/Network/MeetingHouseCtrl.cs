@@ -9,8 +9,9 @@ using UnityEngine.UI;
 // ▼ 집회소에 들어가는 상호작용을 위한 스크립트
 public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
 {
-    private int index = 1;
     private Collider meetingHouseZone;
+
+    RoomOptions meetingRoomOption = new RoomOptions { MaxPlayers = 16 };
 
     private PlayerController player;
     private Transform targetPanel;
@@ -62,8 +63,7 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
 
         Debug.Log("방 생성할 준비가 되었습니다. 집회소로 이동합니다.");
 
-        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 16 };
-        LoadingSceneManager.LoadSceneWithLoading("MeetingHouse", roomOptions);
+        LoadingSceneManager.LoadSceneWithLoading("MeetingHouse", meetingRoomOption);
     }
 
     private void OnTriggerEnter(Collider other)
