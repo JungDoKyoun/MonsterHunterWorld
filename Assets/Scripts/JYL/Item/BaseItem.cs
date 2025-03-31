@@ -19,7 +19,7 @@ public enum EquipSlot
     Legs,
     band,
     neck,
-    end
+    box
 
 }
 

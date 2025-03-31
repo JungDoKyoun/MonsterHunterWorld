@@ -106,7 +106,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 break;
 
             case InvenType.EquipBox:
-                ctrl.ChangeItemByKey(ctrl.equipInventory, ctrl.equippedInventory, item.id);
+                ctrl.EquipItemByKey(ctrl.equipInventory, ctrl.equippedInventory, item.id);
                 break;
             default:
                 Debug.LogError("잘못된 타입입니다.");

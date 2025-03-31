@@ -74,6 +74,7 @@ public class ItemDataBase : MonoBehaviour
         }
 
         items = GetComponent<CSVItemLoader>().LoadItemsFromCSV();
+
         emptyItem = new BaseItem
         {
             image = items[(int)ItemName.Empty].image,

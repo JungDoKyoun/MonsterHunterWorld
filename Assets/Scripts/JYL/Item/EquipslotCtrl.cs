@@ -10,6 +10,7 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     BaseItem item;
 
     EquipSlot type;
+    public EquipSlot Type => type;
 
     private Coroutine fadeCoroutine;
 
@@ -18,7 +19,7 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         var ctrl = InvenToryCtrl.Instance;
 
-        if(type != EquipSlot.end)
+        if (type != EquipSlot.box)
         {
             ctrl.ChangeItemByKey(ctrl.equippedInventory, ctrl.equipInventory, item.id);
         }
@@ -27,6 +28,7 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             UIManager.Instance.StackUIOpen(UIType.EquipInvenUI);
         }
 
+        InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
 
     }
 
@@ -42,8 +44,14 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         {
             ctrl.EquipItemToolTipCtrl.SetArmor(item as Armor);
         }
+        else
+        {
+            ctrl.EquipItemToolTipCtrl.TooltipClear(false, ItemType.Empty);
+        }
 
         fadeCoroutine = StartCoroutine(FadeAlphaLoop(icon));
+
+        Debug.Log(type);
     }
 
 
@@ -92,18 +100,45 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public void SetType(EquipSlot slottype)
     {
         type = slottype;
+
+        if (type == EquipSlot.box)
+        {
+            item = ItemDataBase.Instance.emptyItem;
+        }
     }
 
     public void SlotListSetting(BaseItem slotitem)
     {
+        if (!IsCorrectType(slotitem))
+        {
+            Debug.LogWarning($"[장착 실패] {item.name}은 {type} 슬롯에 장착할 수 없습니다.");
+            return;
+        }
+
         item = slotitem;
         icon.sprite = slotitem.image;
         icon.color = slotitem.color;
         itemName.text = slotitem.name;
     }
+
+    public bool IsCorrectType(BaseItem item)
+    {
+        if (item == null || item.type == ItemType.Empty)
+            return true; // 빈 아이템은 예외로 허용
+
+        if (item is Armor armor)
+            return armor.equipType == type;
+
+        if (item is Weapon)
+            return type == EquipSlot.Weapon;
+
+        return false;
+    }
+
+
     public void ClearSlot()
     {
         icon.color = new Color(1, 1, 1, 1);
-      //  icon.sprite = sprites[0];
+        //  icon.sprite = sprites[0];
     }
 }
