@@ -229,13 +229,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     int.TryParse(hashtable[PlayerCostume.EquipmentTag].ToString(), out int index))
                 {
                     Equip(index);
-                    photonView.RPC("Equip", RpcTarget.Others, index);
+                    if (PhotonNetwork.InRoom)
+                    {
+                        photonView.RPC("Equip", RpcTarget.Others, index);
+                    }
                     //AuthManager.dbRef.Child(AuthManager.user.Email).SetValueAsync();
                 }
                 else
                 {
                     Equip(0);
-                    photonView.RPC("Equip", RpcTarget.Others, 0);
+                    if (PhotonNetwork.InRoom)
+                    {
+                        photonView.RPC("Equip", RpcTarget.Others, 0);
+                    }
                     //AuthManager.dbRef.Child(AuthManager.user.Email).SetValueAsync();
                 }
             }
@@ -418,10 +424,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         if (getAnimator.GetBool(DashTag) == !value)
         {
             SetAnimation(DashTag, value);
-            if (PhotonNetwork.InRoom == true)
-            {
-                photonView.RPC("Dash", RpcTarget.Others, value);
-            }
         }
     }
 
