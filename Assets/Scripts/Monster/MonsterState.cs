@@ -1,3 +1,4 @@
+using Photon.Pun.Demo.Procedural;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -433,6 +434,7 @@ public class MonsterChaseState : IMonsterState
         _monster.CheckPlayer();
         _monster.ApplyRootMotionMovement();
         _monster.SmothRotateToPlayer();
+        _monster.IsBlock();
 
     }
 
@@ -571,6 +573,7 @@ public class MonsterAttackState : IMonsterState
     public override void Exit()
     {
         _monster.ResetCoolTime();
+        _monster.ApplyRootMotionMovement();
     }
 
     public override void Move()

@@ -229,12 +229,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     int.TryParse(hashtable[PlayerCostume.EquipmentTag].ToString(), out int index))
                 {
                     Equip(index);
-                    photonView.RPC("Equip", RpcTarget.Others, index);
+                    if (PhotonNetwork.InRoom)
+                    {
+                        photonView.RPC("Equip", RpcTarget.Others, index);
+                    }
                 }
                 else
                 {
                     Equip(0);
-                    photonView.RPC("Equip", RpcTarget.Others, 0);
+                    if (PhotonNetwork.InRoom)
+                    {
+                        photonView.RPC("Equip", RpcTarget.Others, 0);
+                    }
                 }
             }
         }
@@ -354,7 +360,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (other.TryGetComponent(out MonsterController monsterController))
             {
-                //monsterController.TakeDamage(_damage);
+                monsterController.TakeDamage(_damage);
                 StopSwing();
             }
             else if (other.tag == "MonsterHead")
@@ -365,7 +371,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     transform = transform.parent;
                     if (transform.TryGetComponent(out monsterController))
                     {
-                        //monsterController.TakeHeadDamage(_damage);
+                        monsterController.TakeHeadDamage(_damage);
                         StopSwing();
                         return;
                     }
@@ -416,10 +422,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         if (getAnimator.GetBool(DashTag) == !value)
         {
             SetAnimation(DashTag, value);
-            if (PhotonNetwork.InRoom == true)
-            {
-                photonView.RPC("Dash", RpcTarget.Others, value);
-            }
         }
     }
 
@@ -448,6 +450,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             photonView.RPC("SetFloat", RpcTarget.Others, tag, value);
         }
+    }
+
+    [PunRPC]
+    private void Equip(int index)
+    {
+        getPlayerCostume.Equip(index);
+    }
+
+    [PunRPC]
+    private void Rebind()
+    {
+        getAnimator.Rebind();
     }
 
     [PunRPC]
@@ -570,12 +584,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [PunRPC]
-    public void Equip(int index)
-    {
-        getPlayerCostume.Equip(index);
-    }
-
     public void Show(PlayerInteraction.State state)
     {
         getPlayerInteraction.Show(state);
@@ -609,6 +617,24 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public void Revive(Vector3 position)
+    {
+        if (photonView.IsMine == true)
+        {
+            _currentLife = _fullLife;
+            SetLife(_currentLife, _fullLife);
+            if (PhotonNetwork.InRoom == true)
+            {
+                photonView.RPC("SetLife", RpcTarget.Others, _currentLife, _fullLife);
+            }
+            Rebind();
+            if (PhotonNetwork.InRoom == true)
+            {
+                photonView.RPC("Rebind", RpcTarget.Others);
+            }
+            getTransform.position = position;
+        }
+    }
 
     public bool TryRecover(int value, int extend = 0)
     {

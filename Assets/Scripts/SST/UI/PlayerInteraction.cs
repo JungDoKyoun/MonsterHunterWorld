@@ -6,6 +6,7 @@ public class PlayerInteraction : MonoBehaviour
     public Transform createQuestPanel;
     public Transform joinQuestPanel;
     public Transform movePanel;
+    public Transform boxPanel;
 
     public enum State
     {
@@ -13,7 +14,15 @@ public class PlayerInteraction : MonoBehaviour
         SingleQuest,
         CreateQuest,
         JoinQuest,
-        Move
+        Move,
+        Box
+    
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.AddUI(UIType.BoxSelectUI, boxPanel.gameObject);
+        //Debug.Log("?");
     }
 
     public void Show(State state)
@@ -22,5 +31,6 @@ public class PlayerInteraction : MonoBehaviour
         createQuestPanel.SetActive(state == State.CreateQuest);
         joinQuestPanel.SetActive(state == State.JoinQuest);
         movePanel.SetActive(state == State.Move);
+        boxPanel.SetActive(state == State.Box);
     }
 }
