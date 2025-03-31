@@ -97,7 +97,7 @@ public class InvenToryCtrl : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            //list.Add(ItemDataBase.Instance.emptyItem);
+            list.Add(ItemDataBase.Instance.emptyItem);
         }
     }
 
@@ -240,7 +240,7 @@ public class InvenToryCtrl : MonoBehaviour
 
             return true;
         }
-
+        
         Debug.Log("ºó ½½·Ô ¾øÀ½");
         return false;
     }
