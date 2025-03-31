@@ -36,6 +36,12 @@ public class EquippedInventoryUI : BaseInventory
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);  
     }
 
+    private void OnDisable()
+    {
+        UIManager.Instance.CloseAll();
+
+    }
+
     // UI °»½Å
     public void RefreshUI()
     {

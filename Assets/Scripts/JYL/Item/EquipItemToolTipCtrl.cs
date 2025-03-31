@@ -143,6 +143,22 @@ public class EquipItemToolTipCtrl : MonoBehaviour
             IceDef.gameObject.SetActive(set);
             DragonDef.gameObject.SetActive(set);
         }
+        else
+        {
+            weaponObj.SetActive(set);
+            damage.gameObject.SetActive(set);
+            weaponRarity.gameObject.SetActive(set);
+            attribute.gameObject.SetActive(set);
+            ArmorObj.SetActive(set);
+            armorRarity.gameObject.SetActive(set);
+            level.gameObject.SetActive(set);
+            defense.gameObject.SetActive(set);
+            fireDef.gameObject.SetActive(set);
+            waterDef.gameObject.SetActive(set);
+            LightningDef.gameObject.SetActive(set);
+            IceDef.gameObject.SetActive(set);
+            DragonDef.gameObject.SetActive(set);
+        }
 
     }
 
