@@ -25,6 +25,10 @@ public class GageCtrl : MonoBehaviour
     {
         hpBar.UpdateHP(newHP);
     }
+    public void UpdateSP(float newSP)
+    {
+        spBar.UpdateSP(newSP);
+    }
 
 
 }
