@@ -17,7 +17,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private List<GameObject> moveTargetPos; //패트롤 돌아야하는 위치 좌표
     [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     [SerializeField] private Transform shootPos; //투사체 쏘는 장소
-    [SerializeField] private Collider trapColliders;
+    [SerializeField] private float _groundRayDis;
+    [SerializeField] private int _flyHigh;
+    [SerializeField] private float _blockDis;
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
     private MonsterProjectileSpawnManager _projectileSpawnManager; //투사체 스폰 매니저
@@ -27,6 +29,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private List<Transform> _detectPlayers = new List<Transform>(); //감지되는 플레이어 목록
     private Vector3 _targetPlayerPos; //타깃이된 플레이어 위치 정보
     private Vector3 _targetPos; //타깃이 되는 위치 정보
+    private Vector3 _playerPos;
     private string _label; //어드레서블에서 불러올 라벨
     private int _roSpeed; //부드럽게 돌때 사용하는 변수
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
@@ -63,6 +66,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isTakeOff;
     private bool _isLanding;
     private bool _isTooHigh;
+    private bool _isGround;
 
     private void Awake()
     {
@@ -107,6 +111,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isTakeOff = false;
         _isLanding = false;
         _isTooHigh = false;
+        _isGround = true;
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
@@ -125,6 +130,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsFly { get { return _isFly; } set { _isFly = value; } }
     public bool IsTakeOff { get { return _isTakeOff; } set { _isTakeOff = value; } }
     public bool IsLanding { get { return _isLanding; } set { _isLanding = value; } }
+    public bool IsGround { get { return _isGround; } set { _isGround = value; } }
 
     public void InitProjectile()
     {
@@ -551,13 +557,27 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
             Vector3 finalMove = Vector3.Lerp(rootMotionMove, navMeshMove, 0.5f);
 
-            transform.position += finalMove;
+            Vector3 move = transform.position + finalMove;
+            move.y = GetGroundHight();
+
+            transform.position = move;
             if (_agent.desiredVelocity.sqrMagnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_agent.desiredVelocity.normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _roSpeed);
             }
         }
+    }
+
+    public float GetGroundHight()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position + Vector3.up * 5f, Vector3.down, out hit, 20f, LayerMask.GetMask("Ground")))
+        {
+            Debug.Log("들어옴ㅁㅁㅁ");
+            return hit.point.y;
+        }
+        return transform.position.y;
     }
 
     public void ChooseAttackType()
@@ -708,6 +728,53 @@ public class MonsterController : MonoBehaviourPunCallbacks
         StartCoroutine(WaitForEndTrap(time));
     }
 
+    public void CheckTooHigh()
+    {
+        if(transform.position.y >= _flyHigh)
+        {
+            _isTooHigh = true;
+        }
+    }
+
+    public void CheckGround()
+    {
+        if(_isFly)
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, Vector3.down, out hit, _groundRayDis, LayerMask.GetMask("Ground")))
+            {
+                _isGround = true;
+            }
+        }
+    }
+
+    public void SnapToGround()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up * 5f, Vector3.down, out hit, 20f, LayerMask.GetMask("Ground")))
+        {
+            Vector3 pos = transform.position;
+            pos.y = hit.point.y;
+            Debug.Log(hit.point.y);
+            transform.position = pos;
+        }
+    }
+
+    public bool IsBlock()
+    {
+        RaycastHit hit;
+        _playerPos = transform.position;
+        Debug.Log(Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.forward, out hit, _blockDis, LayerMask.GetMask("Ground")));
+        return Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.forward, out hit, _blockDis, LayerMask.GetMask("Ground"));
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position + Vector3.forward * _blockDis, 1f);
+    }
+
     public void TakeOff()
     {
         StartCoroutine(WaitForEndTakeOffAnime());
@@ -844,6 +911,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil( () => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         _isFly = true;
+        _isGround = false;
         SetAnime("TakeOff2");
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
@@ -855,14 +923,13 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public IEnumerator WaitForEndPatrolAnime()
     {
-        if(!_isTooHigh)
+        SetAnime("Patrol");
+        yield return new WaitForSeconds(0.3f);
+        while (!_isTooHigh)
         {
-            SetAnime("Patrol");
-            yield return new WaitForSeconds(0.3f);
-            yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
-            _isTooHigh = true;
+            CheckTooHigh();
+            yield return null;
         }
-        Debug.Log("순찰코루틴");
         SetAnime("Patrol2", true);
     }
 
@@ -873,13 +940,18 @@ public class MonsterController : MonoBehaviourPunCallbacks
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         SetAnime("Landing2");
         yield return new WaitForSeconds(0.3f);
-        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        while(!_isGround)
+        {
+            CheckGround();
+            yield return null;
+        }
         SetAnime("Landing3");
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         SetAnime("Landing4");
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SnapToGround();
         _isLanding = false;
         _isTooHigh = false;
     }
@@ -913,8 +985,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
         if (other.CompareTag("Trap"))
         {
             _isTrap = true;
-            Debug.Log(_currentHeadDamage);
-            Debug.Log(_isPendingStun);
         }
     }
 
