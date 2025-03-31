@@ -10,13 +10,14 @@ using Firebase.Database;
 using Photon.Pun;
 using TMPro;
 
+[Serializable]
 public class Data
 {
-    public string Equipment;
+    public int Equipment;
 
     public Data(int index)
     {
-        this.Equipment = index.ToString();
+        this.Equipment = index;
     }
 }
 
@@ -106,12 +107,13 @@ public class AuthManager : MonoBehaviour
             Debug.Log("로그인 완료." + user.DisplayName + " 님 반갑습니다.");
 
             string userEmail = user.Email.Trim();
-            int index = 0;
+            Debug.Log(userEmail);
+            int index = 3;
             Data playerData = new Data(index);
 
             string JsonData = JsonUtility.ToJson(playerData);
 
-            dbRef.Child(userEmail).SetRawJsonValueAsync(JsonData);
+            dbRef.Child(user.UserId).SetRawJsonValueAsync(JsonData);
 
 
             // 로그인 성공 후 Photon 네트워크에 연결 시작
