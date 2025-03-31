@@ -9,7 +9,7 @@ public class BoxCtrl : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //activeButton.SetActive(true);
-            UIManager.Instance.OpenUI(UIType.BoxSelectUI);
+            //UIManager.Instance.OpenUI(UIType.BoxSelectUI);
         }
     }
 
@@ -31,7 +31,7 @@ public class BoxCtrl : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             UIManager.Instance.isBox = false;          
-            UIManager.Instance.CloseUI(UIType.BoxSelectUI);
+            //UIManager.Instance.CloseUI(UIType.BoxSelectUI);
 
         }
     }
