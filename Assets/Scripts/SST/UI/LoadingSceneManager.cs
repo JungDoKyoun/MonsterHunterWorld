@@ -79,7 +79,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        yield return new WaitUntil( () => PhotonNetwork.InRoom == true);
+        yield return new WaitUntil( () => PhotonNetwork.CurrentRoom != null);
 
         // 비동기씬 과정 완료되면 이미지 회전, 텍스트 깜빡임 코루틴 중지
         StopCoroutine(blinkCor);
@@ -141,7 +141,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("방에 입장하였습니다");
-        Debug.Log(selectRoomOption.MaxPlayers);
+        Debug.Log(sceneToLoad + selectRoomOption.MaxPlayers);
     }
 
     // 만약에 위의 16명 설정한 방이 꽉찰 경우 예외처리를 위해 만든 콜백 함수
