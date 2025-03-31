@@ -22,42 +22,32 @@ public enum InvenSize
 public class InvenToryCtrl : MonoBehaviour
 {
     //현재 장착한 장비 인벤토리
-    //[SerializeField] EquippedInventoryUI equippedInventoryUI;
-    //public EquippedInventoryUI EquippedInventoryUI => equippedInventoryUI;
-
     public List<BaseItem> equippedInventory = new List<BaseItem>();
 
     //현재 흭득한 장비 인벤토리
-    //[SerializeField] EquipInventoryUI equipInventoryUI;
-    //public EquipInventoryUI EquipInventoryUI => equipInventoryUI;
-
     public List<BaseItem> equipInventory = new List<BaseItem>();
-
 
     //장비용 툴팁 UI
     [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
     public EquipItemToolTipCtrl EquipItemToolTipCtrl { get; set; }
 
-    //현재 가지고있을 인벤토리
-    //[SerializeField] InventoryItems inventoryItems;
-    //public InventoryItems InventoryItems => inventoryItems;
 
+
+    //현재 가지고있을 인벤토리
     public List<BaseItem> inventory = new List<BaseItem>();
 
     //사물함 인벤토리
-    //[SerializeField] BoxInvenTory boxInvenTory;
-    //public BoxInvenTory BoxInvenTory => boxInvenTory;
-
     public List<BaseItem> boxInven = new List<BaseItem>();
-
 
     //인벤용 툴팁 UI
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
     public ItemToolTipCtrl ItemToolTipCtrl { get; set; }
 
+    //이벤트
     public System.Action OnInventoryChanged;
     public System.Action OnEquippedChanged;
 
+    //싱글톤
     public static InvenToryCtrl Instance;
 
     private void Awake()
@@ -69,15 +59,19 @@ public class InvenToryCtrl : MonoBehaviour
         }
         Instance = this;
 
-        InvenInit(inventory, (int)InvenSize.Inventory);
-        InvenInit(boxInven, (int)InvenSize.BoxInven);
-        InvenInit(equipInventory, (int)InvenSize.EquipInven);
-        InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+  
+
 
     }
 
     private void Start()
     {
+        InvenInit(inventory, (int)InvenSize.Inventory);
+        InvenInit(boxInven, (int)InvenSize.BoxInven);
+        InvenInit(equipInventory, (int)InvenSize.EquipInven);
+        InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+
+
         //아이템 흭득
         GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
         GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));

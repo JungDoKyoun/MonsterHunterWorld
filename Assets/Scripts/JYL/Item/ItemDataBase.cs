@@ -74,7 +74,7 @@ public class ItemDataBase : MonoBehaviour
         }
 
         items = GetComponent<CSVItemLoader>().LoadItemsFromCSV();
-
+        Debug.Log("순서 꼬였누?");
         emptyItem = new BaseItem
         {
             image = items[(int)ItemName.Empty].image,
@@ -91,14 +91,14 @@ public class ItemDataBase : MonoBehaviour
 
         //고기색 기본색이상해서 바꿈
         items[(int)ItemName.WellDoneSteak].color = new Color32(255, 178, 86, 255);
-        
+
         //데이터 베이스 초기화
         foreach (var item in items)
         {
             var key = item.id;
             itemDB.Add(key, item);
         }
-      
+
         if (items.Count > 0)
         {
             Debug.Log("아이템 데이터 세팅 완료");

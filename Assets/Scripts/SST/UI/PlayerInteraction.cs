@@ -22,7 +22,7 @@ public class PlayerInteraction : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.AddUI(UIType.BoxSelectUI, boxPanel.gameObject);
-        Debug.Log("?");
+        //Debug.Log("?");
     }
 
     public void Show(State state)
