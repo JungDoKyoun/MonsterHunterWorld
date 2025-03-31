@@ -29,6 +29,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         loadingCanvas.gameObject.SetActive(false);
+        SoundManager.Instance.StopBGM();
         // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
         blinkCor = StartCoroutine(BlinkText());
         rotateCor = StartCoroutine(RotateImage());

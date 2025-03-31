@@ -23,6 +23,7 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
         loginCanvas.gameObject.SetActive(false);
 
         UiManager.Instance.FadeInUI(titleCanvas);
+        SoundManager.Instance.PlayBGM(titleBgm, 0.2f);
         //StartCoroutine(FadeInUI(titleCanvas));
     }
 
