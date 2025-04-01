@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public enum SoundType
+    public enum BGMType
     {
         Login,
         Single,
@@ -15,6 +16,14 @@ public class SoundManager : MonoBehaviour
         End
     }
 
+    public enum SfxQuestType
+    {
+        Interaction,
+        CreateQuest,
+        LeaveQuest,
+        End
+    }
+
     public static SoundManager Instance;
 
     [Header("오디오 소스")]
@@ -22,10 +31,13 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource sfxSource;     // 효과음 재생용
 
     [Header("BGM 클립")]
-    [SerializeField] AudioClip[] bgmClips = new AudioClip[(int)SoundType.End];
+    [SerializeField] AudioClip[] bgmClips = new AudioClip[(int)BGMType.End];
 
     [Header("버튼 클릭 SFX")]
-    [SerializeField] AudioClip[] buttonSFX = new AudioClip[3];
+    [SerializeField] AudioClip[] buttonSFXs = new AudioClip[3];
+
+    [Header("퀘스트 SFX")]
+    [SerializeField] AudioClip[] questSFXs = new AudioClip[(int)SfxQuestType.End];
 
     private void Awake()
     {
@@ -41,9 +53,10 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(Instance);
     }
 
-    public void PlayBGM(SoundType soundType, float volume = 1.0f)
+    public void PlayBGM(BGMType bgmType, float volume = 1.0f)
     {
-        PlayBGM(bgmClips[(int)soundType], volume);
+        StopBGM();
+        PlayBGM(bgmClips[(int)bgmType], volume);
     }
 
     private void PlayBGM(AudioClip audioClip, float volume)
@@ -64,9 +77,9 @@ public class SoundManager : MonoBehaviour
     }
 
     // SFX도 타입으로 하나 만들어서 실행하게 바꿀 예정
-    public void PlaySFX(SoundType soundType, float volume = 1.0f)
+    public void PlaySFX(SfxQuestType qusetType, float volume = 1.0f)
     {
-        PlaySFX(bgmClips[(int)soundType], volume);
+        PlaySFX(questSFXs[(int)qusetType], volume);
     }
 
     public void PlaySFX(AudioClip audioClip, float volume)
@@ -78,20 +91,20 @@ public class SoundManager : MonoBehaviour
     public void PlayBtnClickSFX()
     {
         sfxSource.volume = 0.7f;
-        sfxSource.PlayOneShot(buttonSFX[0]);
+        sfxSource.PlayOneShot(buttonSFXs[0]);
     }
 
     // 버튼에 갖다대면 나는 소리
     public void PlayWheelSFX()
     {
         sfxSource.volume = 0.7f;
-        sfxSource.PlayOneShot(buttonSFX[1]);
+        sfxSource.PlayOneShot(buttonSFXs[1]);
     }
 
     // 스타트 버튼 클릭음 재생
     public void PlayStartButtonSFX()
     {
         sfxSource.volume = 0.7f;
-        sfxSource.PlayOneShot(buttonSFX[2]);
+        sfxSource.PlayOneShot(buttonSFXs[2]);
     }
 }

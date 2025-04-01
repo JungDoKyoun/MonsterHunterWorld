@@ -46,7 +46,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         // 룸정보에서 나오는 퀘스트 이름을 퀘스트 생성할 때 해당된 퀘스트 이름으로 초기화
         questName.text = basicQuestName.text;
 
-        SoundManager.Instance.PlayBGM(SoundManager.SoundType.Single, 0.4f);
+        SoundManager.Instance.PlayBGM(SoundManager.BGMType.Single, 0.4f);
 
         StartCoroutine(WaitForFindPlayer());
     }
