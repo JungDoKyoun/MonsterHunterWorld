@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3768,10 +3768,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f064e5fae41ad9c4a9904bbf4e8f0a96, type: 3}
   - {fileID: 8300000, guid: 40af0f257a96ba2479fda1f073b83d70, type: 3}
   - {fileID: 8300000, guid: 5c8fad78fa3b80a439883ff9f3290b8d, type: 3}
-  questSFXs:
+  questSfxs:
   - {fileID: 8300000, guid: 2f9e43b3ab8d4574a9a53cbc2a1e8593, type: 3}
   - {fileID: 8300000, guid: d9aa9c0894eb9b64ca3958b2aa5a15dd, type: 3}
   - {fileID: 8300000, guid: e6e17df7aff5a7e4ab37edc282b28057, type: 3}
+  - {fileID: 8300000, guid: 3db716dda85ed2b4cac87eb837f6d2f7, type: 3}
   inGameSFXs:
   - {fileID: 8300000, guid: 5bd3c41e2d4075c4d858e10bf2caa4ba, type: 3}
   - {fileID: 8300000, guid: f460757cf475c41488157889030fa841, type: 3}
