@@ -51,6 +51,7 @@ public abstract class BaseInventory : MonoBehaviour
     //슬롯 세팅
     public void SlotSetting(GameObject current, InvenType type)
     {
+        Debug.Log("들어왔소");
         //부모 오브젝트 연결
         parrentObj = current;            
 

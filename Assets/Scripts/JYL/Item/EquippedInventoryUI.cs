@@ -20,25 +20,32 @@ public class EquippedInventoryUI : BaseInventory
         {
             equipSlot[i].SetType((EquipSlot)i);
         }
+
+        //InvenToryCtrl.Instance.SlotSetting(equipSlot);
+
         InvenToryCtrl.Instance.equippedUiSlot = equipSlot;
 
         Debug.Log(equipSlot.Length);
 
-        // 초기 세팅
+        Debug.Log(InvenToryCtrl.Instance.equippedInventory.Count);
+        
+
+        //// 초기 세팅
         RefreshUI();
 
+        InvenToryCtrl.Instance.DebugTest();
     }
 
     private void OnEnable()
     {
         items = InvenToryCtrl.Instance.equippedInventory;
-        RefreshUI();
 
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
 
         // 변화 감지 이벤트 연결
         InvenToryCtrl.Instance.OnInventoryChanged += RefreshUI;
 
+        RefreshUI();
     }
 
     private void OnDisable()
