@@ -8,6 +8,8 @@ public class MonsterAttackData
     public string AttackName;
     public int Damage;
     public string AnimeName;
+    public bool NeedRo;
+    public bool NeedFly;
     public bool UsesProjectile;
     public ProjectileType ProjectileType;
     public string AttackColliderName;
