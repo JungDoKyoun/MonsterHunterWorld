@@ -39,6 +39,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+
         // 초기에 로비 관련 UI 캔버스 비활성화
         questCreateCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(false);

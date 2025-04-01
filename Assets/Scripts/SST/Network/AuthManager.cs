@@ -204,6 +204,8 @@ public class AuthManager : MonoBehaviour
                             {
 #if UNITY_EDITOR
                                 Debug.Log("데이터 저장 완료!");
+                                InvenToryCtrl.Instance.LoadInventoryFromFirebase();
+
 #endif
                             }
                         });
@@ -288,6 +290,7 @@ public class AuthManager : MonoBehaviour
                         warningText.text = "";
 #if UNITY_EDITOR
                         Debug.Log("생성 완료. " + user.DisplayName + " 님 반갑습니다.");
+                        
 #endif
                     }
                 }

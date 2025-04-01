@@ -1,5 +1,8 @@
+using Firebase.Auth;
+using Firebase.Database;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public enum InvenType
@@ -41,7 +44,7 @@ public class InvenToryCtrl : MonoBehaviour
     public List<BaseItem> boxInven = new List<BaseItem>();
 
     //퀵슬롯 인벤토리
-    public List<BaseItem> quickSlotItem = new List<BaseItem>();   
+    public List<BaseItem> quickSlotItem = new List<BaseItem>();
 
     //인벤용 툴팁 UI
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
@@ -89,9 +92,107 @@ public class InvenToryCtrl : MonoBehaviour
             GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem((ItemName)i));
         }
 
-        
+
     }
 
+    public async void SaveInventoryToFirebase()
+    {
+        var user = FirebaseAuth.DefaultInstance.CurrentUser;
+        if (user == null) return;
+
+        StringBuilder sb = new StringBuilder();
+        AppendItemListToCSV(sb, "Inventory", inventory);
+        AppendItemListToCSV(sb, "BoxInven", boxInven);
+        AppendItemListToCSV(sb, "EquipInventory", equipInventory);
+        AppendItemListToCSV(sb, "EquippedInventory", equippedInventory);
+
+        string csvData = sb.ToString();
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child("users")
+            .Child(user.UserId)
+            .Child("inventoryData")
+            .SetValueAsync(csvData);
+
+        Debug.Log("인벤토리 저장 완료");
+    }
+
+    public async void LoadInventoryFromFirebase()
+    {
+        var user = FirebaseAuth.DefaultInstance.CurrentUser;
+        if (user == null) return;
+
+        var snapshot = await FirebaseDatabase.DefaultInstance.RootReference
+            .Child("users")
+            .Child(user.UserId)
+            .Child("inventoryData")
+            .GetValueAsync();
+
+        if (snapshot.Exists)
+        {
+            string csvData = snapshot.Value.ToString();
+            LoadFromCSV(csvData);
+            Debug.Log("인벤토리 불러오기 완료");
+        }
+
+        Debug.Log("인벤토리 불러오기 실패");
+
+    }
+
+    void AppendItemListToCSV(StringBuilder sb, string label, List<BaseItem> items)
+    {
+        sb.AppendLine($"[{label}]");
+        
+        foreach (var item in items)
+        {
+            sb.AppendLine($"{(int)item.id},{item.count}");
+            Debug.Log(item.name + ": " + item.id + "," + item.count);
+        }
+    }
+
+    void LoadFromCSV(string csvData)
+    {
+        List<BaseItem> currentList = null;
+
+        foreach (string line in csvData.Split('\n'))
+        {
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
+            if (line.StartsWith("["))
+            {
+                string label = line.Trim('[', ']', '\r');
+                currentList = label switch
+                {
+                    "Inventory" => inventory,
+                    "BoxInven" => boxInven,
+                    "EquipInventory" => equipInventory,
+                    "EquippedInventory" => equippedInventory,
+                    _ => null
+                };
+                currentList?.Clear();
+                continue;
+            }
+
+            if (currentList == null) continue;
+
+            var split = line.Split(',');
+            if (split.Length < 2) continue;
+
+            int id = int.Parse(split[0]);
+            int count = int.Parse(split[1]);
+
+            var item = ItemDataBase.Instance.GetItem((ItemName)id).Clone();
+            item.count = count;
+            currentList.Add(item);
+        }
+
+        OnInventoryChanged?.Invoke();
+
+        //장비인벤 마지막은 박스
+        for (int i = 0; i < equippedInventory.Count -1; i++)
+        {
+            OnEquippedChanged?.Invoke(equippedInventory[i].id);
+        }
+    }
     /// <summary>
     /// 인벤 빈 아이템 세팅
     /// </summary>
@@ -159,10 +260,6 @@ public class InvenToryCtrl : MonoBehaviour
 
     public bool TryEquipItem(BaseItem item)
     {
-
-        //Debug.Log(equippedUIslot.Length);
-        
-
         var slotIndex = GetSlotIndexFromItem(item);
         if (slotIndex < 0 || slotIndex >= equippedUiSlot.Length)
         {
@@ -183,6 +280,7 @@ public class InvenToryCtrl : MonoBehaviour
 
             OnInventoryChanged?.Invoke();
             OnEquippedChanged?.Invoke(item.id);
+
             return true;
         }
         else
@@ -203,48 +301,7 @@ public class InvenToryCtrl : MonoBehaviour
     }
 
 
-    //public bool ChangeEquipItem(List<BaseItem> toList, ItemName itemKey)
-    //{
-    //    int emptyCount = toList.Count(i => i.type == ItemType.Empty);
-    //    Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
 
-
-    //    if (!ItemDataBase.Instance.itemDB.ContainsKey(itemKey))
-    //    {
-    //        Debug.LogWarning("itemDB에 해당 키가 없습니다.");
-    //        return false;
-    //    }
-
-    //    BaseItem baseItem = ItemDataBase.Instance.GetItem(itemKey);
-
-    //    // 1. 이미 같은 아이템이 있으면 -> count++
-    //    int index = toList.FindIndex(i => i.name == baseItem.name);
-    //    if (index >= 0)
-    //    {
-    //        return false;
-    //    }
-
-    //    EquipSlot slot = (EquipSlot)baseItem.GetEquipSlot();
-
-
-    //    // 2. 빈 슬롯이 있으면 -> 복사해서 추가
-    //    int emptyIndex = toList.FindIndex(i => i.type == ItemType.Empty);
-
-    //    if (emptyIndex >= 0)
-    //    {
-    //        //자꾸 같은아이템 복사해서 넣어주면 참조가 같아져서 count가 같이 증가함
-    //        //그래서 클론메서드 만듬
-    //        BaseItem copy = baseItem.Clone();
-    //        copy.count = 1; // 복사할 때 count 조정 필요
-
-    //        Debug.Log($"[ChangeItem] 새로운 아이템 추가됨: {copy.name} → 슬롯 {emptyIndex}");
-    //        toList[emptyIndex] = copy;
-    //        return true;
-    //    }
-
-    //    Debug.Log("슬롯이 가득 찼습니다.");
-    //    return false;
-    //}
 
     /// <summary>
     /// 아이템 정렬 =>빈칸 뒤로 미룸
