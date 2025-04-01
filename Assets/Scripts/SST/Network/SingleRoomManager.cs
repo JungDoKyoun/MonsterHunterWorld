@@ -169,5 +169,15 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         RoomOptions roomOptions = new RoomOptions { MaxPlayers = 1 };
         PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
+
+    public void PlayButtonClickSFX()
+    {
+        SoundManager.Instance.PlayBtnClickSFX();
+    }
+
+    public void PlayStartButtonSFX()
+    {
+        SoundManager.Instance.PlayStartButtonSFX();
+    }
 }
 

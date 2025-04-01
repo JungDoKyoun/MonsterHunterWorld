@@ -1806,6 +1806,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1692077863}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayBtnClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &755154101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2005,7 +2017,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 974323749}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1692077863}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayBtnClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &974323749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2126,7 +2150,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1039799772}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1692077863}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayBtnClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1039799772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3504,6 +3540,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1692077863}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayStartButtonSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1685484258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3579,6 +3627,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c71c543755c7fcc45b78fad546dd0bbc, type: 3}
   - {fileID: 8300000, guid: 933ddfd11e66e4948b7e21000d778804, type: 3}
   - {fileID: 8300000, guid: 7a2d2b38ce4e19042ba5fe21f90b81b6, type: 3}
+  buttonSFX:
+  - {fileID: 8300000, guid: f064e5fae41ad9c4a9904bbf4e8f0a96, type: 3}
+  - {fileID: 8300000, guid: 40af0f257a96ba2479fda1f073b83d70, type: 3}
+  - {fileID: 8300000, guid: 5c8fad78fa3b80a439883ff9f3290b8d, type: 3}
 --- !u!4 &1692077864
 Transform:
   m_ObjectHideFlags: 0

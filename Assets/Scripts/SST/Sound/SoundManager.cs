@@ -21,6 +21,9 @@ public class SoundManager : MonoBehaviour
     [Header("오디오 클립")]
     [SerializeField] AudioClip[] audioClips = new AudioClip[(int)SoundType.End];
 
+    [Header("버튼 클릭 SFX")]
+    [SerializeField] AudioClip[] buttonSFX = new AudioClip[3];
+
     private void Awake()
     {
         if(Instance == null)
@@ -66,5 +69,23 @@ public class SoundManager : MonoBehaviour
     public void PlaySFX(AudioClip audioClip, float volume)
     {
         sfxSource.PlayOneShot(audioClip, volume);
+    }
+
+    // 버튼 클릭음 재생
+    public void PlayBtnClickSFX()
+    {
+        sfxSource.PlayOneShot(buttonSFX[0]);
+    }
+
+    // 버튼에 갖다대면 나는 소리? 아직 어떻게 넣어야할지 모르겠음
+    public void PlayWheelSFX()
+    {
+        sfxSource.PlayOneShot(buttonSFX[1]);
+    }
+
+    // 스타트 버튼 클릭음 재생
+    public void PlayStartButtonSFX()
+    {
+        sfxSource.PlayOneShot(buttonSFX[2]);
     }
 }
