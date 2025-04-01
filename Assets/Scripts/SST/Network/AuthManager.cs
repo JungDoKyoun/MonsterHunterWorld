@@ -1,25 +1,13 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
 using Firebase;
 using Firebase.Auth;
-using UnityEngine.UI;
-using System;
-using System.Threading.Tasks;
 using Firebase.Database;
-using Photon.Pun;
 using Firebase.Extensions;
-
-[Serializable]
-public class Data
-{
-    public int Equipment;
-
-    public Data(int index)
-    {
-        this.Equipment = index;
-    }
-}
+using System.Collections.Generic;
 
 public class AuthManager : MonoBehaviour
 {
@@ -46,7 +34,9 @@ public class AuthManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("파이어베이스 문제있음");               
+#if UNITY_EDITOR
+                Debug.Log("파이어베이스 문제있음");
+#endif
             }
         });
     }
@@ -104,40 +94,123 @@ public class AuthManager : MonoBehaviour
 
             user = loginTask.Result.User;
             nickField.text = user.DisplayName;
-            Debug.Log("로그인 완료." + user.DisplayName + " 님 반갑습니다.");
-
-            string userEmail = user.Email.Trim();
-            int index = 0;
-            Data playerData = new Data(index);
-
-            string JsonData = JsonUtility.ToJson(playerData);
-
-            dbRef.Child(user.UserId).SetRawJsonValueAsync(JsonData);
 
             dbRef.Child(user.UserId).GetValueAsync().ContinueWithOnMainThread(task =>
             {
                 if (task.IsCanceled)
                 {
+#if UNITY_EDITOR
                     Debug.Log("로드 취소");
+#endif
                 }
                 else if (task.IsFaulted)
                 {
+#if UNITY_EDITOR
                     Debug.Log("로드 실패");
+#endif
                 }
                 else
                 {
+                    bool[] items = new bool[6];
                     DataSnapshot dataSnapshot = task.Result;
-                    string key = dataSnapshot.Child("Equipment").Key;
-                    int value = 0;
-                    //int value = (int)dataSnapshot.Child("Equipment").Value;
-
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+                    ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
+                    foreach (DataSnapshot child in dataSnapshot.Children)
                     {
-                        {key, value}
-                    });
+                        switch(child.Key)
+                        {
+                            case PlayerCostume.WeaponTag:
+                                if(child.Value != null && int.TryParse(child.Value.ToString(), out int weapon) == true)
+                                {
+                                    hashtable.Add(child.Key, weapon);
+                                    items[0] = true;
+                                }
+                                break;
+                            case PlayerCostume.HandTag:
+                                if (child.Value != null && int.TryParse(child.Value.ToString(), out int hand) == true)
+                                {
+                                    hashtable.Add(child.Key, hand);
+                                    items[1] = true;
+                                }
+                                break;
+                            case PlayerCostume.BreastTag:
+                                if (child.Value != null && int.TryParse(child.Value.ToString(), out int breast) == true)
+                                {
+                                    hashtable.Add(child.Key, breast);
+                                    items[2] = true;
+                                }
+                                break;
+                            case PlayerCostume.HeadTag:
+                                if (child.Value != null && int.TryParse(child.Value.ToString(), out int head) == true)
+                                {
+                                    hashtable.Add(child.Key, head);
+                                    items[3] = true;
+                                }
+                                break;
+                            case PlayerCostume.LegTag:
+                                if (child.Value != null && int.TryParse(child.Value.ToString(), out int leg) == true)
+                                {
+                                    hashtable.Add(child.Key, leg);
+                                    items[4] = true;
+                                }
+                                break;
+                            case PlayerCostume.WaistTag:
+                                if (child.Value != null && int.TryParse(child.Value.ToString(), out int waist) == true)
+                                {
+                                    hashtable.Add(child.Key, waist);
+                                    items[5] = true;
+                                }
+                                break;
+                        }
+                    }
+                    Dictionary<string, int> data = new Dictionary<string, int>();
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        if (items[i] == false)
+                        {
+                            switch(i)
+                            {
+                                case 0:
+                                    data.Add(PlayerCostume.WeaponTag, 0);
+                                    hashtable.Add(PlayerCostume.WeaponTag, 0);
+                                    break;
+                                case 1:
+                                    data.Add(PlayerCostume.HandTag, 0);
+                                    hashtable.Add(PlayerCostume.HandTag, 0);
+                                    break;
+                                case 2:
+                                    data.Add(PlayerCostume.BreastTag, 0);
+                                    hashtable.Add(PlayerCostume.BreastTag, 0);
+                                    break;
+                                case 3:
+                                    data.Add(PlayerCostume.HeadTag, 0);
+                                    hashtable.Add(PlayerCostume.HeadTag, 0);
+                                    break;
+                                case 4:
+                                    data.Add(PlayerCostume.LegTag, 0);
+                                    hashtable.Add(PlayerCostume.LegTag, 0);
+                                    break;
+                                case 5:
+                                    data.Add(PlayerCostume.WaistTag, 0);
+                                    hashtable.Add(PlayerCostume.WaistTag, 0);
+                                    break;
+                            }
+                        }
+                    }
+                    if(data.Count > 0)
+                    {
+                        dbRef.Child(user.UserId).SetValueAsync(data).ContinueWith(task =>
+                        {
+                            if (task.IsCompleted)
+                            {
+#if UNITY_EDITOR
+                                Debug.Log("데이터 저장 완료!");
+#endif
+                            }
+                        });
+                    }
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
                 }
             });
-
             // 로그인 성공 후 Photon 네트워크에 연결 시작
             PhotonNetwork.ConnectUsingSettings();
         }
@@ -213,8 +286,9 @@ public class AuthManager : MonoBehaviour
                     else
                     {
                         warningText.text = "";
-
+#if UNITY_EDITOR
                         Debug.Log("생성 완료. " + user.DisplayName + " 님 반갑습니다.");
+#endif
                     }
                 }
             }

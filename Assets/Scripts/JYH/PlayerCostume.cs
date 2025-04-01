@@ -87,6 +87,7 @@ public class PlayerCostume : MonoBehaviour
     private static readonly int SetIndexStart = 0;
     private static readonly int SetIndexEnd = 5;
 
+    public const string WeaponTag = "Weapon";
     public const string HandTag = "Hand";
     public const string BreastTag = "Breast";
     public const string HeadTag = "Head";
@@ -641,6 +642,12 @@ public class PlayerCostume : MonoBehaviour
             {
                 switch(key)
                 {
+                    case WeaponTag:
+                        if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int weapon))
+                        {
+                            list.Add(weapon);
+                        }
+                        break;
                     case HandTag:
                         if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int hand))
                         {

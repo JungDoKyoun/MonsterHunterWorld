@@ -24,7 +24,7 @@ public class InteractionTest : MonoBehaviour
     private bool _knockback = false;
 
     [SerializeField]
-    private uint _damage = 1;
+    private int _damage = 1;
 
     [SerializeField]
     PlayerController _playerController = null;
@@ -48,19 +48,19 @@ public class InteractionTest : MonoBehaviour
     public void Attack()
     {
         Vector3 position = getTransform.position;
-        //_playerController?.TakeDamage(position, _damage, _knockback);
+        _playerController?.TakeDamage(position, _damage, _knockback);
     }
 
     [ContextMenu("체력 회복")]
     public void RecoverLife()
     {
-        //_playerController?.TryRecover(10, 2);
+        _playerController?.TryRecover(10, 2);
     }
 
     [ContextMenu("스태미나 회복")]
     public void RecoverStamina()
     {
-        //_playerController?.TryRecover(10f);
+        _playerController?.TryRecover(10f);
     }
 #endif
 }
