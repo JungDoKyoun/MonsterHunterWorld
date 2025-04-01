@@ -18,8 +18,11 @@ public class InventoryItems : BaseInventory
         SlotSetting(upSlot, invenType);
     }
 
-    void Start()
+    private void OnEnable()
     {
+        items = InvenToryCtrl.Instance.inventory;
+
+        StartCoroutine(DelayedRefresh());
 
 
         //인벤 변경시 UI 초기화
@@ -30,12 +33,16 @@ public class InventoryItems : BaseInventory
 
     }
 
-    private void OnEnable()
+    void OnDisable()
     {
-        items = InvenToryCtrl.Instance.inventory;
+        //인벤 변경시 UI 초기화
+        InvenToryCtrl.Instance.OnInventoryChanged -= () =>
+        {
+            RefreshUI(items);
+        };
 
-        StartCoroutine(DelayedRefresh());
     }
+
 
     IEnumerator DelayedRefresh()
     {

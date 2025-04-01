@@ -13,13 +13,6 @@ public class EquipInventoryUI : BaseInventory
         SlotSetting(parrentObj, invenType);
     }
 
-    private void Start()
-    {
-        InvenToryCtrl.Instance.OnInventoryChanged += () =>
-        {
-            RefreshUI(items);
-        };       
-    }
 
     private void OnEnable()
     {
@@ -28,10 +21,21 @@ public class EquipInventoryUI : BaseInventory
         StartCoroutine(DelayedRefresh());
 
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
+
+        InvenToryCtrl.Instance.OnInventoryChanged += () =>
+        {
+            RefreshUI(items);
+        };
+
     }
     private void OnDisable()
     {
         UIManager.Instance.CloseAll();
+        
+        InvenToryCtrl.Instance.OnInventoryChanged -= () =>
+        {
+            RefreshUI(items);
+        };
 
     }
     IEnumerator DelayedRefresh()

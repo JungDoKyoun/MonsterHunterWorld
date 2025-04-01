@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
         Login,
         Single,
         Meeting,
+        Boss,
+        QuestCompleted,
+        QuestFailed,
         End
     }
 
@@ -18,8 +21,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource bgmSource;     // BGM 재생용
     [SerializeField] AudioSource sfxSource;     // 효과음 재생용
 
-    [Header("오디오 클립")]
-    [SerializeField] AudioClip[] audioClips = new AudioClip[(int)SoundType.End];
+    [Header("BGM 클립")]
+    [SerializeField] AudioClip[] bgmClips = new AudioClip[(int)SoundType.End];
 
     [Header("버튼 클릭 SFX")]
     [SerializeField] AudioClip[] buttonSFX = new AudioClip[3];
@@ -40,7 +43,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(SoundType soundType, float volume = 1.0f)
     {
-        PlayBGM(audioClips[(int)soundType], volume);
+        PlayBGM(bgmClips[(int)soundType], volume);
     }
 
     private void PlayBGM(AudioClip audioClip, float volume)
@@ -63,7 +66,7 @@ public class SoundManager : MonoBehaviour
     // SFX도 타입으로 하나 만들어서 실행하게 바꿀 예정
     public void PlaySFX(SoundType soundType, float volume = 1.0f)
     {
-        PlaySFX(audioClips[(int)soundType], volume);
+        PlaySFX(bgmClips[(int)soundType], volume);
     }
 
     public void PlaySFX(AudioClip audioClip, float volume)
@@ -74,18 +77,21 @@ public class SoundManager : MonoBehaviour
     // 버튼 클릭음 재생
     public void PlayBtnClickSFX()
     {
+        sfxSource.volume = 0.7f;
         sfxSource.PlayOneShot(buttonSFX[0]);
     }
 
-    // 버튼에 갖다대면 나는 소리? 아직 어떻게 넣어야할지 모르겠음
+    // 버튼에 갖다대면 나는 소리
     public void PlayWheelSFX()
     {
+        sfxSource.volume = 0.7f;
         sfxSource.PlayOneShot(buttonSFX[1]);
     }
 
     // 스타트 버튼 클릭음 재생
     public void PlayStartButtonSFX()
     {
+        sfxSource.volume = 0.7f;
         sfxSource.PlayOneShot(buttonSFX[2]);
     }
 }

@@ -88,11 +88,11 @@ public class PlayerCostume : MonoBehaviour
     private static readonly int SetIndexEnd = 5;
 
     public const string WeaponTag = "Weapon";
-    public const string HandTag = "Hand";
-    public const string BreastTag = "Breast";
     public const string HeadTag = "Head";
-    public const string LegTag = "Leg";
+    public const string BreastTag = "Breast";
+    public const string HandTag = "Hand";
     public const string WaistTag = "Waist";
+    public const string LegTag = "Leg";
 
 #if UNITY_EDITOR
 
@@ -571,34 +571,34 @@ public class PlayerCostume : MonoBehaviour
                 SetLeg(1);
                 break;
             case ItemName.AlloyHelmS:
-                SetHead(3);
-                break;
-            case ItemName.AlloyMailS:
-                SetBreast(3);
-                break;
-            case ItemName.AlloyArmS:
-                SetHand(3);
-                break;
-            case ItemName.AlloyCoilS:
-                SetWaist(3);
-                break;
-            case ItemName.AlloyGreavesS:
-                SetLeg(3);
-                break;
-            case ItemName.BoneHelmS:
                 SetHead(2);
                 break;
-            case ItemName.BoneMailS:
+            case ItemName.AlloyMailS:
                 SetBreast(2);
                 break;
-            case ItemName.BoneArmS:
+            case ItemName.AlloyArmS:
                 SetHand(2);
                 break;
-            case ItemName.BoneCoilS:
+            case ItemName.AlloyCoilS:
                 SetWaist(2);
                 break;
-            case ItemName.BoneGreavesS:
+            case ItemName.AlloyGreavesS:
                 SetLeg(2);
+                break;
+            case ItemName.BoneHelmS:
+                SetHead(3);
+                break;
+            case ItemName.BoneMailS:
+                SetBreast(3);
+                break;
+            case ItemName.BoneArmS:
+                SetHand(3);
+                break;
+            case ItemName.BoneCoilS:
+                SetWaist(3);
+                break;
+            case ItemName.BoneGreavesS:
+                SetLeg(3);
                 break;
             case ItemName.KuluHelmS:
                 SetHead(4);
