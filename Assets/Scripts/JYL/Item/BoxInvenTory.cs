@@ -73,7 +73,7 @@ public class BoxInvenTory : BaseInventory
             }
             else
             {
-                slotComp.SlotSetItem(ItemDataBase.Instance.emptyItem);
+                slotComp.SlotSetItem(ItemDataBase.Instance.EmptyItem);
             }
         }
 
@@ -92,7 +92,7 @@ public class BoxInvenTory : BaseInventory
             }
             else
             {
-                slot[i].GetComponent<ItemSlot>().SlotSetItem(ItemDataBase.Instance.emptyItem);
+                slot[i].GetComponent<ItemSlot>().SlotSetItem(ItemDataBase.Instance.EmptyItem);
             }
             //Debug.Log((boxIndex - 1) * 100 + i);
         }

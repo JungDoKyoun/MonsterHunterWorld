@@ -25,10 +25,6 @@ public class EquippedInventoryUI : BaseInventory
 
         InvenToryCtrl.Instance.equippedUiSlot = equipSlot;
 
-        Debug.Log(equipSlot.Length);
-
-        Debug.Log(InvenToryCtrl.Instance.equippedInventory.Count);
-        
 
         //// 초기 세팅
         RefreshUI();
@@ -52,7 +48,6 @@ public class EquippedInventoryUI : BaseInventory
     {
         UIManager.Instance.CloseAll();
         InvenToryCtrl.Instance.OnInventoryChanged -= RefreshUI;
-        InvenToryCtrl.Instance.SaveInventoryToFirebase();
 
         //foreach (var item in items)
         //{
@@ -73,7 +68,7 @@ public class EquippedInventoryUI : BaseInventory
                 continue;
             }
 
-            var item = (i < items.Count && items[i] != null) ? items[i] : ItemDataBase.Instance.emptyItem;
+            var item = (i < items.Count && items[i] != null) ? items[i] : ItemDataBase.Instance.EmptyItem;
 
 
             equipSlot[i].SlotListSetting(item);

@@ -314,7 +314,7 @@ public class AuthManager : MonoBehaviour
         List<BaseItem> equipInventory = new List<BaseItem>();
         List<BaseItem> equippedInventory = new List<BaseItem>(new BaseItem[9]);
 
-        BaseItem empty = ItemDataBase.Instance.emptyItem;
+        BaseItem empty = ItemDataBase.Instance.EmptyItem;
 
         // 초기 인벤토리
         for (int i = 0; i < 24; i++)

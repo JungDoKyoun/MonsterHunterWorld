@@ -116,6 +116,16 @@ public class InvenToryCtrl : MonoBehaviour
         var user = FirebaseAuth.DefaultInstance.CurrentUser;
         if (user == null) return;
 
+        // 인벤토리가 null이거나 비어있으면 기본값으로 초기화
+        if (inventory == null || inventory.Count == 0)
+            InvenInit(inventory, (int)InvenSize.Inventory);
+        if (boxInven == null || boxInven.Count == 0)
+            InvenInit(boxInven, (int)InvenSize.BoxInven);
+        if (equipInventory == null || equipInventory.Count == 0)
+            InvenInit(equipInventory, (int)InvenSize.EquipInven);
+        if (equippedInventory == null || equippedInventory.Count == 0)
+            InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+
         //인벤토리별 저장
         StringBuilder sb = new StringBuilder();
         AppendItemListToCSV(sb, "Inventory", inventory);
@@ -179,6 +189,7 @@ public class InvenToryCtrl : MonoBehaviour
             .Child("Leg")
             .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Legs].id));
 
+        OnInventoryChanged?.Invoke();
 
         Debug.Log("인벤토리 저장 완료");
     }
@@ -213,12 +224,20 @@ public class InvenToryCtrl : MonoBehaviour
         equippedList[(int)EquipSlot.Arms] = GetItemFromKey(await root.Child(user.UserId).Child("Hand").GetValueAsync());
         equippedList[(int)EquipSlot.Waist] = GetItemFromKey(await root.Child(user.UserId).Child("Waist").GetValueAsync());
         equippedList[(int)EquipSlot.Legs] = GetItemFromKey(await root.Child(user.UserId).Child("Leg").GetValueAsync());
-        equippedList[(int)EquipSlot.neck] = ItemDataBase.Instance.emptyItem.Clone();
-        equippedList[(int)EquipSlot.band] = ItemDataBase.Instance.emptyItem.Clone();
+        equippedList[(int)EquipSlot.neck] = ItemDataBase.Instance.EmptyItem;
+        equippedList[(int)EquipSlot.band] = ItemDataBase.Instance.EmptyItem;
 
-        equippedInventory = equippedList;
- 
-        if(equippedInventory != null)
+        InvenToryCtrl.Instance.equippedInventory = equippedList;
+
+        InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
+        for (int i = 0; i < InvenToryCtrl.Instance.equippedInventory.Count - 1; i++)
+        {
+            var item = InvenToryCtrl.Instance.equippedInventory[i];
+            if (item != null && item.id != ItemName.Empty)
+                InvenToryCtrl.Instance.OnEquippedChanged?.Invoke(item.id);
+        }
+
+        if (equippedInventory != null)
              Debug.Log("인벤토리 로드 완료");
         else
         {
@@ -244,7 +263,7 @@ public class InvenToryCtrl : MonoBehaviour
         // 부족한 슬롯은 emptyItem으로 채우기
         while (result.Count < targetSize)
         {
-            result.Add(ItemDataBase.Instance.emptyItem);
+            result.Add(ItemDataBase.Instance.EmptyItem);
         }
 
         return result;
@@ -257,35 +276,23 @@ public class InvenToryCtrl : MonoBehaviour
         {
             return ItemDataBase.Instance.GetItem((ItemName)id);
         }
-        return ItemDataBase.Instance.emptyItem;
+        return ItemDataBase.Instance.EmptyItem ;
     }
-
 
 
     void AppendItemListToCSV(StringBuilder sb, string label, List<BaseItem> items)
     {
         sb.AppendLine($"[{label}]");
 
-        for (int i = 0; i < items.Count; i++)         
+        for (int i = 0; i < items.Count; i++)
         {
             if (items[i] == null)
             {
-                Debug.LogWarning($"[CSV 저장] {label} 리스트에 null 아이템이 있습니다. 빈 아이템으로 처리합니다.");
-                items[i] = ItemDataBase.Instance.emptyItem;
+                items[i] = ItemDataBase.Instance.EmptyItem;
             }
             sb.AppendLine($"{(int)items[i].id},{items[i].count}");
-
         }
-        //foreach (var item in items)
-        //{
-        //    if (item == null)
-        //    {
-        //        Debug.LogWarning($"[CSV 저장] {label} 리스트에 null 아이템이 있습니다. 빈 아이템으로 처리합니다.");
-        //        item = ItemDataBase.Instance.emptyItem;
-        //    }
-
-        //    sb.AppendLine($"{(int)item.id},{item.count}");
-        //}
+        
     }
 
     void LoadFromCSV(string csvData)
@@ -343,7 +350,7 @@ public class InvenToryCtrl : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            list.Add(ItemDataBase.Instance.emptyItem);
+            list.Add(ItemDataBase.Instance.EmptyItem);
         }
     }
 
@@ -365,7 +372,8 @@ public class InvenToryCtrl : MonoBehaviour
             from[fromIndex].count--;
             if (from[fromIndex].count <= 0)
             {
-                from[fromIndex] = ItemDataBase.Instance.emptyItem;
+                from[fromIndex] = ItemDataBase.Instance.EmptyItem;
+
             }
         }
 
@@ -389,7 +397,7 @@ public class InvenToryCtrl : MonoBehaviour
                 from[fromIndex].count--;
                 if (from[fromIndex].count <= 0)
                 {
-                    from[fromIndex] = ItemDataBase.Instance.emptyItem;
+                    from[fromIndex] = ItemDataBase.Instance.EmptyItem;
                 }
             }
         }
@@ -457,7 +465,7 @@ public class InvenToryCtrl : MonoBehaviour
 
         for (int i = 0; i < emptyCount; i++)
         {
-            list.Add(ItemDataBase.Instance.emptyItem);
+            list.Add(ItemDataBase.Instance.EmptyItem);
         }
     }
 

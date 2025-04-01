@@ -110,7 +110,7 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         if (type == EquipSlot.box)
         {
-            item = ItemDataBase.Instance.emptyItem;
+            item = ItemDataBase.Instance.EmptyItem;
         }
     }
 
