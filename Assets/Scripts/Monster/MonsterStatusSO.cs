@@ -14,10 +14,6 @@ public abstract class MonsterStatusSO : ScriptableObject
     //public List<> DropItem;
 
     [Header("몬스터 전투 관련")]
-    public int BiteDamage;
-    public int TaileDamage;
-    public int ChargeDamage;
-    public int FlyDamage;
     public int Defense;
     public int HeadMaxDamage;
     public float AttackCoolTime;
@@ -26,12 +22,4 @@ public abstract class MonsterStatusSO : ScriptableObject
     public float MinAttackRange;
     public float SturnTime;
     public List<MonsterAttackData> MonsterAttackDatas;
-}
-
-
-[CreateAssetMenu(fileName = "BossMonster", menuName = "Monster/BossMonster")]
-public class BossMonster : MonsterStatusSO
-{
-    public List<MonsterProjectileData> ProjectileDatas;
-    public string Label;
 }

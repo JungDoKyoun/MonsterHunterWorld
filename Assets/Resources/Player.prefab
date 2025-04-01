@@ -17103,7 +17103,6 @@ GameObject:
   - component: {fileID: 3877248199418198553}
   - component: {fileID: 7116461360313808096}
   - component: {fileID: 7761010779172302856}
-  - component: {fileID: 4312484067483360852}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -17430,8 +17429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23167efa7554e040885dd720883a017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fullLife: 1
-  _currentLife: 1
+  _fullLife: 200
+  _currentLife: 200
   _fullStamina: 100
   _currentStamina: 100
   _damage: 0
@@ -17452,18 +17451,6 @@ MonoBehaviour:
   joinQuestPanel: {fileID: 7415208240829829211}
   movePanel: {fileID: 6610361532418076592}
   boxPanel: {fileID: 4735605744458692466}
---- !u!114 &4312484067483360852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4646173490247177517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af892dea19dd68849881a9990b64c042, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4674691935124216879
 GameObject:
   m_ObjectHideFlags: 0

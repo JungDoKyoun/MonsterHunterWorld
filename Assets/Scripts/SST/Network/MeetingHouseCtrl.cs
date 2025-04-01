@@ -24,9 +24,28 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
         StartCoroutine(WaitForFindPlayer());
     }
 
+    [SerializeField]
+    private GameObject _readyCanvasObject;
+
     private void Update()
     {
-        if (isInMeetingZone && Input.GetKeyDown(KeyCode.F))
+        switch(isInMeetingZone)
+        {
+            case true:
+                if (targetPanel != null && targetPanel.gameObject.activeInHierarchy == false && _readyCanvasObject != null && _readyCanvasObject.activeInHierarchy == false)
+                {
+                    targetPanel.gameObject.SetActive(true);
+                }
+                break;
+            case false:
+                if (targetPanel != null && targetPanel.gameObject.activeInHierarchy == true)
+                {
+                    targetPanel.gameObject.SetActive(false);
+                }
+                break;
+        }
+
+        if (isInMeetingZone && _readyCanvasObject != null && _readyCanvasObject.activeInHierarchy == false && Input.GetKeyDown(KeyCode.F))
         {           
             StartCoroutine(WaitForCreateMeetingRoom());            
         }
@@ -71,7 +90,6 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
         if (other.CompareTag("Player"))
         {
             isInMeetingZone = true;
-            targetPanel.gameObject.SetActive(true);
         }
     }
 
@@ -80,10 +98,6 @@ public class MeetingHouseCtrl : MonoBehaviourPunCallbacks
         if (other.CompareTag("Player"))
         {
             isInMeetingZone = false;
-            targetPanel.gameObject.SetActive(false);
         }
     }
 }    
-
-
-
