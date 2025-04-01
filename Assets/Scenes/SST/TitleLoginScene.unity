@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -934,10 +934,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 181070978}
+    m_SelectOnDown: {fileID: 1228229956}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1192,6 +1192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 335606757}
   - component: {fileID: 335606758}
+  - component: {fileID: 335606759}
   m_Layer: 0
   m_Name: Canvasss
   m_TagString: Untagged
@@ -1232,6 +1233,19 @@ MonoBehaviour:
   basicCanvas: {fileID: 1906907164}
   titleCanvas: {fileID: 1550373361}
   loginCanvas: {fileID: 1414128181}
+--- !u!114 &335606759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335606755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb00b03f5c776aa4abc6abc3a8e00f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emailInput: {fileID: 1228229956}
 --- !u!1 &383469458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,7 +1778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2018,7 +2032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2181,7 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2901,7 +2915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3167,7 +3181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1414128177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3588,7 +3602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3743,10 +3757,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 1692077866}
   sfxSource: {fileID: 1692077865}
-  audioClips:
+  bgmClips:
   - {fileID: 8300000, guid: c71c543755c7fcc45b78fad546dd0bbc, type: 3}
   - {fileID: 8300000, guid: 933ddfd11e66e4948b7e21000d778804, type: 3}
   - {fileID: 8300000, guid: 7a2d2b38ce4e19042ba5fe21f90b81b6, type: 3}
+  - {fileID: 8300000, guid: f889df7f58a11724a83f22d389698911, type: 3}
+  - {fileID: 8300000, guid: 4459eb5a3642ba84daa4c080b1af8af6, type: 3}
+  - {fileID: 8300000, guid: 22285410841de7d4aba778e099580972, type: 3}
   buttonSFX:
   - {fileID: 8300000, guid: f064e5fae41ad9c4a9904bbf4e8f0a96, type: 3}
   - {fileID: 8300000, guid: 40af0f257a96ba2479fda1f073b83d70, type: 3}
