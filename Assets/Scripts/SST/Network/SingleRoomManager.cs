@@ -175,6 +175,11 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         SoundManager.Instance.PlayBtnClickSFX();
     }
 
+    public void PlayWheelSFX()
+    {
+        SoundManager.Instance.PlayWheelSFX();
+    }
+
     public void PlayStartButtonSFX()
     {
         SoundManager.Instance.PlayStartButtonSFX();
