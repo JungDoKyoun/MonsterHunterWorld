@@ -192,7 +192,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        SceneManager.LoadScene("DoKyoun");
+        SceneManager.LoadScene("ALLTestScene");
     }
 
     IEnumerator WaitForFindPlayer()

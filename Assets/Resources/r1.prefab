@@ -349,6 +349,7 @@ MonoBehaviour:
   _restIndex: 02000000
   _restTime: 30
   _sleepTime: 90
+  _isBattle: 0
 --- !u!114 &3826498751250122022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9618f63674b8542b119c4115e95aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monsterSO: {fileID: 11400000, guid: 3665e5ce5a3cbe543b009017d6d87ba5, type: 2}
+  _monsterSO: {fileID: 11400000, guid: e716955e165aa1a4a9b191a85abcd6b3, type: 2}
 --- !u!114 &5584208265966351522
 MonoBehaviour:
   m_ObjectHideFlags: 0
