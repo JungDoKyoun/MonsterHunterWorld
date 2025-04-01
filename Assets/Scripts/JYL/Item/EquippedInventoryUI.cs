@@ -37,8 +37,8 @@ public class EquippedInventoryUI : BaseInventory
 
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
 
-        Debug.Log(" equip" + equipSlot.Length);
-        Debug.Log("ctrl"  +InvenToryCtrl.Instance.equippedUiSlot.Length);
+        //Debug.Log(" equip" + equipSlot.Length);
+        //Debug.Log("ctrl"  +InvenToryCtrl.Instance.equippedUiSlot.Length);
     }
 
     private void OnDisable()

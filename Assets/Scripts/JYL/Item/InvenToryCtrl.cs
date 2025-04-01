@@ -40,6 +40,9 @@ public class InvenToryCtrl : MonoBehaviour
     //사물함 인벤토리
     public List<BaseItem> boxInven = new List<BaseItem>();
 
+    //퀵슬롯 인벤토리
+    public List<BaseItem> quickSlotItem = new List<BaseItem>();   
+
     //인벤용 툴팁 UI
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
     public ItemToolTipCtrl ItemToolTipCtrl { get; set; }
