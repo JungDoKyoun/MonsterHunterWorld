@@ -32,35 +32,45 @@ MonoBehaviour:
   - AttackName: Bite
     Damage: 10
     AnimeName: attack1
+    NeedRo: 0
+    NeedFly: 0
     UsesProjectile: 0
     ProjectileType: 0
     AttackColliderName: BiteCollider
   - AttackName: TaileAttack
     Damage: 20
     AnimeName: attack2
+    NeedRo: 1
+    NeedFly: 0
     UsesProjectile: 0
     ProjectileType: 0
     AttackColliderName: TaileAttackCollider
   - AttackName: Charge
     Damage: 30
     AnimeName: attack3
+    NeedRo: 0
+    NeedFly: 0
     UsesProjectile: 0
     ProjectileType: 0
     AttackColliderName: ChargeCollider
   - AttackName: FireBall
     Damage: 0
     AnimeName: attack4
+    NeedRo: 0
+    NeedFly: 0
     UsesProjectile: 1
     ProjectileType: 0
     AttackColliderName: 
+  - AttackName: FlyAttack
+    Damage: 40
+    AnimeName: attack5
+    NeedRo: 0
+    NeedFly: 1
+    UsesProjectile: 0
+    ProjectileType: 0
+    AttackColliderName: TaileAttackCollider
   ProjectileDatas:
   - ProjectileType: 0
-    defaultCapacity: 5
-    damage: 10
-    speed: 5
-    lifeTime: 5
-    hitEffect: {fileID: 0}
-  - ProjectileType: 1
     defaultCapacity: 5
     damage: 10
     speed: 5
