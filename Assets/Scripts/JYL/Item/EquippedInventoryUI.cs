@@ -14,8 +14,7 @@ public class EquippedInventoryUI : BaseInventory
 
     private void Start()
     {
-        // 변화 감지 이벤트 연결
-        InvenToryCtrl.Instance.OnInventoryChanged += RefreshUI;
+
 
         for (int i = 0; i < equipSlot.Length; i++)
         {
@@ -37,13 +36,21 @@ public class EquippedInventoryUI : BaseInventory
 
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
 
-        //Debug.Log(" equip" + equipSlot.Length);
-        //Debug.Log("ctrl"  +InvenToryCtrl.Instance.equippedUiSlot.Length);
+        // 변화 감지 이벤트 연결
+        InvenToryCtrl.Instance.OnInventoryChanged += RefreshUI;
+
     }
 
     private void OnDisable()
     {
         UIManager.Instance.CloseAll();
+        InvenToryCtrl.Instance.OnInventoryChanged -= RefreshUI;
+        InvenToryCtrl.Instance.SaveInventoryToFirebase();
+
+        //foreach (var item in items)
+        //{
+        //    Debug.Log(item.name);
+        //}
 
     }
 
