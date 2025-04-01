@@ -203,7 +203,8 @@ public class QuickSlotUI : BaseInventory
     {
         isSliding = true;
 
-        int nextIndex = (currentIndex - 1) % items.Count;
+  
+        int nextIndex = (currentIndex - 1+ items.Count) % items.Count;
         yield return AnimateSlide(-1); // 왼쪽으로 슬라이드
 
         currentIndex = nextIndex;
