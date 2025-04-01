@@ -15,7 +15,7 @@ public class MonsterIdleState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    float _tmepTime;
+    float _tempTime;
     Vector3 _targetPos;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager)
@@ -23,7 +23,7 @@ public class MonsterIdleState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _monster.SetAnime("IsIdle", true);
-        _tmepTime = 0;
+        _tempTime = 0;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
         Debug.Log("대기상태");
@@ -41,7 +41,7 @@ public class MonsterIdleState : IMonsterState
 
     public override void Update()
     {
-        _tmepTime += Time.deltaTime;
+        _tempTime += Time.deltaTime;
 
         if(_monster.IsDie)
         {
@@ -63,7 +63,6 @@ public class MonsterIdleState : IMonsterState
 
         if(_monster.IsBattle && !_monster.IsHit)
         {
-            _monster.IsHit = true;
             _stateManager.ChangeMonsterState(new MonsterRoarState());
             return;
         }
@@ -71,11 +70,18 @@ public class MonsterIdleState : IMonsterState
         if(_monster.IsBattle && _monster.IsHit)
         {
             _stateManager.ChangeMonsterState(new MonsterChaseState());
+            return;
+        }
+
+        if (_monster.IsSleepPos() && !_monster.IsalSleep)
+        {
+            _stateManager.ChangeMonsterState(new MonsterSleepState());
+            return;
         }
 
         if (_monster.IsRestPos())
         {
-            if(_tmepTime > 10)
+            if(_tempTime >= _monster.RestTime)
             {
                 if (_monster.IsNeedRo())
                 {
@@ -102,6 +108,67 @@ public class MonsterIdleState : IMonsterState
     }
 }
 
+public class MonsterSleepState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+    float _tempTime;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _monster.IsSleep = true;
+        _monster.IsalSleep = true;
+        _tempTime = 0;
+    }
+
+    public override void Exit()
+    {
+        
+    }
+
+    public override void Move()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        _tempTime += Time.deltaTime;
+
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
+            return;
+        }
+
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
+        if (_monster.IsBattle && !_monster.IsHit)
+        {
+            _stateManager.ChangeMonsterState(new MonsterRoarState());
+            return;
+        }
+
+        if (_tempTime >= _monster.SleepTime)
+        {
+            _stateManager.ChangeMonsterState(new MonsterIdleState());
+            return;
+        }
+    }
+}
+
 public class MonsterRotationState : IMonsterState
 {
     MonsterController _monster;
@@ -113,7 +180,6 @@ public class MonsterRotationState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _monster.IsRo = true;
-        Debug.Log(_monster.IsRo);
         if(!_monster.IsBattle)
         {
             _targetPos = _monster.GetNextPatrolPos();
@@ -166,7 +232,6 @@ public class MonsterRotationState : IMonsterState
 
         if (_monster.IsBattle && !_monster.IsHit)
         {
-            _monster.IsHit = true;
             _stateManager.ChangeMonsterState(new MonsterRoarState());
             return;
         }
@@ -242,7 +307,6 @@ public class MonsterTakeOffState : IMonsterState
 
             if (_monster.IsBattle && !_monster.IsHit && _monster.IsCanFindPlayer())
             {
-                _monster.IsHit = true;
                 _stateManager.ChangeMonsterState(new MonsterRoarState());
                 return;
             }
@@ -358,6 +422,7 @@ public class MonsterRoarState : IMonsterState
     {
         _monster = monster;
         _stateManager = stateManager;
+        _monster.IsHit = true;
         _monster.SetAnime("Roar");
         _monster.RequestRoar();
         Debug.Log("포효 다시 들어옴");
@@ -395,7 +460,14 @@ public class MonsterRoarState : IMonsterState
 
         if (!_monster.IsRoar)
         {
-            if(_monster.IsNeedRo())
+            if (!_monster.IsCanFindPlayer())
+            {
+                _monster.ResetHit();
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
+                return;
+            }
+
+            if (_monster.IsNeedRo())
             {
                 _stateManager.ChangeMonsterState(new MonsterRotationState());
                 return;
@@ -525,7 +597,7 @@ public class MonsterAttackIdleState : IMonsterState
         if (!_monster.IsCanFindPlayer())
         {
             _monster.ResetHit();
-            _stateManager.ChangeMonsterState(new MonsterPatrolState());
+            _stateManager.ChangeMonsterState(new MonsterIdleState());
             return;
         }
 
@@ -607,7 +679,7 @@ public class MonsterAttackState : IMonsterState
             if (!_monster.IsCanFindPlayer())
             {
                 _monster.ResetHit();
-                _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
                 return;
             }
             if (_monster.IsNeedRo())
@@ -669,12 +741,13 @@ public class MonsterBackMoveState : IMonsterState
         {
             if (_monster.IsTooClose())
             {
-                Enter(_monster, _stateManager);
+                _stateManager.ChangeMonsterState(new MonsterAttackIdleState());
+                return;
             }
             if (!_monster.IsCanFindPlayer())
             {
                 _monster.ResetHit();
-                _stateManager.ChangeMonsterState(new MonsterPatrolState());
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
                 return;
             }
 
@@ -738,6 +811,12 @@ public class MonsterStunState : IMonsterState
 
         if (!_monster.IsStun)
         {
+            if (!_monster.IsCanFindPlayer())
+            {
+                _monster.ResetHit();
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
+                return;
+            }
             if (_monster.IsNeedRo())
             {
                 _stateManager.ChangeMonsterState(new MonsterRotationState());
@@ -763,7 +842,6 @@ public class MonsterTrapState : IMonsterState
         _stateManager = stateManager;
         _monster.RequestTrap();
         _monster.SetAnime("IsTrap", true);
-        Debug.Log("스턴 들어옴");
     }
 
     public override void Exit()
@@ -789,6 +867,13 @@ public class MonsterTrapState : IMonsterState
             if (_monster.IsStun)
             {
                 _stateManager.ChangeMonsterState(new MonsterStunState());
+                return;
+            }
+
+            if (!_monster.IsCanFindPlayer())
+            {
+                _monster.ResetHit();
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
                 return;
             }
 

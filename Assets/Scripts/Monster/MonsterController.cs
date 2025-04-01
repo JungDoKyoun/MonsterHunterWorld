@@ -20,6 +20,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private float _groundRayDis;
     [SerializeField] private int _flyHigh;
     [SerializeField] private float _blockDis;
+    [SerializeField] private int _sleepIndex;
+    [SerializeField] private List<int> _restIndex = new List<int>();
+    [SerializeField] private int _restTime;
+    [SerializeField] private int _sleepTime;
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
     private MonsterProjectileSpawnManager _projectileSpawnManager; //투사체 스폰 매니저
@@ -69,6 +73,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isGround;
     private bool _isBlock;
     private bool _isLink;
+    private bool _isRun;
+    private bool _isSleep;
+    private bool _isalSleep;
 
     private void Awake()
     {
@@ -116,11 +123,16 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isGround = true;
         _isBlock = false;
         _isLink = false;
+        _isRun = false;
+        _isSleep = false;
+        _isalSleep = false;
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
     }
 
+    public int RestTime { get { return _restTime; } set { _restTime = value; } }
+    public int SleepTime { get { return _sleepTime; } set { _sleepTime = value; } }
     public bool IsRo { get { return _isRo; } set { _isRo = value; } }
     public bool IsDie { get { return _isDie; } set { _isDie = value; } }
     public bool IsBattle { get { return _isBattle; } set { _isBattle = value; } }
@@ -135,6 +147,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsTakeOff { get { return _isTakeOff; } set { _isTakeOff = value; } }
     public bool IsLanding { get { return _isLanding; } set { _isLanding = value; } }
     public bool IsGround { get { return _isGround; } set { _isGround = value; } }
+    public bool IsRun { get { return _isRun; } set { _isRun = value; } }
+    public bool IsSleep { get { return _isSleep; } set { _isSleep = value; } }
+    public bool IsalSleep { get { return _isalSleep; } set { _isalSleep = value; } }
 
     public void InitProjectile()
     {
@@ -224,6 +239,14 @@ public class MonsterController : MonoBehaviourPunCallbacks
         return patrolPos;
     }
 
+    public Vector3 SetRunPos()
+    {
+        Vector3 runPos = moveTargetPos[_sleepIndex].transform.position;
+        _currentPatrolIndex = _sleepIndex;
+        _nextPatrolIndex = _sleepIndex++;
+        return runPos;
+    }
+
     public void NavMeshMatchMonsterPos() //네비메쉬 좌표 몬스터를 따라가게함
     {
         if(_agent.enabled)
@@ -242,7 +265,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public bool IsRestPos() //쉬는 포인트 지정한 숫자 바꾸면 됨
     {
-        return _currentPatrolIndex == 0 || _currentPatrolIndex == 2;
+        return _restIndex.Contains(_currentPatrolIndex);
+    }
+
+    public bool IsSleepPos()
+    {
+        return _currentPatrolIndex == _sleepIndex;
     }
 
     public bool IsReachTarget() //패트롤 목표로한 좌표에 도달 했는가?
@@ -408,6 +436,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void ResetHit()
     {
+        _isBattle = false;
         _isHit = false;
     }
 
@@ -422,7 +451,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
             if(collider.CompareTag("Player"))
             {
                 _detectPlayers.Add(collider.transform);
-                _isBattle = true;
+                //_isBattle = true;
             }
         }
     }
@@ -477,6 +506,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         _currentHP -= damage;
 
+        if(!_isBattle)
+        {
+            _isBattle = true;
+        }
+
         if(_currentHP <= 0)
         {
             _currentHP = 0;
@@ -494,7 +528,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         //CheckMaster();
 
-        int restDamage;
         if (!IsStun)
         {
             _currentHeadDamage += damage;
@@ -605,6 +638,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
+        attackType = 3;
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 
