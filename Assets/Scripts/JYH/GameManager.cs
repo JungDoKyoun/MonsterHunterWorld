@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private GameObject _playerPrefab;
     [SerializeField]
     private GameObject _monsterPrefab;
+    [SerializeField]
+    private GageCtrl _gageController;
 
     private PlayerController _playerController = null;
 
@@ -38,9 +40,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void Update()
+    {
+        if(_playerController != null)
+        {
+            _gageController.SetStamina(_playerController.currentStamina, _playerController.fullStamina);
+        }
+    }
+
     private void SetLife(int current, int full)
     {
-        if(current != full && current == 0)
+        _gageController?.SetLife(current, full);
+        if (current != full && current == 0)
         {
             StartCoroutine(DoRevive());
             IEnumerator DoRevive()

@@ -89,6 +89,11 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if(roomInfoCanvas != null && roomInfoCanvas.gameObject.activeInHierarchy == true)
+        {
+            return;
+        }
+
         // F 키를 눌러 근처 NPC와 상호작용하면 해당 UI 활성화
         if (Input.GetKeyDown(KeyCode.F))
         {
