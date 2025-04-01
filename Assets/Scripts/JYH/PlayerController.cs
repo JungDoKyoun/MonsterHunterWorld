@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -216,15 +217,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 #endif
+
     private void OnEquipChanged(ItemName itemKey)
     {
         int index = (int)itemKey;
-
-        // 내 장비 적용
-        Equip(index);
-
-        // 네트워크로 다른 유저들에게도 장비 적용
-        if (PhotonNetwork.InRoom)
+        Equip(index); // 내 장비 적용
+        if (PhotonNetwork.InRoom) // 네트워크로 다른 유저들에게도 장비 적용
         {
             photonView.RPC("Equip", RpcTarget.Others, index);
         }
@@ -235,27 +233,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine == true)
         {
             InvenToryCtrl.Instance.OnEquippedChanged += OnEquipChanged;
-
             Player player = PhotonNetwork.LocalPlayer;
             if (player != null)
             {
-                ExitGames.Client.Photon.Hashtable hashtable = player.CustomProperties;
-                if (hashtable.ContainsKey(PlayerCostume.EquipmentTag) && hashtable[PlayerCostume.EquipmentTag] != null &&
-                    int.TryParse(hashtable[PlayerCostume.EquipmentTag].ToString(), out int index))
+                IEnumerable<int> itemArray = PlayerCostume.GetEquipList(player.CustomProperties);
+                if (itemArray != null)
                 {
-                    
-                    Equip(index);
-                    if (PhotonNetwork.InRoom)
+                    foreach(int value in itemArray)
                     {
-                        photonView.RPC("Equip", RpcTarget.Others, index);
-                    }
-                }
-                else
-                {
-                    Equip(0);
-                    if (PhotonNetwork.InRoom)
-                    {
-                        photonView.RPC("Equip", RpcTarget.Others, 0);
+                        OnEquipChanged((ItemName)value);
                     }
                 }
             }
@@ -471,7 +457,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void Equip(int index)
     {
-        getPlayerCostume.Equip(index);
+        getPlayerCostume.Equip((ItemName)index);
     }
 
     [PunRPC]

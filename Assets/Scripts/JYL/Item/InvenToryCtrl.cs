@@ -27,7 +27,7 @@ public class InvenToryCtrl : MonoBehaviour
     //현재 흭득한 장비 인벤토리
     public List<BaseItem> equipInventory = new List<BaseItem>();
 
-    public EquipslotCtrl[] equippedUIslot;
+    public EquipslotCtrl[] equippedUiSlot;
     //장비용 툴팁 UI
     [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
     public EquipItemToolTipCtrl EquipItemToolTipCtrl { get; set; }
@@ -39,6 +39,9 @@ public class InvenToryCtrl : MonoBehaviour
 
     //사물함 인벤토리
     public List<BaseItem> boxInven = new List<BaseItem>();
+
+    //퀵슬롯 인벤토리
+    public List<BaseItem> quickSlotItem = new List<BaseItem>();   
 
     //인벤용 툴팁 UI
     [SerializeField] ItemToolTipCtrl itemToolTipCtrl;
@@ -161,13 +164,13 @@ public class InvenToryCtrl : MonoBehaviour
         
 
         var slotIndex = GetSlotIndexFromItem(item);
-        if (slotIndex < 0 || slotIndex >= equippedUIslot.Length)
+        if (slotIndex < 0 || slotIndex >= equippedUiSlot.Length)
         {
             Debug.LogWarning("[장착 실패] 적절한 슬롯을 찾을 수 없습니다.");
             return false;
         }
 
-        var targetSlot = equippedUIslot[slotIndex];
+        var targetSlot = equippedUiSlot[slotIndex];
         if (!targetSlot.IsCorrectType(item))
         {
             Debug.LogWarning("[장착 실패] 슬롯 타입이 맞지 않습니다.");

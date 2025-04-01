@@ -139,7 +139,6 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
         }
     }
 
-
     private void Awake()
     {
         if(_createButton != null)
