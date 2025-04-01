@@ -21,12 +21,23 @@ public class GageCtrl : MonoBehaviour
     {
         if (full == 0)
         {
-
+            _lifeSlider.value = 1;
         }
         else
         {
-            _lifeSlider.value = current / full;
+            _lifeSlider.value = (float)current / (float)full;
         }
+    }
 
+    public void SetStamina(float current, float full)
+    {
+        if(full <= 0)
+        {
+            _staminaSlider.value = 1;
+        }
+        else
+        {
+            _staminaSlider.value = current / full;
+        }
     }
 }

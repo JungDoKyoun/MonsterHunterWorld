@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private GameObject _playerPrefab;
     [SerializeField]
     private GameObject _monsterPrefab;
+    [SerializeField]
+    private GageCtrl _gageController;
 
     private PlayerController _playerController = null;
 
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null && _playerPrefab != null)
         {
+            SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss, 0.4f);
             GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
             FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
             _playerController = gameObject.GetComponent<PlayerController>();
@@ -38,9 +41,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void Update()
+    {
+        if(_playerController != null)
+        {
+            _gageController.SetStamina(_playerController.currentStamina, _playerController.fullStamina);
+        }
+    }
+
     private void SetLife(int current, int full)
     {
-        if(current != full && current == 0)
+        _gageController?.SetLife(current, full);
+        if (current != full && current == 0)
         {
             StartCoroutine(DoRevive());
             IEnumerator DoRevive()
