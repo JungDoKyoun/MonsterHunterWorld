@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SingleRoomManager : MonoBehaviourPunCallbacks
@@ -194,38 +195,9 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-    [SerializeField]
-    private GameObject loadingObject;
-    [SerializeField]
-    private Image loadingImage;
-    [SerializeField]
-    private Text loadingText;
-
-    private static readonly float BlinkSpeed = 10f;             // ≈ÿΩ∫∆Æ ±Ù∫˝¿” º”µµ
     public void StartGame()
     {
-        loadingObject.Set(true);
-        StartCoroutine(BlinkText());
-        StartCoroutine(RotateImage());
-        PhotonNetwork.LoadLevel("ALLTestScene");
-        IEnumerator RotateImage()
-        {
-            while (true)
-            {
-                loadingImage.transform.Rotate(0, 0, -140f * Time.deltaTime);
-                yield return null;
-            }
-        }
-        IEnumerator BlinkText()
-        {
-            Color basicColor = loadingText.color;
-            while (true)
-            {
-                float alpha = Mathf.PingPong(Time.deltaTime * BlinkSpeed, 1f);
-                loadingText.color = new Color(basicColor.r, basicColor.g, basicColor.b, alpha);
-                yield return null;
-            }
-        }
+        SceneManager.LoadScene("ALLTestScene");
     }
 
     IEnumerator WaitForFindPlayer()
