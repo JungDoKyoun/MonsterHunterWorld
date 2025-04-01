@@ -532,6 +532,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public void Initialize(Action<int, int> lifeAction)
     {
         _lifeAction = lifeAction;
+        _lifeAction?.Invoke(_currentLife, _fullLife);
     }
 
     public void TakeDamage(Vector3 position, int damage, bool knockback = false)

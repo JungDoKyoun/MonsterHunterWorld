@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private PlayerController _playerController = null;
 
+    private static readonly float RespawnTime = 2.0f;
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
     private static readonly Vector3 MonsterStartPoint = new Vector3(-260, 41.5f, -32);
+
 
     private void Start()
     {
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             IEnumerator DoRevive()
             {
                 Debug.Log("ªÁ∏¡");
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(RespawnTime);
                 if(_playerController != null)
                 {
                     Debug.Log("∫Œ»∞");

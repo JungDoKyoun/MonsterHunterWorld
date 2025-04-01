@@ -1,34 +1,32 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GageCtrl : MonoBehaviour
 {
-    FillBar hpBar;
+    [SerializeField]
+    private Text _nameText;
 
-    FillBar spBar;
+    [SerializeField]
+    private Slider _lifeSlider;
 
-    PlayerController playerCtrl;
+    [SerializeField]
+    private Slider _staminaSlider;
 
-    // Start is called before the first frame update
-    void Start()
-    {        
-        playerCtrl = GetComponent<PlayerController>();
-        //hpBar = GameObject.Find("HpBar").GetComponent<FillBar>();
-        //spBar = GameObject.Find("StaminaBar ").GetComponent<FillBar>();
-        //hpBar.SetPlayer(playerCtrl);
-        //spBar.SetPlayer(playerCtrl);
-        //인게임 전에 HUD 비활성화 테스트
-        //GameObject.Find("HUDCanvas").SetActive(false);
-
-    }
-
-    public void UpdateHP(float newHP)
+    public void Set(string nickname)
     {
-        hpBar.UpdateHP(newHP);
+        _nameText.SetText(nickname);
     }
-    public void UpdateSP(float newSP)
+
+    public void SetLife(int current, int full)
     {
-        spBar.UpdateSP(newSP);
+        if (full == 0)
+        {
+
+        }
+        else
+        {
+            _lifeSlider.value = current / full;
+        }
+
     }
-
-
 }
