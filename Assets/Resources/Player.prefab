@@ -17430,8 +17430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23167efa7554e040885dd720883a017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fullLife: 1
-  _currentLife: 1
+  _fullLife: 200
+  _currentLife: 200
   _fullStamina: 100
   _currentStamina: 100
   _damage: 0
@@ -17464,6 +17464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af892dea19dd68849881a9990b64c042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nameText: {fileID: 0}
+  _lifeSlider: {fileID: 0}
+  _staminaSlider: {fileID: 0}
 --- !u!1 &4674691935124216879
 GameObject:
   m_ObjectHideFlags: 0

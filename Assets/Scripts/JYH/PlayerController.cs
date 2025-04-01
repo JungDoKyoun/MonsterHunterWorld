@@ -189,8 +189,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly float MinInput = -1;
     private static readonly float MaxInput = 1;
     private static readonly float RotationDamping = 10;
-    private static readonly float JumpStamina = 0.2f;
+    private static readonly float DashStamina = 5;
+    private static readonly float JumpStamina = 20f;
     private static readonly float RecoverTime = 2.3f;
+    private static readonly float RecoverStamina = 5f;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
     private static readonly string RunTag = "Run";
@@ -304,7 +306,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                                         {
                                             if (_currentStamina > 0)
                                             {
-                                                _currentStamina -= Time.deltaTime;
+                                                _currentStamina -= Time.deltaTime * DashStamina;
                                                 Dash(true);
                                                 if (_currentStamina < 0)
                                                 {
@@ -346,7 +348,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else if (_fullStamina > _currentStamina)
                 {
-                    _currentStamina += Time.deltaTime;
+                    _currentStamina += Time.deltaTime * RecoverStamina;
                     if (_currentStamina > _fullStamina)
                     {
                         _currentStamina = _fullStamina;
@@ -532,6 +534,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public void Initialize(Action<int, int> lifeAction)
     {
         _lifeAction = lifeAction;
+        _lifeAction?.Invoke(_currentLife, _fullLife);
     }
 
     public void TakeDamage(Vector3 position, int damage, bool knockback = false)
