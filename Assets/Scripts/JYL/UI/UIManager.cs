@@ -38,6 +38,13 @@ public class UIManager : MonoBehaviour
     public bool isBox = false;
     public Collider player;
 
+    public bool IsOpenBox()
+    {
+        bool open = openStack.Count > 0 ? true : false;
+
+        return open;
+    }
+
     private void Awake()
     {
         if (Instance != null) Destroy(gameObject);

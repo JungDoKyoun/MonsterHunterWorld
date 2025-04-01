@@ -73,24 +73,42 @@ public class InvenToryCtrl : MonoBehaviour
 
     private void Start()
     {
-        InvenInit(inventory, (int)InvenSize.Inventory);
-        InvenInit(boxInven, (int)InvenSize.BoxInven);
-        InvenInit(equipInventory, (int)InvenSize.EquipInven);
-        InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+        LoadInventoryFromFirebase();
 
 
-        //아이템 흭득
-        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
-        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
-        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
-        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
-        GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
-
-        //장비인벤 아이템흭득
-        for (int i = (int)ItemName.HuntersKnife_I; i <= (int)ItemName.AnjaGreavesS; i++)
+        if (inventory.Count == 0)
         {
-            GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem((ItemName)i));
+            InvenInit(inventory, (int)InvenSize.Inventory);
         }
+
+        if (boxInven.Count == 0)
+        {
+            InvenInit(boxInven, (int)InvenSize.BoxInven);
+        }
+
+        if (equipInventory.Count == 0)
+        {
+            InvenInit(equipInventory, (int)InvenSize.EquipInven);
+        }
+
+        if (equippedInventory.Count == 0)
+        {
+            InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+        }
+
+
+        ////아이템 흭득
+        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
+        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
+        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
+        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
+
+        ////장비인벤 아이템흭득
+        //for (int i = (int)ItemName.HuntersKnife_I; i <= (int)ItemName.AnjaGreavesS; i++)
+        //{
+        //    GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem((ItemName)i));
+        //}
 
 
     }
@@ -108,7 +126,7 @@ public class InvenToryCtrl : MonoBehaviour
             .Child(user.UserId)
             .Child("inventoryData")
             .SetValueAsync(csvData);
-        
+
         sb = new StringBuilder();
         AppendItemListToCSV(sb, "BoxInven", boxInven);
 
@@ -117,7 +135,7 @@ public class InvenToryCtrl : MonoBehaviour
             .Child(user.UserId)
             .Child("BoxInvenData")
             .SetValueAsync(csvData);
-        
+
         sb = new StringBuilder();
         AppendItemListToCSV(sb, "EquipInventory", equipInventory);
 
@@ -166,51 +184,109 @@ public class InvenToryCtrl : MonoBehaviour
         Debug.Log("인벤토리 저장 완료");
     }
 
+    //public async void LoadInventoryFromFirebase()
+    //{
+    //    var user = FirebaseAuth.DefaultInstance.CurrentUser;
+    //    if (user == null) return;
+
+    //    var snapshot = await FirebaseDatabase.DefaultInstance.RootReference
+    //        .Child(user.UserId)
+    //        .Child("inventoryData")
+    //        .GetValueAsync();
+
+    //    if (snapshot.Exists)
+    //    {
+    //        string csvData = snapshot.Value.ToString();
+    //        LoadFromCSV(csvData);
+    //        Debug.Log("인벤토리 불러오기 완료");
+    //    }
+
+    //    Debug.Log("인벤토리 불러오기 실패");
+
+    //}
+
     public async void LoadInventoryFromFirebase()
     {
         var user = FirebaseAuth.DefaultInstance.CurrentUser;
         if (user == null) return;
 
-        var snapshot = await FirebaseDatabase.DefaultInstance.RootReference
-            .Child("users")
-            .Child(user.UserId)
-            .Child("inventoryData")
-            .GetValueAsync();
+        DatabaseReference root = FirebaseDatabase.DefaultInstance.RootReference;
 
-        if (snapshot.Exists)
+        // 1. inventory 리스트 불러오기
+        var inventoryData = await root.Child(user.UserId).Child("inventoryData").GetValueAsync();
+        if (inventoryData.Exists)
+            InvenToryCtrl.Instance.inventory = ParseCSVToItemList(inventoryData.Value.ToString(), (int)InvenSize.Inventory);
+
+        // 2. boxInven 리스트 불러오기
+        var boxData = await root.Child(user.UserId).Child("BoxInvenData").GetValueAsync();
+        if (boxData.Exists)
+            InvenToryCtrl.Instance.boxInven = ParseCSVToItemList(boxData.Value.ToString(), (int)InvenSize.BoxInven);
+
+        // 3. equipInventory 리스트 불러오기
+        var equipData = await root.Child(user.UserId).Child("EquipInventoryData").GetValueAsync();
+        if (equipData.Exists)
+            InvenToryCtrl.Instance.equipInventory = ParseCSVToItemList(equipData.Value.ToString(), (int)InvenSize.EquipInven);
+
+        // 4. equippedInventory 슬롯별 불러오기
+        var equippedList = new List<BaseItem>(new BaseItem[(int)InvenSize.EquipedInven]);
+        equippedList[(int)EquipSlot.Weapon] = GetItemFromKey(await root.Child(user.UserId).Child("Weapon").GetValueAsync());
+        equippedList[(int)EquipSlot.Head] = GetItemFromKey(await root.Child(user.UserId).Child("Head").GetValueAsync());
+        equippedList[(int)EquipSlot.Chest] = GetItemFromKey(await root.Child(user.UserId).Child("Breast").GetValueAsync());
+        equippedList[(int)EquipSlot.Arms] = GetItemFromKey(await root.Child(user.UserId).Child("Hand").GetValueAsync());
+        equippedList[(int)EquipSlot.Waist] = GetItemFromKey(await root.Child(user.UserId).Child("Waist").GetValueAsync());
+        equippedList[(int)EquipSlot.Legs] = GetItemFromKey(await root.Child(user.UserId).Child("Leg").GetValueAsync());
+
+        equippedInventory = equippedList;
+
+
+
+        Debug.Log("인벤토리 로드 완료");
+    }
+
+
+    // CSV 파싱 함수
+    List<BaseItem> ParseCSVToItemList(string csv, int targetSize)
+    {
+        var result = new List<BaseItem>();
+        var lines = csv.Split('\n');
+
+        foreach (var line in lines)
         {
-            string csvData = snapshot.Value.ToString();
-            LoadFromCSV(csvData);
-            Debug.Log("인벤토리 불러오기 완료");
+            if (int.TryParse(line.Trim(), out int id))
+            {
+                result.Add(ItemDataBase.Instance.GetItem((ItemName)id));
+            }
         }
 
-        Debug.Log("인벤토리 불러오기 실패");
+        // 부족한 슬롯은 emptyItem으로 채우기
+        while (result.Count < targetSize)
+        {
+            result.Add(ItemDataBase.Instance.emptyItem);
+        }
 
+        return result;
     }
+
+    //단일 아이템 불러오기 함수
+    BaseItem GetItemFromKey(DataSnapshot snapshot)
+    {
+        if (snapshot.Exists && int.TryParse(snapshot.Value.ToString(), out int id))
+        {
+            return ItemDataBase.Instance.GetItem((ItemName)id);
+        }
+        return ItemDataBase.Instance.emptyItem;
+    }
+
+
 
     void AppendItemListToCSV(StringBuilder sb, string label, List<BaseItem> items)
     {
         sb.AppendLine($"[{label}]");
 
-        switch (label)
+        foreach (var item in items)
         {
-            case "EquipInventory":
-            case "EquippedInventory":
-                foreach (var item in items)
-                {
-                    sb.AppendLine($"{(int)item.id}");                 
-                }
-                break;
-            default:
-                foreach (var item in items)
-                {
-                    sb.AppendLine($"{(int)item.id},{item.count}");                    
-                }
-                break;
+            sb.AppendLine($"{(int)item.id},{item.count}");
         }
-
-
-     
     }
 
     void LoadFromCSV(string csvData)
@@ -252,11 +328,13 @@ public class InvenToryCtrl : MonoBehaviour
         OnInventoryChanged?.Invoke();
 
         //장비인벤 마지막은 박스
-        for (int i = 0; i < equippedInventory.Count -1; i++)
+        for (int i = 0; i < equippedInventory.Count - 1; i++)
         {
             OnEquippedChanged?.Invoke(equippedInventory[i].id);
         }
     }
+
+
     /// <summary>
     /// 인벤 빈 아이템 세팅
     /// </summary>
