@@ -115,9 +115,8 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
                     }
                     break;
                 case false:
-                    if (Input.GetKeyDown(KeyCode.Escape))
+                    if (UIManager.Instance.IsOpenBox() == false)
                     {
-                        UIManager.Instance.CloseAll();
                         getCinemachineFreeLook.SetEnabled(true);
                         player.enabled = true;
                     }

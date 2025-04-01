@@ -229,7 +229,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                     }
                     break;
                 case false:
-                    if (Input.GetKeyDown(KeyCode.Escape))
+                    if (UIManager.Instance.IsOpenBox() == false)
                     {
                         getCinemachineFreeLook.SetEnabled(true);
                         _playerController.enabled = true;
