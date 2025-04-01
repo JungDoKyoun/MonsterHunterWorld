@@ -276,10 +276,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         SetAnimation(JumpTag, false);
                     }
+                    Vector2 input = new Vector2(Mathf.Clamp(Input.GetAxis(HorizontalTag), MinInput, MaxInput), Mathf.Clamp(Input.GetAxis(VerticalTag), MinInput, MaxInput));
                     Camera camera = Camera.main;
                     if (camera != null)
                     {
-                        Vector2 input = new Vector2(Mathf.Clamp(Input.GetAxis(HorizontalTag), MinInput, MaxInput), Mathf.Clamp(Input.GetAxis(VerticalTag), MinInput, MaxInput));
                         if (input != Vector2.zero)
                         {
                             _forward = Quaternion.AngleAxis(Vector2.SignedAngle(input, Vector2.up), Vector3.up) * Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up).normalized;
@@ -340,19 +340,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                             Move(Vector2.zero);
                         }
                     }
+                    if(input == Vector2.zero && _forward == Vector3.zero)
+                    {
+                        Debug.Log("¼û½¬±â");
+                    }
+                    //if (_fullStamina > _currentStamina)
+                    //{
+                    //    _currentStamina += Time.deltaTime * RecoverStamina;
+                    //    if (_currentStamina > _fullStamina)
+                    //    {
+                    //        _currentStamina = _fullStamina;
+                    //    }
+                    //}
                 }
                 else if (getAnimator.GetBool(JumpTag) == false && _currentStamina >= JumpStamina)
                 {
                     SetAnimation(JumpTag, true);
                     _currentStamina -= JumpStamina;
-                }
-                else if (_fullStamina > _currentStamina)
-                {
-                    _currentStamina += Time.deltaTime * RecoverStamina;
-                    if (_currentStamina > _fullStamina)
-                    {
-                        _currentStamina = _fullStamina;
-                    }
                 }
             }
         }
