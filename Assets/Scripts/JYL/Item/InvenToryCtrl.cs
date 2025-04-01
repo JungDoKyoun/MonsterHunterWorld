@@ -128,7 +128,7 @@ public class InvenToryCtrl : MonoBehaviour
 
         //인벤토리별 저장
         StringBuilder sb = new StringBuilder();
-        AppendItemListToCSV(sb, "Inventory", inventory);
+        AppendItemListToCSV(sb, inventory);
 
         string csvData = sb.ToString();
         await FirebaseDatabase.DefaultInstance.RootReference
@@ -137,7 +137,7 @@ public class InvenToryCtrl : MonoBehaviour
             .SetValueAsync(csvData);
 
         sb = new StringBuilder();
-        AppendItemListToCSV(sb, "BoxInven", boxInven);
+        AppendItemListToCSV(sb, boxInven);
 
         csvData = sb.ToString();
         await FirebaseDatabase.DefaultInstance.RootReference
@@ -146,7 +146,7 @@ public class InvenToryCtrl : MonoBehaviour
             .SetValueAsync(csvData);
 
         sb = new StringBuilder();
-        AppendItemListToCSV(sb, "EquipInventory", equipInventory);
+        AppendItemListToCSV(sb, equipInventory);
 
         csvData = sb.ToString();
         await FirebaseDatabase.DefaultInstance.RootReference
@@ -155,7 +155,7 @@ public class InvenToryCtrl : MonoBehaviour
             .SetValueAsync(csvData);
 
         sb = new StringBuilder();
-        AppendItemListToCSV(sb, "EquippedInventory", equippedInventory);
+        AppendItemListToCSV(sb, equippedInventory);
 
         csvData = sb.ToString();
         await FirebaseDatabase.DefaultInstance.RootReference
@@ -254,20 +254,31 @@ public class InvenToryCtrl : MonoBehaviour
 
         foreach (var line in lines)
         {
-            if (int.TryParse(line.Trim(), out int id))
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
+            // [1,5] 형태를 처리
+            string trimmed = line.Trim(' ', '[', ']', '\r'); // 공백, 괄호 제거
+            var parts = trimmed.Split(',');
+
+            if (parts.Length >= 2 &&
+                int.TryParse(parts[0], out int id) &&
+                int.TryParse(parts[1], out int count))
             {
-                result.Add(ItemDataBase.Instance.GetItem((ItemName)id));
+                var item = ItemDataBase.Instance.GetItem((ItemName)id).Clone();
+                item.count = count;
+                result.Add(item);
             }
         }
 
-        // 부족한 슬롯은 emptyItem으로 채우기
+        // 부족한 슬롯은 Empty로 채움
         while (result.Count < targetSize)
         {
-            result.Add(ItemDataBase.Instance.EmptyItem);
+            result.Add(ItemDataBase.Instance.EmptyItem.Clone());
         }
 
         return result;
     }
+
 
     //단일 아이템 불러오기 함수
     BaseItem GetItemFromKey(DataSnapshot snapshot)
@@ -280,19 +291,16 @@ public class InvenToryCtrl : MonoBehaviour
     }
 
 
-    void AppendItemListToCSV(StringBuilder sb, string label, List<BaseItem> items)
+    void AppendItemListToCSV(StringBuilder sb,List<BaseItem> items)
     {
-        sb.AppendLine($"[{label}]");
-
         for (int i = 0; i < items.Count; i++)
         {
             if (items[i] == null)
             {
                 items[i] = ItemDataBase.Instance.EmptyItem;
             }
-            sb.AppendLine($"{(int)items[i].id},{items[i].count}");
-        }
-        
+            sb.AppendLine($"[{(int)items[i].id},{items[i].count}] ");
+        }        
     }
 
     void LoadFromCSV(string csvData)
