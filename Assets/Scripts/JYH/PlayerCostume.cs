@@ -571,34 +571,34 @@ public class PlayerCostume : MonoBehaviour
                 SetLeg(1);
                 break;
             case ItemName.AlloyHelmS:
-                SetHead(2);
-                break;
-            case ItemName.AlloyMailS:
-                SetBreast(2);
-                break;
-            case ItemName.AlloyArmS:
-                SetHand(2);
-                break;
-            case ItemName.AlloyCoilS:
-                SetWaist(2);
-                break;
-            case ItemName.AlloyGreavesS:
-                SetLeg(2);
-                break;
-            case ItemName.BoneHelmS:
                 SetHead(3);
                 break;
-            case ItemName.BoneMailS:
+            case ItemName.AlloyMailS:
                 SetBreast(3);
                 break;
-            case ItemName.BoneArmS:
+            case ItemName.AlloyArmS:
                 SetHand(3);
                 break;
-            case ItemName.BoneCoilS:
+            case ItemName.AlloyCoilS:
                 SetWaist(3);
                 break;
-            case ItemName.BoneGreavesS:
+            case ItemName.AlloyGreavesS:
                 SetLeg(3);
+                break;
+            case ItemName.BoneHelmS:
+                SetHead(2);
+                break;
+            case ItemName.BoneMailS:
+                SetBreast(2);
+                break;
+            case ItemName.BoneArmS:
+                SetHand(2);
+                break;
+            case ItemName.BoneCoilS:
+                SetWaist(2);
+                break;
+            case ItemName.BoneGreavesS:
+                SetLeg(2);
                 break;
             case ItemName.KuluHelmS:
                 SetHead(4);
