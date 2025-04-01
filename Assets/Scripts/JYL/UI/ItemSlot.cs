@@ -26,7 +26,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     private void Start()
     {
-        item = ItemDataBase.Instance.emptyItem;
+        item = ItemDataBase.Instance.EmptyItem;
 
         image = gameObject.GetComponent<Image>();
     }
@@ -114,7 +114,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
         if (item.count <= 0)
         {
-            item = ItemDataBase.Instance.emptyItem;
+            item = ItemDataBase.Instance.EmptyItem;
             SlotSetItem(item);
         }
 

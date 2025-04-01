@@ -63,27 +63,10 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //player.gameObject.GetComponent<PlayerController>().enabled = true;
             CloseTopUI();
-        }
-        //if (isBox && Input.GetKeyDown(KeyCode.F))
-        //{
-            //if (openStack.Count == 0)
-            //{
-            //    StackUIOpen(UIType.AllVillageUI);
-            //    //플레이어 이동 제한
-            //    player.gameObject.GetComponent<PlayerController>().enabled = false;
-            //    player.gameObject.GetComponent<PlayerController>().Move(Vector2.zero);
-            //    CloseUI(UIType.BoxSelectUI);
-            //}
-            //else
-            //{
-            //    player.gameObject.GetComponent<PlayerController>().enabled = true;
+            InvenToryCtrl.Instance.SaveInventoryToFirebase();
 
-            //    CloseAll();
-            //    OpenUI(UIType.BoxSelectUI);
-            //}
-       // }
+        }
     }
 
 

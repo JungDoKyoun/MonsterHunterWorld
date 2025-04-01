@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -307,11 +307,8 @@ MonoBehaviour:
   roomInfoCanvas: {fileID: 327858483}
   basicQuestName: {fileID: 1539816344}
   questName: {fileID: 1566465536}
-  _boxTransform: {fileID: 2026273598}
+  _boxTransform: {fileID: 2026273595}
   _gizmoColor: {r: 0, g: 0, b: 1, a: 1}
-  loadingObject: {fileID: 1183797590}
-  loadingImage: {fileID: 1035107430}
-  loadingText: {fileID: 989326815}
 --- !u!4 &82450815
 Transform:
   m_ObjectHideFlags: 0
@@ -6404,59 +6401,11 @@ PrefabInstance:
     - {fileID: 8262044357272010408, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1052859744596363930, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2026273597}
-    - targetCorrespondingSourceObject: {fileID: 1052859744596363930, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2026273596}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
---- !u!1 &2026273595 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1052859744596363930, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
-  m_PrefabInstance: {fileID: 2026273594}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2026273596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026273595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cbb658175d7f574db9019bfdb5b4a19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcType: 0
-  isPlayerInRange: 0
---- !u!136 &2026273597
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026273595}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &2026273598 stripped
+--- !u!4 &2026273595 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6568305551907195481, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8757974300682798792, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
   m_PrefabInstance: {fileID: 2026273594}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2053649960
