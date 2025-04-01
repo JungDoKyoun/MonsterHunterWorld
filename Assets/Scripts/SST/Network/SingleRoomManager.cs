@@ -108,8 +108,11 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
                 }
                 if (selectedNpc != null && selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
                 {
+                    if (!questCreateCanvas.gameObject.activeInHierarchy)
+                    {
+                        SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.CreateQuest);
+                    }
                     questCreateCanvas.gameObject.SetActive(true);
-                    SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.CreateQuest);
                 }
             }
         }
@@ -117,9 +120,13 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         // ESC 키를 눌러 UI 닫기
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if(questCreateCanvas.gameObject.activeInHierarchy || roomInfoCanvas.gameObject.activeInHierarchy)
+            {
+                SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.LeaveQuest);
+            }
             questCreateCanvas.gameObject.SetActive(false);
             roomInfoCanvas.gameObject.SetActive(false);
-            SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.LeaveQuest);
+
         }
 
         if (player != null && singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == false

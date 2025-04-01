@@ -24,6 +24,18 @@ public class SoundManager : MonoBehaviour
         End
     }
 
+    public enum IngameSfxType
+    {
+        HunterAttack,
+        HunterAttack1,
+        HunterDodge,
+        HunterHit,
+        BossRoar,
+        BossAttack,
+        BossAttack1,
+        End
+    }
+
     public static SoundManager Instance;
 
     [Header("오디오 소스")]
@@ -38,6 +50,9 @@ public class SoundManager : MonoBehaviour
 
     [Header("퀘스트 SFX")]
     [SerializeField] AudioClip[] questSFXs = new AudioClip[(int)SfxQuestType.End];
+
+    [Header("인게임 SFX")]
+    [SerializeField] AudioClip[] inGameSFXs = new AudioClip[(int)IngameSfxType.End];
 
     private void Awake()
     {
@@ -80,6 +95,11 @@ public class SoundManager : MonoBehaviour
     public void PlaySFX(SfxQuestType qusetType, float volume = 1.0f)
     {
         PlaySFX(questSFXs[(int)qusetType], volume);
+    }
+
+    public void PlaySFX(IngameSfxType ingameSfxType, float volume = 1.0f)
+    {
+        PlaySFX(inGameSFXs[(int)ingameSfxType], volume);
     }
 
     public void PlaySFX(AudioClip audioClip, float volume)
