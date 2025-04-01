@@ -1,5 +1,4 @@
 using Cinemachine;
-using Firebase.Database;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -18,6 +17,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     PlayerController player;
     private Transform singleQuestPanel;
+    private Transform movePanel;
 
     // NPC 감지 관련 변수 (싱글플레이에는 생성 NPC만 있음)
     private List<NpcCtrl> activeNpcs = new List<NpcCtrl>();
@@ -90,40 +90,6 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if(player != null)
-        {
-            switch (player.enabled)
-            {
-                case true:
-                    if(_boxTransform != null)
-                    {
-                        if (Vector3.Distance(_boxTransform.position, player.transform.position) < InteractionRange)
-                        {
-                            player.Show(PlayerInteraction.State.Box);
-                            if (Input.GetKeyDown(KeyCode.F))
-                            {
-                                player.Show(PlayerInteraction.State.Hide);
-                                player.enabled = false;
-                                getCinemachineFreeLook.SetEnabled(false);
-                                UIManager.Instance.StackUIOpen(UIType.AllVillageUI);
-                            }
-                        }
-                        else
-                        {
-                            player.Show(PlayerInteraction.State.Hide);
-                        }
-                    }
-                    break;
-                case false:
-                    if (UIManager.Instance.IsOpenBox() == false)
-                    {
-                        getCinemachineFreeLook.SetEnabled(true);
-                        player.enabled = true;
-                    }
-                    break;
-            }
-        }
-
         // F 키를 눌러 근처 NPC와 상호작용하면 해당 UI 활성화
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -152,6 +118,41 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         {
             questCreateCanvas.gameObject.SetActive(false);
             roomInfoCanvas.gameObject.SetActive(false);
+        }
+
+        if (player != null && singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == false
+            && movePanel != null && movePanel.gameObject.activeInHierarchy == false)
+        {
+            switch (player.enabled)
+            {
+                case true:
+                    if (_boxTransform != null)
+                    {
+                        if (Vector3.Distance(_boxTransform.position, player.transform.position) < InteractionRange)
+                        {
+                            player.Show(PlayerInteraction.State.Box);
+                            if (Input.GetKeyDown(KeyCode.F))
+                            {
+                                player.Show(PlayerInteraction.State.Hide);
+                                player.enabled = false;
+                                getCinemachineFreeLook.SetEnabled(false);
+                                UIManager.Instance.StackUIOpen(UIType.AllVillageUI);
+                            }
+                        }
+                        else
+                        {
+                            player.Show(PlayerInteraction.State.Hide);
+                        }
+                    }
+                    break;
+                case false:
+                    if (UIManager.Instance.IsOpenBox() == false)
+                    {
+                        getCinemachineFreeLook.SetEnabled(true);
+                        player.enabled = true;
+                    }
+                    break;
+            }
         }
     }
 
@@ -204,7 +205,9 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
             yield return null;
         }
 
-        singleQuestPanel = player.GetComponent<PlayerInteraction>().singleQuestPanel;
+        PlayerInteraction playerInteraction = player.GetComponent<PlayerInteraction>();
+        singleQuestPanel = playerInteraction.singleQuestPanel;
+        movePanel = playerInteraction.movePanel;
         singleQuestPanel.gameObject.SetActive(false);
     }
 

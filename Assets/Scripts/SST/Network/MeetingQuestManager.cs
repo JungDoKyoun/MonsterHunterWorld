@@ -229,7 +229,16 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                     }
                     break;
                 case false:
-                    if (UIManager.Instance.IsOpenBox() == false)
+                    if((_questPanel != null && _questPanel.activeInHierarchy == true) || (_listPanel != null && _listPanel.gameObject.activeInHierarchy == true))
+                    {
+                        if (Input.GetKeyDown(KeyCode.Escape))
+                        {
+                            getCinemachineFreeLook.SetEnabled(true);
+                            _playerController.enabled = true;
+                            Show(Mode.End);
+                        }
+                    }
+                    else if (UIManager.Instance.IsOpenBox() == false)
                     {
                         getCinemachineFreeLook.SetEnabled(true);
                         _playerController.enabled = true;
