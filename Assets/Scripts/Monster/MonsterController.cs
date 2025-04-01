@@ -605,7 +605,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 
@@ -647,7 +646,20 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-        StartCoroutine(WaitForEndAttackAnime(_attackCollider));
+
+        if (_monsterAttackData[attackType].NeedRo)
+        {
+            _agent.enabled = false;
+        }
+
+        if (_monsterAttackData[attackType].NeedFly)
+        {
+            StartCoroutine(WaitForEndFlyAttackAnime(_attackCollider));
+        }
+        else
+        {
+            StartCoroutine(WaitForEndAttackAnime(_attackCollider, attackType));
+        }
 
         //switch(attackType)
         //{
@@ -872,15 +884,32 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    public IEnumerator WaitForEndAttackAnime(Collider co)
+    public IEnumerator WaitForEndAttackAnime(Collider co, int index)
     {
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         CheckAttackOnCollider(co);
-        if(_lastAttack == 1)
+        if (_monsterAttackData[index].NeedRo)
         {
             _agent.enabled = true;
         }
+        _isAttack = false;
+    }
+
+    public IEnumerator WaitForEndFlyAttackAnime(Collider co)
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("FlyAttack");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("FlyAttack2");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("FlyAttack3");
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        CheckAttackOnCollider(co);
         _isAttack = false;
     }
 

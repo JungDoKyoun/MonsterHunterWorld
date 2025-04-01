@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 
 public enum ProjectileType
 {
-    FireBall,aa
+    FireBall
 }
 
 public class MonsterProjectileSpawnManager : MonoBehaviour
