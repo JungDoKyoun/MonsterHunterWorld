@@ -102,16 +102,66 @@ public class InvenToryCtrl : MonoBehaviour
 
         StringBuilder sb = new StringBuilder();
         AppendItemListToCSV(sb, "Inventory", inventory);
-        AppendItemListToCSV(sb, "BoxInven", boxInven);
-        AppendItemListToCSV(sb, "EquipInventory", equipInventory);
-        AppendItemListToCSV(sb, "EquippedInventory", equippedInventory);
 
         string csvData = sb.ToString();
         await FirebaseDatabase.DefaultInstance.RootReference
-            .Child("users")
             .Child(user.UserId)
             .Child("inventoryData")
             .SetValueAsync(csvData);
+        
+        sb = new StringBuilder();
+        AppendItemListToCSV(sb, "BoxInven", boxInven);
+
+        csvData = sb.ToString();
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("BoxInvenData")
+            .SetValueAsync(csvData);
+        
+        sb = new StringBuilder();
+        AppendItemListToCSV(sb, "EquipInventory", equipInventory);
+
+        csvData = sb.ToString();
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("EquipInventoryData")
+            .SetValueAsync(csvData);
+
+        sb = new StringBuilder();
+        AppendItemListToCSV(sb, "EquippedInventory", equippedInventory);
+
+        csvData = sb.ToString();
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("EquippedInventoryData")
+            .SetValueAsync(csvData);
+
+
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Weapon")
+            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Weapon].id));
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Head")
+            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Head].id));
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Breast")
+            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Chest].id));
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Hand")
+            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Arms].id));
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Waist")
+            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Waist].id));
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Leg")
+            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Legs].id));
+
 
         Debug.Log("인벤토리 저장 완료");
     }
@@ -141,12 +191,26 @@ public class InvenToryCtrl : MonoBehaviour
     void AppendItemListToCSV(StringBuilder sb, string label, List<BaseItem> items)
     {
         sb.AppendLine($"[{label}]");
-        
-        foreach (var item in items)
+
+        switch (label)
         {
-            sb.AppendLine($"{(int)item.id},{item.count}");
-            Debug.Log(item.name + ": " + item.id + "," + item.count);
+            case "EquipInventory":
+            case "EquippedInventory":
+                foreach (var item in items)
+                {
+                    sb.AppendLine($"{(int)item.id}");                 
+                }
+                break;
+            default:
+                foreach (var item in items)
+                {
+                    sb.AppendLine($"{(int)item.id},{item.count}");                    
+                }
+                break;
         }
+
+
+     
     }
 
     void LoadFromCSV(string csvData)

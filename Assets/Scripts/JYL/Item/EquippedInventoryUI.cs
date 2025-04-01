@@ -47,10 +47,10 @@ public class EquippedInventoryUI : BaseInventory
         InvenToryCtrl.Instance.OnInventoryChanged -= RefreshUI;
         InvenToryCtrl.Instance.SaveInventoryToFirebase();
 
-        foreach (var item in items)
-        {
-            Debug.Log(item.name);
-        }
+        //foreach (var item in items)
+        //{
+        //    Debug.Log(item.name);
+        //}
 
     }
 
