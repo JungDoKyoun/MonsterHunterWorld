@@ -21,7 +21,7 @@ public class EquippedInventoryUI : BaseInventory
         {
             equipSlot[i].SetType((EquipSlot)i);
         }
-        InvenToryCtrl.Instance.equippedUIslot = equipSlot;
+        InvenToryCtrl.Instance.equippedUiSlot = equipSlot;
 
         Debug.Log(equipSlot.Length);
 
@@ -37,8 +37,8 @@ public class EquippedInventoryUI : BaseInventory
 
         UIManager.Instance.StackUIOpen(UIType.EquipInfoUI);
 
-        Debug.Log(" equip" + equipSlot.Length);
-        Debug.Log("ctrl"  +InvenToryCtrl.Instance.equippedUIslot.Length);
+        //Debug.Log(" equip" + equipSlot.Length);
+        //Debug.Log("ctrl"  +InvenToryCtrl.Instance.equippedUiSlot.Length);
     }
 
     private void OnDisable()
