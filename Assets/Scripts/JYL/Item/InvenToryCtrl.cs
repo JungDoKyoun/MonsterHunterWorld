@@ -68,7 +68,6 @@ public class InvenToryCtrl : MonoBehaviour
 
 
 
-
     }
 
     private void Start()
