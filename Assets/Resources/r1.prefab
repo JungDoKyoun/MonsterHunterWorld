@@ -230,8 +230,8 @@ GameObject:
   - component: {fileID: 4198905599365861759}
   - component: {fileID: 3332796666490810631}
   - component: {fileID: 1155891358687405126}
-  - component: {fileID: 3826498751250122022}
   - component: {fileID: 2642226153267137908}
+  - component: {fileID: 3826498751250122022}
   - component: {fileID: 5584208265966351522}
   - component: {fileID: 4244391611744189857}
   - component: {fileID: 6078900687433364922}
@@ -323,19 +323,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3826498751250122022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342189898198089240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b9618f63674b8542b119c4115e95aba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _monsterSO: {fileID: 11400000, guid: 64bba6bd8f53e3846a28b18e54104dcb, type: 2}
 --- !u!114 &2642226153267137908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,8 +348,21 @@ MonoBehaviour:
   _sleepIndex: 0
   _restIndex: 02000000
   _restTime: 30
-  _sleepTime: 10
+  _sleepTime: 90
   _isBattle: 0
+--- !u!114 &3826498751250122022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342189898198089240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9618f63674b8542b119c4115e95aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monsterSO: {fileID: 11400000, guid: e716955e165aa1a4a9b191a85abcd6b3, type: 2}
 --- !u!114 &5584208265966351522
 MonoBehaviour:
   m_ObjectHideFlags: 0

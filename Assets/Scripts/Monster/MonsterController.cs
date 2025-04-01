@@ -644,7 +644,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-        attackType = 3;
+
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 
