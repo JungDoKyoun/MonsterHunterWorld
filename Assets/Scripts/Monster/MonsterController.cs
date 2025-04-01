@@ -78,6 +78,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isalSleep;
     private bool _isWakeUp;
     private bool _isNeedRoar;
+    private bool _isalRun;
 
     private void Awake()
     {
@@ -130,6 +131,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isalSleep = false;
         _isWakeUp = false;
         _isNeedRoar = false;
+        _isalRun = false;
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
@@ -156,6 +158,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsalSleep { get { return _isalSleep; } set { _isalSleep = value; } }
     public bool IsWakeUp { get { return _isWakeUp; } set { _isWakeUp = value; } }
     public bool IsNeedRoar { get { return _isNeedRoar; } set { _isNeedRoar = value; } }
+    public bool IsalRun { get { return _isalRun; } set { _isalRun = value; } }
 
     public void InitProjectile()
     {
@@ -245,12 +248,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
         return patrolPos;
     }
 
-    public Vector3 SetRunPos()
+    public void SetRunPos()
     {
-        Vector3 runPos = moveTargetPos[_sleepIndex].transform.position;
-        _currentPatrolIndex = _sleepIndex;
-        _nextPatrolIndex = _sleepIndex++;
-        return runPos;
+        _currentPatrolIndex = _sleepIndex - 1;
+        _nextPatrolIndex = _sleepIndex;
     }
 
     public void NavMeshMatchMonsterPos() //네비메쉬 좌표 몬스터를 따라가게함
@@ -414,6 +415,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
             return true;
         }
         return false;
+    }
+
+    public bool IsLowHP()
+    {
+        return _currentHP <= _maxHP * 0.2f;
     }
 
     public void UpdateAttackCoolTime() //쿨타임 재기
@@ -627,6 +633,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
         {
             StartCoroutine(WaitForEndLink());
         }
+    }
+
+    public void Run()
+    {
+        
     }
 
     public void ChooseAttackType()
