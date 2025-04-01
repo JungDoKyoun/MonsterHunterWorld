@@ -21,6 +21,19 @@ public class SoundManager : MonoBehaviour
         Interaction,
         CreateQuest,
         LeaveQuest,
+        OpenBox,
+        End
+    }
+
+    public enum IngameSfxType
+    {
+        HunterAttack,
+        HunterAttack1,
+        HunterDodge,
+        HunterHit,
+        BossRoar,
+        BossAttack,
+        BossAttack1,
         End
     }
 
@@ -37,7 +50,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip[] buttonSFXs = new AudioClip[3];
 
     [Header("퀘스트 SFX")]
-    [SerializeField] AudioClip[] questSFXs = new AudioClip[(int)SfxQuestType.End];
+    [SerializeField] AudioClip[] questSfxs = new AudioClip[(int)SfxQuestType.End];
+
+    [Header("인게임 SFX")]
+    [SerializeField] AudioClip[] inGameSFXs = new AudioClip[(int)IngameSfxType.End];
 
     private void Awake()
     {
@@ -79,7 +95,12 @@ public class SoundManager : MonoBehaviour
     // SFX도 타입으로 하나 만들어서 실행하게 바꿀 예정
     public void PlaySFX(SfxQuestType qusetType, float volume = 1.0f)
     {
-        PlaySFX(questSFXs[(int)qusetType], volume);
+        PlaySFX(questSfxs[(int)qusetType], volume);
+    }
+
+    public void PlaySFX(IngameSfxType ingameSfxType, float volume = 1.0f)
+    {
+        PlaySFX(inGameSFXs[(int)ingameSfxType], volume);
     }
 
     public void PlaySFX(AudioClip audioClip, float volume)
