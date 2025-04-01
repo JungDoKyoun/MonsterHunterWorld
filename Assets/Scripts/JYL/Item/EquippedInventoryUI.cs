@@ -8,20 +8,14 @@ public class EquippedInventoryUI : BaseInventory
     private void Awake()
     {
         invenType = InvenType.Equipped;
-        //// 리스트 크기 보정 (슬롯 수와 같게)
-        //EnsureEquipListSize();
     }
 
     private void Start()
     {
-
-
         for (int i = 0; i < equipSlot.Length; i++)
         {
             equipSlot[i].SetType((EquipSlot)i);
         }
-
-        //InvenToryCtrl.Instance.SlotSetting(equipSlot);
 
         InvenToryCtrl.Instance.equippedUiSlot = equipSlot;
 
@@ -29,7 +23,7 @@ public class EquippedInventoryUI : BaseInventory
         //// 초기 세팅
         RefreshUI();
 
-        InvenToryCtrl.Instance.DebugTest();
+        //InvenToryCtrl.Instance.DebugTest();
     }
 
     private void OnEnable()
@@ -48,12 +42,6 @@ public class EquippedInventoryUI : BaseInventory
     {
         UIManager.Instance.CloseAll();
         InvenToryCtrl.Instance.OnInventoryChanged -= RefreshUI;
-
-        //foreach (var item in items)
-        //{
-        //    Debug.Log(item.name);
-        //}
-
     }
 
     // UI 갱신

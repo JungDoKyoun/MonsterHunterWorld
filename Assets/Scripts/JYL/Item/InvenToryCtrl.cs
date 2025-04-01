@@ -11,7 +11,8 @@ public enum InvenType
     Inven,
     Box,
     Equipped,
-    EquipBox
+    EquipBox,
+    QuickSlot
 }
 
 public enum InvenSize
@@ -573,6 +574,29 @@ public class InvenToryCtrl : MonoBehaviour
 
         Debug.Log("빈 슬롯 없음");
         return false;
+    }
+
+
+    public void LoadQuickSlotItemsFromInventory()
+    {
+        quickSlotItem.Clear(); // 기존 퀵슬롯 초기화
+
+        foreach (var item in inventory)
+        {
+            if (item == null || item.id == ItemName.Empty) continue;
+
+            // 조건: trap, meat, position 이름 포함 아이템만 허용
+            string name = item.name.ToLower();
+
+            if (name.Contains("trap") || 
+                name.Contains("meat") || 
+                name.Contains("position"))
+            {
+                quickSlotItem.Add(item.Clone());
+            }
+        }
+
+        Debug.Log($"퀵슬롯에 {quickSlotItem.Count}개의 아이템을 불러왔습니다.");
     }
 
 }
