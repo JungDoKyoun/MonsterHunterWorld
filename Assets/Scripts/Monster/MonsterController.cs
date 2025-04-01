@@ -59,7 +59,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
     private bool _isCanGetItem; //아이템 주울수 있는 상태
-    private bool _isBattle; //전투중인지?
+    [SerializeField]private bool _isBattle; //전투중인지?
     private bool _isAttack; //공격중인지?
     private bool _isRoar; //포효중인지?
     private bool _isBackMove; //뒤로 가는중인지
@@ -76,6 +76,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isRun;
     private bool _isSleep;
     private bool _isalSleep;
+    private bool _isWakeUp;
+    private bool _isNeedRoar;
 
     private void Awake()
     {
@@ -126,6 +128,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _isRun = false;
         _isSleep = false;
         _isalSleep = false;
+        _isWakeUp = false;
+        _isNeedRoar = false;
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
@@ -150,6 +154,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsRun { get { return _isRun; } set { _isRun = value; } }
     public bool IsSleep { get { return _isSleep; } set { _isSleep = value; } }
     public bool IsalSleep { get { return _isalSleep; } set { _isalSleep = value; } }
+    public bool IsWakeUp { get { return _isWakeUp; } set { _isWakeUp = value; } }
+    public bool IsNeedRoar { get { return _isNeedRoar; } set { _isNeedRoar = value; } }
 
     public void InitProjectile()
     {
@@ -871,6 +877,16 @@ public class MonsterController : MonoBehaviourPunCallbacks
         StartCoroutine(WaitForEndLandingAnime());
     }
 
+    public void Sleep()
+    {
+        StartCoroutine(WaitForEndSleepAnime());
+    }
+
+    public void WakeUP()
+    {
+        StartCoroutine(WaitForEndWakeUpAnime());
+    }
+
     private IEnumerator SmoothTurn(Vector3 direct) //30도 이하 자연스럽게 애니메이션 없이 회전
     {
         Quaternion targetRo = Quaternion.LookRotation(direct);
@@ -1077,6 +1093,29 @@ public class MonsterController : MonoBehaviourPunCallbacks
         TurnOnAgent();
         _isLink = false;
         SetAnime("IsChase", true);
+    }
+
+    public IEnumerator WaitForEndSleepAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        SetAnime("IsSleep2", true);
+        float tempTime = 0;
+        while(tempTime <= _sleepTime)
+        {
+            tempTime += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("자는거 끝");
+        SetAnime("IsSleep2", false);
+        _isSleep = false;
+    }
+
+    public IEnumerator WaitForEndWakeUpAnime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        _isWakeUp = false;
     }
 
     public void OnTriggerEnter(Collider other)

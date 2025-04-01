@@ -31,6 +31,10 @@ public class MonsterIdleState : IMonsterState
 
     public override void Exit()
     {
+        if(_monster.IsalSleep)
+        {
+            _monster.IsalSleep = false;
+        }
         _monster.SetAnime("IsIdle", false);
     }
 
@@ -112,7 +116,6 @@ public class MonsterSleepState : IMonsterState
 {
     MonsterController _monster;
     MonsterStateManager _stateManager;
-    float _tempTime;
 
     public override void Enter(MonsterController monster, MonsterStateManager stateManager)
     {
@@ -120,12 +123,17 @@ public class MonsterSleepState : IMonsterState
         _stateManager = stateManager;
         _monster.IsSleep = true;
         _monster.IsalSleep = true;
-        _tempTime = 0;
+        _monster.SetAnime("IsSleep");
+        _monster.Sleep();
+        Debug.Log("ÀÚ´ÂÁß");
     }
 
     public override void Exit()
     {
-        
+        if(_monster.IsSleep)
+        {
+            _monster.IsSleep = false;
+        }
     }
 
     public override void Move()
@@ -135,8 +143,6 @@ public class MonsterSleepState : IMonsterState
 
     public override void Update()
     {
-        _tempTime += Time.deltaTime;
-
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -157,14 +163,77 @@ public class MonsterSleepState : IMonsterState
 
         if (_monster.IsBattle && !_monster.IsHit)
         {
-            _stateManager.ChangeMonsterState(new MonsterRoarState());
+            _monster.IsNeedRoar = true;
+            _stateManager.ChangeMonsterState(new MonsterWakeUpState());
             return;
         }
 
-        if (_tempTime >= _monster.SleepTime)
+        if (!_monster.IsSleep)
         {
-            _stateManager.ChangeMonsterState(new MonsterIdleState());
+            _stateManager.ChangeMonsterState(new MonsterWakeUpState());
             return;
+        }
+    }
+}
+
+public class MonsterWakeUpState : IMonsterState
+{
+    MonsterController _monster;
+    MonsterStateManager _stateManager;
+
+    public override void Enter(MonsterController monster, MonsterStateManager stateManager)
+    {
+        _monster = monster;
+        _stateManager = stateManager;
+        _monster.IsWakeUp = true;
+        _monster.SetAnime("IsSleep3");
+        _monster.WakeUP();
+    }
+
+    public override void Exit()
+    {
+        
+    }
+
+    public override void Move()
+    {
+        
+    }
+
+    public override void Update()
+    {
+        if (_monster.IsDie)
+        {
+            _stateManager.ChangeMonsterState(new MonsterDieState());
+            return;
+        }
+
+        if (_monster.IsTrap)
+        {
+            _stateManager.ChangeMonsterState(new MonsterTrapState());
+            return;
+        }
+
+        if (_monster.IsStun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterStunState());
+            return;
+        }
+
+        if(!_monster.IsWakeUp)
+        {
+            if (_monster.IsBattle && _monster.IsNeedRoar)
+            {
+                _monster.IsNeedRoar = false;
+                _stateManager.ChangeMonsterState(new MonsterRoarState());
+                return;
+            }
+
+            else
+            {
+                _stateManager.ChangeMonsterState(new MonsterIdleState());
+                return;
+            }
         }
     }
 }

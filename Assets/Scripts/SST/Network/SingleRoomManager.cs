@@ -108,6 +108,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
                 if (selectedNpc != null && selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
                 {
                     questCreateCanvas.gameObject.SetActive(true);
+                    SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.CreateQuest);
                 }
             }
         }
@@ -117,6 +118,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         {
             questCreateCanvas.gameObject.SetActive(false);
             roomInfoCanvas.gameObject.SetActive(false);
+            SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.LeaveQuest);
         }
 
         if (player != null && singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == false
@@ -161,6 +163,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
         //StartCoroutine(WaitForCreateQuestRoom());
         questCreateCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(true);
+
     }
 
     public void LeaveQuest()
