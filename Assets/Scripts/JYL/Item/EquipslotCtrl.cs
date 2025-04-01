@@ -35,6 +35,13 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public void OnPointerEnter(PointerEventData eventData)
     {
         var ctrl = InvenToryCtrl.Instance;
+        
+        ////현재 장착된 장비들 체크
+        //for (int i = 0; i < ctrl.equippedInventory.Count-1; i++)
+        //{
+        //    Debug.Log(ctrl.equippedInventory[i].name);
+        //}
+
 
         if (item.type == ItemType.Weapon)
         {
@@ -109,16 +116,51 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void SlotListSetting(BaseItem slotitem)
     {
-        if (!IsCorrectType(slotitem))
+        if (slotitem == null)
         {
-            Debug.LogWarning($"[장착 실패] {item.name}은 {type} 슬롯에 장착할 수 없습니다.");
+            Debug.LogWarning("[EquipslotCtrl] slotitem이 null입니다.");
             return;
         }
 
+        // 현재 슬롯에 안 맞으면 자동으로 맞는 슬롯 찾기
+        if (!IsCorrectType(slotitem))
+        {
+            Debug.LogWarning($"[장착 실패] {slotitem.name}은 {type} 슬롯에 장착할 수 없습니다. 자동으로 올바른 슬롯 탐색 시도.");
+
+            // 타입이 Armor일 경우 해당 타입에 맞는 슬롯 찾기
+            if (slotitem is Armor armor)
+            {
+                int correctIndex = (int)armor.equipType;
+                if (correctIndex < InvenToryCtrl.Instance.equippedUiSlot.Length)
+                {
+                    InvenToryCtrl.Instance.equippedUiSlot[correctIndex].SlotListSetting(slotitem);
+
+                    return;
+                }
+            }
+            // 무기일 경우 Weapon 슬롯으로
+            else if (slotitem is Weapon)
+            {
+                InvenToryCtrl.Instance.equippedUiSlot[(int)EquipSlot.Weapon].SlotListSetting(slotitem);
+                return;
+            }
+
+            return;
+        }
+
+        // 정상적인 경우 장착 처리
         item = slotitem;
-        icon.sprite = slotitem.image;
-        icon.color = slotitem.color;
-        itemName.text = slotitem.name;
+
+        if (icon != null)
+        {
+            icon.sprite = slotitem.image;
+            icon.color = slotitem.color;
+        }
+
+        if (itemName != null)
+        {
+            itemName.text = slotitem.name;
+        }
     }
 
     public bool IsCorrectType(BaseItem item)

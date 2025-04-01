@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public enum InvenType
 {
@@ -33,7 +34,17 @@ public class InvenToryCtrl : MonoBehaviour
     public EquipslotCtrl[] equippedUiSlot;
     //장비용 툴팁 UI
     [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
-    public EquipItemToolTipCtrl EquipItemToolTipCtrl { get; set; }
+    public EquipItemToolTipCtrl EquipItemToolTipCtrl 
+    {
+        get
+        {
+            return equipItemToolTipCtrl;
+        }
+        set
+        {
+            equipItemToolTipCtrl = value;
+        }
+    }
 
 
 
@@ -65,51 +76,39 @@ public class InvenToryCtrl : MonoBehaviour
             return;
         }
         Instance = this;
+        
+    }
 
+    
 
+   public void DebugTest()
+    {
+        if (equippedUiSlot == null || equippedUiSlot.Length == 0)
+        {
+            Debug.LogError("equippedUiSlot이 연결되지 않았습니다! Inspector에서 확인해주세요.");
+        }
 
+        Debug.Log("equippedUiSlot이 연결 잘 되었음.");
     }
 
     private void Start()
     {
         LoadInventoryFromFirebase();
+    }
 
+    
 
-        if (inventory.Count == 0)
+    public void SlotSetting(EquipslotCtrl[] slots)
+    {
+
+        // 자동으로 슬롯 UI 배열 초기화
+        if (slots == null || slots.Length == 0)
         {
-            InvenInit(inventory, (int)InvenSize.Inventory);
+            equippedUiSlot = slots
+                .OrderBy(slot => slot.Type)
+                .ToArray();
+            Debug.Log($"[InvenToryCtrl] equippedUiSlot 자동 초기화 완료 ({equippedUiSlot.Length}개)");
         }
-
-        if (boxInven.Count == 0)
-        {
-            InvenInit(boxInven, (int)InvenSize.BoxInven);
-        }
-
-        if (equipInventory.Count == 0)
-        {
-            InvenInit(equipInventory, (int)InvenSize.EquipInven);
-        }
-
-        if (equippedInventory.Count == 0)
-        {
-            InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
-        }
-
-
-        ////아이템 흭득
-        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
-        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.Potion));
-        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
-        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak));
-        //GetItemToInventory(inventory, ItemDataBase.Instance.GetItem(ItemName.PitfallTrap));
-
-        ////장비인벤 아이템흭득
-        //for (int i = (int)ItemName.HuntersKnife_I; i <= (int)ItemName.AnjaGreavesS; i++)
-        //{
-        //    GetItemToInventory(equipInventory, ItemDataBase.Instance.GetItem((ItemName)i));
-        //}
-
-
     }
 
     public async void SaveInventoryToFirebase()
@@ -117,6 +116,7 @@ public class InvenToryCtrl : MonoBehaviour
         var user = FirebaseAuth.DefaultInstance.CurrentUser;
         if (user == null) return;
 
+        //인벤토리별 저장
         StringBuilder sb = new StringBuilder();
         AppendItemListToCSV(sb, "Inventory", inventory);
 
@@ -153,7 +153,7 @@ public class InvenToryCtrl : MonoBehaviour
             .Child("EquippedInventoryData")
             .SetValueAsync(csvData);
 
-
+        //슬롯세팅
         await FirebaseDatabase.DefaultInstance.RootReference
             .Child(user.UserId)
             .Child("Weapon")
@@ -182,27 +182,6 @@ public class InvenToryCtrl : MonoBehaviour
 
         Debug.Log("인벤토리 저장 완료");
     }
-
-    //public async void LoadInventoryFromFirebase()
-    //{
-    //    var user = FirebaseAuth.DefaultInstance.CurrentUser;
-    //    if (user == null) return;
-
-    //    var snapshot = await FirebaseDatabase.DefaultInstance.RootReference
-    //        .Child(user.UserId)
-    //        .Child("inventoryData")
-    //        .GetValueAsync();
-
-    //    if (snapshot.Exists)
-    //    {
-    //        string csvData = snapshot.Value.ToString();
-    //        LoadFromCSV(csvData);
-    //        Debug.Log("인벤토리 불러오기 완료");
-    //    }
-
-    //    Debug.Log("인벤토리 불러오기 실패");
-
-    //}
 
     public async void LoadInventoryFromFirebase()
     {
@@ -234,12 +213,17 @@ public class InvenToryCtrl : MonoBehaviour
         equippedList[(int)EquipSlot.Arms] = GetItemFromKey(await root.Child(user.UserId).Child("Hand").GetValueAsync());
         equippedList[(int)EquipSlot.Waist] = GetItemFromKey(await root.Child(user.UserId).Child("Waist").GetValueAsync());
         equippedList[(int)EquipSlot.Legs] = GetItemFromKey(await root.Child(user.UserId).Child("Leg").GetValueAsync());
+        equippedList[(int)EquipSlot.neck] = ItemDataBase.Instance.emptyItem.Clone();
+        equippedList[(int)EquipSlot.band] = ItemDataBase.Instance.emptyItem.Clone();
 
         equippedInventory = equippedList;
-
-
-
-        Debug.Log("인벤토리 로드 완료");
+ 
+        if(equippedInventory != null)
+             Debug.Log("인벤토리 로드 완료");
+        else
+        {
+            Debug.Log("??? 뭔가잘못됨");
+        }
     }
 
 
@@ -282,10 +266,26 @@ public class InvenToryCtrl : MonoBehaviour
     {
         sb.AppendLine($"[{label}]");
 
-        foreach (var item in items)
+        for (int i = 0; i < items.Count; i++)         
         {
-            sb.AppendLine($"{(int)item.id},{item.count}");
+            if (items[i] == null)
+            {
+                Debug.LogWarning($"[CSV 저장] {label} 리스트에 null 아이템이 있습니다. 빈 아이템으로 처리합니다.");
+                items[i] = ItemDataBase.Instance.emptyItem;
+            }
+            sb.AppendLine($"{(int)items[i].id},{items[i].count}");
+
         }
+        //foreach (var item in items)
+        //{
+        //    if (item == null)
+        //    {
+        //        Debug.LogWarning($"[CSV 저장] {label} 리스트에 null 아이템이 있습니다. 빈 아이템으로 처리합니다.");
+        //        item = ItemDataBase.Instance.emptyItem;
+        //    }
+
+        //    sb.AppendLine($"{(int)item.id},{item.count}");
+        //}
     }
 
     void LoadFromCSV(string csvData)
