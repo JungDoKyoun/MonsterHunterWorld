@@ -23,7 +23,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
     private MonsterProjectileSpawnManager _projectileSpawnManager; //투사체 스폰 매니저
-    private Collider attackCollider;
+    private Collider _attackCollider;
     private NavMeshAgent _agent; //네이메쉬
     private Animator _anime; //애니메이션
     private List<Transform> _detectPlayers = new List<Transform>(); //감지되는 플레이어 목록
@@ -335,7 +335,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Roar()
     {
-        Debug.Log("로어 들어옴");
         IsRoar = true;
         StartCoroutine(WaitForEndRoarAnime());
     }
@@ -627,17 +626,28 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         SetAnime(_monsterAttackData[attackType].AnimeName);
         _damage = _monsterAttackData[attackType].Damage;
-        var obj = transform.Find(_monsterAttackData[attackType].AttackColliderName);
-        attackCollider = null;
-        if(obj != null)
+        //var obj = transform.GetComponentsInChildren<Collider>(true);
+        //_attackCollider = null;
+        //if(obj != null)
+        //{
+        //    _attackCollider = obj.GetComponent<Collider>();
+        //    if(_attackCollider != null)
+        //    {
+        //        _attackCollider.enabled = true;
+        //    }
+        //}
+
+        var obj = transform.GetComponentsInChildren<Collider>(true);
+        foreach (var col in obj)
         {
-            attackCollider = obj.GetComponent<Collider>();
-            if(attackCollider != null)
+            if (col.name == _monsterAttackData[attackType].AttackColliderName)
             {
-                attackCollider.enabled = true;
+                _attackCollider = col;
+                _attackCollider.enabled = true;
+                break;
             }
         }
-        StartCoroutine(WaitForEndAttackAnime(attackCollider));
+        StartCoroutine(WaitForEndAttackAnime(_attackCollider));
 
         //switch(attackType)
         //{
@@ -1012,7 +1022,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (other.CompareTag("Player"))
         {
-            CheckAttackOnCollider(attackCollider);
+            CheckAttackOnCollider(_attackCollider);
 
             Vector3 contactPoint = other.ClosestPoint(transform.position);
             Transform current = other.transform;
