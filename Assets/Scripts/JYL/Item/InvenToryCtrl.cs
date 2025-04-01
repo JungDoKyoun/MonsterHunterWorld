@@ -77,12 +77,15 @@ public class InvenToryCtrl : MonoBehaviour
             return;
         }
         Instance = this;
-        
+
+    }
+    private void Start()
+    {
+        LoadInventoryFromFirebase();
     }
 
-    
 
-   public void DebugTest()
+    public void DebugTest()
     {
         if (equippedUiSlot == null || equippedUiSlot.Length == 0)
         {
@@ -91,13 +94,6 @@ public class InvenToryCtrl : MonoBehaviour
 
         Debug.Log("equippedUiSlot이 연결 잘 되었음.");
     }
-
-    private void Start()
-    {
-        LoadInventoryFromFirebase();
-    }
-
-    
 
     public void SlotSetting(EquipslotCtrl[] slots)
     {
@@ -195,12 +191,13 @@ public class InvenToryCtrl : MonoBehaviour
         Debug.Log("인벤토리 저장 완료");
     }
 
-    public async void LoadInventoryFromFirebase()
+    public async void LoadInventoryFromFirebase(System.Action onComplete = null)
     {
         var user = FirebaseAuth.DefaultInstance.CurrentUser;
         if (user == null) return;
 
         DatabaseReference root = FirebaseDatabase.DefaultInstance.RootReference;
+
 
         // 1. inventory 리스트 불러오기
         var inventoryData = await root.Child(user.UserId).Child("inventoryData").GetValueAsync();
@@ -238,12 +235,18 @@ public class InvenToryCtrl : MonoBehaviour
                 InvenToryCtrl.Instance.OnEquippedChanged?.Invoke(item.id);
         }
 
+
+        equippedInventory = equippedList;
+
         if (equippedInventory != null)
              Debug.Log("인벤토리 로드 완료");
         else
         {
             Debug.Log("??? 뭔가잘못됨");
         }
+
+        //완료 콜백 호출
+        onComplete?.Invoke();
     }
 
 
@@ -579,22 +582,20 @@ public class InvenToryCtrl : MonoBehaviour
 
     public void LoadQuickSlotItemsFromInventory()
     {
-        quickSlotItem.Clear(); // 기존 퀵슬롯 초기화
-
+        quickSlotItem.Clear(); // 기존 퀵슬롯 초기화       
+        
         foreach (var item in inventory)
         {
             if (item == null || item.id == ItemName.Empty) continue;
-
-            // 조건: trap, meat, position 이름 포함 아이템만 허용
-            string name = item.name.ToLower();
-
-            if (name.Contains("trap") || 
-                name.Contains("meat") || 
-                name.Contains("position"))
+            
+            if (item.type == ItemType.Potion ||
+                item.type == ItemType.Trap)
             {
-                quickSlotItem.Add(item.Clone());
+                quickSlotItem.Add(item);
             }
         }
+
+
 
         Debug.Log($"퀵슬롯에 {quickSlotItem.Count}개의 아이템을 불러왔습니다.");
     }
