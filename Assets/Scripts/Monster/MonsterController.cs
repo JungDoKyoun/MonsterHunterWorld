@@ -1101,7 +1101,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         SetAnime("IsSleep2", true);
         float tempTime = 0;
-        while(tempTime <= _sleepTime)
+        while(tempTime >= _sleepTime)
         {
             tempTime += Time.deltaTime;
             yield return null;
