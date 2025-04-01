@@ -1,3 +1,4 @@
+using Cinemachine;
 using Firebase.Database;
 using Photon.Pun;
 using Photon.Realtime;
@@ -23,7 +24,42 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private string roomName = "SingleRoom";
 
-    //Vector2 originPos = Vector2.up * 1500; // 추후 UI 스크롤 연출에 활용
+    private static float InteractionRange = 2f;
+
+    [SerializeField]
+    private Transform _boxTransform = null;
+
+
+    private bool _hasCinemachineFreeLook = false;
+
+    private CinemachineFreeLook _cinemachineFreeLook = null;
+
+    private CinemachineFreeLook getCinemachineFreeLook
+    {
+        get
+        {
+            if (_hasCinemachineFreeLook == false)
+            {
+                _hasCinemachineFreeLook = true;
+                _cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
+            }
+            return _cinemachineFreeLook;
+        }
+    }
+
+#if UNITY_EDITOR
+    [SerializeField]
+    private Color _gizmoColor = Color.blue;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = _gizmoColor;
+        if (_boxTransform != null)
+        {
+            Gizmos.DrawWireSphere(_boxTransform.position, InteractionRange);
+        }
+    }
+#endif
 
     private void Awake()
     {
@@ -39,6 +75,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+
         // 초기에 로비 관련 UI 캔버스 비활성화
         questCreateCanvas.gameObject.SetActive(false);
         roomInfoCanvas.gameObject.SetActive(false);
@@ -53,6 +90,40 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if(player != null)
+        {
+            switch (player.enabled)
+            {
+                case true:
+                    if(_boxTransform != null)
+                    {
+                        if (Vector3.Distance(_boxTransform.position, player.transform.position) < InteractionRange)
+                        {
+                            player.Show(PlayerInteraction.State.Box);
+                            if (Input.GetKeyDown(KeyCode.F))
+                            {
+                                player.Show(PlayerInteraction.State.Hide);
+                                player.enabled = false;
+                                getCinemachineFreeLook.SetEnabled(false);
+                                UIManager.Instance.StackUIOpen(UIType.AllVillageUI);
+                            }
+                        }
+                        else
+                        {
+                            player.Show(PlayerInteraction.State.Hide);
+                        }
+                    }
+                    break;
+                case false:
+                    if (UIManager.Instance.IsOpenBox() == false)
+                    {
+                        getCinemachineFreeLook.SetEnabled(true);
+                        player.enabled = true;
+                    }
+                    break;
+            }
+        }
+
         // F 키를 눌러 근처 NPC와 상호작용하면 해당 UI 활성화
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -60,7 +131,6 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
             {
                 NpcCtrl selectedNpc = null;
                 float minDistance = Mathf.Infinity;
-
                 foreach (var npc in activeNpcs)
                 {
                     float distance = Vector3.Distance(npc.transform.position, player.transform.position);
@@ -70,13 +140,9 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
                         selectedNpc = npc;
                     }
                 }
-
-                if (selectedNpc != null)
+                if (selectedNpc != null && selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
                 {
-                    if (selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
-                    {
-                        questCreateCanvas.gameObject.SetActive(true);
-                    }
+                    questCreateCanvas.gameObject.SetActive(true);
                 }
             }
         }

@@ -32,6 +32,7 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
 
         foreach(var co in shooterCholliders)
         {
+            Debug.Log(co);
             Physics.IgnoreCollision(myCollider, co);
             _ignorColliders.Add(co);
         }

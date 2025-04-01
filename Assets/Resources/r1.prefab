@@ -345,6 +345,10 @@ MonoBehaviour:
   _groundRayDis: 10
   _flyHigh: 250
   _blockDis: 0
+  _sleepIndex: 0
+  _restIndex: 02000000
+  _restTime: 30
+  _sleepTime: 90
 --- !u!114 &3826498751250122022
 MonoBehaviour:
   m_ObjectHideFlags: 0

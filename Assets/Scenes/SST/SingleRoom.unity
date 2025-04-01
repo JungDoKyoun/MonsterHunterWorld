@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -307,6 +307,8 @@ MonoBehaviour:
   roomInfoCanvas: {fileID: 327858483}
   basicQuestName: {fileID: 1539816344}
   questName: {fileID: 1566465536}
+  _boxTransform: {fileID: 2026273598}
+  _gizmoColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!4 &82450815
 Transform:
   m_ObjectHideFlags: 0
@@ -6047,7 +6049,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2869766406443164267, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
+    - {fileID: 8262044357272010408, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -6100,6 +6104,11 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2026273598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6568305551907195481, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
+  m_PrefabInstance: {fileID: 2026273594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2053649960
 GameObject:
   m_ObjectHideFlags: 0

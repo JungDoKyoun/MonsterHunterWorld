@@ -29,9 +29,14 @@ public class BoxInvenTory : BaseInventory
         SlotSetting(gameObject, invenType);
 
     }
-    private void Start()
-    {
 
+
+    private void OnEnable()
+    {
+        items = InvenToryCtrl.Instance.boxInven;
+        boxIndex = 1;
+        RefreshUI(items);
+        
         //인벤 변경시 UI 초기화
         InvenToryCtrl.Instance.OnInventoryChanged += () =>
         {
@@ -39,11 +44,14 @@ public class BoxInvenTory : BaseInventory
         };
     }
 
-    private void OnEnable()
+    private void OnDisable()
     {
-        items = InvenToryCtrl.Instance.boxInven;
-        boxIndex = 1;
-        RefreshUI(items);
+
+        //인벤 변경시 UI 초기화
+        InvenToryCtrl.Instance.OnInventoryChanged -= () =>
+        {
+            RefreshUI(items);
+        };
     }
 
     override public void RefreshUI(List<BaseItem> list)
