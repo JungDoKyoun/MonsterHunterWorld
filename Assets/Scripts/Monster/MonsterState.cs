@@ -31,6 +31,10 @@ public class MonsterIdleState : IMonsterState
 
     public override void Exit()
     {
+        if(_monster.IsalSleep)
+        {
+            _monster.IsalSleep = false;
+        }
         _monster.SetAnime("IsIdle", false);
     }
 
