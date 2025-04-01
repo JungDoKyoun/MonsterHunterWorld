@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using ExitGames.Client.Photon;
 
 [DisallowMultipleComponent]
 public class PlayerCostume : MonoBehaviour
@@ -86,7 +87,11 @@ public class PlayerCostume : MonoBehaviour
     private static readonly int SetIndexStart = 0;
     private static readonly int SetIndexEnd = 5;
 
-    public static readonly string EquipmentTag = "Equipment";
+    public const string HandTag = "Hand";
+    public const string BreastTag = "Breast";
+    public const string HeadTag = "Head";
+    public const string LegTag = "Leg";
+    public const string WaistTag = "Waist";
 
 #if UNITY_EDITOR
 
@@ -98,43 +103,71 @@ public class PlayerCostume : MonoBehaviour
     [ContextMenu("장비 없음")]
     private void Set0()
     {
-        Equip(-1);
+        SetHand(-1);
+        SetBreast(-1);
+        SetHead(-1);
+        SetLeg(-1);
+        SetWaist(-1);
     }
 
     [ContextMenu("장비 1")]
     private void Set1()
     {
-        Equip(0);
+        SetHand(0);
+        SetBreast(0);
+        SetHead(0);
+        SetLeg(0);
+        SetWaist(0);
     }
 
     [ContextMenu("장비 2")]
     private void Set2()
     {
-        Equip(1);
+        SetHand(1);
+        SetBreast(1);
+        SetHead(1);
+        SetLeg(1);
+        SetWaist(1);
     }
 
     [ContextMenu("장비 3")]
     private void Set3()
     {
-        Equip(2);
+        SetHand(2);
+        SetBreast(2);
+        SetHead(2);
+        SetLeg(2);
+        SetWaist(2);
     }
 
     [ContextMenu("장비 4")]
     private void Set4()
     {
-        Equip(3);
+        SetHand(3);
+        SetBreast(3);
+        SetHead(3);
+        SetLeg(3);
+        SetWaist(3);
     }
 
     [ContextMenu("장비 5")]
     private void Set5()
     {
-        Equip(4);
+        SetHand(4);
+        SetBreast(4);
+        SetHead(4);
+        SetLeg(4);
+        SetWaist(4);
     }
 
     [ContextMenu("장비 6")]
     private void Set6()
     {
-        Equip(5);
+        SetHand(5);
+        SetBreast(5);
+        SetHead(5);
+        SetLeg(5);
+        SetWaist(5);
     }
 #endif
 
@@ -483,15 +516,6 @@ public class PlayerCostume : MonoBehaviour
         }
     }
 
-    public void Equip(int index)
-    {
-        SetHand(index);
-        SetBreast(index);
-        SetHead(index);
-        SetLeg(index);
-        SetWaist(index);
-    }
-
     public void SetWeapon(bool value)
     {
         switch (_weapon)
@@ -506,5 +530,150 @@ public class PlayerCostume : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void Equip(ItemName itemKey)
+    {
+        switch(itemKey)
+        {
+            case ItemName.HuntersKnife_I:
+                SetWeapon(true);
+                break;
+            case ItemName.LeatherHead:
+                SetHead(0);
+                break;
+            case ItemName.LeatherVest:
+                SetBreast(0);
+                break;
+            case ItemName.LeatherGloves:
+                SetHand(0);
+                break;
+            case ItemName.LeatherBelt:
+                SetWaist(0);
+                break;
+            case ItemName.LeatherPants:
+                SetLeg(0);
+                break;
+            case ItemName.HuntersHelmS:
+                SetHead(1);
+                break;
+            case ItemName.HuntersMailS:
+                SetBreast(1);
+                break;
+            case ItemName.HuntersArmS:
+                SetHand(1);
+                break;
+            case ItemName.HuntersCoilS:
+                SetWaist(1);
+                break;
+            case ItemName.HuntersGreavesS:
+                SetLeg(1);
+                break;
+            case ItemName.AlloyHelmS:
+                SetHead(2);
+                break;
+            case ItemName.AlloyMailS:
+                SetBreast(2);
+                break;
+            case ItemName.AlloyArmS:
+                SetHand(2);
+                break;
+            case ItemName.AlloyCoilS:
+                SetWaist(2);
+                break;
+            case ItemName.AlloyGreavesS:
+                SetLeg(2);
+                break;
+            case ItemName.BoneHelmS:
+                SetHead(3);
+                break;
+            case ItemName.BoneMailS:
+                SetBreast(3);
+                break;
+            case ItemName.BoneArmS:
+                SetHand(3);
+                break;
+            case ItemName.BoneCoilS:
+                SetWaist(3);
+                break;
+            case ItemName.BoneGreavesS:
+                SetLeg(3);
+                break;
+            case ItemName.KuluHelmS:
+                SetHead(4);
+                break;
+            case ItemName.KuluMailS:
+                SetBreast(4);
+                break;
+            case ItemName.KuluBraceS:
+                SetHand(4);
+                break;
+            case ItemName.KuluCoilS:
+                SetWaist(4);
+                break;
+            case ItemName.KuluGreavesS:
+                SetLeg(4);
+                break;
+            case ItemName.AnjaHelmS:
+                SetHead(5);
+                break;
+            case ItemName.AnjaMailS:
+                SetBreast(5);
+                break;
+            case ItemName.AnjaArmS:
+                SetHand(5);
+                break;
+            case ItemName.AnjaCoilS:
+                SetWaist(5);
+                break;
+            case ItemName.AnjaGreavesS:
+                SetLeg(5);
+                break;
+        }
+    }
+
+    public static List<int> GetEquipList(Hashtable hashtable)
+    {
+        List<int> list = new List<int>();
+        if(hashtable != null)
+        {
+            foreach(string key in hashtable.Keys)
+            {
+                switch(key)
+                {
+                    case HandTag:
+                        if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int hand))
+                        {
+                            list.Add(hand);
+                        }
+                        break;
+                    case BreastTag:
+                        if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int breast))
+                        {
+                            list.Add(breast);
+                        }
+                        break;
+                    case HeadTag:
+                        if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int head))
+                        {
+                            list.Add(head);
+                        }
+                        break;
+                    case LegTag:
+                        if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int leg))
+                        {
+                            list.Add(leg);
+                        }
+                        break;
+                    case WaistTag:
+                        if (hashtable[key] != null && int.TryParse(hashtable[key].ToString(), out int waist))
+                        {
+                            list.Add(waist);
+                        }
+                        break;
+                }
+            }
+        }
+        return list;
     }
 }
