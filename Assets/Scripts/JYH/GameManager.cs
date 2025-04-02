@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.InstantiateRoomObject(_monsterPrefab.name, MonsterStartPoint, Quaternion.identity, 0);
             }
+
+            PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
+            Debug.Log(playerControllers.Length);
         }
     }
 

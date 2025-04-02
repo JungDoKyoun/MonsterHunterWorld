@@ -34,10 +34,10 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         // 시작과 동시에 이미지 회전, 텍스트 깜빡임 효과 코루틴 실행
         blinkCor = StartCoroutine(BlinkText());
         rotateCor = StartCoroutine(RotateImage());
-        StartCoroutine(PlayLoadScene());
 
         if(selectRoomOption.MaxPlayers == 1)
         {
+            StartCoroutine(PlayLoadScene());
             CreateSingleRoom(sceneToLoad, selectRoomOption);
         }
         else
@@ -142,8 +142,15 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+#if UNITY_EDITOR
         Debug.Log("방에 입장하였습니다");
         Debug.Log(sceneToLoad + selectRoomOption.MaxPlayers);
+#endif
+        if (selectRoomOption.MaxPlayers != 1)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.LoadLevel(sceneToLoad);
+        }
     }
 
     // 만약에 위의 16명 설정한 방이 꽉찰 경우 예외처리를 위해 만든 콜백 함수

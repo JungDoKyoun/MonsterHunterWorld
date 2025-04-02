@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         Equip(index); // 내 장비 적용
         if (PhotonNetwork.InRoom) // 네트워크로 다른 유저들에게도 장비 적용
         {
-            photonView.RPC("Equip", RpcTarget.Others, index);
+            photonView.RPC("Equip", RpcTarget.OthersBuffered, index);
         }
     }
 
@@ -403,9 +403,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private void PlayAttackSound()
+    private void OnDestroy()
     {
-
+        if (photonView.IsMine == true)
+        {
+            PhotonNetwork.RemoveBufferedRPCs();
+        }
     }
 
     private void Rotate()
