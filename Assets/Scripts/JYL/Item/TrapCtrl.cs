@@ -5,9 +5,6 @@ using UnityEngine;
 public class TrapCtrl : MonoBehaviourPun
 {
     [SerializeField] GameObject end; // 활성화될 파츠
-    public float trapLifetime = 5f;
-
-    private bool trapActivated = false;
 
     void Start()
     {
@@ -21,34 +18,34 @@ public class TrapCtrl : MonoBehaviourPun
         Debug.Log("함정 활성화됨");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!trapActivated && other.CompareTag("Monster"))
-        {
-            trapActivated = true;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (!trapActivated && other.CompareTag("Monster"))
+    //    {
+    //        trapActivated = true;
 
-            Debug.Log("몬스터가 함정에 걸림!");
+    //        Debug.Log("몬스터가 함정에 걸림!");
 
-            // 네트워크상 모든 클라이언트에 트랩 실행 알림
-            photonView.RPC(nameof(StartTrapLifetime), RpcTarget.All);
-        }
-    }
+    //        // 네트워크상 모든 클라이언트에 트랩 실행 알림
+    //        photonView.RPC(nameof(StartTrapLifetime), RpcTarget.All);
+    //    }
+    //}
 
-    [PunRPC]
-    void StartTrapLifetime()
-    {
-        Debug.Log("함정 발동 → 일정 시간 후 파괴 예정");
-        StartCoroutine(DestroyAfterDelay());
-    }
+    //[PunRPC]
+    //void StartTrapLifetime()
+    //{
+    //    Debug.Log("함정 발동 → 일정 시간 후 파괴 예정");
+    //    StartCoroutine(DestroyAfterDelay());
+    //}
 
-    IEnumerator DestroyAfterDelay()
-    {
-        yield return new WaitForSeconds(trapLifetime);
+    //IEnumerator DestroyAfterDelay()
+    //{
+    //    yield return new WaitForSeconds(trapLifetime);
 
-        // 네트워크 상 파괴
-        if (photonView.IsMine)
-        {
-            PhotonNetwork.Destroy(gameObject);
-        }
-    }
+    //    // 네트워크 상 파괴
+    //    if (photonView.IsMine)
+    //    {
+    //        PhotonNetwork.Destroy(gameObject);
+    //    }
+    //}
 }

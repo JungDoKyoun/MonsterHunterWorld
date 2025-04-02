@@ -1246,9 +1246,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
 
         if (other.CompareTag("Trap"))
-        {
+        {           
             _isTrap = true;
-            Destroy(other.gameObject, _trapTime);
+            transform.position = other.transform.position;
+            //Destroy(other.transform.parent.gameObject, _trapTime);
         }
     }
 
