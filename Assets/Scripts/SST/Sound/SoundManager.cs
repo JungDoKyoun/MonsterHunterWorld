@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    // BGM
     public enum BGMType
     {
         Login,
@@ -16,6 +17,7 @@ public class SoundManager : MonoBehaviour
         End
     }
 
+    // 퀘스트 상호작용 SFX
     public enum SfxQuestType
     {
         Interaction,
@@ -25,15 +27,23 @@ public class SoundManager : MonoBehaviour
         End
     }
 
-    public enum IngameSfxType
+    // 헌터 전용 SFX
+    public enum HunterSfxType
     {
         HunterAttack,
         HunterAttack1,
         HunterDodge,
         HunterHit,
+        End
+    }
+
+    // 보스 전용 SFX
+    public enum BossSfxType
+    {
         BossRoar,
         BossAttack,
         BossAttack1,
+        BossFire,
         End
     }
 
@@ -41,7 +51,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("오디오 소스")]
     [SerializeField] AudioSource bgmSource;     // BGM 재생용
-    [SerializeField] AudioSource sfxSource;     // 효과음 재생용
+    [SerializeField] AudioSource sfxSource;     // 효과음 재생용 , 플레이어 효과음
+    [SerializeField] AudioSource sfxSource2;    // 보스 효과음 재생
 
     [Header("BGM 클립")]
     [SerializeField] AudioClip[] bgmClips = new AudioClip[(int)BGMType.End];
@@ -52,8 +63,11 @@ public class SoundManager : MonoBehaviour
     [Header("퀘스트 SFX")]
     [SerializeField] AudioClip[] questSfxs = new AudioClip[(int)SfxQuestType.End];
 
-    [Header("인게임 SFX")]
-    [SerializeField] AudioClip[] inGameSFXs = new AudioClip[(int)IngameSfxType.End];
+    [Header("플레이어 SFX")]
+    [SerializeField] AudioClip[] hunterSfxs = new AudioClip[(int)HunterSfxType.End];
+
+    [Header("보스 SFX")]
+    [SerializeField] AudioClip[] bossSFXs = new AudioClip[(int)BossSfxType.End];
 
     private void Awake()
     {
@@ -92,20 +106,36 @@ public class SoundManager : MonoBehaviour
         bgmSource.Stop();
     }
 
-    // SFX도 타입으로 하나 만들어서 실행하게 바꿀 예정
+    // SFX는 Enum 타입별로 오버로드해놓음
+    // 퀘스트 상호작용 SFX 재생
     public void PlaySFX(SfxQuestType qusetType, float volume = 1.0f)
     {
         PlaySFX(questSfxs[(int)qusetType], volume);
     }
 
-    public void PlaySFX(IngameSfxType ingameSfxType, float volume = 1.0f)
+    // 헌터(플레이어) 전용 SFX 재생
+    public void PlaySFX(HunterSfxType hunterSfxType, float volume = 1.0f)
     {
-        PlaySFX(inGameSFXs[(int)ingameSfxType], volume);
+        PlaySFX(hunterSfxs[(int)hunterSfxType], volume);
     }
 
+    // 위의 함수를 받아서 재생
     private void PlaySFX(AudioClip audioClip, float volume)
     {
         sfxSource.PlayOneShot(audioClip, volume);
+    }
+
+    // 보스 전용 SFX 플레이 함수
+    // 다른 오디오 소스에서 재생해서 플레이어 SFX와 동시에 재생하기 위함
+    public void PlaySFX(BossSfxType bossSfxType, float volume = 1.0f)
+    {
+        PlayBossSFX(bossSFXs[(int)bossSfxType], volume);
+    }
+
+    // 위의 함수를 받아서 재생
+    private void PlayBossSFX(AudioClip audioClip, float volume)
+    {
+        sfxSource2.PlayOneShot(audioClip, volume);
     }
 
     // 버튼 클릭음 재생
