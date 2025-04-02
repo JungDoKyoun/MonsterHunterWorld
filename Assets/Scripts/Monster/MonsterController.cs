@@ -59,7 +59,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
     private bool _isCanGetItem; //아이템 주울수 있는 상태
-    [SerializeField]private bool _isBattle; //전투중인지?
+    [SerializeField] private bool _isBattle; //전투중인지?
     private bool _isAttack; //공격중인지?
     private bool _isRoar; //포효중인지?
     private bool _isBackMove; //뒤로 가는중인지
@@ -78,7 +78,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private bool _isalSleep;
     [SerializeField] private bool _isWakeUp;
     private bool _isNeedRoar;
-    [SerializeField]private bool _isalRun;
+    [SerializeField] private bool _isalRun;
 
     private void Awake()
     {
@@ -162,11 +162,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void InitProjectile()
     {
-        if(_projectileSpawnManager == null)
+        if (_projectileSpawnManager == null)
         {
             _projectileSpawnManager = MonsterManager.Instance.MonsterProjectileSpawnManager;
         }
-        if(_monsterProjectileDatas == null)
+        if (_monsterProjectileDatas == null)
         {
             _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         }
@@ -177,7 +177,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _anime.SetBool(tag, value);
 
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             photonView.RPC("SetBool", RpcTarget.Others, tag, value);
         }
@@ -256,7 +256,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void NavMeshMatchMonsterPos() //네비메쉬 좌표 몬스터를 따라가게함
     {
-        if(_agent.enabled)
+        if (_agent.enabled)
         {
             _agent.nextPosition = transform.position;
         }
@@ -282,7 +282,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public bool IsReachTarget() //패트롤 목표로한 좌표에 도달 했는가?
     {
-        if(!_agent.enabled || !_agent.isOnNavMesh)
+        if (!_agent.enabled || !_agent.isOnNavMesh)
         {
             Vector3 currentPos = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 target = moveTargetPos[_nextPatrolIndex].transform.position;
@@ -310,7 +310,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         return Math.Abs(angle) > 10f;
     }
 
-    public void RotateToTarget() //타깃을 향해 회전
+    public void RequestRotateToTarget() //타깃을 향해 회전
     {
         Vector3 dir;
         if (IsBattle)
@@ -325,6 +325,47 @@ public class MonsterController : MonoBehaviourPunCallbacks
         dir.Normalize();
 
         float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
+
+        photonView.RPC("RotateToTarget", RpcTarget.All, dir, angle, _isFly);
+        //_agent.enabled = false;
+
+        //if (Math.Abs(angle) < 30)
+        //{
+        //    StartCoroutine(SmoothTurn(dir));
+        //}
+        //else
+        //{
+        //    if (!_isFly)
+        //    {
+        //        SetAnime("IsRo", true);
+        //        SetAnime("TurnAngle", angle);
+        //    }
+        //    else if (_isFly)
+        //    {
+        //        SetAnime("IsFlyRo", true);
+        //        SetAnime("TurnAngle", angle);
+        //    }
+
+        //    StartCoroutine(WaitForEndRotateAnime());
+        //}
+    }
+
+    [PunRPC]
+    public void RotateToTarget(Vector3 dir, float angle, bool _isFly) //타깃을 향해 회전
+    {
+        //Vector3 dir;
+        //if (IsBattle)
+        //{
+        //    dir = (_targetPlayerPos - transform.position).normalized;
+        //}
+        //else
+        //{
+        //    dir = (_targetPos - transform.position).normalized;
+        //}
+        //dir.y = 0;
+        //dir.Normalize();
+
+        //float angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
         _agent.enabled = false;
 
         if (Math.Abs(angle) < 30)
@@ -333,12 +374,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
         else
         {
-            if(!_isFly)
+            if (!_isFly)
             {
                 SetAnime("IsRo", true);
                 SetAnime("TurnAngle", angle);
             }
-            else if(_isFly)
+            else if (_isFly)
             {
                 SetAnime("IsFlyRo", true);
                 SetAnime("TurnAngle", angle);
@@ -388,7 +429,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void CheckPlayer() //플레이어 감지 및 좌표 설정
     {
         DetectedPlayer();
-        if(_detectPlayers.Count > 0)
+        if (_detectPlayers.Count > 0)
         {
             _targetPlayerPos = GetClosePlayer();
             SetTargetplayer();
@@ -399,7 +440,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         float dis = Vector3.Distance(transform.position, _targetPlayerPos);
 
-        if(dis <= _attackRange)
+        if (dis <= _attackRange)
         {
             return true;
         }
@@ -425,7 +466,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void UpdateAttackCoolTime() //쿨타임 재기
     {
         _elapsedTime -= Time.deltaTime;
-        if(_elapsedTime <= 0)
+        if (_elapsedTime <= 0)
         {
             _elapsedTime = 0;
         }
@@ -458,9 +499,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         Collider[] players = Physics.OverlapSphere(transform.position, _detectRange);
 
-        foreach(Collider collider in players)
+        foreach (Collider collider in players)
         {
-            if(collider.CompareTag("Player"))
+            if (collider.CompareTag("Player"))
             {
                 _detectPlayers.Add(collider.transform);
                 //_isBattle = true;
@@ -473,11 +514,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
         Transform closePlayer = null;
         float minDis = Mathf.Infinity;
 
-        foreach(var player in _detectPlayers)
+        foreach (var player in _detectPlayers)
         {
             float dis = Vector3.Distance(transform.position, player.position);
 
-            if(dis < minDis)
+            if (dis < minDis)
             {
                 minDis = dis;
                 closePlayer = player;
@@ -489,7 +530,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void SetTargetplayer()
     {
-        if(_agent.isOnNavMesh)
+        if (_agent.isOnNavMesh)
         {
             _agent.SetDestination(_targetPlayerPos);
         }
@@ -518,12 +559,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         _currentHP -= damage;
 
-        if(!_isBattle)
+        if (!_isBattle)
         {
             _isBattle = true;
         }
 
-        if(_currentHP <= 0)
+        if (_currentHP <= 0)
         {
             _currentHP = 0;
             photonView.RPC("Die", RpcTarget.All);
@@ -595,7 +636,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         Vector3 rootMotionMove = _anime.deltaPosition;
 
-        if (_isFly) 
+        if (_isFly)
         {
             transform.position += rootMotionMove;
         }
@@ -620,13 +661,21 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public float GetGroundHight()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position + Vector3.up * 5f, Vector3.down, out hit, 20f, LayerMask.GetMask("Ground")))
+        if (Physics.Raycast(transform.position + Vector3.up * 5f, Vector3.down, out hit, 20f, LayerMask.GetMask("Ground")))
         {
             return hit.point.y;
         }
         return transform.position.y;
     }
 
+    public void RequestLink()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("Link", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void Link()
     {
         if (_agent.isOnOffMeshLink && !_isLink)
@@ -752,7 +801,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         //}
     }
-    
+
     public void RequestShootProjectileAnimationEvent()
     {
         if (!PhotonNetwork.IsMasterClient) return;
@@ -766,7 +815,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         var temp = _monsterAttackData[index].ProjectileType;
         var projectile = _projectileSpawnManager.GetProjectiles(temp);
 
-        if(projectile != null)
+        if (projectile != null)
         {
             var match = _monsterProjectileDatas.Find(x => x.ProjectileType == projectile.ProjectileType);
             if (match != null)
@@ -782,7 +831,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void RequestBackMove()
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        
+
         photonView.RPC("BackMove", RpcTarget.All);
     }
 
@@ -809,7 +858,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void CheckTooHigh()
     {
-        if(transform.position.y >= _flyHigh)
+        if (transform.position.y >= _flyHigh)
         {
             _isTooHigh = true;
         }
@@ -817,10 +866,10 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void CheckGround()
     {
-        if(_isFly)
+        if (_isFly)
         {
             RaycastHit hit;
-            if(Physics.Raycast(transform.position, Vector3.down, out hit, _groundRayDis, LayerMask.GetMask("Ground")))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, _groundRayDis, LayerMask.GetMask("Ground")))
             {
                 _isGround = true;
             }
@@ -842,7 +891,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void IsBlock()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position + Vector3.up * 2f, transform.forward, out hit, _blockDis, LayerMask.GetMask("Ground")))
+        if (Physics.Raycast(transform.position + Vector3.up * 2f, transform.forward, out hit, _blockDis, LayerMask.GetMask("Ground")))
         {
             _isBlock = true;
         }
@@ -855,7 +904,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void BlockMove()
     {
-        if(_isBlock)
+        if (_isBlock)
         {
             transform.position = _playerPos;
         }
@@ -868,26 +917,66 @@ public class MonsterController : MonoBehaviourPunCallbacks
         Gizmos.DrawWireSphere(transform.position + transform.forward * _blockDis, 1f);
     }
 
+    public void RequesTakeOff()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("TakeOff", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void TakeOff()
     {
         StartCoroutine(WaitForEndTakeOffAnime());
     }
 
+    public void RequesPatrol()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("Patrol", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void Patrol()
     {
         StartCoroutine(WaitForEndPatrolAnime());
     }
 
+    public void RequesLanding()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("Landing", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void Landing()
     {
         StartCoroutine(WaitForEndLandingAnime());
     }
 
+    public void RequesSleep()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("Sleep", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void Sleep()
     {
         StartCoroutine(WaitForEndSleepAnime());
     }
 
+    public void RequesWakeUP()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        photonView.RPC("WakeUP", RpcTarget.All);
+    }
+
+    [PunRPC]
     public void WakeUP()
     {
         StartCoroutine(WaitForEndWakeUpAnime());

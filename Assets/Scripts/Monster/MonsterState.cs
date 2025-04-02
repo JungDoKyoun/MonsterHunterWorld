@@ -132,7 +132,7 @@ public class MonsterSleepState : IMonsterState
         _monster.IsSleep = true;
         _monster.IsalSleep = true;
         _monster.SetAnime("IsSleep");
-        _monster.Sleep();
+        _monster.RequesSleep();
         if(_monster.IsRun)
         {
             _monster.IsRun = false;
@@ -199,7 +199,7 @@ public class MonsterWakeUpState : IMonsterState
         _stateManager = stateManager;
         _monster.IsWakeUp = true;
         _monster.SetAnime("IsSleep3");
-        _monster.WakeUP();
+        _monster.RequesWakeUP();
     }
 
     public override void Exit()
@@ -270,7 +270,7 @@ public class MonsterRotationState : IMonsterState
         {
             _monster.CheckPlayer();
         }
-        _monster.RotateToTarget();
+        _monster.RequestRotateToTarget();
         Debug.Log("È¸Àü µé¾î¿È");
     }
 
@@ -351,7 +351,7 @@ public class MonsterTakeOffState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _monster.IsTakeOff = true;
-        _monster.TakeOff();
+        _monster.RequesTakeOff();
     }
 
     public override void Exit()
@@ -415,7 +415,7 @@ public class MonsterPatrolState : IMonsterState
         _monster.IsBattle = false;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
-        _monster.Patrol();
+        _monster.RequesPatrol();
         Debug.Log("¼øÂû µé¾î¿È");
     }
 
@@ -464,7 +464,7 @@ public class MonsterLandingState : IMonsterState
         _monster = monster;
         _stateManager = stateManager;
         _monster.IsLanding = true;
-        _monster.Landing();
+        _monster.RequesLanding();
     }
 
     public override void Exit()
@@ -596,7 +596,7 @@ public class MonsterChaseState : IMonsterState
 
     public override void Update()
     {
-        _monster.Link();
+        _monster.RequestLink();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
