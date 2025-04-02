@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private PlayerController _playerController = null;
 
-    private static readonly float RespawnTime = 2.0f;
+    private static readonly float RespawnTime = 5.0f;
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
     private static readonly Vector3 MonsterStartPoint = new Vector3(-260, 41.5f, -32);
 
@@ -23,17 +23,21 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         Room room = PhotonNetwork.CurrentRoom;
-        if (room != null && _playerPrefab != null)
+        if (room != null)
         {
             SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss, 0.4f);
-            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
-            FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
-            _playerController = gameObject.GetComponent<PlayerController>();
-            if (_playerController != null)
+            if (_playerPrefab != null)
             {
-                _playerController.attackable = true;
-                _playerController.Initialize(SetLife);
+                GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
+                FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
+                _playerController = gameObject.GetComponent<PlayerController>();
+                if (_playerController != null)
+                {
+                    _playerController.attackable = true;
+                    _playerController.Initialize(SetLife);
+                }
             }
+            _gageController?.Set(PhotonNetwork.NickName);
             if(PhotonNetwork.IsMasterClient == true && _monsterPrefab != null)
             {
                 PhotonNetwork.InstantiateRoomObject(_monsterPrefab.name, MonsterStartPoint, Quaternion.identity, 0);
@@ -57,11 +61,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(DoRevive());
             IEnumerator DoRevive()
             {
-                Debug.Log("ªÁ∏¡");
                 yield return new WaitForSeconds(RespawnTime);
                 if(_playerController != null)
                 {
-                    Debug.Log("∫Œ»∞");
                     _playerController.Revive(PlayerStartPoint);
                 }
             }
