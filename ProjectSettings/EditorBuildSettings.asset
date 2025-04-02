@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SST/TitleLoginScene.unity
     guid: b3a73d7706744be4aa8382a1b1062e89
   - enabled: 1
@@ -23,8 +23,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DoKyoun.unity
     guid: 38ff3e6455cf77c43b36929254ca59ad
-  - enabled: 1
-    path: Assets/Scenes/JYH/younghan.unity
-    guid: 9bb255d15ae5f734fa344dec954ea80a
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 154181e27fc73de4397a12356cfc71d8, type: 2}

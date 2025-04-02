@@ -13,7 +13,11 @@ public enum UIType
     EquipInvenUI,
     EquipInfoUI,    
     BoxSelectUI,
-    InGameUI
+    //¿É¼Ç
+    OptionUI,
+    SaveButtonUI,
+    OptionButtonUI,
+    ExitButtonUI,
 
 }
 
@@ -42,6 +46,8 @@ public class UIManager : MonoBehaviour
     {
         bool open = openStack.Count > 0 ? true : false;
 
+
+
         return open;
     }
 
@@ -59,13 +65,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private async void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             CloseTopUI();
-            InvenToryCtrl.Instance.SaveInventoryToFirebase();
+            await InvenToryCtrl.Instance.SaveInventoryToFirebase();
+        }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StackUIOpen(UIType.OptionUI);
         }
     }
 

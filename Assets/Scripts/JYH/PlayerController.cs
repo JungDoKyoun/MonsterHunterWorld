@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using static SoundManager;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -195,7 +196,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly float RecoverStamina = 5f;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
-    private static readonly string IdleTag = "Idle";
     private static readonly string RunTag = "Run";
     private static readonly string DashTag = "Dash";
     private static readonly string JumpTag = "Jump";
@@ -221,13 +221,32 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 #endif
 
+    private void Roll()
+    {
+        if (_currentStamina >= JumpStamina)
+        {
+            _currentStamina -= JumpStamina;
+        }
+        else
+        {
+            _currentStamina = 0;
+        }
+        SoundManager.Instance.PlaySFX(IngameSfxType.HunterDodge);
+    }
+
+    private void Swing()
+    {
+        _swing = true;
+        SoundManager.Instance.PlaySFX((IngameSfxType)UnityEngine.Random.Range(0, 2));
+    }
+
     private void OnEquipChanged(ItemName itemKey)
     {
         int index = (int)itemKey;
         Equip(index); // 내 장비 적용
         if (PhotonNetwork.InRoom) // 네트워크로 다른 유저들에게도 장비 적용
         {
-            photonView.RPC("Equip", RpcTarget.Others, index);
+            photonView.RPC("Equip", RpcTarget.OthersBuffered, index);
         }
     }
 
@@ -266,7 +285,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 if (attack == true)
                 {
                     Rotate();
-                    _swing = true;
+                    Swing();
                 }
             }
             else if (attack == false)
@@ -345,10 +364,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 else if (getAnimator.GetBool(JumpTag) == false && _currentStamina >= JumpStamina)
                 {
                     SetAnimation(JumpTag, true);
-                    _currentStamina -= JumpStamina;
                 }
             }
-            if (GetAnimationName() == IdleTag && _fullStamina > _currentStamina)
+            if (getAnimator.GetBool(DashTag) == false && _fullStamina > _currentStamina)
             {
                 _currentStamina += Time.deltaTime * RecoverStamina;
                 if (_currentStamina > _fullStamina)
@@ -382,6 +400,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     }
                 }
             }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (photonView.IsMine == true)
+        {
+            PhotonNetwork.RemoveBufferedRPCs();
         }
     }
 
@@ -548,6 +574,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 _coroutine = null;
             }
             getPlayerCostume.SetWeapon(true);
+            SoundManager.Instance.PlaySFX(IngameSfxType.HunterHit);
             if (damage < _currentLife)
             {
                 _currentLife -= damage;
@@ -627,6 +654,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine == true)
         {
+            _currentStamina = _fullStamina;
             _currentLife = _fullLife;
             SetLife(_currentLife, _fullLife);
             if (PhotonNetwork.InRoom == true)

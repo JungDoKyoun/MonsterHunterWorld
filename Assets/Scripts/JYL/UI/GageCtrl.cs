@@ -12,6 +12,8 @@ public class GageCtrl : MonoBehaviour
     [SerializeField]
     private Slider _staminaSlider;
 
+
+
     public void Set(string nickname)
     {
         _nameText.SetText(nickname);

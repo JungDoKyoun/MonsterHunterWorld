@@ -3,8 +3,8 @@ using Firebase.Database;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public enum InvenType
 {
@@ -108,7 +108,7 @@ public class InvenToryCtrl : MonoBehaviour
         }
     }
 
-    public async void SaveInventoryToFirebase()
+    public async Task SaveInventoryToFirebase()
     {
         var user = FirebaseAuth.DefaultInstance.CurrentUser;
         if (user == null) return;
@@ -260,7 +260,7 @@ public class InvenToryCtrl : MonoBehaviour
         {
             if (string.IsNullOrWhiteSpace(line)) continue;
 
-            // [1,5] 형태를 처리
+            // [1,5] 형태로 처리
             string trimmed = line.Trim(' ', '[', ']', '\r'); // 공백, 괄호 제거
             var parts = trimmed.Split(',');
 
@@ -294,7 +294,7 @@ public class InvenToryCtrl : MonoBehaviour
         return ItemDataBase.Instance.EmptyItem ;
     }
 
-
+    //데이타 베이스에 세이브할 텍스트 형식과 값 지정
     void AppendItemListToCSV(StringBuilder sb,List<BaseItem> items)
     {
         for (int i = 0; i < items.Count; i++)
@@ -306,52 +306,6 @@ public class InvenToryCtrl : MonoBehaviour
             sb.AppendLine($"[{(int)items[i].id},{items[i].count}] ");
         }        
     }
-
-    void LoadFromCSV(string csvData)
-    {
-        List<BaseItem> currentList = null;
-
-        foreach (string line in csvData.Split('\n'))
-        {
-            if (string.IsNullOrWhiteSpace(line)) continue;
-
-            if (line.StartsWith("["))
-            {
-                string label = line.Trim('[', ']', '\r');
-                currentList = label switch
-                {
-                    "Inventory" => inventory,
-                    "BoxInven" => boxInven,
-                    "EquipInventory" => equipInventory,
-                    "EquippedInventory" => equippedInventory,
-                    _ => null
-                };
-                currentList?.Clear();
-                continue;
-            }
-
-            if (currentList == null) continue;
-
-            var split = line.Split(',');
-            if (split.Length < 2) continue;
-
-            int id = int.Parse(split[0]);
-            int count = int.Parse(split[1]);
-
-            var item = ItemDataBase.Instance.GetItem((ItemName)id).Clone();
-            item.count = count;
-            currentList.Add(item);
-        }
-
-        OnInventoryChanged?.Invoke();
-
-        //장비인벤 마지막은 박스
-        for (int i = 0; i < equippedInventory.Count - 1; i++)
-        {
-            OnEquippedChanged?.Invoke(equippedInventory[i].id);
-        }
-    }
-
 
     /// <summary>
     /// 인벤 빈 아이템 세팅
