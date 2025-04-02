@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -15,9 +17,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private PlayerController _playerController = null;
 
+    private Dictionary<PlayerController, string> otherPlayers = new Dictionary<PlayerController, string>();
+
     private static readonly float RespawnTime = 5.0f;
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
     private static readonly Vector3 MonsterStartPoint = new Vector3(-260, 41.5f, -32);
+
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        PlayerController.playerAction += CreatePlayer;
+    }
 
     private void Start()
     {
@@ -25,25 +35,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (room != null)
         {
             SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss);
-            if (_playerPrefab != null)
-            {
-                GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
-                FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
-                _playerController = gameObject.GetComponent<PlayerController>();
-                if (_playerController != null)
-                {
-                    _playerController.attackable = true;
-                    _playerController.Initialize(SetLife);
-                }
-            }
             _gageController?.Set(PhotonNetwork.NickName);
             if(PhotonNetwork.IsMasterClient == true && _monsterPrefab != null)
             {
                 PhotonNetwork.InstantiateRoomObject(_monsterPrefab.name, MonsterStartPoint, Quaternion.identity, 0);
             }
-
-            PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
-            Debug.Log(playerControllers.Length);
         }
     }
 
@@ -53,6 +49,32 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             _gageController.SetStamina(_playerController.currentStamina, _playerController.fullStamina);
         }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerController.playerAction -= CreatePlayer;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (_playerPrefab != null)
+        {
+            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
+            FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
+            _playerController = gameObject.GetComponent<PlayerController>();
+            if (_playerController != null)
+            {
+                _playerController.attackable = true;
+                _playerController.Initialize(SetLife);
+            }
+        }
+    }
+
+    private void CreatePlayer(PlayerController playerController, string nickname)
+    {
+        Debug.Log("신규 생성");
     }
 
     private void SetLife(int current, int full)
