@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: trap (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab4a53a1e8bb5ec4e8b3aa7580b3d6a8, type: 3}
+      propertyPath: m_TagString
+      value: Trap
+      objectReference: {fileID: 0}
     - target: {fileID: 5460968181033499840, guid: ab4a53a1e8bb5ec4e8b3aa7580b3d6a8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -218,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 214b824b9a9dae14e9b2a68060f8e2b2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4631953453154861551, guid: 214b824b9a9dae14e9b2a68060f8e2b2, type: 3}
       propertyPath: m_IsActive
