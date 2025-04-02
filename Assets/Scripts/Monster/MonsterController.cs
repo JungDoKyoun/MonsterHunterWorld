@@ -17,9 +17,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private List<GameObject> moveTargetPos; //패트롤 돌아야하는 위치 좌표
     [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     [SerializeField] private Transform shootPos; //투사체 쏘는 장소
-    [SerializeField] private float _groundRayDis;
+    [SerializeField] private int _groundRayDis;
     [SerializeField] private int _flyHigh;
-    [SerializeField] private float _blockDis;
+    [SerializeField] private int _blockDis;
     [SerializeField] private int _sleepIndex;
     [SerializeField] private List<int> _restIndex = new List<int>();
     [SerializeField] private int _restTime;
@@ -73,12 +73,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private bool _isGround;
     private bool _isBlock;
     private bool _isLink;
-    private bool _isRun;
-    private bool _isSleep;
-    private bool _isalSleep;
-    private bool _isWakeUp;
+    [SerializeField] private bool _isRun;
+    [SerializeField] private bool _isSleep;
+    [SerializeField] private bool _isalSleep;
+    [SerializeField] private bool _isWakeUp;
     private bool _isNeedRoar;
-    private bool _isalRun;
+    [SerializeField]private bool _isalRun;
 
     private void Awake()
     {
@@ -179,7 +179,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SetBool", RpcTarget.Others);
+            photonView.RPC("SetBool", RpcTarget.Others, tag, value);
         }
     }
 
@@ -189,7 +189,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SetTrigger", RpcTarget.Others);
+            photonView.RPC("SetTrigger", RpcTarget.Others, tag);
         }
     }
 
@@ -199,7 +199,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SetFloat", RpcTarget.Others);
+            photonView.RPC("SetFloat", RpcTarget.Others, tag, value);
         }
     }
 
@@ -210,7 +210,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void SetTrigger(string tag, bool value)
+    public void SetTrigger(string tag)
     {
         _anime.SetTrigger(tag);
     }
@@ -514,7 +514,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void TakeDamage(int damage) //데미지 받기
     {
-        //if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         _currentHP -= damage;
 
@@ -591,7 +591,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void ApplyRootMotionMovement() //루트모션 좌표 강제 이동
     {
-        //if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient) return;
 
         Vector3 rootMotionMove = _anime.deltaPosition;
 
@@ -635,11 +635,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void Run()
-    {
-        
-    }
-
     public void ChooseAttackType()
     {
         if (!PhotonNetwork.IsMasterClient) return;
@@ -655,7 +650,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-
+        attackType = 3;
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 

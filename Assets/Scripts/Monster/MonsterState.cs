@@ -41,7 +41,7 @@ public class MonsterIdleState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
+        
     }
 
     public override void Update()
@@ -66,7 +66,13 @@ public class MonsterIdleState : IMonsterState
             return;
         }
 
-        if(_monster.IsBattle && !_monster.IsHit)
+        if (_monster.IsLowHP() && !_monster.IsalRun)
+        {
+            _stateManager.ChangeMonsterState(new MonsterRunState());
+            return;
+        }
+
+        if (_monster.IsBattle && !_monster.IsHit)
         {
             _stateManager.ChangeMonsterState(new MonsterRoarState());
             return;
@@ -80,6 +86,7 @@ public class MonsterIdleState : IMonsterState
 
         if (_monster.IsSleepPos() && !_monster.IsalSleep)
         {
+            Debug.Log("들어옴");
             _stateManager.ChangeMonsterState(new MonsterSleepState());
             return;
         }
@@ -126,6 +133,10 @@ public class MonsterSleepState : IMonsterState
         _monster.IsalSleep = true;
         _monster.SetAnime("IsSleep");
         _monster.Sleep();
+        if(_monster.IsRun)
+        {
+            _monster.IsRun = false;
+        }
         Debug.Log("자는중");
     }
 
@@ -350,7 +361,7 @@ public class MonsterTakeOffState : IMonsterState
 
     public override void Move()
     {
-        //_monster.ApplyRootMotionMovement();
+        
     }
 
     public override void Update()
@@ -415,8 +426,7 @@ public class MonsterPatrolState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
-        //_monster.ApplyRootMotionMovement();
+
     }
 
     public override void Update()

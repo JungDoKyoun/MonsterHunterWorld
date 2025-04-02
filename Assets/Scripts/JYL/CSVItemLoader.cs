@@ -59,7 +59,7 @@ public class CSVItemLoader : MonoBehaviour
                     image = image,
                     rarity = rarity,
                     damage = damage,
-                    attribute = Attribute.Fire, // TODO: 확장 가능
+                    attribute = ElementAttribute.Fire, // TODO: 확장 가능
                     maxCount = 1,
                     count = 1,
                     tooltip = tooltip,

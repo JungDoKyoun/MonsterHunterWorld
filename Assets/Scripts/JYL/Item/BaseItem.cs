@@ -23,7 +23,7 @@ public enum EquipSlot
 }
 
 
-public enum Attribute
+public enum ElementAttribute
 {
     empty,//¹«¼Ó¼º
     Fire,
@@ -83,7 +83,7 @@ public class BaseItem
 public class Weapon : BaseItem
 {
     public int damage;
-    public Attribute attribute;
+    public ElementAttribute attribute;
     public override EquipSlot? GetEquipSlot()
     {
         return EquipSlot.Weapon;
