@@ -658,10 +658,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3769733049509222079, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
-      propertyPath: m_IgnoreReversedGraphics
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5315872253323322797, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11203,11 +11199,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2763563398152313390, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2763563398152313390, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5078232640770789746, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_Text
@@ -11215,15 +11211,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5111393195158487473, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5111393195158487473, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5445241158975983587, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_Name
       value: HUDCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445241158975983587, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8590516553136552102, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_Pivot.x
