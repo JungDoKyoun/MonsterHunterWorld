@@ -186,7 +186,7 @@ public class Potion : BaseItem
 
 public class Trap : BaseItem
 {
-    public GameObject trap;
+    public GameObject obj;
     public TrapType trapType;
 
 
@@ -194,7 +194,7 @@ public class Trap : BaseItem
     {
         return new Trap
         {
-            trap = this.trap,
+            obj = this.obj,
             image = this.image,
             id = this.id,
             name = this.name,

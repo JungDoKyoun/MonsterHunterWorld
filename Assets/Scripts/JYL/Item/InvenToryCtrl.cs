@@ -35,7 +35,7 @@ public class InvenToryCtrl : MonoBehaviour
     public EquipslotCtrl[] equippedUiSlot;
     //장비용 툴팁 UI
     [SerializeField] EquipItemToolTipCtrl equipItemToolTipCtrl;
-    public EquipItemToolTipCtrl EquipItemToolTipCtrl 
+    public EquipItemToolTipCtrl EquipItemToolTipCtrl
     {
         get
         {
@@ -225,6 +225,7 @@ public class InvenToryCtrl : MonoBehaviour
         equippedList[(int)EquipSlot.neck] = ItemDataBase.Instance.EmptyItem;
         equippedList[(int)EquipSlot.band] = ItemDataBase.Instance.EmptyItem;
 
+
         InvenToryCtrl.Instance.equippedInventory = equippedList;
 
         InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
@@ -239,7 +240,7 @@ public class InvenToryCtrl : MonoBehaviour
         equippedInventory = equippedList;
 
         if (equippedInventory != null)
-             Debug.Log("인벤토리 로드 완료");
+            Debug.Log("인벤토리 로드 완료");
         else
         {
             Debug.Log("??? 뭔가잘못됨");
@@ -291,11 +292,11 @@ public class InvenToryCtrl : MonoBehaviour
         {
             return ItemDataBase.Instance.GetItem((ItemName)id);
         }
-        return ItemDataBase.Instance.EmptyItem ;
+        return ItemDataBase.Instance.EmptyItem;
     }
 
     //데이타 베이스에 세이브할 텍스트 형식과 값 지정
-    void AppendItemListToCSV(StringBuilder sb,List<BaseItem> items)
+    void AppendItemListToCSV(StringBuilder sb, List<BaseItem> items)
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -304,7 +305,7 @@ public class InvenToryCtrl : MonoBehaviour
                 items[i] = ItemDataBase.Instance.EmptyItem;
             }
             sb.AppendLine($"[{(int)items[i].id},{items[i].count}] ");
-        }        
+        }
     }
 
     /// <summary>
@@ -537,11 +538,11 @@ public class InvenToryCtrl : MonoBehaviour
     public void LoadQuickSlotItemsFromInventory()
     {
         quickSlotItem.Clear(); // 기존 퀵슬롯 초기화       
-        
+
         foreach (var item in inventory)
         {
             if (item == null || item.id == ItemName.Empty) continue;
-            
+
             if (item.type == ItemType.Potion ||
                 item.type == ItemType.Trap)
             {

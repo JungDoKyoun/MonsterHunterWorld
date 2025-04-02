@@ -60,7 +60,6 @@ public class ItemDataBase : MonoBehaviour
     public List<BaseItem> items = new List<BaseItem>();
     public Dictionary<ItemName, BaseItem> itemDB = new Dictionary<ItemName, BaseItem>();
 
-
     BaseItem emptyItem;
     public BaseItem EmptyItem => emptyItem.Clone();
 
