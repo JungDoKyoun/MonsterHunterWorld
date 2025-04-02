@@ -432,11 +432,15 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void CheckPlayer() //플레이어 감지 및 좌표 설정
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         DetectedPlayer();
         if (_detectPlayers.Count > 0)
         {
-            _targetPlayerPos = GetClosePlayer();
+            Vector3 targetPos = GetClosePlayer();
+            _targetPlayerPos = targetPos;
             SetTargetplayer();
+            photonView.RPC("RPC_SetTargetPlayer", RpcTarget.Others, targetPos);
         }
     }
 
@@ -540,6 +544,13 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    public void RPC_SetTargetPlayer(Vector3 playerPos)
+    {
+        _targetPlayerPos = playerPos;
+        SetTargetplayer();
+    }
+
     public void RequestTakeDamage(int damage)
     {
         if (PhotonNetwork.IsConnected)
@@ -583,7 +594,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [PunRPC]
     public void TakeHeadDamage(int damage) //머리에 데미지 받을때
     {
-        //CheckMaster();
+        if (!PhotonNetwork.IsMasterClient) return;
 
         if (!IsStun)
         {
@@ -676,7 +687,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        photonView.RPC("Link", RpcTarget.All);
+        if (_agent.isOnOffMeshLink && !_isLink)
+        {
+            Debug.Log("링크 발동됨");
+            photonView.RPC("Link", RpcTarget.All);
+        }
     }
 
     [PunRPC]
@@ -703,7 +718,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-
+        attackType = 3;
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 
@@ -809,15 +824,15 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void RequestShootProjectileAnimationEvent()
     {
         if (!PhotonNetwork.IsMasterClient) return;
-
-        photonView.RPC("ShootProjectile", RpcTarget.All, _lastAttack);
+        string id = Guid.NewGuid().ToString();
+        photonView.RPC("ShootProjectile", RpcTarget.All, _lastAttack, id);
     }
 
     [PunRPC]
-    public void ShootProjectile(int index)
+    public void ShootProjectile(int index, string id)
     {
         var temp = _monsterAttackData[index].ProjectileType;
-        var projectile = _projectileSpawnManager.GetProjectiles(temp);
+        var projectile = _projectileSpawnManager.GetProjectiles(temp, id);
 
         if (projectile != null)
         {
@@ -825,8 +840,13 @@ public class MonsterController : MonoBehaviourPunCallbacks
             if (match != null)
             {
                 projectile.SetData(match);
-                int shooterViewID = photonView.ViewID;
-                projectile.photonView.RPC("InitShooter", RpcTarget.All, shooterViewID);
+                //int shooterViewID = photonView.ViewID;
+                //projectile.photonView.RPC("InitShooter", RpcTarget.All, shooterViewID);
+                if (PhotonNetwork.IsMasterClient && projectile.photonView != null)
+                {
+                    int shooterViewID = photonView.ViewID;
+                    projectile.photonView.RPC("InitShooter", RpcTarget.All, shooterViewID);
+                }
                 //projectile.InitShooter(this.gameObject, _projectileSpawnManager);
             }
             projectile.transform.position = shootPos.position;

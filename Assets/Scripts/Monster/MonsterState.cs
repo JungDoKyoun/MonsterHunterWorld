@@ -288,11 +288,12 @@ public class MonsterRotationState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
+        
     }
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -515,11 +516,12 @@ public class MonsterRoarState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
+        
     }
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -590,12 +592,13 @@ public class MonsterChaseState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
+        
 
     }
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         _monster.RequestLink();
         if (_monster.IsDie)
         {
@@ -662,12 +665,12 @@ public class MonsterAttackIdleState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
         _monster.SmothRotateToPlayer();
     }
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -747,13 +750,13 @@ public class MonsterAttackState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
         _monster.IsBlock();
         _monster.BlockMove();
     }
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -819,11 +822,12 @@ public class MonsterBackMoveState : IMonsterState
 
     public override void Move()
     {
-        _monster.CheckPlayer();
+        
     }
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
@@ -899,7 +903,6 @@ public class MonsterStunState : IMonsterState
     public override void Exit()
     {
         _monster.SetAnime("IsSturn", false);
-        _monster.CheckPlayer();
     }
 
     public override void Move()
@@ -909,6 +912,7 @@ public class MonsterStunState : IMonsterState
 
     public override void Update()
     {
+        _monster.CheckPlayer();
         if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());

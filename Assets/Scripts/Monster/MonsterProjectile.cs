@@ -22,6 +22,14 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
 
     public ProjectileType ProjectileType { get { return projectileType; } set { projectileType = value; } }
 
+    private void Start()
+    {
+        if (_monsterProjectileSpawnManager == null)
+        {
+            _monsterProjectileSpawnManager = FindObjectOfType<MonsterProjectileSpawnManager>();
+        }
+    }
+
     private void Update()
     {
         if (_data == null) return;
@@ -37,6 +45,8 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
     [PunRPC]
     public void InitShooter(int shooterViewID)
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         var shooterView = PhotonView.Find(shooterViewID);
         var shooterGO = shooterView != null ? shooterView.gameObject : null;
 
@@ -66,7 +76,7 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
 
     public void ReturnPool()
     {
-        if (_isReturn) return;
+        if (_isReturn || _hasHit) return;
 
         _elapsedTime += Time.deltaTime;
 
@@ -130,15 +140,60 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(OnHitEffect.name, transform.position, Quaternion.identity);
         }
 
-        photonView.RPC("RPC_DisableProjectile", RpcTarget.All);
+        photonView.RPC("RPC_DisableProjectile", RpcTarget.All, ProjectileID);
     }
 
     [PunRPC]
-    private void RPC_DisableProjectile()
+    private void RPC_DisableProjectile(string projectileID)
     {
-        Debug.Log("실행됨");
-        _isReturn = true;
-        _monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
+        //Debug.Log("실행됨");
+        //_isReturn = true;
+        //_monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
+        //if (_isReturn) return;
+        //_isReturn = true;
+
+        //if (_monsterProjectileSpawnManager == null)
+        //    _monsterProjectileSpawnManager = FindObjectOfType<MonsterProjectileSpawnManager>();
+
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    _monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
+        //}
+        //else
+        //{
+        //    gameObject.SetActive(false);
+        //}
+
+        //Debug.Log($"[RPC_DisableProjectile] called on {gameObject.name} ({PhotonNetwork.LocalPlayer.NickName})");
+
+        //if (_isReturn) return;
+        //_isReturn = true;
+
+        //if (_monsterProjectileSpawnManager == null)
+        //{
+        //    _monsterProjectileSpawnManager = FindObjectOfType<MonsterProjectileSpawnManager>();
+        //}
+
+        //if (_monsterProjectileSpawnManager != null)
+        //{
+        //    _monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
+        //}
+        //else
+        //{
+        //    // 강제 비활성화 (디버그 목적)
+        //    Debug.LogWarning("SpawnManager가 존재하지 않음, 강제 비활성화 시도");
+        //    gameObject.SetActive(false);
+        //}
+
+        Debug.Log($"[RPC_DisableProjectile] ID: {projectileID}");
+
+        if (_monsterProjectileSpawnManager == null)
+            _monsterProjectileSpawnManager = FindObjectOfType<MonsterProjectileSpawnManager>();
+
+        if (_monsterProjectileSpawnManager != null)
+        {
+            _monsterProjectileSpawnManager.ReturnProjectileByID(projectileID);
+        }
     }
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -168,7 +223,7 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
     //    Debug.Log($"[RPC] Return to Pool called for viewID: {viewID}, type: {(ProjectileType)type}");
 
     //    if (obj != null)
-    //    {
+    //    { 
     //        var proj = obj.GetComponent<MonsterProjectile>();
     //        if (proj != null)
     //        {
