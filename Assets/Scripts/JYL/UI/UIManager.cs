@@ -130,6 +130,7 @@ public class UIManager : MonoBehaviour
         GameObject go = uiMap[type];
         if (!go.activeSelf)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.OpenBox);
             go.SetActive(true);
             openStack.Push(type);
         }
