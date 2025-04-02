@@ -135,16 +135,9 @@ public class QuickSlotUI : BaseInventory
 
         if (item.id == ItemName.PitfallTrap)
         {
-            GameObject trapPrefab = Resources.Load<GameObject>("Trap/trap");
-            if (trapPrefab != null)
-            {
-                Instantiate(trapPrefab, pl.position, Quaternion.identity);
-                Debug.Log("트랩이 소환되었습니다.");
-            }
-            else
-            {
-                Debug.LogError("트랩 프리팹 로드 실패");
-            }
+            PhotonNetwork.Instantiate("trap", pl.position, Quaternion.identity);
+
+            Debug.Log("트랩이 소환되었습니다.");
         }
 
         // 아이템 0개 되면 제거
@@ -294,7 +287,8 @@ public class QuickSlotUI : BaseInventory
         for (int i = 0; i < icons.Count; i++)
         {
             float offset = (i - icons.Count / 2) * spacing;
-            icons[i].rectTransform.localPosition = new Vector3(baseX + offset, 0f, 0f);        }
+            icons[i].rectTransform.localPosition = new Vector3(baseX + offset, 0f, 0f);
+        }
     }
 
     void UpdateIcons()

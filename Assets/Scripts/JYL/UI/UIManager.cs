@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
             await InvenToryCtrl.Instance.SaveInventoryToFirebase();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             StackUIOpen(UIType.OptionUI);
         }

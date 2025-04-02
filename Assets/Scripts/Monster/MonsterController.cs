@@ -42,7 +42,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private int _currentHeadDamage; //현재 머리에 얼마나 데미지 쌓였나?
     private int _maxHP; //최대 HP
     private int _lastAttack;
-    private int _currentHP; //현재 몬스터의 HP
+    [SerializeField]private int _currentHP; //현재 몬스터의 HP
     private int _damage; //몬스터 데미지
     //private uint _biteDamage; //몬스터 물기 데미지
     //private uint _taileDamage; //꼬리 데미지
@@ -703,7 +703,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-        attackType = 3;
+
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 
@@ -825,7 +825,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
             if (match != null)
             {
                 projectile.SetData(match);
-                projectile.InitShooter(this.gameObject, _projectileSpawnManager);
+                int shooterViewID = photonView.ViewID;
+                projectile.photonView.RPC("InitShooter", RpcTarget.All, shooterViewID);
+                //projectile.InitShooter(this.gameObject, _projectileSpawnManager);
             }
             projectile.transform.position = shootPos.position;
             projectile.transform.forward = shootPos.forward;
@@ -1246,6 +1248,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         if (other.CompareTag("Trap"))
         {
             _isTrap = true;
+            Destroy(other.gameObject, _trapTime);
         }
     }
 
