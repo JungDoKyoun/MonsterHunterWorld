@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting;
 
 
 public class CSVItemLoader : MonoBehaviour
 {
     [SerializeField] private TextAsset csvFile;
     [SerializeField] private List<Sprite> itemImages;
+
 
 
     public List<BaseItem> LoadItemsFromCSV()
@@ -109,8 +111,9 @@ public class CSVItemLoader : MonoBehaviour
             }
             else if (type == "Trap")
             {
+                
                 item = new Trap
-                {
+                {                    
                     id = (ItemName)id,
                     name = name,
                     type = ItemType.Trap,

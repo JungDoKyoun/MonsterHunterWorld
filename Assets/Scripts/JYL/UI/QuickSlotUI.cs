@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,22 +17,24 @@ public class QuickSlotUI : BaseInventory
 
     int currentIndex = 0;
 
+    Transform pl; // 로컬 플레이어의 Transform 저장 변수
+
     private void Awake()
     {
         invenType = InvenType.QuickSlot;
-
     }
 
     void Start()
     {
+        // Firebase에서 인벤토리 데이터 로드
         InvenToryCtrl.Instance.LoadInventoryFromFirebase(() =>
         {
-            //데이터 로드 완료 후 퀵슬롯 초기화
+            // 데이터 로드 후 퀵슬롯 초기화
             InvenToryCtrl.Instance.LoadQuickSlotItemsFromInventory();
 
             items = InvenToryCtrl.Instance.quickSlotItem;
 
-            if (items.Count == 0)
+            if (items == null || items.Count == 0)
             {
                 Debug.LogWarning("사용 가능한 아이템이 없습니다.");
                 return;
@@ -40,33 +43,21 @@ public class QuickSlotUI : BaseInventory
             ShowCurrentItem();
         });
 
-        InvenToryCtrl.Instance.LoadQuickSlotItemsFromInventory();
-
-
-        items = InvenToryCtrl.Instance.quickSlotItem;
-
-        if (items.Count == 0)
-        {
-            Debug.LogWarning("사용 가능한 아이템이 없습니다.");
-            return;
-        }
-
-        ShowCurrentItem();
+        // 로컬 플레이어가 생성될 때까지 기다림
+        StartCoroutine(WaitForLocalPlayer());
     }
-
 
     void Update()
     {
-        // 왼쪽 컨트롤을 누르고 있는 동안만 확장 슬롯 열기
+        // 왼쪽 컨트롤을 누르고 있는 동안 확장 슬롯 열기
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            //확장슬롯 킴
+            // 확장 슬롯 활성화
             if (!ExpansionSlot.activeSelf)
                 ExpansionSlot.SetActive(true);
 
-            // 휠 조작도 이 안에서만 처리
-            // 애니메이션 중이 아닐 때만
-            if (!isSliding) 
+            // 마우스 휠로 아이템 변경
+            if (!isSliding)
             {
                 if (Input.GetAxis("Mouse ScrollWheel") > 0f)
                 {
@@ -80,60 +71,100 @@ public class QuickSlotUI : BaseInventory
         }
         else
         {
-            //확장슬롯 끔
+            // 확장 슬롯 비활성화
             if (ExpansionSlot.activeSelf)
                 ExpansionSlot.SetActive(false);
 
-            // 아이템 사용 확장슬롯 안열었을때만 사용가능
+            // 확장 슬롯이 닫혀 있을 때만 아이템 사용 가능
             if (Input.GetKeyDown(KeyCode.E))
             {
                 UseCurrentItem();
             }
-        } 
+        }
 
-        // UI 갱신 (기본적으로 키 입력이 있으면 갱신)
+        // 키 입력이 발생할 때 UI 갱신
         if (Input.anyKeyDown)
         {
             ShowCurrentItem();
         }
     }
 
-
-    //아이템사용
-    public void UseCurrentItem()
+    // 로컬 플레이어가 생성될 때까지 대기하는 코루틴
+    private IEnumerator WaitForLocalPlayer()
     {
-        BaseItem item = ItemDataBase.Instance.EmptyItem;
-
-        if (items.Count != 0)
+        while (pl == null)
         {
-            item = items[currentIndex];
-        } 
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (item.count > 0)
-        {
-            item.count--;
-            useItemCountText.text = item.count.ToString();
-
-            if (item.count == 0)
+            foreach (GameObject player in players)
             {
-                items.RemoveAt(currentIndex);
-                if (items.Count == 0)
+                PhotonView pv = player.GetComponent<PhotonView>();
+                if (pv != null && pv.IsMine)
                 {
-                    ClearUI(); // 퀵슬롯이 비어있을 때 처리
-                    return;
+                    pl = pv.GetComponent<Transform>();
+                    Debug.Log("Local player found: " + pl.name);
+                    yield break; // 로컬 플레이어를 찾으면 코루틴 종료
                 }
-
-                currentIndex = Mathf.Clamp(currentIndex, 0, items.Count - 1);
             }
 
-
-            InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
+            yield return null; // 다음 프레임까지 대기
         }
-
-        ShowCurrentItem();
-
     }
 
+    private bool isTrapPlaced = false; // 함정 소환 중복 방지 플래그
+    [SerializeField] private float trapCooldown = 0.5f; // 0.5초 쿨타임
+
+    // 아이템 사용
+    public void UseCurrentItem()
+    {
+        if (pl == null)
+        {
+            Debug.LogError("플레이어 Transform(pl)이 초기화되지 않았습니다.");
+            return;
+        }
+
+        if (isTrapPlaced || items.Count == 0) return;
+
+        BaseItem item = items[currentIndex];
+        if (item.count <= 0) return;
+
+        // 중복 방지 및 카운트 감소
+        isTrapPlaced = true;
+        item.count--;
+        useItemCountText.text = item.count.ToString();
+
+        if (item.id == ItemName.PitfallTrap)
+        {
+            GameObject trapPrefab = Resources.Load<GameObject>("Trap/trap");
+            if (trapPrefab != null)
+            {
+                Instantiate(trapPrefab, pl.position, Quaternion.identity);
+                Debug.Log("트랩이 소환되었습니다.");
+            }
+            else
+            {
+                Debug.LogError("트랩 프리팹 로드 실패");
+            }
+        }
+
+        // 아이템 0개 되면 제거
+        if (item.count == 0)
+        {
+            items.RemoveAt(currentIndex);
+            currentIndex = Mathf.Clamp(currentIndex, 0, items.Count - 1);
+        }
+
+        InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
+        ShowCurrentItem();
+
+        StartCoroutine(ResetTrapPlacedAfterDelay());
+    }
+
+    IEnumerator ResetTrapPlacedAfterDelay()
+    {
+        yield return new WaitForSeconds(trapCooldown);
+        isTrapPlaced = false;
+    }
 
     void ClearUI()
     {
@@ -155,33 +186,23 @@ public class QuickSlotUI : BaseInventory
             return;
         }
 
-        // 중앙 인덱스 고정
+        // 현재 아이템 인덱스 조정
         currentIndex = Mathf.Clamp(currentIndex, 0, items.Count - 1);
 
-        // 중심 아이템 정보 텍스트
+        // 중앙 아이템 정보 갱신
         var centerItem = items[currentIndex];
         useItemCountText.text = centerItem.count.ToString();
         itemNameText.text = centerItem.name;
 
-        //for (int i = -2; i < 3; i++)
-        //{
-        //    SetIcon(i + 2, items[currentIndex + i]);
-        //}
-
-        // 슬롯 아이콘 업데이트 (고정 5칸)
         for (int i = 0; i < icons.Count; i++)
         {
             int offset = i - 2; // icons[2]가 중앙
             int targetIndex = GetWrappedIndex(currentIndex + offset);
 
-            //indexoutofrange 대비용 list가 null일때 호출하면 에러뜸..
             BaseItem targetItem = items.Count > 0 ? items[targetIndex] : ItemDataBase.Instance.EmptyItem;
             SetIcon(i, targetItem);
         }
     }
-
-
-
 
     void SetIcon(int iconIndex, BaseItem item)
     {
@@ -199,20 +220,20 @@ public class QuickSlotUI : BaseInventory
         }
     }
 
-
     int GetWrappedIndex(int index)
     {
         if (items.Count == 0) return 0;
         return (index + items.Count) % items.Count;
     }
 
-
     IEnumerator SlideToNext()
     {
+        if (items == null || items.Count == 0)
+            yield break;
+
         isSliding = true;
 
-  
-        int nextIndex = (currentIndex - 1+ items.Count) % items.Count;
+        int nextIndex = (currentIndex - 1 + items.Count) % items.Count;
         yield return AnimateSlide(-1); // 왼쪽으로 슬라이드
 
         currentIndex = nextIndex;
@@ -223,6 +244,9 @@ public class QuickSlotUI : BaseInventory
 
     IEnumerator SlideToPrevious()
     {
+        if (items == null || items.Count == 0)
+            yield break;
+
         isSliding = true;
 
         int prevIndex = (currentIndex + 1 + items.Count) % items.Count;
@@ -252,13 +276,12 @@ public class QuickSlotUI : BaseInventory
             for (int i = 0; i < icons.Count; i++)
             {
                 var pos = startPositions[i];
-                icons[i].rectTransform.localPosition = 
+                icons[i].rectTransform.localPosition =
                     Vector3.Lerp(pos, pos + Vector3.right * endX, t);
             }
             yield return null;
         }
 
-        // 슬라이드 후 위치 원복 및 아이콘 새로 세팅
         ResetIconPositions();
         UpdateIcons();
     }
@@ -271,8 +294,7 @@ public class QuickSlotUI : BaseInventory
         for (int i = 0; i < icons.Count; i++)
         {
             float offset = (i - icons.Count / 2) * spacing;
-            icons[i].rectTransform.localPosition = new Vector3(baseX + offset, 0f, 0f);
-        }
+            icons[i].rectTransform.localPosition = new Vector3(baseX + offset, 0f, 0f);        }
     }
 
     void UpdateIcons()
@@ -287,5 +309,4 @@ public class QuickSlotUI : BaseInventory
             icons[i].color = items[index].color;
         }
     }
-
 }

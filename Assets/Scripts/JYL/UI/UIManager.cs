@@ -33,7 +33,6 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-
     [SerializeField] private List<UIData> uiList = new();
 
     private Dictionary<UIType, GameObject> uiMap = new();
