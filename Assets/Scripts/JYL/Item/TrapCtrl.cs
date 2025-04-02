@@ -16,6 +16,7 @@ public class TrapCtrl : MonoBehaviourPun
     {
         end.SetActive(true);
         Debug.Log("함정 활성화됨");
+        //TODO : 여기다 콜라이더 활성화 시켜줬었으면 굳이 번거롭게 안해도 됬었던거같음.
     }
 
     //private void OnTriggerEnter(Collider other)
