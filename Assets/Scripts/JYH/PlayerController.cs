@@ -231,13 +231,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             _currentStamina = 0;
         }
-        SoundManager.Instance.PlaySFX(IngameSfxType.HunterDodge);
+        SoundManager.Instance.PlaySFX(HunterSfxType.HunterDodge);
     }
 
     private void Swing()
     {
         _swing = true;
-        SoundManager.Instance.PlaySFX((IngameSfxType)UnityEngine.Random.Range(0, 2));
+        SoundManager.Instance.PlaySFX((HunterSfxType)UnityEngine.Random.Range(0, 2));
     }
 
     private void OnEquipChanged(ItemName itemKey)
@@ -574,7 +574,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 _coroutine = null;
             }
             getPlayerCostume.SetWeapon(true);
-            SoundManager.Instance.PlaySFX(IngameSfxType.HunterHit);
+            SoundManager.Instance.PlaySFX(HunterSfxType.HunterHit);
             if (damage < _currentLife)
             {
                 _currentLife -= damage;

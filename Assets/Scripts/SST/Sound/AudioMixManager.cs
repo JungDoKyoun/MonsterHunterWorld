@@ -27,6 +27,7 @@ public class AudioMixManager : MonoBehaviour
         {
             Destroy(Instance);
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
