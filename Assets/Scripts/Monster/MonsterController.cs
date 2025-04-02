@@ -1294,4 +1294,5 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _agent.updatePosition = false;
         _agent.updateRotation = false;
     }
+
 }
