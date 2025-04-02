@@ -205,8 +205,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly string RecoverTag = "Recover";
     private static readonly string DeadTag = "Dead";
 
-    public static Action<PlayerController, string> playerAction = null;
-
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -267,10 +265,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     }
                 }
             }
-        }
-        else
-        {
-            playerAction?.Invoke(this, photonView.Owner.NickName);
         }
     }
 

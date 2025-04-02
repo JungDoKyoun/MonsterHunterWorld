@@ -13,8 +13,7 @@ public class GageCtrl : MonoBehaviour
     private Slider _staminaSlider;
 
 
-
-    public void Set(string nickname)
+    public void SetName(string nickname)
     {
         _nameText.SetText(nickname);
     }

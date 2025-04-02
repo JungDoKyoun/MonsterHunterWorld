@@ -5,6 +5,7 @@ using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using Photon.Pun.Demo.PunBasics;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -17,17 +18,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private PlayerController _playerController = null;
 
-    private Dictionary<PlayerController, string> otherPlayers = new Dictionary<PlayerController, string>();
+    private Dictionary<PlayerController, Player> _otherPlayers = new Dictionary<PlayerController, Player>();
 
     private static readonly float RespawnTime = 5.0f;
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
     private static readonly Vector3 MonsterStartPoint = new Vector3(-260, 41.5f, -32);
-
-    private void Awake()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        PlayerController.playerAction += CreatePlayer;
-    }
 
     private void Start()
     {
@@ -35,10 +30,40 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (room != null)
         {
             SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss);
-            _gageController?.Set(PhotonNetwork.NickName);
-            if(PhotonNetwork.IsMasterClient == true && _monsterPrefab != null)
+            _gageController?.SetName(PhotonNetwork.NickName);
+            if (PhotonNetwork.IsMasterClient == true && _monsterPrefab != null)
             {
                 PhotonNetwork.InstantiateRoomObject(_monsterPrefab.name, MonsterStartPoint, Quaternion.identity, 0);
+            }
+            if (PlayerManager.LocalPlayerInstance == null)
+            {
+                StartCoroutine(SpawnPlayerWhenConnected());
+                IEnumerator SpawnPlayerWhenConnected()
+                {
+                    //방에 들어왔긴 하지만, 방장이 씬을 바꾸어두었으므로 적용시킬때까지 약간의 딜레이 존재
+                    yield return new WaitUntil(() => PhotonNetwork.InRoom); //고로 다시 인룸 상태까지 대기
+                    if (_playerPrefab != null)
+                    {
+                        GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
+                        FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
+                        _playerController = gameObject.GetComponent<PlayerController>();
+                        if (_playerController != null)
+                        {
+                            _playerController.attackable = true;
+                            _playerController.Initialize(SetLife);
+                        }
+                    }
+                    yield return new WaitWhile(() => FindObjectsOfType<PlayerController>().Length < PhotonNetwork.CurrentRoom.PlayerCount);
+                    PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
+                    foreach(PlayerController playerController in playerControllers)
+                    {
+                        Player player = playerController.photonView.Owner;
+                        if (player != PhotonNetwork.LocalPlayer)
+                        {
+                            _otherPlayers.Add(playerController, player);
+                        }
+                    }
+                }
             }
         }
     }
@@ -49,32 +74,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             _gageController.SetStamina(_playerController.currentStamina, _playerController.fullStamina);
         }
-    }
-
-    private void OnDestroy()
-    {
-        PlayerController.playerAction -= CreatePlayer;
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (_playerPrefab != null)
-        {
-            GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
-            FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
-            _playerController = gameObject.GetComponent<PlayerController>();
-            if (_playerController != null)
-            {
-                _playerController.attackable = true;
-                _playerController.Initialize(SetLife);
-            }
-        }
-    }
-
-    private void CreatePlayer(PlayerController playerController, string nickname)
-    {
-        Debug.Log("신규 생성");
     }
 
     private void SetLife(int current, int full)
