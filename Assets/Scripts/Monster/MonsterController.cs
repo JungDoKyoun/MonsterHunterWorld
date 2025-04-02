@@ -825,7 +825,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
             if (match != null)
             {
                 projectile.SetData(match);
-                projectile.InitShooter(this.gameObject, _projectileSpawnManager);
+                int shooterViewID = photonView.ViewID;
+                projectile.photonView.RPC("InitShooter", RpcTarget.All, shooterViewID);
+                //projectile.InitShooter(this.gameObject, _projectileSpawnManager);
             }
             projectile.transform.position = shootPos.position;
             projectile.transform.forward = shootPos.forward;
