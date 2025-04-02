@@ -33,7 +33,7 @@ public abstract class BaseInventory : MonoBehaviour
 
     private void Start()
     {
-        emptyItem = ItemDataBase.Instance.emptyItem;
+        emptyItem = ItemDataBase.Instance.EmptyItem;
 
     }
 
@@ -107,7 +107,7 @@ public abstract class BaseInventory : MonoBehaviour
 
             // item[i]가 null이면 emptyItem으로 대체
             BaseItem currentItem =
-                (i < list.Count && list[i] != null) ? list[i] : ItemDataBase.Instance.emptyItem;
+                (i < list.Count && list[i] != null) ? list[i] : ItemDataBase.Instance.EmptyItem;
             //Debug.Log($"슬롯 {i}: {items[i].name}, 타입: {items[i].type}, count: {items[i].count}");
             slotComp.SlotSetItem(currentItem);
         }
@@ -129,7 +129,7 @@ public abstract class BaseInventory : MonoBehaviour
         list = new List<BaseItem>(validItems);
         for (int i = 0; i < emptyCount; i++)
         {
-            list.Add(ItemDataBase.Instance.emptyItem);
+            list.Add(ItemDataBase.Instance.EmptyItem);
         }
     }
 
@@ -144,7 +144,7 @@ public abstract class BaseInventory : MonoBehaviour
 
         for (int i = 0; i < emptyCount; i++)
         {
-            list.Add(ItemDataBase.Instance.emptyItem);
+            list.Add(ItemDataBase.Instance.EmptyItem);
         }
     }
 

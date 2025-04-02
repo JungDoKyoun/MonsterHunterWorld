@@ -92,27 +92,37 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     {
         if(roomInfoCanvas != null && roomInfoCanvas.gameObject.activeInHierarchy == true)
         {
+            if(singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == true)
+            {
+                singleQuestPanel.gameObject.SetActive(false);
+            }
             return;
         }
 
-        // F 키를 눌러 근처 NPC와 상호작용하면 해당 UI 활성화
-        if (Input.GetKeyDown(KeyCode.F))
+     
+        if (activeNpcs.Count > 0)
         {
-            if (activeNpcs.Count > 0)
+            NpcCtrl selectedNpc = null;
+            float minDistance = Mathf.Infinity;
+            foreach (var npc in activeNpcs)
             {
-                NpcCtrl selectedNpc = null;
-                float minDistance = Mathf.Infinity;
-                foreach (var npc in activeNpcs)
+                float distance = Vector3.Distance(npc.transform.position, player.transform.position);
+                if (distance < minDistance && npc.isPlayerInRange == true)
                 {
-                    float distance = Vector3.Distance(npc.transform.position, player.transform.position);
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        selectedNpc = npc;
-                    }
+                    minDistance = distance;
+                    selectedNpc = npc;
                 }
-                if (selectedNpc != null && selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
+            }
+            if (selectedNpc != null && selectedNpc.npcType == NpcCtrl.Type.SingleQuest)
+            {
+                if (singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == false)
                 {
+                    singleQuestPanel.gameObject.SetActive(true);
+                }
+                // F 키를 눌러 근처 NPC와 상호작용하면 해당 UI 활성화
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+
                     if (!questCreateCanvas.gameObject.activeInHierarchy)
                     {
                         SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.CreateQuest);
@@ -120,6 +130,10 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
                     questCreateCanvas.gameObject.SetActive(true);
                 }
             }
+        }
+        else if (singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == true)
+        {
+            singleQuestPanel.gameObject.SetActive(false);
         }
 
         // ESC 키를 눌러 UI 닫기
@@ -133,7 +147,6 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
             roomInfoCanvas.gameObject.SetActive(false);
 
         }
-
         if (player != null && singleQuestPanel != null && singleQuestPanel.gameObject.activeInHierarchy == false
             && movePanel != null && movePanel.gameObject.activeInHierarchy == false)
         {
@@ -189,7 +202,6 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
     // NPC 감지 이벤트 핸들러: 감지된 NPC를 리스트에 추가하거나 제거
     private void HandleNpcDetectionChanged(NpcCtrl npc, bool isActive)
     {
-        singleQuestPanel.gameObject.SetActive(isActive);
         if (isActive)
         {
             if (!activeNpcs.Contains(npc))

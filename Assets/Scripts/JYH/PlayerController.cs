@@ -195,6 +195,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly float RecoverStamina = 5f;
     private static readonly string VerticalTag = "Vertical";
     private static readonly string HorizontalTag = "Horizontal";
+    private static readonly string IdleTag = "Idle";
     private static readonly string RunTag = "Run";
     private static readonly string DashTag = "Dash";
     private static readonly string JumpTag = "Jump";
@@ -346,13 +347,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     SetAnimation(JumpTag, true);
                     _currentStamina -= JumpStamina;
                 }
-                else if (_fullStamina > _currentStamina)
+            }
+            if (GetAnimationName() == IdleTag && _fullStamina > _currentStamina)
+            {
+                _currentStamina += Time.deltaTime * RecoverStamina;
+                if (_currentStamina > _fullStamina)
                 {
-                    _currentStamina += Time.deltaTime * RecoverStamina;
-                    if (_currentStamina > _fullStamina)
-                    {
-                        _currentStamina = _fullStamina;
-                    }
+                    _currentStamina = _fullStamina;
                 }
             }
         }

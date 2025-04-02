@@ -6,7 +6,6 @@ using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
-using SimpleJSON;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Canvas))]
@@ -141,7 +140,8 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(_createButton != null)
+        //SoundManager.Instance.PlayBGM(SoundManager.BGMType.Meeting, 0.4f);
+        if (_createButton != null)
         {
             _createButton.onClick.AddListener(CreateQuest);
         }

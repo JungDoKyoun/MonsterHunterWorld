@@ -8,6 +8,7 @@ using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
 using System.Collections.Generic;
+using System.Text;
 
 public class AuthManager : MonoBehaviour
 {
@@ -208,7 +209,10 @@ public class AuthManager : MonoBehaviour
 #endif
                             }
                         });
+
                     }
+
+                    //TODO: 인벤 생성해서 저장해주기
                     PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
                 }
             });
@@ -289,11 +293,91 @@ public class AuthManager : MonoBehaviour
                         warningText.text = "";
 #if UNITY_EDITOR
                         Debug.Log("생성 완료. " + user.DisplayName + " 님 반갑습니다.");
-                        
+
+                        // 계정 생성 후 초기 인벤토리 저장
+                        InitInventoryForNewUser();
 #endif
                     }
                 }
             }
         }
     }
+
+    void InitInventoryForNewUser()
+    {
+        var user = FirebaseAuth.DefaultInstance.CurrentUser;
+        if (user == null) return;
+
+        // 초기 인벤토리 세팅
+        List<BaseItem> inventory = new List<BaseItem>();
+        List<BaseItem> boxInven = new List<BaseItem>();
+        List<BaseItem> equipInventory = new List<BaseItem>();
+        List<BaseItem> equippedInventory = new List<BaseItem>(new BaseItem[9]);
+
+        BaseItem empty = ItemDataBase.Instance.EmptyItem;
+
+        // 초기 인벤토리
+        for (int i = 0; i < 24; i++)
+            inventory.Add(empty);
+
+        // 창고 초기 아이템: 포션 10개,고기 10개, 함정 3개
+        for (int i = 0; i < 100; i++)
+            boxInven.Add(empty);
+
+        boxInven[0] = ItemDataBase.Instance.GetItem(ItemName.Potion).Clone();
+        boxInven[0].count = 10;
+        boxInven[1] = ItemDataBase.Instance.GetItem(ItemName.WellDoneSteak).Clone();
+        boxInven[1].count = 10;
+        boxInven[2] = ItemDataBase.Instance.GetItem(ItemName.PitfallTrap).Clone();
+        boxInven[2].count = 3;
+
+        // 장비 인벤토리 
+        for (int i = 0; i < 50; i++)
+            equipInventory.Add(empty);
+
+
+        // 장착 슬롯 (가죽 방어구와 헌터 나이프 추가 후 장착)
+        for (int i = 0; i < 9; i++)
+            equippedInventory[i] = empty;
+
+        equippedInventory[(int)EquipSlot.Weapon] = ItemDataBase.Instance.GetItem(ItemName.HuntersKnife_I).Clone();
+        equippedInventory[(int)EquipSlot.Head] = ItemDataBase.Instance.GetItem(ItemName.LeatherHead).Clone();
+        equippedInventory[(int)EquipSlot.Chest] = ItemDataBase.Instance.GetItem(ItemName.LeatherVest).Clone();
+        equippedInventory[(int)EquipSlot.Arms] = ItemDataBase.Instance.GetItem(ItemName.LeatherGloves).Clone();
+        equippedInventory[(int)EquipSlot.Waist] = ItemDataBase.Instance.GetItem(ItemName.LeatherBelt).Clone();
+        equippedInventory[(int)EquipSlot.Legs] = ItemDataBase.Instance.GetItem(ItemName.LeatherPants).Clone();
+
+        // 저장
+        StringBuilder sb = new StringBuilder();
+        void SaveList(string key, List<BaseItem> list)
+        {
+            sb.Clear();
+            foreach (var item in list)
+            {
+                sb.AppendLine($"{(int)item.id},{item.count}");
+            }
+
+            FirebaseDatabase.DefaultInstance.RootReference
+                .Child(user.UserId)
+                .Child(key)
+                .SetValueAsync(sb.ToString());
+        }
+
+        SaveList("inventoryData", inventory);
+        SaveList("BoxInvenData", boxInven);
+        SaveList("EquipInventoryData", equipInventory);
+        SaveList("EquippedInventoryData", equippedInventory);
+
+        // 슬롯별 저장 (무기/방어구)
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Weapon").SetValueAsync((int)ItemName.HuntersKnife_I);
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Breast").SetValueAsync((int)ItemName.LeatherVest);
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Head").SetValueAsync((int)ItemName.LeatherHead);
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Hand").SetValueAsync((int)ItemName.LeatherGloves);
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Waist").SetValueAsync((int)ItemName.LeatherBelt);
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Leg").SetValueAsync((int)ItemName.LeatherPants);
+
+
+        Debug.Log("초기 인벤토리 및 장비 저장 완료");
+    }
+
 }

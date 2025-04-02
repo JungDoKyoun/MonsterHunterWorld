@@ -61,17 +61,20 @@ public class ItemDataBase : MonoBehaviour
     public Dictionary<ItemName, BaseItem> itemDB = new Dictionary<ItemName, BaseItem>();
 
 
-    public BaseItem emptyItem;
+    BaseItem emptyItem;
+    public BaseItem EmptyItem => emptyItem.Clone();
 
     public static ItemDataBase Instance;
 
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null)
         {
-            Instance = this;
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
 
         items = GetComponent<CSVItemLoader>().LoadItemsFromCSV();
 
