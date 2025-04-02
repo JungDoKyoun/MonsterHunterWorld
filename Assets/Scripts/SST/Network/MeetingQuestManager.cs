@@ -555,6 +555,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
             hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
             if (hashtable.ContainsKey(HuntingRoomTag) == true && hashtable[HuntingRoomTag].ToString() == userId)
             {
+                PhotonNetwork.AutomaticallySyncScene = true;
                 PhotonNetwork.LoadLevel("ALLTestScene");
                 return;
             }

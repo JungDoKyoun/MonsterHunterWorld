@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using static SoundManager;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -162,7 +161,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-
     public bool attackable
     {
         private get;
@@ -207,6 +205,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private static readonly string RecoverTag = "Recover";
     private static readonly string DeadTag = "Dead";
 
+    public static Action<PlayerController, string> playerAction = null;
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -231,13 +231,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             _currentStamina = 0;
         }
-        SoundManager.Instance.PlaySFX(HunterSfxType.HunterDodge);
+        SoundManager.Instance.PlaySFX(SoundManager.HunterSfxType.HunterDodge);
     }
 
     private void Swing()
     {
         _swing = true;
-        SoundManager.Instance.PlaySFX((HunterSfxType)UnityEngine.Random.Range(0, 2));
+        SoundManager.Instance.PlaySFX((SoundManager.HunterSfxType)UnityEngine.Random.Range(0, 2));
     }
 
     private void OnEquipChanged(ItemName itemKey)
@@ -267,6 +267,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     }
                 }
             }
+        }
+        else
+        {
+            playerAction?.Invoke(this, photonView.Owner.NickName);
         }
     }
 
@@ -574,7 +578,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 _coroutine = null;
             }
             getPlayerCostume.SetWeapon(true);
-            SoundManager.Instance.PlaySFX(HunterSfxType.HunterHit);
+            SoundManager.Instance.PlaySFX(SoundManager.HunterSfxType.HunterHit);
             if (damage < _currentLife)
             {
                 _currentLife -= damage;
