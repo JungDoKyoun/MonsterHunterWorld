@@ -170,7 +170,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
         {
             _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         }
-        _projectileSpawnManager.LoadProjectilesFromAddressable(_label, _monsterProjectileDatas);
+        //_projectileSpawnManager.LoadProjectilesFromAddressable(_label, _monsterProjectileDatas);
+        foreach(var data in _monsterProjectileDatas)
+        {
+            _projectileSpawnManager.CreatePool(data.Name, data.defaultCapacity, data.ProjectileType);
+        }
     }
 
     public void SetAnime(string tag, bool value)

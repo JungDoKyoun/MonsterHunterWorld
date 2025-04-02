@@ -66,7 +66,8 @@ MonoBehaviour:
     ProjectileType: 0
     AttackColliderName: TaileAttackCollider
   ProjectileDatas:
-  - ProjectileType: 0
+  - Name: Fireball
+    ProjectileType: 0
     defaultCapacity: 5
     damage: 10
     speed: 10

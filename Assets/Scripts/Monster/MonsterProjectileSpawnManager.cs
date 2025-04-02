@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -14,30 +15,34 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
 {
     private Dictionary<ProjectileType, ObjectPool<MonsterProjectile>> MonsterProjectilePool = new();
 
-    public void LoadProjectilesFromAddressable(string label, List<MonsterProjectileData> projectileDatas)
-    {
-        Addressables.LoadAssetsAsync<GameObject>(label, prefab =>
-        {
-            var projectile = prefab.GetComponent<MonsterProjectile>();
-            var type = projectile.ProjectileType;
-            var match = projectileDatas.Find(x => x.ProjectileType == type);
+    //public void LoadProjectilesFromAddressable(string label, List<MonsterProjectileData> projectileDatas)
+    //{
+    //    Addressables.LoadAssetsAsync<GameObject>(label, prefab =>
+    //    {
+    //        var projectile = prefab.GetComponent<MonsterProjectile>();
+    //        var type = projectile.ProjectileType;
+    //        var match = projectileDatas.Find(x => x.ProjectileType == type);
 
-            if(match != null)
-            {
-                projectile.SetData(match);
-                if(!MonsterProjectilePool.ContainsKey(type))
-                {
-                    CreatePool(projectile, match.defaultCapacity, type);
-                }
-            }
-        });
-    }
+    //        if (match != null)
+    //        {
+    //            projectile.SetData(match);
+    //            if (!MonsterProjectilePool.ContainsKey(type))
+    //            {
+    //                CreatePool(projectile, match.defaultCapacity, type);
+    //            }
+    //        }
+    //    });
+    //}
 
-    public void CreatePool(MonsterProjectile prefab, int cap, ProjectileType type)
+    public void CreatePool(string name, int cap, ProjectileType type)
     {
         Debug.Log("µé¾î¿È");
         var pool = new ObjectPool<MonsterProjectile>(
-            createFunc: () => Instantiate(prefab),
+            createFunc: () =>
+            {
+                var temp = PhotonNetwork.Instantiate(name, Vector3.zero, Quaternion.identity);
+                return temp.GetComponent<MonsterProjectile>();
+            },
             actionOnGet: obj => obj.gameObject.SetActive(true),
             actionOnRelease: obj => obj.gameObject.SetActive(false),
             actionOnDestroy: obj => Destroy(obj),
@@ -50,13 +55,16 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
     {
         if(MonsterProjectilePool.TryGetValue(type, out var objectPool))
         {
-            return objectPool.Get();
+            var projectile = objectPool.Get();
+            projectile.AssignID(System.Guid.NewGuid().ToString());
+            return projectile;
         }
         return null;
     }
 
     public void ReturnProjectile(ProjectileType type, MonsterProjectile prefab)
     {
+        prefab.HasHit = false;
         prefab.ResetProjectile();
         if(MonsterProjectilePool.TryGetValue(type, out var objectPool))
         {

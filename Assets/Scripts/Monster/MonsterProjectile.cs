@@ -13,6 +13,10 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
     private MonsterProjectileSpawnManager _monsterProjectileSpawnManager;
     private GameObject _shooter;
     private float _elapsedTime;
+    private bool _hasHit = false;
+
+    public bool HasHit { get { return _hasHit; } set { _hasHit = value; } }
+    public string ProjectileID { get; private set; }
 
     public ProjectileType ProjectileType { get { return projectileType; } set { projectileType = value; } }
 
@@ -20,6 +24,11 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
     {
         Shoot();
         ReturnPool();
+    }
+
+    public void AssignID(string id)
+    {
+        ProjectileID = id;
     }
 
     public void InitShooter(GameObject shooter, MonsterProjectileSpawnManager projectileSpawnManager)
@@ -32,7 +41,6 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
 
         foreach(var co in shooterCholliders)
         {
-            Debug.Log(co);
             Physics.IgnoreCollision(myCollider, co);
             _ignorColliders.Add(co);
         }
@@ -85,7 +93,8 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (_hasHit || !PhotonNetwork.IsMasterClient) return;
+        _hasHit = true;
 
         if (other.CompareTag("Player"))
         {
@@ -99,7 +108,7 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
                 if (player != null)
                 {
                     player.GetComponent<PlayerController>().TakeDamage(contactPoint, _data.damage);
-                    return;
+                    break;
                 }
 
                 current = current.parent;
@@ -111,6 +120,29 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(OnHitEffect.name, transform.position, Quaternion.identity);
         }
 
+        photonView.RPC("RPC_DisableProjectile", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void RPC_DisableProjectile()
+    {
         _monsterProjectileSpawnManager.ReturnProjectile(projectileType, this);
     }
+
+
+    //[PunRPC]
+    //public void RPC_ReturnToPool(int viewID, int type)
+    //{
+    //    GameObject obj = PhotonView.Find(viewID)?.gameObject;
+    //    Debug.Log($"[RPC] Return to Pool called for viewID: {viewID}, type: {(ProjectileType)type}");
+
+    //    if (obj != null)
+    //    {
+    //        var proj = obj.GetComponent<MonsterProjectile>();
+    //        if (proj != null)
+    //        {
+    //            _monsterProjectileSpawnManager.ReturnProjectile((ProjectileType)type, proj);
+    //        }
+    //    }
+    //}
 }
