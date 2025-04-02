@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
     private static readonly Vector3 MonsterStartPoint = new Vector3(-260, 41.5f, -32);
 
-
     private void Start()
     {
         Room room = PhotonNetwork.CurrentRoom;
@@ -74,5 +73,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnDisable();
         StopAllCoroutines();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
+        Debug.Log(playerControllers.Length);
     }
 }
