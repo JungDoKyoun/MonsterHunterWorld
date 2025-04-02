@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Room room = PhotonNetwork.CurrentRoom;
         if (room != null && _playerPrefab != null)
         {
-            SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss, 0.4f);
+            SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss);
             GameObject gameObject = PhotonNetwork.Instantiate(_playerPrefab.name, PlayerStartPoint, Quaternion.identity, 0);
             FindObjectOfType<CinemachineFreeLook>().Set(gameObject.transform);
             _playerController = gameObject.GetComponent<PlayerController>();

@@ -12,6 +12,10 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
     [SerializeField] CanvasGroup titleCanvas;
     [SerializeField] CanvasGroup loginCanvas;
 
+    [Header("패널 관리")]
+    [SerializeField] Transform loginPanel;
+    [SerializeField] Transform optionPanel;
+
     private void Start()
     {
         basicCanvas.gameObject.SetActive(true);
@@ -19,7 +23,7 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
         loginCanvas.gameObject.SetActive(false);
 
         UiManager.Instance.FadeInUI(titleCanvas);
-        SoundManager.Instance.PlayBGM(SoundManager.BGMType.Login, 0.4f);
+        SoundManager.Instance.PlayBGM(SoundManager.BGMType.Login);
         //StartCoroutine(FadeInUI(titleCanvas));
     }
 
@@ -30,5 +34,17 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
             UiManager.Instance.FadeOutUI(titleCanvas);
             UiManager.Instance.FadeInUI(loginCanvas);
         }
+    }
+
+    public void OptionButtonClick()
+    {
+        loginPanel.gameObject.SetActive(false);
+        optionPanel.gameObject.SetActive(true);
+    }
+
+    public void LeaveOption()
+    {
+        optionPanel.gameObject.SetActive(false);
+        loginPanel.gameObject.SetActive(true);
     }
 }

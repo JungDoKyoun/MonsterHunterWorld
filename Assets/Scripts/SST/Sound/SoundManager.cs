@@ -83,20 +83,19 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(Instance);
     }
 
-    public void PlayBGM(BGMType bgmType, float volume = 1.0f)
+    public void PlayBGM(BGMType bgmType)
     {
         StopBGM();
-        PlayBGM(bgmClips[(int)bgmType], volume);
+        PlayBGM(bgmClips[(int)bgmType]);
     }
 
-    private void PlayBGM(AudioClip audioClip, float volume)
+    private void PlayBGM(AudioClip audioClip)
     {
         if(bgmSource.clip == audioClip && bgmSource.isPlaying)
         {
             return;
         }
         bgmSource.clip = audioClip;
-        bgmSource.volume = volume;
         bgmSource.loop = true;
         bgmSource.Play();
     }
@@ -108,54 +107,51 @@ public class SoundManager : MonoBehaviour
 
     // SFX는 Enum 타입별로 오버로드해놓음
     // 퀘스트 상호작용 SFX 재생
-    public void PlaySFX(SfxQuestType qusetType, float volume = 1.0f)
+    public void PlaySFX(SfxQuestType qusetType)
     {
-        PlaySFX(questSfxs[(int)qusetType], volume);
+        PlaySFX(questSfxs[(int)qusetType]);
     }
 
     // 헌터(플레이어) 전용 SFX 재생
-    public void PlaySFX(HunterSfxType hunterSfxType, float volume = 1.0f)
+    public void PlaySFX(HunterSfxType hunterSfxType)
     {
-        PlaySFX(hunterSfxs[(int)hunterSfxType], volume);
+        PlaySFX(hunterSfxs[(int)hunterSfxType]);
     }
 
     // 위의 함수를 받아서 재생
-    private void PlaySFX(AudioClip audioClip, float volume)
+    private void PlaySFX(AudioClip audioClip)
     {
-        sfxSource.PlayOneShot(audioClip, volume);
+        sfxSource.PlayOneShot(audioClip);
     }
 
     // 보스 전용 SFX 플레이 함수
     // 다른 오디오 소스에서 재생해서 플레이어 SFX와 동시에 재생하기 위함
-    public void PlaySFX(BossSfxType bossSfxType, float volume = 1.0f)
+    public void PlaySFX(BossSfxType bossSfxType)
     {
-        PlayBossSFX(bossSFXs[(int)bossSfxType], volume);
+        PlayBossSFX(bossSFXs[(int)bossSfxType]);
     }
 
     // 위의 함수를 받아서 재생
-    private void PlayBossSFX(AudioClip audioClip, float volume)
+    private void PlayBossSFX(AudioClip audioClip)
     {
-        sfxSource2.PlayOneShot(audioClip, volume);
+        sfxSource2.PlayOneShot(audioClip);
     }
 
     // 버튼 클릭음 재생
     public void PlayBtnClickSFX()
     {
-        sfxSource.volume = 0.7f;
         sfxSource.PlayOneShot(buttonSFXs[0]);
     }
 
     // 버튼에 갖다대면 나는 소리
     public void PlayWheelSFX()
     {
-        sfxSource.volume = 0.7f;
         sfxSource.PlayOneShot(buttonSFXs[1]);
     }
 
     // 스타트 버튼 클릭음 재생
     public void PlayStartButtonSFX()
     {
-        sfxSource.volume = 0.7f;
         sfxSource.PlayOneShot(buttonSFXs[2]);
     }
 }
