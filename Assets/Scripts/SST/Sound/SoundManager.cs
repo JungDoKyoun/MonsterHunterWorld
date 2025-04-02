@@ -103,7 +103,7 @@ public class SoundManager : MonoBehaviour
         PlaySFX(inGameSFXs[(int)ingameSfxType], volume);
     }
 
-    public void PlaySFX(AudioClip audioClip, float volume)
+    private void PlaySFX(AudioClip audioClip, float volume)
     {
         sfxSource.PlayOneShot(audioClip, volume);
     }
