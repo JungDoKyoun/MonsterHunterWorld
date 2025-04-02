@@ -381,7 +381,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (other.TryGetComponent(out MonsterController monsterController))
             {
-                monsterController.TakeDamage(_damage);
+                monsterController.RequestTakeDamage(_damage);
                 StopSwing();
             }
             else if (other.tag == "MonsterHead")
