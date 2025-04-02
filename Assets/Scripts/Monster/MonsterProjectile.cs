@@ -103,7 +103,7 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_hasHit || !PhotonNetwork.IsMasterClient) return;
+        if (_hasHit || !PhotonNetwork.IsMasterClient || other.CompareTag("Trap")) return;
         _hasHit = true;
 
         if (other.CompareTag("Player"))
