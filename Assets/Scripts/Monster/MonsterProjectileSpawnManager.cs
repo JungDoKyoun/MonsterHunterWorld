@@ -65,6 +65,7 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
     public void ReturnProjectile(ProjectileType type, MonsterProjectile prefab)
     {
         prefab.HasHit = false;
+        prefab.IsReturn = false;
         prefab.ResetProjectile();
         if(MonsterProjectilePool.TryGetValue(type, out var objectPool))
         {
@@ -72,7 +73,7 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
         }
         else
         {
-            Destroy(prefab);
+            prefab.gameObject.SetActive(false);
         }
     }
 }
