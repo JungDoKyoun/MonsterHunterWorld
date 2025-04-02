@@ -102,7 +102,13 @@ public class QuickSlotUI : BaseInventory
     //아이템사용
     public void UseCurrentItem()
     {
-        var item = items[currentIndex];
+        BaseItem item = ItemDataBase.Instance.EmptyItem;
+
+        if (items.Count != 0)
+        {
+            item = items[currentIndex];
+        } 
+
         if (item.count > 0)
         {
             item.count--;
@@ -120,10 +126,12 @@ public class QuickSlotUI : BaseInventory
                 currentIndex = Mathf.Clamp(currentIndex, 0, items.Count - 1);
             }
 
-            ShowCurrentItem();
 
             InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
         }
+
+        ShowCurrentItem();
+
     }
 
 
