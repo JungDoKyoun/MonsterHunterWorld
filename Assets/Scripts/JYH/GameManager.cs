@@ -4,7 +4,6 @@ using UnityEngine;
 using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.SceneManagement;
 using Photon.Pun.Demo.PunBasics;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -18,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private PlayerController _playerController = null;
 
-    private Dictionary<PlayerController, Player> _otherPlayers = new Dictionary<PlayerController, Player>();
+    private List<PlayerController> _otherPlayers = new List<PlayerController>();
 
     private static readonly float RespawnTime = 5.0f;
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
@@ -55,12 +54,15 @@ public class GameManager : MonoBehaviourPunCallbacks
                     }
                     yield return new WaitWhile(() => FindObjectsOfType<PlayerController>().Length < PhotonNetwork.CurrentRoom.PlayerCount);
                     PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
-                    foreach(PlayerController playerController in playerControllers)
+                    for(int i = 0; i < playerControllers.Length; i++)
                     {
-                        Player player = playerController.photonView.Owner;
+                        Player player = playerControllers[i].photonView.Owner;
                         if (player != PhotonNetwork.LocalPlayer)
                         {
-                            _otherPlayers.Add(playerController, player);
+                            int index = i;
+                            _gageController?.SetName(player.NickName, index);
+                            playerControllers[i].Initialize((current, full) => _gageController?.SetLife(current, full, index));
+                            _otherPlayers.Add(playerControllers[i]);
                         }
                     }
                 }
@@ -101,7 +103,32 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
-        Debug.Log(playerControllers.Length);
+        StartCoroutine(WaitNewPlayerController());
+        IEnumerator WaitNewPlayerController()
+        {
+            yield return new WaitWhile(() => FindObjectsOfType<PlayerController>().Length < PhotonNetwork.CurrentRoom.PlayerCount);
+            PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
+            for (int i = 0; i < playerControllers.Length; i++)
+            {
+                if(_otherPlayers.Contains(playerControllers[i]) == false)
+                {
+                    int index = i;
+                    _gageController?.SetName(newPlayer.NickName, index);
+                    playerControllers[i].Initialize((current, full) => _gageController?.SetLife(current, full, index));
+                    _otherPlayers.Add(playerControllers[i]);
+                }
+            }
+        }
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        for (int i = 0; i < _otherPlayers.Count; i++)
+        {
+            if (_otherPlayers[i] == null)
+            {
+                _gageController?.HidePlayer(i);
+            }
+        }
     }
 }
