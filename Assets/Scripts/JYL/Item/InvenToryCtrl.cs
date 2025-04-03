@@ -73,7 +73,7 @@ public class InvenToryCtrl : MonoBehaviour
     public Text goldbarText;
     int gold = 0;
     public int GetGold => gold;
-    public void SetGold(int value) { gold += value; }
+    public void SetGold(int value) { gold += value; Debug.Log(gold); }
 
     //ΩÃ±€≈Ê
     public static InvenToryCtrl Instance;
