@@ -15,14 +15,14 @@ using System.Reflection;
 
 public class MonsterController : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private List<GameObject> moveTargetPos; //패트롤 돌아야하는 위치 좌표
+    private List<GameObject> moveTargetPos = new List<GameObject>(); //패트롤 돌아야하는 위치 좌표
     [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     [SerializeField] private Transform shootPos; //투사체 쏘는 장소
     [SerializeField] private int _groundRayDis;
     [SerializeField] private int _flyHigh;
     [SerializeField] private int _blockDis;
-    [SerializeField] private int _restTime;
-    [SerializeField] private int _sleepTime;
+    private int _restTime;
+    private int _sleepTime;
     private List<int> _restIndex = new List<int>();
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
@@ -107,6 +107,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _monsterAttackData = MonsterManager.Instance.MonsterSO.MonsterAttackDatas;
         _restIndex = MonsterManager.Instance.MonsterSO.RestIndex;
         _sleepIndex = MonsterManager.Instance.MonsterSO.SleepIndex;
+        moveTargetPos = MonsterManager.Instance.MonsterSO.MoveTargetPos;
+        _restTime = MonsterManager.Instance.MonsterSO.RestTime;
+        _sleepTime = MonsterManager.Instance.MonsterSO.SleepTime;
         _trapTime = 5f;
         _currentHeadDamage = 0;
         _damage = 0;
@@ -138,6 +141,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
+        Debug.Log($"[{(PhotonNetwork.IsMasterClient ? "Master" : "Slave")}] SleepIndex: {_sleepIndex}, RestIndex Count: {_restIndex.Count}");
     }
 
     public int RestTime { get { return _restTime; } set { _restTime = value; } }

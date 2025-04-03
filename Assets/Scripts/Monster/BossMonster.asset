@@ -19,6 +19,15 @@ MonoBehaviour:
   Prefab: {fileID: 342189898198089240, guid: cc6f94971137a2e4698384721f7a7ecc, type: 3}
   SleepIndex: 0
   RestIndex: 020000000300000004000000
+  MoveTargetPos:
+  - {fileID: 9079135013900976087, guid: 3d733b4b04bde934ba61718bec622184, type: 3}
+  - {fileID: 5082833344606396493, guid: 1fa743fb47cb1d44793e185858bd3307, type: 3}
+  - {fileID: 1202344659544237037, guid: dc90ecc4e22174d4a84d6db65d046b4c, type: 3}
+  - {fileID: 6725917872001012906, guid: 6aad8c684e26ade4a8a6726c493ebf86, type: 3}
+  - {fileID: 9185064823530777055, guid: 854901b2fac9d0b43ac4e3042a4bac17, type: 3}
+  - {fileID: 703515775114588310, guid: af167d612f001934b9b31908153d9374, type: 3}
+  RestTime: 0
+  SleepTime: 0
   Defense: 0
   HeadMaxDamage: 100
   AttackCoolTime: 3
