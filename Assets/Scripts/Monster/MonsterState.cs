@@ -47,8 +47,9 @@ public class MonsterIdleState : IMonsterState
     public override void Update()
     {
         _tempTime += Time.deltaTime;
+        Debug.Log( _monster.IsReachCurrentTarget());
 
-        if(_monster.IsDie)
+        if (_monster.IsDie)
         {
             _stateManager.ChangeMonsterState(new MonsterDieState());
             return;
@@ -84,38 +85,41 @@ public class MonsterIdleState : IMonsterState
             return;
         }
 
-        if (_monster.IsSleepPos() && !_monster.IsalSleep)
+        if(_monster.IsReachCurrentTarget())
         {
-            Debug.Log("µé¾î¿È");
-            _stateManager.ChangeMonsterState(new MonsterSleepState());
-            return;
-        }
-
-        if (_monster.IsRestPos())
-        {
-            if(_tempTime >= _monster.RestTime)
+            if (_monster.IsSleepPos() && !_monster.IsalSleep)
             {
-                if (_monster.IsNeedRo())
+                Debug.Log("µé¾î¿È");
+                _stateManager.ChangeMonsterState(new MonsterSleepState());
+                return;
+            }
+
+            if (_monster.IsRestPos())
+            {
+                if (_tempTime >= _monster.RestTime)
                 {
-                    _stateManager.ChangeMonsterState(new MonsterRotationState());
-                    return;
-                }
-                else
-                {
-                    _stateManager.ChangeMonsterState(new MonsterTakeOffState());
-                    return;
+                    if (_monster.IsNeedRo())
+                    {
+                        _stateManager.ChangeMonsterState(new MonsterRotationState());
+                        return;
+                    }
+                    else
+                    {
+                        _stateManager.ChangeMonsterState(new MonsterTakeOffState());
+                        return;
+                    }
                 }
             }
-        }
-        else if (_monster.IsNeedRo())
-        {
-            _stateManager.ChangeMonsterState(new MonsterRotationState());
-            return;
-        }
-        else
-        {
-            _stateManager.ChangeMonsterState(new MonsterTakeOffState());
-            return;
+            else if (_monster.IsNeedRo())
+            {
+                _stateManager.ChangeMonsterState(new MonsterRotationState());
+                return;
+            }
+            else
+            {
+                _stateManager.ChangeMonsterState(new MonsterTakeOffState());
+                return;
+            }
         }
     }
 }
@@ -412,7 +416,7 @@ public class MonsterPatrolState : IMonsterState
     {
         _monster = monster;
         _stateManager = stateManager;
-
+        _monster.UpdatePatrolIndex();
         _monster.IsBattle = false;
         _targetPos = _monster.GetNextPatrolPos();
         _monster.SetTargetPos(_targetPos);
@@ -437,21 +441,37 @@ public class MonsterPatrolState : IMonsterState
             _stateManager.ChangeMonsterState(new MonsterDieState());
             return;
         }
-
-        if (_monster.IsReachTarget())
+        if (_monster.IsReachCurrentTarget())
         {
-            _monster.UpdatePatrolIndex();
             if (_monster.IsRestPos() || _monster.IsSleepPos())
             {
                 _stateManager.ChangeMonsterState(new MonsterLandingState());
                 return;
             }
-            else if(_monster.IsNeedRo())
+
+            if (_monster.IsNeedRo())
             {
                 _stateManager.ChangeMonsterState(new MonsterRotationState());
                 return;
             }
         }
+        //if (_monster.IsReachNextTarget())
+        //{
+        //    if (_monster.IsReachCurrentTarget())
+        //    {
+        //        _monster.UpdatePatrolIndex();
+        //        if (_monster.IsRestPos() || _monster.IsSleepPos())
+        //        {
+        //            _stateManager.ChangeMonsterState(new MonsterLandingState());
+        //            return;
+        //        }
+        //    }
+        //    if (_monster.IsNeedRo())
+        //    {
+        //        _stateManager.ChangeMonsterState(new MonsterRotationState());
+        //        return;
+        //    }
+        //}
     }
 }
 

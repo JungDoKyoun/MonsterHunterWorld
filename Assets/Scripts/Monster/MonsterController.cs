@@ -238,6 +238,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _currentPatrolIndex = (_currentPatrolIndex + 1) % moveTargetPos.Count;
         _nextPatrolIndex = (_nextPatrolIndex + 1) % moveTargetPos.Count;
+        Debug.Log(_currentPatrolIndex);
+        Debug.Log(_nextPatrolIndex);
     }
 
     public Vector3 GetCurrentPatrolPos() //패트롤시 타깃이 되는 위치 정보 변경
@@ -284,7 +286,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         return _currentPatrolIndex == _sleepIndex;
     }
 
-    public bool IsReachTarget() //패트롤 목표로한 좌표에 도달 했는가?
+    public bool IsReachNextTarget() //패트롤 목표로한 좌표에 도달 했는가?
     {
         if (!_agent.enabled || !_agent.isOnNavMesh)
         {
@@ -295,6 +297,15 @@ public class MonsterController : MonoBehaviourPunCallbacks
             return Vector3.Distance(currentPos, targetPos) < 5.0f;
         }
         return !_agent.pathPending && _agent.remainingDistance < 5.0f;
+    }
+
+    public bool IsReachCurrentTarget() //현재 좌표에 근접한가??
+    {
+            Vector3 currentPos = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 target = moveTargetPos[_currentPatrolIndex].transform.position;
+            Vector3 targetPos = new Vector3(target.x, 0, target.z);
+
+            return Vector3.Distance(currentPos, targetPos) < 10.0f;
     }
 
     public bool IsNeedRo() //타깃과의 각도 계산 후 회전이 필요한지?
@@ -940,7 +951,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position + transform.forward * _blockDis, 1f);
+        Gizmos.DrawWireSphere(transform.position, _detectRange);
     }
 
     public void RequesTakeOff()
