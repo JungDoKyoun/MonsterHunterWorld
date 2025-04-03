@@ -626,6 +626,24 @@ public class MonsterController : MonoBehaviourPunCallbacks
             _currentHeadDamage += damage;
         }
 
+        _currentHP -= damage;
+
+        if (!_isBattle)
+        {
+            _isBattle = true;
+        }
+
+        if (_currentHP <= 0)
+        {
+            _currentHP = 0;
+            photonView.RPC("Die", RpcTarget.All);
+            return;
+        }
+        else
+        {
+            photonView.RPC("SyncHP", RpcTarget.All, _currentHP);
+        }
+
         if (_currentHeadDamage >= _headMaxDamage)
         {
             _currentHeadDamage = 0;
