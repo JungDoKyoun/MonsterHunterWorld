@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12496,13 +12496,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 381739759599393707, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+      propertyPath: questWinPanel
+      value: 
+      objectReference: {fileID: 6262407566709502060}
+    - target: {fileID: 381739759599393707, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+      propertyPath: questFailPanel
+      value: 
+      objectReference: {fileID: 6262407566709502059}
     - target: {fileID: 809484874846332962, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1474072022476856588, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1820981690156844487, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_Name
@@ -12514,11 +12522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2763563398152313390, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2763563398152313390, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4050708518035559051, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_IsActive
@@ -12526,7 +12534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4288390599661412446, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4795054281760383637, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_IsActive
@@ -12538,15 +12546,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5111393195158487473, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5111393195158487473, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5445241158975983587, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_Name
       value: HUDCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445241158975983587, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798825766548358638, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824837989311573474, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
       propertyPath: m_Type
@@ -12645,6 +12661,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+--- !u!1 &6262407566709502059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4288390599661412446, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+  m_PrefabInstance: {fileID: 6262407566709502058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6262407566709502060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1474072022476856588, guid: f16d6fc85881ed945a12b47e677948f8, type: 3}
+  m_PrefabInstance: {fileID: 6262407566709502058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

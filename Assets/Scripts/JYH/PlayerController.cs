@@ -257,6 +257,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     public static Action<PlayerController> CreateAction;
+    public static Action<MonsterController> MonsterAction;
 
     private void Start()
     {
@@ -393,6 +394,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             if (other.TryGetComponent(out MonsterController monsterController))
             {
                 monsterController.RequestTakeDamage(_damage);
+                MonsterAction?.Invoke(monsterController);
                 StopSwing();
             }
             else if (other.tag == "MonsterHead")
@@ -405,6 +407,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         monsterController.RequestTakeHeadDamage(_damage);
                         StopSwing();
+                        MonsterAction?.Invoke(monsterController);
                         return;
                     }
                 }
@@ -686,7 +689,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             _coroutine = StartCoroutine(DoRecoverStart());
             IEnumerator DoRecoverStart()
             {
-                Debug.Log(value);
                 getPlayerCostume.SetWeapon(false);
                 SetAnimation(RecoverTag);
                 yield return new WaitForSeconds(RecoverTime);
@@ -707,10 +709,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     _currentLife += value;
                     change = true;
                 }
-                Debug.Log(value);
                 if (change == true)
                 {
-                    Debug.Log("º¯È¯µÊ");
                     SetLife(_currentLife, _fullLife);
                     if (PhotonNetwork.InRoom == true)
                     {
@@ -731,15 +731,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             _coroutine = StartCoroutine(DoRecoverStart());
             IEnumerator DoRecoverStart()
             {
-                Debug.Log(value);
                 getPlayerCostume.SetWeapon(false);
                 SetAnimation(RecoverTag);
                 yield return new WaitForSeconds(RecoverTime);
                 getPlayerCostume.SetWeapon(true);
-                Debug.Log(value);
                 if (value > 0 && _fullStamina + value <= MaxStamina)
                 {
-                    Debug.Log("º¯È¯µÊ");
                     _fullStamina += value;
                     SetStamina(_fullStamina);
                     if (PhotonNetwork.InRoom == true)

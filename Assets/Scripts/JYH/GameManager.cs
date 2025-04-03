@@ -19,14 +19,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private List<PlayerController> _otherPlayers = new List<PlayerController>();
 
+    private const string DeadCountTag = "DeadCount";
+    private const string VictoryTag = "Victory";
     private static readonly float RespawnTime = 5.0f;
     private static readonly Vector3 PlayerStartPoint = new Vector3(-260, 41.5f, -43);
     private static readonly Vector3 MonsterStartPoint = new Vector3(-260, 41.5f, -32);
+
 
     private void Start()
     {
         Room room = PhotonNetwork.CurrentRoom;
         PlayerController.CreateAction += AddPlayer;
+        PlayerController.MonsterAction += ReportMonseterState;
         if (room != null)
         {
             SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss);
@@ -69,6 +73,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private bool _victory = false;
+
+    [SerializeField]
+    private GameObject questWinPanel;
+
+    private void ReportMonseterState(MonsterController monsterController)
+    {
+        if(monsterController.IsDie == true && _victory == false)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { VictoryTag, true } });
+        }
+    }
+
     private void Update()
     {
         if(_playerController != null)
@@ -80,6 +97,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void OnDestroy()
     {
         PlayerController.CreateAction -= AddPlayer;
+        PlayerController.MonsterAction -= ReportMonseterState;
     }
 
     private void SetLife(int current, int full)
@@ -87,14 +105,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         _gageController?.SetLife(current, full);
         if (current != full && current == 0)
         {
-            StartCoroutine(DoRevive());
-            IEnumerator DoRevive()
+            ExitGames.Client.Photon.Hashtable hashtable = PhotonNetwork.CurrentRoom.CustomProperties;
+            if (hashtable.ContainsKey(DeadCountTag) == false)
             {
-                yield return new WaitForSeconds(RespawnTime);
-                if(_playerController != null)
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { {DeadCountTag, false} });
+                StartCoroutine(DoRevive());
+                IEnumerator DoRevive()
                 {
-                    _playerController.Revive(PlayerStartPoint);
+                    yield return new WaitForSeconds(RespawnTime);
+                    if (_playerController != null)
+                    {
+                        _playerController.Revive(PlayerStartPoint);
+                    }
                 }
+            }
+            else
+            {
+                PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { DeadCountTag, true } });
             }
         }
     }
@@ -114,5 +141,52 @@ public class GameManager : MonoBehaviourPunCallbacks
                 _gageController?.HidePlayer(i);
             }
         }
+    }
+
+    [SerializeField]
+    private GameObject questFailPanel;
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable hashtable)
+    {
+        foreach(string key in hashtable.Keys)
+        {
+            switch (key)
+            {
+                case DeadCountTag:
+                    if (hashtable[key] != null && bool.TryParse(hashtable[key].ToString(), out bool dead) && dead == true)
+                    {
+                        StartCoroutine(DoWaitGameOver());
+                        IEnumerator DoWaitGameOver()
+                        {
+                            SoundManager.Instance.PlayBGM(SoundManager.BGMType.QuestFailed);
+                            _playerController.enabled = false;
+                            questFailPanel.Set(true);
+                            yield return new WaitForSeconds(11);
+                            PhotonNetwork.LeaveRoom();
+                        }
+                    }
+                    break;
+                case VictoryTag:
+                    if (_victory == false)
+                    {
+                        _victory = true;
+                        StartCoroutine(DoStartWin());
+                        IEnumerator DoStartWin()
+                        {
+                            SoundManager.Instance.PlayBGM(SoundManager.BGMType.QuestCompleted);
+                            _playerController.enabled = false;
+                            questWinPanel.Set(true);
+                            yield return new WaitForSeconds(10);
+                            PhotonNetwork.LeaveRoom();
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        LoadingSceneManager.LoadSceneWithLoading("SingleRoom", new RoomOptions { MaxPlayers = 1 });
     }
 }
