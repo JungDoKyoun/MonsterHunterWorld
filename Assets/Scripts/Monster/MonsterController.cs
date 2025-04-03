@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Photon.Pun;
+using System.Reflection;
 
 //public enum MonsterAttackType
 //{
@@ -20,10 +21,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private int _groundRayDis;
     [SerializeField] private int _flyHigh;
     [SerializeField] private int _blockDis;
-    [SerializeField] private int _sleepIndex;
-    [SerializeField] private List<int> _restIndex = new List<int>();
     [SerializeField] private int _restTime;
     [SerializeField] private int _sleepTime;
+    private List<int> _restIndex = new List<int>();
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
     private MonsterProjectileSpawnManager _projectileSpawnManager; //투사체 스폰 매니저
@@ -35,6 +35,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private Vector3 _playerPos;
     private string _label; //어드레서블에서 불러올 라벨
+    private int _sleepIndex;
     private int _roSpeed; //부드럽게 돌때 사용하는 변수
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
@@ -104,6 +105,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         _projectileSpawnManager = MonsterManager.Instance.MonsterProjectileSpawnManager;
         _monsterAttackData = MonsterManager.Instance.MonsterSO.MonsterAttackDatas;
+        _restIndex = MonsterManager.Instance.MonsterSO.RestIndex;
+        _sleepIndex = MonsterManager.Instance.MonsterSO.SleepIndex;
         _trapTime = 5f;
         _currentHeadDamage = 0;
         _damage = 0;
