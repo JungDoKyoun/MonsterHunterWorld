@@ -73,6 +73,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    [SerializeField]
+    private GameObject questStatePanel;
+
     private bool _victory = false;
 
     [SerializeField]
@@ -160,9 +163,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                         {
                             SoundManager.Instance.PlayBGM(SoundManager.BGMType.QuestFailed);
                             _playerController.enabled = false;
+                            questStatePanel.Set(true);
                             questFailPanel.Set(true);
                             yield return new WaitForSeconds(11);
-                            PhotonNetwork.LeaveRoom();
+                            PhotonNetwork.Disconnect();
+                            yield return new WaitUntil(() => PhotonNetwork.IsConnectedAndReady == false);
+                            PhotonNetwork.ConnectUsingSettings();
+                            yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
+                            LoadingSceneManager.LoadSceneWithLoading("SingleRoom", new RoomOptions { MaxPlayers = 1 });
                         }
                     }
                     break;
@@ -175,18 +183,18 @@ public class GameManager : MonoBehaviourPunCallbacks
                         {
                             SoundManager.Instance.PlayBGM(SoundManager.BGMType.QuestCompleted);
                             _playerController.enabled = false;
+                            questStatePanel.Set(true);
                             questWinPanel.Set(true);
                             yield return new WaitForSeconds(10);
-                            PhotonNetwork.LeaveRoom();
+                            PhotonNetwork.Disconnect();
+                            yield return new WaitUntil(() => PhotonNetwork.IsConnectedAndReady == false);
+                            PhotonNetwork.ConnectUsingSettings();
+                            yield return new WaitUntil(predicate: () => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMaster);
+                            LoadingSceneManager.LoadSceneWithLoading("SingleRoom", new RoomOptions { MaxPlayers = 1 });
                         }
                     }
                     break;
             }
         }
-    }
-
-    public override void OnLeftRoom()
-    {
-        LoadingSceneManager.LoadSceneWithLoading("SingleRoom", new RoomOptions { MaxPlayers = 1 });
     }
 }
