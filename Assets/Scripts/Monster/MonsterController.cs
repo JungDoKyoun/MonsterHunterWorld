@@ -980,12 +980,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position, _detectRange);
-    }
+    //    Gizmos.DrawWireSphere(transform.position, _detectRange);
+    //}
 
     public void RequesTakeOff()
     {
@@ -1296,8 +1296,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (other.CompareTag("Player"))
         {
-            CheckAttackOnCollider(_attackCollider);
-
             Vector3 contactPoint = other.ClosestPoint(transform.position);
             Transform current = other.transform;
 

@@ -6,5 +6,4 @@ using UnityEngine;
 public class BossMonster : MonsterStatusSO
 {
     public List<MonsterProjectileData> ProjectileDatas;
-    public string Label;
 }

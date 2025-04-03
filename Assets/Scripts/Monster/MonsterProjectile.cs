@@ -140,7 +140,10 @@ public class MonsterProjectile : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(OnHitEffect.name, transform.position, Quaternion.identity);
         }
 
-        photonView.RPC("RPC_DisableProjectile", RpcTarget.All, ProjectileID);
+        if (photonView != null && photonView.ViewID != 0)
+        {
+            photonView.RPC("RPC_DisableProjectile", RpcTarget.All, ProjectileID);
+        }
     }
 
     [PunRPC]
