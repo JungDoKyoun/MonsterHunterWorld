@@ -241,6 +241,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnEquipChanged(ItemName itemKey)
     {
+        if (InvenToryCtrl.Instance.equippedInventory.Count == 0)
+            return;
+
         int index = (int)itemKey;
         if (itemKey == ItemName.HuntersKnife_I)
         {
