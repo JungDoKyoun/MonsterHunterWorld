@@ -138,10 +138,31 @@ public class QuickSlotUI : BaseInventory
 
         if (item.id == ItemName.PitfallTrap)
         {
-            PhotonNetwork.Instantiate("trap", pl.position, Quaternion.identity);
-
+           var obj =  PhotonNetwork.Instantiate("trap", pl.position, Quaternion.identity);           
             Debug.Log("트랩이 소환되었습니다.");
         }
+
+        if (item.type == ItemType.Potion)         
+        {
+            var temp = item as Potion;
+
+            if (item.id == ItemName.Potion)
+            {
+                pl.gameObject.GetComponent<PlayerController>().TryRecover(temp.heal);
+                
+                var obj = PhotonNetwork.Instantiate("Effects/Buff/Healing", pl.position, Quaternion.identity);
+                StartCoroutine(EffectDestroy(obj, 2f));
+            }
+
+            if (item.id == ItemName.WellDoneSteak)
+            {
+                pl.gameObject.GetComponent<PlayerController>().TryRecover(temp.stamina);
+
+                var obj = PhotonNetwork.Instantiate("Effects/Buff/Stemina", pl.position, Quaternion.identity);
+                StartCoroutine(EffectDestroy(obj, 2f));
+            }
+        }
+        
 
         // 아이템 0개 되면 제거
 
@@ -168,6 +189,15 @@ public class QuickSlotUI : BaseInventory
 
         StartCoroutine(ResetTrapPlacedAfterDelay());
     }
+
+
+
+    IEnumerator EffectDestroy(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Destroy(obj);
+    }
+
 
     IEnumerator ResetTrapPlacedAfterDelay()
     {

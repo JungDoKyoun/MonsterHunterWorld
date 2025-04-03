@@ -335,11 +335,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0e8c4cf6695b542a8f959ba4721b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveTargetPos:
+  - {fileID: 9079135013900976087, guid: 3d733b4b04bde934ba61718bec622184, type: 3}
+  - {fileID: 5082833344606396493, guid: 1fa743fb47cb1d44793e185858bd3307, type: 3}
+  - {fileID: 1202344659544237037, guid: dc90ecc4e22174d4a84d6db65d046b4c, type: 3}
+  - {fileID: 6725917872001012906, guid: 6aad8c684e26ade4a8a6726c493ebf86, type: 3}
+  - {fileID: 9185064823530777055, guid: 854901b2fac9d0b43ac4e3042a4bac17, type: 3}
+  - {fileID: 703515775114588310, guid: af167d612f001934b9b31908153d9374, type: 3}
   headCollider: {fileID: 546558403154450771}
   shootPos: {fileID: 5753665227102424856}
   _groundRayDis: 10
   _flyHigh: 150
   _blockDis: 7
+  _restTime: 30
+  _sleepTime: 10
   _currentHP: 0
   _isBattle: 0
   _isRun: 0
