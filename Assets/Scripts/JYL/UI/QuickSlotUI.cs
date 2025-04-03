@@ -34,6 +34,11 @@ public class QuickSlotUI : BaseInventory
 
         items = InvenToryCtrl.Instance.quickSlotItem;
 
+        for (int i = 0; i < items.Count; i++)
+        {
+
+        }
+
         if (items == null || items.Count == 0)
         {
             Debug.LogWarning("사용 가능한 아이템이 없습니다.");
@@ -148,6 +153,7 @@ public class QuickSlotUI : BaseInventory
 
             if (item.id == ItemName.Potion)
             {
+                Debug.Log(temp.heal);
                 pl.gameObject.GetComponent<PlayerController>().TryRecover(temp.heal);
                 
                 var obj = PhotonNetwork.Instantiate("Effects/Buff/Healing", pl.position, Quaternion.identity);
@@ -156,6 +162,7 @@ public class QuickSlotUI : BaseInventory
 
             if (item.id == ItemName.WellDoneSteak)
             {
+                Debug.Log(temp.stamina);
                 pl.gameObject.GetComponent<PlayerController>().TryRecover(temp.stamina);
 
                 var obj = PhotonNetwork.Instantiate("Effects/Buff/Stemina", pl.position, Quaternion.identity);

@@ -1,12 +1,13 @@
 //using GLTF.Schema;
+using Cysharp.Threading.Tasks;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
-using Photon.Pun;
-using System.Reflection;
 
 //public enum MonsterAttackType
 //{
@@ -34,7 +35,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private Vector3 _targetPlayerPos; //타깃이된 플레이어 위치 정보
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private Vector3 _playerPos;
-    private string _label; //어드레서블에서 불러올 라벨
     private int _sleepIndex;
     private int _roSpeed; //부드럽게 돌때 사용하는 변수
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
@@ -43,7 +43,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private int _currentHeadDamage; //현재 머리에 얼마나 데미지 쌓였나?
     private int _maxHP; //최대 HP
     private int _lastAttack;
-    [SerializeField]private int _currentHP; //현재 몬스터의 HP
+    [SerializeField] private int _currentHP; //현재 몬스터의 HP
     private int _damage; //몬스터 데미지
     //private uint _biteDamage; //몬스터 물기 데미지
     //private uint _taileDamage; //꼬리 데미지
@@ -89,9 +89,14 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _anime = GetComponent<Animator>();
     }
 
-    private void Start()
+    private async void Start()
     {
-        _label = MonsterManager.Instance.MonsterSO.Label;
+        await UniTask.WaitUntil(() =>
+        MonsterManager.Instance?.MonsterSO != null &&
+        MonsterManager.Instance.MonsterSO.MoveTargetPos != null &&
+        MonsterManager.Instance.MonsterSO.MoveTargetPos.Count > 0
+        );
+
         _roSpeed = MonsterManager.Instance.MonsterSO.RoSpeed;
         _maxHP = MonsterManager.Instance.MonsterSO.MaxHP;
         _currentHP = _maxHP;
@@ -143,10 +148,14 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
+
+        MonsterHP hp = GameObject.Find("MonsterHP").GetComponent<MonsterHP>();
+        hp.SetTarget(this);
     }
 
     public int RestTime { get { return _restTime; } set { _restTime = value; } }
     public int SleepTime { get { return _sleepTime; } set { _sleepTime = value; } }
+    public int CurrentHP { get { return _currentHP; } set { _currentHP = value; } }
     public bool IsRo { get { return _isRo; } set { _isRo = value; } }
     public bool IsDie { get { return _isDie; } set { _isDie = value; } }
     public bool IsBattle { get { return _isBattle; } set { _isBattle = value; } }
@@ -167,6 +176,20 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsWakeUp { get { return _isWakeUp; } set { _isWakeUp = value; } }
     public bool IsNeedRoar { get { return _isNeedRoar; } set { _isNeedRoar = value; } }
     public bool IsalRun { get { return _isalRun; } set { _isalRun = value; } }
+    public List<GameObject> MoveTargetPos { get { return moveTargetPos; } set { moveTargetPos = value; } }
+
+    private async Task WaitUntilMonsterDataLoaded()
+    {
+        await WaitUntil(() => MonsterManager.Instance?.MonsterSO != null);
+    }
+
+    public static async Task WaitUntil(Func<bool> predicate)
+    {
+        while (!predicate())
+        {
+            await Task.Yield(); // 다음 프레임까지 대기
+        }
+    }
 
     public void InitProjectile()
     {
@@ -179,7 +202,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
             _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         }
         //_projectileSpawnManager.LoadProjectilesFromAddressable(_label, _monsterProjectileDatas);
-        foreach(var data in _monsterProjectileDatas)
+        foreach (var data in _monsterProjectileDatas)
         {
             _projectileSpawnManager.CreatePool(data.Name, data.defaultCapacity, data.ProjectileType);
         }
@@ -309,11 +332,11 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public bool IsReachCurrentTarget() //현재 좌표에 근접한가??
     {
-            Vector3 currentPos = new Vector3(transform.position.x, 0, transform.position.z);
-            Vector3 target = moveTargetPos[_currentPatrolIndex].transform.position;
-            Vector3 targetPos = new Vector3(target.x, 0, target.z);
+        Vector3 currentPos = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 target = moveTargetPos[_currentPatrolIndex].transform.position;
+        Vector3 targetPos = new Vector3(target.x, 0, target.z);
 
-            return Vector3.Distance(currentPos, targetPos) < 10.0f;
+        return Vector3.Distance(currentPos, targetPos) < 10.0f;
     }
 
     public bool IsNeedRo() //타깃과의 각도 계산 후 회전이 필요한지?
@@ -738,7 +761,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
                 break;
             }
         }
-        attackType = 3;
+
         photonView.RPC("Attack", RpcTarget.All, attackType);
     }
 
@@ -958,12 +981,12 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position, _detectRange);
-    }
+    //    Gizmos.DrawWireSphere(transform.position, _detectRange);
+    //}
 
     public void RequesTakeOff()
     {
@@ -1169,7 +1192,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         SetAnime("TakeOff");
         yield return new WaitForSeconds(0.3f);
-        yield return new WaitUntil( () => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         _isFly = true;
         _isGround = false;
         SetAnime("TakeOff2");
@@ -1200,7 +1223,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         SetAnime("Landing2");
         yield return new WaitForSeconds(0.3f);
-        while(!_isGround)
+        while (!_isGround)
         {
             CheckGround();
             yield return null;
@@ -1274,8 +1297,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
         if (other.CompareTag("Player"))
         {
-            CheckAttackOnCollider(_attackCollider);
-
             Vector3 contactPoint = other.ClosestPoint(transform.position);
             Transform current = other.transform;
 
@@ -1295,7 +1316,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         }
 
         if (other.CompareTag("Trap"))
-        {           
+        {
             _isTrap = true;
             transform.position = other.transform.position;
             //Destroy(other.transform.parent.gameObject, _trapTime);
@@ -1304,7 +1325,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public void CheckAttackOnCollider(Collider co)
     {
-        if(co != null)
+        if (co != null)
         {
             if (co.enabled)
             {

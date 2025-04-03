@@ -11,5 +11,4 @@ public class MonsterProjectileData
     public int damage;
     public int speed;
     public float lifeTime;
-    public GameObject hitEffect;
 }

@@ -46,7 +46,11 @@ public class CSVItemLoader : MonoBehaviour
             int.TryParse(values[13], out int maxCount);
             string tooltip = values[14];
             int.TryParse(values[15], out int price);
-            int.TryParse(values[16], out int imageIndex);
+            int.TryParse(values[16], out int heal);
+            int.TryParse(values[17], out int maxHeal);
+            int.TryParse(values[18], out int stamina);
+            int.TryParse(values[19], out int maxStamina);
+            int.TryParse(values[20], out int imageIndex);
 
             Sprite image = (imageIndex >= 0 && imageIndex < itemImages.Count) ? itemImages[imageIndex] : null;
 
@@ -106,7 +110,12 @@ public class CSVItemLoader : MonoBehaviour
                     count = 1,
                     tooltip = tooltip,
                     price = price,
-                    color = new Color32(36, 225, 148, 255)
+                    color = new Color32(36, 225, 148, 255),
+                    heal = heal,
+                    maxHeal = maxHeal,
+                    stamina = stamina,
+                    maxStamina = maxStamina,
+
                 };
             }
             else if (type == "Trap")

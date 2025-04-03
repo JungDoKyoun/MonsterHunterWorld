@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class MonsterStateManager : MonoBehaviour
 {
@@ -8,24 +10,35 @@ public class MonsterStateManager : MonoBehaviour
     private MonsterController monsterController;
     private MonsterAnimationController anime;
 
-    private void Start()
+    private async void Start()
     {
         monsterController = MonsterManager.Instance.MonsterController;
         anime = MonsterManager.Instance.AnimationController;
+        await UniTask.WaitUntil(() =>
+        monsterController != null &&
+        monsterController.MoveTargetPos != null &&
+        monsterController.MoveTargetPos.Count > 0
+        );
         ChangeMonsterState(new MonsterIdleState());
     }
 
     private void FixedUpdate()
     {
-        currentState.Move();
-        monsterController.NavMeshMatchMonsterPos();
-        monsterController.NavMeshMatchMonsterRotation();
+        if (currentState != null && monsterController != null)
+        {
+            currentState.Move();
+            monsterController.NavMeshMatchMonsterPos();
+            monsterController.NavMeshMatchMonsterRotation();
+        }
     }
 
     private void Update()
     {
-        currentState.Update();
-        monsterController.UpdateAttackCoolTime();
+        if (currentState != null && monsterController != null)
+        {
+            currentState.Update();
+            monsterController.UpdateAttackCoolTime();
+        }
     }
 
     public void ChangeMonsterState(IMonsterState newState)
