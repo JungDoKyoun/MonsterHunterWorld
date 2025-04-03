@@ -140,7 +140,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        //SoundManager.Instance.PlayBGM(SoundManager.BGMType.Meeting, 0.4f);
+        SoundManager.Instance.PlayBGM(SoundManager.BGMType.Meeting);
         if (_createButton != null)
         {
             _createButton.onClick.AddListener(CreateQuest);
