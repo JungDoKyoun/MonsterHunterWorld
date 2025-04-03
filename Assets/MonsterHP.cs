@@ -1,19 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class MonsterHP : MonoBehaviour
-{    
-    
+{
+    Text hp;
+    MonsterController target;
+
     void Start()
     {
-        MonsterController target = FindObjectOfType<MonsterController>();
-        
+        hp = GetComponent<Text>();  
+        target = FindObjectOfType<MonsterController>();
+        hp.text = target.CurrentHP.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
-        
+        if (target != null)
+        {
+            hp.text = target.CurrentHP.ToString();
+        }
+        else
+        {
+            Debug.Log("¿¬°á¾ÈµÊ");
+            target = FindObjectOfType<MonsterController>();
+        }
     }
+    
 }
