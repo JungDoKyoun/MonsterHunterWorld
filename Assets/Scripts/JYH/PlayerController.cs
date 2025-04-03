@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Net;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
