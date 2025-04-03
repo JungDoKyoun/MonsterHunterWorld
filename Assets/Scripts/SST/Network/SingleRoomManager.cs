@@ -173,7 +173,7 @@ public class SingleRoomManager : MonoBehaviourPunCallbacks
                     }
                     break;
                 case false:
-                    if (UIManager.Instance.IsOpenBox() == false)
+                    if (UIManager.Instance.IsOpenUI() == false)
                     {
                         getCinemachineFreeLook.SetEnabled(true);
                         player.enabled = true;

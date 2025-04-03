@@ -110,7 +110,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
             for (int i = 0; i < playerControllers.Length; i++)
             {
-                if(_otherPlayers.Contains(playerControllers[i]) == false)
+                Player player = playerControllers[i].photonView.Owner;
+                if (player != PhotonNetwork.LocalPlayer && _otherPlayers.Contains(playerControllers[i]) == false)
                 {
                     int index = i;
                     _gageController?.SetName(newPlayer.NickName, index);
