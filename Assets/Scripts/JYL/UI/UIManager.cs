@@ -11,7 +11,7 @@ public enum UIType
     ItemSellUI,
     EquipSelectUI,
     EquipInvenUI,
-    EquipInfoUI,    
+    EquipInfoUI,
     BoxSelectUI,
     //¿É¼Ç
     OptionUI,
@@ -63,12 +63,11 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private async void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             CloseTopUI();
-            await InvenToryCtrl.Instance.SaveInventoryToFirebase();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -79,7 +78,7 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void AddUI(UIType type,GameObject obj)
+    public void AddUI(UIType type, GameObject obj)
     {
         if (!uiMap.ContainsKey(type))
         {

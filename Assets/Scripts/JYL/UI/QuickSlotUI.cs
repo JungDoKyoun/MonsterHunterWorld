@@ -27,8 +27,8 @@ public class QuickSlotUI : BaseInventory
     void Start()
     {
         // Firebase에서 인벤토리 데이터 로드
-        InvenToryCtrl.Instance.LoadInventoryFromFirebase(() =>
-        {
+        //InvenToryCtrl.Instance.LoadInventoryFromFirebase(() =>
+        //{
             // 데이터 로드 후 퀵슬롯 초기화
             InvenToryCtrl.Instance.LoadQuickSlotItemsFromInventory();
 
@@ -41,7 +41,7 @@ public class QuickSlotUI : BaseInventory
             }
 
             ShowCurrentItem();
-        });
+        //});
 
         // 로컬 플레이어가 생성될 때까지 기다림
         StartCoroutine(WaitForLocalPlayer());
