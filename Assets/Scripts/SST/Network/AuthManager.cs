@@ -22,6 +22,8 @@ public class AuthManager : MonoBehaviour
 
     public Text warningText;
 
+    bool isTaskCompleted = false;
+
     private void Awake()
     {
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -297,6 +299,11 @@ public class AuthManager : MonoBehaviour
                         // 계정 생성 후 초기 인벤토리 저장
                         InitInventoryForNewUser();
 #endif
+                        // 위의 함수 작업이 완료되고 나서 실행 바로 로그인 실행
+                        if (isTaskCompleted)
+                        {
+                            PhotonNetwork.ConnectUsingSettings();
+                        }
                     }
                 }
             }
@@ -378,6 +385,8 @@ public class AuthManager : MonoBehaviour
 
 
         Debug.Log("초기 인벤토리 및 장비 저장 완료");
+
+        isTaskCompleted = true;
     }
 
 }

@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class UiManager : MonoBehaviour
 {
-    private static UiManager instance;
-    public static UiManager Instance { get { Init(); return instance; } }
+    public static UiManager Instance;
+
 
     float duration = 1f;
 
     private void Awake()
     {
-        Init();
-    }
-
-    static void Init()
-    {
-        if(instance == null)
+        if(Instance == null)
         {
-            GameObject go = GameObject.Find("UIManager");
-            if( go == null)
-            {
-                go = new GameObject { name = "UIManager" };
-                go.AddComponent<UiManager>();
-            }
-            DontDestroyOnLoad(go);
-            instance = go.GetComponent<UiManager>();
+            Instance = this;
+        }
+        else
+        {
+            Destroy(Instance);
         }
     }
 
