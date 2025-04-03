@@ -37,4 +37,14 @@ public class OptionUI : MonoBehaviour
     Application.Quit();
 #endif
     }
+
+    public async void SaveButton()
+    {
+        await InvenToryCtrl.Instance.SaveInventoryToFirebase();
+    }
+
+    public void OptionButton()
+    {
+        UIManager.Instance.StackUIOpen(UIType.SoundOptionUI);
+    }
 }

@@ -16,7 +16,7 @@ public enum UIType
     //可记
     OptionUI,
     SaveButtonUI,
-    OptionButtonUI,
+    SoundOptionUI,
     ExitButtonUI,
 
 }
@@ -41,12 +41,9 @@ public class UIManager : MonoBehaviour
     public bool isBox = false;
     public Collider player;
 
-    public bool IsOpenBox()
+    public bool IsOpenUI()
     {
         bool open = openStack.Count > 0 ? true : false;
-
-
-
         return open;
     }
 
@@ -62,6 +59,8 @@ public class UIManager : MonoBehaviour
                 uiMap.Add(ui.type, ui.uiObject);
             }
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private async void Update()
@@ -145,6 +144,7 @@ public class UIManager : MonoBehaviour
         {
             go.SetActive(false);
         }
+
     }
 
     //力老 付瘤阜 UI 力芭
