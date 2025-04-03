@@ -15,14 +15,14 @@ using System.Reflection;
 
 public class MonsterController : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private List<GameObject> moveTargetPos; //패트롤 돌아야하는 위치 좌표
+    private List<GameObject> moveTargetPos = new List<GameObject>(); //패트롤 돌아야하는 위치 좌표
     [SerializeField] private Collider headCollider; //머리가 맞았는지 판정하는 콜라이더
     [SerializeField] private Transform shootPos; //투사체 쏘는 장소
     [SerializeField] private int _groundRayDis;
     [SerializeField] private int _flyHigh;
     [SerializeField] private int _blockDis;
-    [SerializeField] private int _restTime;
-    [SerializeField] private int _sleepTime;
+    private int _restTime;
+    private int _sleepTime;
     private List<int> _restIndex = new List<int>();
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
@@ -56,6 +56,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private float _minAttackRange; //백무브 하는 범위
     private float _sturnTime; //스턴 지속 시간
     private float _trapTime; //트랩 지속 시간
+    private double sleepStartTime;
+    private double wakeUpTime;
     private bool _isRo; //회전중인지?
     private bool _isDie; //죽었는지?
     private bool _isHit; //맞았는지?
@@ -107,6 +109,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _monsterAttackData = MonsterManager.Instance.MonsterSO.MonsterAttackDatas;
         _restIndex = MonsterManager.Instance.MonsterSO.RestIndex;
         _sleepIndex = MonsterManager.Instance.MonsterSO.SleepIndex;
+        moveTargetPos = MonsterManager.Instance.MonsterSO.MoveTargetPos;
+        _restTime = MonsterManager.Instance.MonsterSO.RestTime;
+        _sleepTime = MonsterManager.Instance.MonsterSO.SleepTime;
         _trapTime = 5f;
         _currentHeadDamage = 0;
         _damage = 0;
@@ -138,6 +143,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
+        Debug.Log($"[{(PhotonNetwork.IsMasterClient ? "Master" : "Slave")}] SleepIndex: {_sleepIndex}, RestIndex Count: {_restIndex.Count}");
     }
 
     public int RestTime { get { return _restTime; } set { _restTime = value; } }
@@ -1000,12 +1006,15 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        photonView.RPC("Sleep", RpcTarget.All);
+        double currentNetworkTime = PhotonNetwork.Time;
+        photonView.RPC("Sleep", RpcTarget.All, currentNetworkTime);
     }
 
     [PunRPC]
-    public void Sleep()
+    public void Sleep(double startTime)
     {
+        sleepStartTime = startTime;
+        wakeUpTime = startTime + SleepTime;
         StartCoroutine(WaitForEndSleepAnime());
     }
 
@@ -1232,17 +1241,21 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public IEnumerator WaitForEndSleepAnime()
     {
+        yield return new WaitUntil(() =>
+        _anime != null &&
+        _anime.isInitialized &&
+        _anime.runtimeAnimatorController != null &&
+        _anime.gameObject.activeInHierarchy
+    );
+
         yield return new WaitForSeconds(0.3f);
         yield return new WaitUntil(() => _anime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         SetAnime("IsSleep2", true);
-        float tempTime = 0;
-        while(tempTime <= _sleepTime)
+
+        while (PhotonNetwork.Time < wakeUpTime)
         {
-            tempTime += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("자는거 끝");
-        SetAnime("IsSleep2", false);
         _isSleep = false;
     }
 

@@ -140,7 +140,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        //SoundManager.Instance.PlayBGM(SoundManager.BGMType.Meeting, 0.4f);
+        SoundManager.Instance.PlayBGM(SoundManager.BGMType.Meeting);
         if (_createButton != null)
         {
             _createButton.onClick.AddListener(CreateQuest);
@@ -419,6 +419,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                     string userId = hashtable[HuntingRoomTag].ToString();
                     if (userId == localPlayer.UserId)
                     {
+                        PlayStartButtonSFX();
                         Dictionary<int, Player> players = room.Players;
                         foreach (Player player in players.Values)
                         {
@@ -436,6 +437,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                     }
                     else
                     {
+                        PlayButtonClickSFX();
                         string value = hashtable.ContainsKey(ReadyTag) == true ? hashtable[ReadyTag].ToString() : null;
                         bool ready = bool.TryParse(value, out bool result) == true ? result : false;
                         localPlayer.SetCustomProperties(new Hashtable() { { ReadyTag, !ready } });
@@ -478,6 +480,21 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+
+    public void PlayButtonClickSFX()
+    {
+        SoundManager.Instance.PlayBtnClickSFX();
+    }
+
+    public void PlayWheelSFX()
+    {
+        SoundManager.Instance.PlayWheelSFX();
+    }
+
+    public void PlayStartButtonSFX()
+    {
+        SoundManager.Instance.PlayStartButtonSFX();
     }
 
     public override void OnConnectedToMaster()

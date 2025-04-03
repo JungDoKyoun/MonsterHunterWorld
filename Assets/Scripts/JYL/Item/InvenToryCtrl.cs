@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum InvenType
 {
@@ -48,7 +48,6 @@ public class InvenToryCtrl : MonoBehaviour
         }
     }
 
-    BaseItem empty;
 
     //현재 가지고있을 인벤토리
     public List<BaseItem> inventory = new List<BaseItem>();
@@ -66,6 +65,15 @@ public class InvenToryCtrl : MonoBehaviour
     //이벤트
     public System.Action OnInventoryChanged;
     public System.Action<ItemName> OnEquippedChanged;
+
+    //빈아이템 미리생성
+    BaseItem empty;
+
+    //골드 관리
+    public Text goldbarText;
+    int gold = 0;
+    public int GetGold => gold;
+    public void SetGold(int value) { gold += value; }
 
     //싱글톤
     public static InvenToryCtrl Instance;
@@ -85,8 +93,14 @@ public class InvenToryCtrl : MonoBehaviour
         empty = ItemDataBase.Instance.EmptyItem;
 
         LoadInventoryFromFirebase();
+
+        RefreshGoldUI();
     }
 
+    public void RefreshGoldUI()
+    {
+        goldbarText.text = gold.ToString();
+    }
 
     public void DebugTest()
     {
@@ -191,6 +205,13 @@ public class InvenToryCtrl : MonoBehaviour
             .Child("Leg")
             .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Legs].id));
 
+        //골드 저장
+        await FirebaseDatabase.DefaultInstance.RootReference
+            .Child(user.UserId)
+            .Child("Gold")
+            .SetValueAsync(gold);
+
+
         OnInventoryChanged?.Invoke();
 
 
@@ -213,7 +234,7 @@ public class InvenToryCtrl : MonoBehaviour
         InvenClear(inventory, (int)InvenSize.Inventory);
         InvenClear(boxInven, (int)InvenSize.BoxInven);
         InvenClear(equipInventory, (int)InvenSize.EquipInven);
-     //   InvenClear(equippedInventory, (int)InvenSize.EquipedInven);
+        //   InvenClear(equippedInventory, (int)InvenSize.EquipedInven);
     }
 
     public async void LoadInventoryFromFirebase(System.Action onComplete = null)
@@ -249,6 +270,10 @@ public class InvenToryCtrl : MonoBehaviour
         equippedList[(int)EquipSlot.Legs] = GetItemFromKey(await root.Child(user.UserId).Child("Leg").GetValueAsync());
         equippedList[(int)EquipSlot.neck] = ItemDataBase.Instance.EmptyItem;
         equippedList[(int)EquipSlot.band] = ItemDataBase.Instance.EmptyItem;
+        
+        // 5. GOLD 불러오기
+        SetGold(GetGoldFromValue(await root.Child(user.UserId).Child("Gold").GetValueAsync()));
+
 
 
         InvenToryCtrl.Instance.equippedInventory = equippedList;
@@ -277,6 +302,11 @@ public class InvenToryCtrl : MonoBehaviour
         onComplete?.Invoke();
     }
 
+    //int ParseCSVToGold(string csv)
+    //{
+    //    var lines = csv.Split('\n');
+
+    //}
 
     // CSV 파싱 함수
     List<BaseItem> ParseCSVToItemList(string csv, int targetSize)
@@ -320,6 +350,16 @@ public class InvenToryCtrl : MonoBehaviour
             return ItemDataBase.Instance.GetItem((ItemName)id);
         }
         return ItemDataBase.Instance.EmptyItem;
+    }
+
+    //골드 불러오기 함수
+    int GetGoldFromValue(DataSnapshot snapshot)
+    {
+        if(snapshot.Exists && int.TryParse(snapshot.Value.ToString(), out int value))
+        {
+            return value;
+        }
+        return 0;
     }
 
     //데이타 베이스에 세이브할 텍스트 형식과 값 지정
