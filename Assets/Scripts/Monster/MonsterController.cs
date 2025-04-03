@@ -143,7 +143,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
-        Debug.Log($"[{(PhotonNetwork.IsMasterClient ? "Master" : "Slave")}] SleepIndex: {_sleepIndex}, RestIndex Count: {_restIndex.Count}");
     }
 
     public int RestTime { get { return _restTime; } set { _restTime = value; } }
@@ -436,6 +435,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public void Roar()
     {
         IsRoar = true;
+        SoundManager.Instance.PlaySFX(SoundManager.BossSfxType.BossRoar);
         StartCoroutine(WaitForEndRoarAnime());
     }
 
@@ -758,6 +758,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         //}
 
         SetAnime(_monsterAttackData[attackType].AnimeName);
+        SoundManager.Instance.PlaySFX(SoundManager.BossSfxType.BossAttack);
         _damage = _monsterAttackData[attackType].Damage;
         //var obj = transform.GetComponentsInChildren<Collider>(true);
         //_attackCollider = null;
@@ -853,6 +854,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         var temp = _monsterAttackData[index].ProjectileType;
         var projectile = _projectileSpawnManager.GetProjectiles(temp, id);
+        SoundManager.Instance.PlaySFX(SoundManager.BossSfxType.BossFire);
 
         if (projectile != null)
         {
