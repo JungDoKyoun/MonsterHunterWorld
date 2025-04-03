@@ -99,10 +99,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         switch (invenType)
         {
             case InvenType.Inven:                
-                ctrl.ChangeItemByKey(ctrl.inventory, ctrl.boxInven, item.id);
+                ctrl.ChangeItemByKey(ctrl.inventory, ctrl.boxInven, item.id ,invenType);
                 break;
             case InvenType.Box:                
-                ctrl.ChangeItemByKey(ctrl.boxInven, ctrl.inventory, item.id);
+                ctrl.ChangeItemByKey(ctrl.boxInven, ctrl.inventory, item.id, invenType);
                 break;
 
             case InvenType.EquipBox:
@@ -115,6 +115,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (item.count <= 0)
         {
             item = ItemDataBase.Instance.EmptyItem;
+            item.count = 0;
             SlotSetItem(item);
         }
 
@@ -158,7 +159,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         }
 
-        Debug.Log(item.name);
+        //Debug.Log(item.name);
 
         fadeCoroutine = StartCoroutine(FadeAlphaLoop(image));
 

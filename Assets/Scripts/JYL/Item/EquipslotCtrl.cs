@@ -21,7 +21,7 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         if (type != EquipSlot.box)
         {
-            ctrl.ChangeItemByKey(ctrl.equippedInventory, ctrl.equipInventory, item.id);
+            ctrl.ChangeItemByKey(ctrl.equippedInventory, ctrl.equipInventory, item.id,InvenType.Equipped);
         }
         else
         {
