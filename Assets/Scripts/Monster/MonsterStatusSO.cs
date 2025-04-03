@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,9 @@ public abstract class MonsterStatusSO : ScriptableObject
     public GameObject Prefab;
     public int SleepIndex;
     public List<int> RestIndex;
+    public List<GameObject> MoveTargetPos;
+    public int RestTime;
+    public int SleepTime;
     //To-Do 아이템 클래스 추가
     //public List<> DropItem;
 

@@ -150,6 +150,7 @@ public class MonsterSleepState : IMonsterState
         {
             _monster.IsSleep = false;
         }
+        _monster.SetAnime("IsSleep2", false);
     }
 
     public override void Move()
@@ -987,6 +988,7 @@ public class MonsterTrapState : IMonsterState
 
     public override void Exit()
     {
+        _monster.SnapToGround();
         _monster.SetAnime("IsTrap", false);
     }
 
