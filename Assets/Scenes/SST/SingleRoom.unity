@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7903,17 +7903,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f68b2ead9005cfd45bc17c7fd98f9eaa, type: 3}
---- !u!114 &1504042967 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8923149449387071222, guid: f68b2ead9005cfd45bc17c7fd98f9eaa, type: 3}
-  m_PrefabInstance: {fileID: 1504042966}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee525e94a2a2a1d42b2f6a528b53d024, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1515652190
 GameObject:
   m_ObjectHideFlags: 0
@@ -9167,9 +9156,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6738761959848583752, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2026273597}
-    - targetCorrespondingSourceObject: {fileID: 6738761959848583752, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2026273598}
   m_SourcePrefab: {fileID: 100100000, guid: e00fd4e246e9a014bb6d7e4a22ca4490, type: 3}
 --- !u!4 &2026273595 stripped
 Transform:
@@ -9202,21 +9188,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2026273598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026273596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f377356c8ebeff448b3ad08b2683bc11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemLoader: {fileID: 1504042967}
-  itemSlotPrefab: {fileID: 0}
-  contentPanel: {fileID: 0}
 --- !u!1 &2053649960
 GameObject:
   m_ObjectHideFlags: 0
