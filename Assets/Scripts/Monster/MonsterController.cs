@@ -145,6 +145,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         InitProjectile();
+
+        MonsterHP hp = GameObject.Find("MonsterHP").GetComponent<MonsterHP>();
+        hp.SetTarget(this);
     }
 
     public int RestTime { get { return _restTime; } set { _restTime = value; } }
