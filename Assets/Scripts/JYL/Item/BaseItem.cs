@@ -157,8 +157,8 @@ public class Potion : BaseItem
 {
     public int heal = 0;
     public int maxHeal;
-    public int stamina = 0;
-    public int maxStamina;
+    public float stamina = 0;
+    public float maxStamina;
 
     public override BaseItem Clone()
     {
