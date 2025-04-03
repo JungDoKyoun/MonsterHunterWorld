@@ -14,10 +14,22 @@ public class TrapCtrl : MonoBehaviourPun
     // 애니메이션 이벤트가 여기서 호출됨
     public void OnStartAnimationEnd()
     {
+       var obj = PhotonNetwork.Instantiate("Effects/Trap/Explosion", transform.position, Quaternion.identity);
+
         end.SetActive(true);
         Debug.Log("함정 활성화됨");
+        
+        StartCoroutine(EffectDestroy(obj, 1f));
         //TODO : 여기다 콜라이더 활성화 시켜줬었으면 굳이 번거롭게 안해도 됬었던거같음.
     }
+
+    IEnumerator EffectDestroy(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Destroy(obj);
+    }
+
+
 
     //private void OnTriggerEnter(Collider other)
     //{
