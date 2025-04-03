@@ -34,6 +34,11 @@ public class QuickSlotUI : BaseInventory
 
         items = InvenToryCtrl.Instance.quickSlotItem;
 
+        for (int i = 0; i < items.Count; i++)
+        {
+
+        }
+
         if (items == null || items.Count == 0)
         {
             Debug.LogWarning("사용 가능한 아이템이 없습니다.");
