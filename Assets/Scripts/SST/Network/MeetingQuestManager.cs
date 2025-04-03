@@ -238,7 +238,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                             Show(Mode.End);
                         }
                     }
-                    else if (UIManager.Instance.IsOpenBox() == false)
+                    else if (UIManager.Instance.IsOpenUI() == false)
                     {
                         getCinemachineFreeLook.SetEnabled(true);
                         _playerController.enabled = true;
