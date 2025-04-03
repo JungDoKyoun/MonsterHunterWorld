@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Photon.Pun;
+using System.Reflection;
 
 //public enum MonsterAttackType
 //{
@@ -20,10 +21,9 @@ public class MonsterController : MonoBehaviourPunCallbacks
     [SerializeField] private int _groundRayDis;
     [SerializeField] private int _flyHigh;
     [SerializeField] private int _blockDis;
-    [SerializeField] private int _sleepIndex;
-    [SerializeField] private List<int> _restIndex = new List<int>();
     [SerializeField] private int _restTime;
     [SerializeField] private int _sleepTime;
+    private List<int> _restIndex = new List<int>();
     private List<MonsterAttackData> _monsterAttackData;
     private List<MonsterProjectileData> _monsterProjectileDatas; //몬스터 투사체 정보
     private MonsterProjectileSpawnManager _projectileSpawnManager; //투사체 스폰 매니저
@@ -35,6 +35,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private Vector3 _playerPos;
     private string _label; //어드레서블에서 불러올 라벨
+    private int _sleepIndex;
     private int _roSpeed; //부드럽게 돌때 사용하는 변수
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
     private int _nextPatrolIndex = 1; //현재 가고있는 인덱스 좌표
@@ -104,6 +105,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         _projectileSpawnManager = MonsterManager.Instance.MonsterProjectileSpawnManager;
         _monsterAttackData = MonsterManager.Instance.MonsterSO.MonsterAttackDatas;
+        _restIndex = MonsterManager.Instance.MonsterSO.RestIndex;
+        _sleepIndex = MonsterManager.Instance.MonsterSO.SleepIndex;
         _trapTime = 5f;
         _currentHeadDamage = 0;
         _damage = 0;
@@ -238,6 +241,8 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _currentPatrolIndex = (_currentPatrolIndex + 1) % moveTargetPos.Count;
         _nextPatrolIndex = (_nextPatrolIndex + 1) % moveTargetPos.Count;
+        Debug.Log(_currentPatrolIndex);
+        Debug.Log(_nextPatrolIndex);
     }
 
     public Vector3 GetCurrentPatrolPos() //패트롤시 타깃이 되는 위치 정보 변경
@@ -284,7 +289,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         return _currentPatrolIndex == _sleepIndex;
     }
 
-    public bool IsReachTarget() //패트롤 목표로한 좌표에 도달 했는가?
+    public bool IsReachNextTarget() //패트롤 목표로한 좌표에 도달 했는가?
     {
         if (!_agent.enabled || !_agent.isOnNavMesh)
         {
@@ -295,6 +300,15 @@ public class MonsterController : MonoBehaviourPunCallbacks
             return Vector3.Distance(currentPos, targetPos) < 5.0f;
         }
         return !_agent.pathPending && _agent.remainingDistance < 5.0f;
+    }
+
+    public bool IsReachCurrentTarget() //현재 좌표에 근접한가??
+    {
+            Vector3 currentPos = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 target = moveTargetPos[_currentPatrolIndex].transform.position;
+            Vector3 targetPos = new Vector3(target.x, 0, target.z);
+
+            return Vector3.Distance(currentPos, targetPos) < 10.0f;
     }
 
     public bool IsNeedRo() //타깃과의 각도 계산 후 회전이 필요한지?
@@ -940,7 +954,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position + transform.forward * _blockDis, 1f);
+        Gizmos.DrawWireSphere(transform.position, _detectRange);
     }
 
     public void RequesTakeOff()
