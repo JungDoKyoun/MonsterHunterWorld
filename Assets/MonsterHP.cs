@@ -6,14 +6,19 @@ using UnityEngine.UI;
 
 public class MonsterHP : MonoBehaviour
 {
-    Text hp;
+    [SerializeField] Text hp;
     MonsterController target;
+
+    public void SetTarget(MonsterController monster)
+    {
+        target = monster;
+        hp.text = target.CurrentHP.ToString();
+    }
 
     void Start()
     {
-        hp = GetComponent<Text>();  
-        target = FindObjectOfType<MonsterController>();
-        hp.text = target.CurrentHP.ToString();
+        Debug.Log(hp);
+
     }
 
 
