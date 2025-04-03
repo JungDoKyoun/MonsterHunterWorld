@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Net;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -241,6 +242,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void OnEquipChanged(ItemName itemKey)
     {
         int index = (int)itemKey;
+        if (itemKey == ItemName.HuntersKnife_I)
+        {
+            var temp = InvenToryCtrl.Instance.equippedInventory[0] as Weapon;
+            _damage = temp.damage;
+        }
         Equip(index); // 내 장비 적용
         if (PhotonNetwork.InRoom) // 네트워크로 다른 유저들에게도 장비 적용
         {
