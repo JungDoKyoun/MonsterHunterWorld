@@ -42,9 +42,6 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
         var pool = new ObjectPool<MonsterProjectile>(
             createFunc: () =>
             {
-                //var temp = PhotonNetwork.Instantiate(name, Vector3.zero, Quaternion.identity);
-                //return temp.GetComponent<MonsterProjectile>();
-
                 GameObject go;
                 if (PhotonNetwork.IsMasterClient)
                 {
@@ -81,7 +78,7 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
 
         //MonsterProjectilePool[type] = pool;
     }
-
+    
     public MonsterProjectile GetProjectiles(ProjectileType type, string id)
     {
         //if(MonsterProjectilePool.TryGetValue(type, out var objectPool))
@@ -94,7 +91,6 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
 
         if (!MonsterProjectilePool.TryGetValue(type, out var objectPool))
         {
-            Debug.LogWarning("풀 없음");
             return null;
         }
 
@@ -113,10 +109,6 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
             ReturnProjectile(type, projectile);
             _projectileInstances.Remove(id);
         }
-        else
-        {
-            Debug.LogWarning($"[ReturnProjectileByID] ID {id}에 해당하는 투사체 없음");
-        }
     }
 
     public void ReturnProjectile(ProjectileType type, MonsterProjectile prefab)
@@ -124,14 +116,6 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
         prefab.HasHit = false;
         prefab.IsReturn = false;
         prefab.ResetProjectile();
-        //if(MonsterProjectilePool.TryGetValue(type, out var objectPool))
-        //{
-        //    objectPool.Release(prefab);
-        //}
-        //else
-        //{
-        //    prefab.gameObject.SetActive(false);
-        //}
 
         if (_projectileInstances.ContainsKey(prefab.ProjectileID))
         {
@@ -142,17 +126,11 @@ public class MonsterProjectileSpawnManager : MonoBehaviour
         {
             if (objectPool != null)
             {
-                Debug.Log($"[클라이언트 {PhotonNetwork.LocalPlayer.NickName}] 풀로 반환: {prefab.name}");
                 objectPool.Release(prefab);
-            }
-            else
-            {
-                Debug.LogWarning("풀은 있지만 null임");
             }
         }
         else
         {
-            Debug.LogWarning("풀 없음 → 그냥 비활성화");
             prefab.gameObject.SetActive(false);
         }
     }

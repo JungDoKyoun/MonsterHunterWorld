@@ -100,9 +100,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
         _roSpeed = MonsterManager.Instance.MonsterSO.RoSpeed;
         _maxHP = MonsterManager.Instance.MonsterSO.MaxHP;
         _currentHP = _maxHP;
-        //_biteDamage = MonsterManager.Instance.MonsterSO.BiteDamage;
-        //_taileDamage = MonsterManager.Instance.MonsterSO.TaileDamage;
-        //_chargeDamage = MonsterManager.Instance.MonsterSO.ChargeDamage;
         _detectRange = MonsterManager.Instance.MonsterSO.DetectRange;
         _attackRange = MonsterManager.Instance.MonsterSO.AttackRange;
         _attackCoolTime = MonsterManager.Instance.MonsterSO.AttackCoolTime;
@@ -175,19 +172,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
     public bool IsalRun { get { return _isalRun; } set { _isalRun = value; } }
     public List<GameObject> MoveTargetPos { get { return moveTargetPos; } set { moveTargetPos = value; } }
 
-    private async Task WaitUntilMonsterDataLoaded()
-    {
-        await WaitUntil(() => MonsterManager.Instance?.MonsterSO != null);
-    }
-
-    public static async Task WaitUntil(Func<bool> predicate)
-    {
-        while (!predicate())
-        {
-            await Task.Yield(); // 다음 프레임까지 대기
-        }
-    }
-
     public void InitProjectile()
     {
         if (_projectileSpawnManager == null)
@@ -198,7 +182,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
         {
             _monsterProjectileDatas = MonsterManager.Instance.MonsterSO.ProjectileDatas;
         }
-        //_projectileSpawnManager.LoadProjectilesFromAddressable(_label, _monsterProjectileDatas);
+
         foreach (var data in _monsterProjectileDatas)
         {
             _projectileSpawnManager.CreatePool(data.Name, data.defaultCapacity, data.ProjectileType);
@@ -266,8 +250,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
     {
         _currentPatrolIndex = (_currentPatrolIndex + 1) % moveTargetPos.Count;
         _nextPatrolIndex = (_nextPatrolIndex + 1) % moveTargetPos.Count;
-        Debug.Log(_currentPatrolIndex);
-        Debug.Log(_nextPatrolIndex);
     }
 
     public Vector3 GetCurrentPatrolPos() //패트롤시 타깃이 되는 위치 정보 변경
