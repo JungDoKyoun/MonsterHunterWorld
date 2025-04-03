@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,7 +74,7 @@ public class InvenToryCtrl : MonoBehaviour
     public Text goldbarText;
     int gold = 0;
     public int GetGold => gold;
-    public void SetGold(int value) { gold += value; Debug.Log(gold); }
+    public void SetGold(int value) { gold += value; Debug.Log("골드 흭득 : " + gold); }
 
     //싱글톤
     public static InvenToryCtrl Instance;
@@ -395,7 +396,7 @@ public class InvenToryCtrl : MonoBehaviour
     /// <param name="from">보낼 인벤</param>
     /// <param name="to">받을 인벤</param>
     /// <param name="itemKey"> 아이템 키 </param>
-    public void ChangeItemByKey(List<BaseItem> from, List<BaseItem> to, ItemName itemKey)
+    public void ChangeItemByKey(List<BaseItem> from, List<BaseItem> to, ItemName itemKey, InvenType inventype)
     {
         BaseItem original = ItemDataBase.Instance.GetItem(itemKey);
 
@@ -411,7 +412,13 @@ public class InvenToryCtrl : MonoBehaviour
             }
         }
 
-        ChangeItem(to, itemKey);
+        if(ChangeItem(to, itemKey,inventype) == false)
+        {
+            if (itemKey != ItemName.Empty)
+            {
+                from[fromIndex].count++;
+            }            
+        }
 
         CompactItemList(from);
         CompactItemList(to);
@@ -509,7 +516,7 @@ public class InvenToryCtrl : MonoBehaviour
     /// <param name="current">받을 인벤토리</param>
     /// <param name="itemKey">아이템 키</param>
     /// <returns></returns>
-    public bool ChangeItem(List<BaseItem> toList, ItemName itemKey)
+    public bool ChangeItem(List<BaseItem> toList, ItemName itemKey ,InvenType type)
     {
         int emptyCount = toList.Count(i => i.type == ItemType.Empty);
         Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
@@ -527,16 +534,27 @@ public class InvenToryCtrl : MonoBehaviour
         int index = toList.FindIndex(i => i.name == baseItem.name);
         if (index >= 0)
         {
-            if (toList[index].count < toList[index].maxCount)
+            if(InvenType.Inven == type)
             {
+                if (itemKey == ItemName.Empty) return false;
+
                 toList[index].count++;
                 return true;
             }
             else
             {
-                Debug.Log("최대 수량 도달");
-                return false;
+                if (toList[index].count < toList[index].maxCount)
+                {
+                    toList[index].count++;
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("최대 수량 도달");
+                    return false;
+                }
             }
+  
         }
 
         // 2. 빈 슬롯이 있으면 -> 복사해서 추가
