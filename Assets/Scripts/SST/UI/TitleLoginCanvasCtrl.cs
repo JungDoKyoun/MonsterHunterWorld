@@ -17,6 +17,10 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
     [SerializeField] Transform loginPanel;
     [SerializeField] Transform optionPanel;
 
+    [SerializeField] private Slider masterSlider;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider sfxSlider;
+
     private void Start()
     {
         basicCanvas.gameObject.SetActive(true);
@@ -24,6 +28,20 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
         loginCanvas.gameObject.SetActive(false);
 
         UiManager.Instance.FadeInUI(titleCanvas);
+
+        // JSON 파일에서 저장된 볼륨값 불러오기
+        VolumeSettings settings = VolumeSettingManager.Instance.LoadVolumeSettings();
+
+        // 슬라이더에 불러온 값들을 적용해준다
+        masterSlider.value = settings.masterVolume;
+        bgmSlider.value = settings.bgmVolume;
+        sfxSlider.value = settings.sfxVolume;
+
+        // AudioMixer에도 적용해준다
+        AudioMixManager.Instance.SetAudioVolume(AudioMixManager.AudioMixType.Master, settings.masterVolume);
+        AudioMixManager.Instance.SetAudioVolume(AudioMixManager.AudioMixType.BGM, settings.bgmVolume);
+        AudioMixManager.Instance.SetAudioVolume(AudioMixManager.AudioMixType.SFX, settings.sfxVolume);
+
         SoundManager.Instance.PlayBGM(SoundManager.BGMType.Login);
         //StartCoroutine(FadeInUI(titleCanvas));
     }
