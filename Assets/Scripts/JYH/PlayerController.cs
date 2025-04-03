@@ -392,7 +392,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     transform = transform.parent;
                     if (transform.TryGetComponent(out monsterController))
                     {
-                        monsterController.TakeHeadDamage(_damage);
+                        monsterController.RequestTakeHeadDamage(_damage);
                         StopSwing();
                         return;
                     }
