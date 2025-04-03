@@ -79,35 +79,39 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             countText.text = (item.count > 0) ? item.count.ToString() : "";
         }
-
-        //위 코드로 수정했음
-        //if (item.count > 0)
-        //{
-        //    countText.text = item.count.ToString();
-        //}
-        //else
-        //{
-        //    countText.text = "";
-        //}
     }
+
+
 
     //아이템 클릭시 해당 아이템 반대편 인벤토리로 넘기기
     public void OnPointerClick(PointerEventData eventData)
     {
         var ctrl = InvenToryCtrl.Instance;
 
+        var isShop = InvenToryCtrl.Instance.IsShop;
+
+
         switch (invenType)
         {
-            case InvenType.Inven:                
-                ctrl.ChangeItemByKey(ctrl.inventory, ctrl.boxInven, item.id ,invenType);
+            case InvenType.Inven:
+                if (isShop)
+                {
+                    ctrl.SellItemToShop(ctrl.inventory, item.id);
+                }
+                else
+                {
+                    ctrl.ChangeItemByKey(ctrl.inventory, ctrl.boxInven, item.id, invenType);
+                }
                 break;
-            case InvenType.Box:                
+
+            case InvenType.Box:
                 ctrl.ChangeItemByKey(ctrl.boxInven, ctrl.inventory, item.id, invenType);
                 break;
 
             case InvenType.EquipBox:
                 ctrl.EquipItemByKey(ctrl.equipInventory, ctrl.equippedInventory, item.id);
                 break;
+
             default:
                 Debug.LogError("잘못된 타입입니다.");
                 break;
@@ -152,7 +156,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 {
                     ctrl.EquipItemToolTipCtrl.TooltipClear(false, ItemType.Empty);
                 }
-                    break;
+                break;
             default:
                 Debug.LogError("잘못된 타입입니다.");
                 break;

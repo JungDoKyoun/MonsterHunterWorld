@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +13,8 @@ public enum InvenType
     Box,
     Equipped,
     EquipBox,
-    QuickSlot
+    QuickSlot,
+    ShopInven
 }
 
 public enum InvenSize
@@ -271,7 +271,7 @@ public class InvenToryCtrl : MonoBehaviour
         equippedList[(int)EquipSlot.Legs] = GetItemFromKey(await root.Child(user.UserId).Child("Leg").GetValueAsync());
         equippedList[(int)EquipSlot.neck] = ItemDataBase.Instance.EmptyItem;
         equippedList[(int)EquipSlot.band] = ItemDataBase.Instance.EmptyItem;
-        
+
         // 5. GOLD 불러오기
         SetGold(GetGoldFromValue(await root.Child(user.UserId).Child("Gold").GetValueAsync()));
 
@@ -356,7 +356,7 @@ public class InvenToryCtrl : MonoBehaviour
     //골드 불러오기 함수
     int GetGoldFromValue(DataSnapshot snapshot)
     {
-        if(snapshot.Exists && int.TryParse(snapshot.Value.ToString(), out int value))
+        if (snapshot.Exists && int.TryParse(snapshot.Value.ToString(), out int value))
         {
             return value;
         }
@@ -412,12 +412,12 @@ public class InvenToryCtrl : MonoBehaviour
             }
         }
 
-        if(ChangeItem(to, itemKey,inventype) == false)
+        if (ChangeItem(to, itemKey, inventype) == false)
         {
             if (itemKey != ItemName.Empty)
             {
                 from[fromIndex].count++;
-            }            
+            }
         }
 
         CompactItemList(from);
@@ -516,7 +516,7 @@ public class InvenToryCtrl : MonoBehaviour
     /// <param name="current">받을 인벤토리</param>
     /// <param name="itemKey">아이템 키</param>
     /// <returns></returns>
-    public bool ChangeItem(List<BaseItem> toList, ItemName itemKey ,InvenType type)
+    public bool ChangeItem(List<BaseItem> toList, ItemName itemKey, InvenType type)
     {
         int emptyCount = toList.Count(i => i.type == ItemType.Empty);
         Debug.Log("현재 빈 슬롯 개수: " + emptyCount);
@@ -534,7 +534,7 @@ public class InvenToryCtrl : MonoBehaviour
         int index = toList.FindIndex(i => i.name == baseItem.name);
         if (index >= 0)
         {
-            if(InvenType.Inven == type)
+            if (InvenType.Inven == type)
             {
                 if (itemKey == ItemName.Empty) return false;
 
@@ -554,7 +554,7 @@ public class InvenToryCtrl : MonoBehaviour
                     return false;
                 }
             }
-  
+
         }
 
         // 2. 빈 슬롯이 있으면 -> 복사해서 추가
@@ -638,6 +638,41 @@ public class InvenToryCtrl : MonoBehaviour
 
 
         Debug.Log($"퀵슬롯에 {quickSlotItem.Count}개의 아이템을 불러왔습니다.");
+    }
+
+    bool isShop = false;
+    public bool IsShop { get => isShop; set => isShop = value; }
+
+
+    public void SellItemToShop(List<BaseItem> fromList, ItemName itemKey)
+    {
+        int index = fromList.FindIndex(i => i.id == itemKey);
+
+        if (index >= 0)
+        {
+            var item = fromList[index];
+
+            // 가격 만큼 골드 추가
+            SetGold(item.price);
+            RefreshGoldUI();
+
+            // 수량 감소
+            item.count--;
+
+            if (item.count <= 0)
+            {
+                fromList[index] = ItemDataBase.Instance.EmptyItem;
+            }
+
+            CompactItemList(fromList);
+
+            Debug.Log($"[판매 완료] {item.name}을(를) {item.price}G에 판매");
+            OnInventoryChanged?.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("판매할 아이템을 찾을 수 없습니다.");
+        }
     }
 
 }
