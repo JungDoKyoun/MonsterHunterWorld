@@ -382,6 +382,8 @@ public class AuthManager : MonoBehaviour
         FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Hand").SetValueAsync((int)ItemName.LeatherGloves);
         FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Waist").SetValueAsync((int)ItemName.LeatherBelt);
         FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Leg").SetValueAsync((int)ItemName.LeatherPants);
+        FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Gold").SetValueAsync(100000);
+
 
 
         Debug.Log("초기 인벤토리 및 장비 저장 완료");
