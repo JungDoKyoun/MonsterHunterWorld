@@ -35,7 +35,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
     private Vector3 _targetPlayerPos; //타깃이된 플레이어 위치 정보
     private Vector3 _targetPos; //타깃이 되는 위치 정보
     private Vector3 _playerPos;
-    private string _label; //어드레서블에서 불러올 라벨
     private int _sleepIndex;
     private int _roSpeed; //부드럽게 돌때 사용하는 변수
     private int _currentPatrolIndex = 0; //현재 있는 좌표 인덱스 정보
@@ -98,7 +97,6 @@ public class MonsterController : MonoBehaviourPunCallbacks
         MonsterManager.Instance.MonsterSO.MoveTargetPos.Count > 0
         );
 
-        _label = MonsterManager.Instance.MonsterSO.Label;
         _roSpeed = MonsterManager.Instance.MonsterSO.RoSpeed;
         _maxHP = MonsterManager.Instance.MonsterSO.MaxHP;
         _currentHP = _maxHP;
