@@ -154,6 +154,7 @@ public class MonsterController : MonoBehaviourPunCallbacks
 
     public int RestTime { get { return _restTime; } set { _restTime = value; } }
     public int SleepTime { get { return _sleepTime; } set { _sleepTime = value; } }
+    public int CurrentHP { get { return _currentHP; } set { _currentHP = value; } }
     public bool IsRo { get { return _isRo; } set { _isRo = value; } }
     public bool IsDie { get { return _isDie; } set { _isDie = value; } }
     public bool IsBattle { get { return _isBattle; } set { _isBattle = value; } }
