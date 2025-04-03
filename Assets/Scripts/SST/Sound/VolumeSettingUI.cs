@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class VolumeSettingUI : MonoBehaviour
@@ -59,5 +60,23 @@ public class VolumeSettingUI : MonoBehaviour
         };
         // 현재의 세팅값을 저장한 객체를 저장해주기 위해 매니저 함수를 호출한다.
         VolumeSettingManager.Instance.SaveVolumeSettings(currentSettings);
+    }
+
+    public void OnButtonClick()
+    {
+        SoundManager.Instance.PlayBtnClickSFX();
+    }
+
+    public void LeaveOption()
+    {
+        if ((SceneManager.GetActiveScene().name == "TitleLoginScene") == false)
+        {
+            UIManager.Instance.CloseTopUI();
+        }
+    }
+
+    public void PlayWheelSFX()
+    {
+        SoundManager.Instance.PlayWheelSFX();
     }
 }

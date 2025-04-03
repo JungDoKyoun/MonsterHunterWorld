@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TitleLoginCanvasCtrl : MonoBehaviour
@@ -38,13 +39,19 @@ public class TitleLoginCanvasCtrl : MonoBehaviour
 
     public void OptionButtonClick()
     {
-        loginPanel.gameObject.SetActive(false);
-        optionPanel.gameObject.SetActive(true);
+        if (SceneManager.GetActiveScene().name == "TitleLoginScene")
+        {
+            loginPanel.gameObject.SetActive(false);
+            optionPanel.gameObject.SetActive(true);
+        }
     }
 
     public void LeaveOption()
     {
-        optionPanel.gameObject.SetActive(false);
-        loginPanel.gameObject.SetActive(true);
+        if(SceneManager.GetActiveScene().name == "TitleLoginScene")
+        {
+            optionPanel.gameObject.SetActive(false);
+            loginPanel.gameObject.SetActive(true);
+        }
     }
 }
