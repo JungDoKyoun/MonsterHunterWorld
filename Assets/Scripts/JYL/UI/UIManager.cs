@@ -72,6 +72,7 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            
             StackUIOpen(UIType.OptionUI);
         }
     }
@@ -124,12 +125,18 @@ public class UIManager : MonoBehaviour
 
         if (!uiMap.ContainsKey(type)) return;
 
+        if(UIType.AllVillageUI == type)
+        {
+            InvenToryCtrl.Instance.RefreshGoldUI();
+        }
+
         GameObject go = uiMap[type];
         if (!go.activeSelf)
         {
             SoundManager.Instance.PlaySFX(SoundManager.SfxQuestType.OpenBox);
             go.SetActive(true);
             openStack.Push(type);
+
         }
     }
 

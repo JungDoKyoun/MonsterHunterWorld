@@ -221,6 +221,7 @@ public class MeetingQuestManager : MonoBehaviourPunCallbacks
                                 getCinemachineFreeLook.SetEnabled(false);
                                 _playerController.Show(PlayerInteraction.State.Hide);
                                 UIManager.Instance.StackUIOpen(UIType.AllVillageUI);
+
                             }
                             break;
                         default:
