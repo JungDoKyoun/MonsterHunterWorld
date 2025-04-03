@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         Room room = PhotonNetwork.CurrentRoom;
+        PlayerController.CreateAction += AddPlayer;
         if (room != null)
         {
             SoundManager.Instance.PlayBGM(SoundManager.BGMType.Boss);
@@ -52,21 +53,19 @@ public class GameManager : MonoBehaviourPunCallbacks
                             _playerController.Initialize(SetLife);
                         }
                     }
-                    yield return new WaitWhile(() => FindObjectsOfType<PlayerController>().Length < PhotonNetwork.CurrentRoom.PlayerCount);
-                    PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
-                    for(int i = 0; i < playerControllers.Length; i++)
-                    {
-                        Player player = playerControllers[i].photonView.Owner;
-                        if (player != PhotonNetwork.LocalPlayer)
-                        {
-                            int index = i;
-                            _gageController?.SetName(player.NickName, index);
-                            playerControllers[i].Initialize((current, full) => _gageController?.SetLife(current, full, index));
-                            _otherPlayers.Add(playerControllers[i]);
-                        }
-                    }
                 }
             }
+        }
+    }
+
+    private void AddPlayer(PlayerController playerController)
+    {
+        if(_otherPlayers.Contains(playerController) == false && playerController.photonView.Owner != PhotonNetwork.LocalPlayer)
+        {
+            int index = _otherPlayers.Count;
+            _gageController?.SetName(playerController.photonView.Owner.NickName, index);
+            playerController.Initialize((current, full) => _gageController?.SetLife(current, full, index));
+            _otherPlayers.Add(playerController);
         }
     }
 
@@ -76,6 +75,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             _gageController.SetStamina(_playerController.currentStamina, _playerController.fullStamina);
         }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerController.CreateAction -= AddPlayer;
     }
 
     private void SetLife(int current, int full)
@@ -99,27 +103,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnDisable();
         StopAllCoroutines();
-    }
-
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        StartCoroutine(WaitNewPlayerController());
-        IEnumerator WaitNewPlayerController()
-        {
-            yield return new WaitWhile(() => FindObjectsOfType<PlayerController>().Length < PhotonNetwork.CurrentRoom.PlayerCount);
-            PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
-            for (int i = 0; i < playerControllers.Length; i++)
-            {
-                Player player = playerControllers[i].photonView.Owner;
-                if (player != PhotonNetwork.LocalPlayer && _otherPlayers.Contains(playerControllers[i]) == false)
-                {
-                    int index = i;
-                    _gageController?.SetName(newPlayer.NickName, index);
-                    playerControllers[i].Initialize((current, full) => _gageController?.SetLife(current, full, index));
-                    _otherPlayers.Add(playerControllers[i]);
-                }
-            }
-        }
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

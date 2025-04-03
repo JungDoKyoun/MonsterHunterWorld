@@ -256,6 +256,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public static Action<PlayerController> CreateAction;
+
     private void Start()
     {
         if (photonView.IsMine == true)
@@ -274,6 +276,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 }
             }
         }
+        CreateAction?.Invoke(this);
     }
 
     private void Update()
