@@ -2369,6 +2369,14 @@ PrefabInstance:
       propertyPath: uiList.Array.data[10].uiObject
       value: 
       objectReference: {fileID: 1199115210}
+    - target: {fileID: 2313748342399198158, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
+      propertyPath: goldbarText
+      value: 
+      objectReference: {fileID: 833210564}
+    - target: {fileID: 2670324297844053460, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2704311170193447099, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2469,6 +2477,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -290
       objectReference: {fileID: 0}
+    - target: {fileID: 8314573235533388296, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8478055492805075534, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2503,6 +2515,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5315872253323322797, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
   m_PrefabInstance: {fileID: 833210562}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &833210564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314573235533388296, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
+  m_PrefabInstance: {fileID: 833210562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &833210565 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5401008353811285675, guid: b02d1ac506a4d4d41974e0d11575abd7, type: 3}
