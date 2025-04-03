@@ -29,18 +29,18 @@ public class QuickSlotUI : BaseInventory
         // Firebase에서 인벤토리 데이터 로드
         //InvenToryCtrl.Instance.LoadInventoryFromFirebase(() =>
         //{
-            // 데이터 로드 후 퀵슬롯 초기화
-            InvenToryCtrl.Instance.LoadQuickSlotItemsFromInventory();
+        // 데이터 로드 후 퀵슬롯 초기화
+        InvenToryCtrl.Instance.LoadQuickSlotItemsFromInventory();
 
-            items = InvenToryCtrl.Instance.quickSlotItem;
+        items = InvenToryCtrl.Instance.quickSlotItem;
 
-            if (items == null || items.Count == 0)
-            {
-                Debug.LogWarning("사용 가능한 아이템이 없습니다.");
-                return;
-            }
+        if (items == null || items.Count == 0)
+        {
+            Debug.LogWarning("사용 가능한 아이템이 없습니다.");
+            return;
+        }
 
-            ShowCurrentItem();
+        ShowCurrentItem();
         //});
 
         // 로컬 플레이어가 생성될 때까지 기다림
@@ -102,7 +102,7 @@ public class QuickSlotUI : BaseInventory
                 if (pv != null && pv.IsMine)
                 {
                     pl = pv.GetComponent<Transform>();
-                    Debug.Log("Local player found: " + pl.name);
+                    //Debug.Log("Local player found: " + pl.name);
                     yield break; // 로컬 플레이어를 찾으면 코루틴 종료
                 }
             }
@@ -130,7 +130,10 @@ public class QuickSlotUI : BaseInventory
 
         // 중복 방지 및 카운트 감소
         isTrapPlaced = true;
+
+        //Debug.Log($"Before Use: {item.name} - Count: {item.count}");
         item.count--;
+        //Debug.Log($"After Use: {item.name} - Count: {item.count}");
         useItemCountText.text = item.count.ToString();
 
         if (item.id == ItemName.PitfallTrap)
@@ -141,9 +144,22 @@ public class QuickSlotUI : BaseInventory
         }
 
         // 아이템 0개 되면 제거
+
+
         if (item.count == 0)
         {
+            //Debug.Log($"[REMOVE] {item.name} count is now 0");
+
+
             items.RemoveAt(currentIndex);
+
+            if (items.Count == 0)
+            {
+                ClearUI(); // 퀵슬롯이 비었을 때 UI 초기화
+                isTrapPlaced = false;
+                return;
+            }
+
             currentIndex = Mathf.Clamp(currentIndex, 0, items.Count - 1);
         }
 
