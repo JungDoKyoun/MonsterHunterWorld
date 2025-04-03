@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum InvenType
@@ -47,7 +48,7 @@ public class InvenToryCtrl : MonoBehaviour
         }
     }
 
-
+    BaseItem empty;
 
     //현재 가지고있을 인벤토리
     public List<BaseItem> inventory = new List<BaseItem>();
@@ -81,6 +82,8 @@ public class InvenToryCtrl : MonoBehaviour
     }
     private void Start()
     {
+        empty = ItemDataBase.Instance.EmptyItem;
+
         LoadInventoryFromFirebase();
     }
 
@@ -122,6 +125,8 @@ public class InvenToryCtrl : MonoBehaviour
             InvenInit(equipInventory, (int)InvenSize.EquipInven);
         if (equippedInventory == null || equippedInventory.Count == 0)
             InvenInit(equippedInventory, (int)InvenSize.EquipedInven);
+
+        InvenAllClear();
 
         //인벤토리별 저장
         StringBuilder sb = new StringBuilder();
@@ -188,7 +193,27 @@ public class InvenToryCtrl : MonoBehaviour
 
         OnInventoryChanged?.Invoke();
 
+
         Debug.Log("인벤토리 저장 완료");
+    }
+
+    public void InvenClear(List<BaseItem> list, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (list[i].count == 0)
+            {
+                list[i] = empty;
+            }
+        }
+    }
+
+    public void InvenAllClear()
+    {
+        InvenClear(inventory, (int)InvenSize.Inventory);
+        InvenClear(boxInven, (int)InvenSize.BoxInven);
+        InvenClear(equipInventory, (int)InvenSize.EquipInven);
+     //   InvenClear(equippedInventory, (int)InvenSize.EquipedInven);
     }
 
     public async void LoadInventoryFromFirebase(System.Action onComplete = null)
@@ -227,6 +252,8 @@ public class InvenToryCtrl : MonoBehaviour
 
 
         InvenToryCtrl.Instance.equippedInventory = equippedList;
+
+        InvenAllClear();
 
         InvenToryCtrl.Instance.OnInventoryChanged?.Invoke();
         for (int i = 0; i < InvenToryCtrl.Instance.equippedInventory.Count - 1; i++)

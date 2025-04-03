@@ -10,6 +10,8 @@ public abstract class MonsterStatusSO : ScriptableObject
     public int MaxHP;
     public int RoSpeed;
     public GameObject Prefab;
+    public int SleepIndex;
+    public List<int> RestIndex;
     //To-Do 아이템 클래스 추가
     //public List<> DropItem;
 

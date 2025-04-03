@@ -345,12 +345,12 @@ MonoBehaviour:
   headCollider: {fileID: 546558403154450771}
   shootPos: {fileID: 5753665227102424856}
   _groundRayDis: 10
-  _flyHigh: 250
+  _flyHigh: 150
   _blockDis: 7
   _sleepIndex: 0
   _restIndex: 020000000300000004000000
   _restTime: 30
-  _sleepTime: 90
+  _sleepTime: 10
   _currentHP: 0
   _isBattle: 0
   _isRun: 0
