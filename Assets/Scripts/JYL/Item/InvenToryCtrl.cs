@@ -419,8 +419,10 @@ public class InvenToryCtrl : MonoBehaviour
                 from[fromIndex].count++;
             }
         }
-
+        Debug.Log("type : " + inventype);
+        Debug.Log("form c : " + from.Count);
         CompactItemList(from);
+        Debug.Log("to c : " + to.Count); 
         CompactItemList(to);
 
     }
@@ -497,17 +499,36 @@ public class InvenToryCtrl : MonoBehaviour
     /// 아이템 정렬 =>빈칸 뒤로 미룸
     /// </summary>
     /// <param name="list">정렬할 인벤토리</param>
-    void CompactItemList(List<BaseItem> list)
+    public List<BaseItem> CompactItemList(List<BaseItem> list)
     {
-        var validItems = list.Where(i => i.type != ItemType.Empty).ToList();
-        int emptyCount = list.Count - validItems.Count;
-
-        list = new List<BaseItem>(validItems);
-
-        for (int i = 0; i < emptyCount; i++)
+        if (list == null)
         {
-            list.Add(ItemDataBase.Instance.EmptyItem);
+            Debug.LogError("[CompactItemList] 전달된 리스트가 null입니다.");
+            return new List<BaseItem>();
         }
+
+        List<BaseItem> compactedList = new List<BaseItem>();
+
+        for (int i = 0; i < list.Count - 1; i++)
+        {
+            var item = list[i];
+
+            if (item == null)
+            {
+                Debug.LogWarning($"[CompactItemList] list[{i}] 가 null입니다. 건너뜁니다.");
+                continue;
+            }
+
+            if (item.type == ItemType.Empty)
+            {
+                continue;
+            }
+
+            compactedList.Add(item);
+        }
+
+        Debug.Log($"[CompactItemList] 유효한 아이템 수: {compactedList.Count} / 원본: {list.Count}");
+        return compactedList;
     }
 
     /// <summary>
