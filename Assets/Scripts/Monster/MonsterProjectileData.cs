@@ -1,0 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class MonsterProjectileData
+{
+    public string Name;
+    public ProjectileType ProjectileType;
+    public int defaultCapacity;
+    public int damage;
+    public int speed;
+    public float lifeTime;
+}

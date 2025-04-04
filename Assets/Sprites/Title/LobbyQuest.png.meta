@@ -1,0 +1,1403 @@
+fileFormatVersion: 2
+guid: ddfa7cf2e1851504f827eb618f74d6e8
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LobbyQuest_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 440
+        width: 56
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88b5c43de789a34bbb9cc5685a6cc96
+      internalID: 1224964886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 440
+        width: 284
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84995c2e50a15c0468aecff249a1385e
+      internalID: 635024279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_2
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 501
+        width: 22
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8524d6dbdb3442b4a95a0220645421bc
+      internalID: -1602114151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_3
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 483
+        width: 34
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535175e43afff5649aac9d10ff0a0021
+      internalID: 350372504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_4
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 483
+        width: 4
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cfe696888ec30442971830dc4d7f56b
+      internalID: -1602346016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_5
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 441
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c6b3584252fc594c9486965c5b27845
+      internalID: 233860140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_6
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 440
+        width: 36
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87ec5aefcb5a4194797f054576e909af
+      internalID: -1322887168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_7
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 491
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 058731a83c4fa95488576a9f46218cd3
+      internalID: 1825521751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_8
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 442
+        width: 23
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4297698cb41787a4b88afe32803e5c5d
+      internalID: 788443952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_9
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 446
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6795bab5b3224024089ab82e2ac4e908
+      internalID: -1125410769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_10
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 440
+        width: 13
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf09f7c2783671469b5ac83b16c9c7e
+      internalID: -2121181377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_11
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 443
+        width: 11
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ef5978a0f4d2b4b84f9ec59f084097
+      internalID: -893166166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_12
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 436
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53933004060040488172d6c2558c8c6
+      internalID: -1703334324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_13
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 428
+        width: 294
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0c653a035a5ccd45b896579fdf7eeaa
+      internalID: -624759583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 307
+        width: 212
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51cb776e4e2092f4aa4f772a3ec8c0ec
+      internalID: -1992242564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_15
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 419
+        width: 82
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 607290c907465c64989fc06d9c3ca398
+      internalID: -1144342614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_16
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 403
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64745fb0c2afc94499d2e6b6f978d5f4
+      internalID: 1002677848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_17
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 372
+        width: 149
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eadf3dd214987742a8788425aaee82d
+      internalID: -11715243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_18
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 374
+        width: 24
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3daba807c002f6459d703ac1ce97ec3
+      internalID: -826694794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_19
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 368
+        width: 13
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e13c5f4b68a14469e4226c85b95126
+      internalID: 720726079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_20
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 373
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c3edb475dc74bb42a3974a4ac666a9d
+      internalID: 1251906712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_21
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 370
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c0995d8d3cd17445a7074d9e2a283df
+      internalID: -1833006367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_22
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 374
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e0d7280ea33cdf47a237bbfdcad974c
+      internalID: -1310474809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_23
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 373
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14a2fb8abf2c75c43afb46e628d51ffb
+      internalID: 2056198523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_24
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 316
+        width: 92
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 049fd47043f7fd54db5e917e3175a4cc
+      internalID: 1228275222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_25
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 316
+        width: 80
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd501326c832de342bf3c8161f90d59d
+      internalID: -1998979556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_26
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 321
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 726ab9173a4663b47ab803d28e992904
+      internalID: -792490053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_27
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 284
+        width: 56
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2074bc07e44d61e4ab3b8cbe84798790
+      internalID: 1008894894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_28
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 280
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: decd3f82dbfdd844eacf24ac2962207d
+      internalID: 1076347152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_29
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 277
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d221e28ca768cda4abd7e8697ef4dcdd
+      internalID: 2079555374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_30
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 280
+        width: 248
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 809d0b770985c27429039884d3df1602
+      internalID: -2022560321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_31
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 172
+        width: 272
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c20c5ae67cc0bb94a9ed0bbc5c42f4aa
+      internalID: 1526084132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_32
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 215
+        width: 57
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d11071db496e674e8c30aac97d01557
+      internalID: -1979968791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_33
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 76
+        width: 150
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9d9828f51a7584a816fd9fb989d383
+      internalID: 1452189306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_34
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 168
+        width: 76
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae117b1a370a314595731d44e279c22
+      internalID: 1923331430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 86
+        width: 141
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2292481ac85c2b248a6c79a50494789b
+      internalID: -312410530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_36
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 81
+        width: 9
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 609cf9ba70e14f247b29a40954d9e20f
+      internalID: 1399320031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_37
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 132
+        width: 39
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62f157a2ba2e9b440a0567f45914ec00
+      internalID: 1983692344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_38
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 132
+        width: 39
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7c817a8ae21fc45b1232857a712848
+      internalID: 1345822481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_39
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 132
+        width: 42
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a8467db64ca2e4c9da6677e3cfd1d5
+      internalID: 1052897160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_40
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 92
+        width: 60
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b67f5ab5bd85464da1474ae10e5e394
+      internalID: -1054335043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_41
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 91
+        width: 39
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f2a40f2b888bd84abe124d90506a7ee
+      internalID: -1146759845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_42
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 87
+        width: 39
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8515e5ec33625c40b28784203f42eda
+      internalID: 25831354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_43
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 38
+        width: 24
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c689d18c4037c41b7e56a826054eeb
+      internalID: 7159157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_44
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 36
+        width: 25
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 696c807f1140dfe41b2df1b41910376d
+      internalID: -2012045221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_45
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 67
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb94a3f8779aad741bccc90f76f1ca78
+      internalID: 222694737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_46
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 68
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8897c6e1a21734e8853ab4c7062b7f
+      internalID: -1371500262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_47
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 50
+        width: 34
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ec600b3986c8964fa2c0edc88689c37
+      internalID: -1281511817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_48
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 36
+        width: 18
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a3252f5174a5ab4ab6504762bc7f18b
+      internalID: -347928732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_49
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 34
+        width: 195
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61feac8c7b0b90940a2537f2d0924db0
+      internalID: 1762807996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_50
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 35
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e024ffe1c2970fc4ea74262cd749abaf
+      internalID: 1044224817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_51
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 44
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9d8fe17d457778459dc263f7c7ca3a0
+      internalID: 1506096159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_52
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 44
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 884b640bac5a5fd4792c769e5ba5280b
+      internalID: -792166276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_53
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 48
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbb309654ddcac64183349ddf4f9f0d8
+      internalID: 1961665898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_54
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 37
+        width: 34
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c22b17e64bd98443aabcc3f0eeba866
+      internalID: -1992823548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_55
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 3
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53803c4c477ca0b46973379e46119aef
+      internalID: -920760241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_56
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 4
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9c9031cacf2c9240befd7517d189b49
+      internalID: -1985496966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LobbyQuest_57
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 8
+        width: 402
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aa2b2269fdb662428e4466e464b5e44
+      internalID: 94005040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d09440fa74f551c468ec0462296d6d96
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      LobbyQuest_0: 1224964886
+      LobbyQuest_1: 635024279
+      LobbyQuest_10: -2121181377
+      LobbyQuest_11: -893166166
+      LobbyQuest_12: -1703334324
+      LobbyQuest_13: -624759583
+      LobbyQuest_14: -1992242564
+      LobbyQuest_15: -1144342614
+      LobbyQuest_16: 1002677848
+      LobbyQuest_17: -11715243
+      LobbyQuest_18: -826694794
+      LobbyQuest_19: 720726079
+      LobbyQuest_2: -1602114151
+      LobbyQuest_20: 1251906712
+      LobbyQuest_21: -1833006367
+      LobbyQuest_22: -1310474809
+      LobbyQuest_23: 2056198523
+      LobbyQuest_24: 1228275222
+      LobbyQuest_25: -1998979556
+      LobbyQuest_26: -792490053
+      LobbyQuest_27: 1008894894
+      LobbyQuest_28: 1076347152
+      LobbyQuest_29: 2079555374
+      LobbyQuest_3: 350372504
+      LobbyQuest_30: -2022560321
+      LobbyQuest_31: 1526084132
+      LobbyQuest_32: -1979968791
+      LobbyQuest_33: 1452189306
+      LobbyQuest_34: 1923331430
+      LobbyQuest_35: -312410530
+      LobbyQuest_36: 1399320031
+      LobbyQuest_37: 1983692344
+      LobbyQuest_38: 1345822481
+      LobbyQuest_39: 1052897160
+      LobbyQuest_4: -1602346016
+      LobbyQuest_40: -1054335043
+      LobbyQuest_41: -1146759845
+      LobbyQuest_42: 25831354
+      LobbyQuest_43: 7159157
+      LobbyQuest_44: -2012045221
+      LobbyQuest_45: 222694737
+      LobbyQuest_46: -1371500262
+      LobbyQuest_47: -1281511817
+      LobbyQuest_48: -347928732
+      LobbyQuest_49: 1762807996
+      LobbyQuest_5: 233860140
+      LobbyQuest_50: 1044224817
+      LobbyQuest_51: 1506096159
+      LobbyQuest_52: -792166276
+      LobbyQuest_53: 1961665898
+      LobbyQuest_54: -1992823548
+      LobbyQuest_55: -920760241
+      LobbyQuest_56: -1985496966
+      LobbyQuest_57: 94005040
+      LobbyQuest_6: -1322887168
+      LobbyQuest_7: 1825521751
+      LobbyQuest_8: 788443952
+      LobbyQuest_9: -1125410769
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

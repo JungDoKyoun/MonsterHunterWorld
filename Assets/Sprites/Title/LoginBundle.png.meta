@@ -1,0 +1,1733 @@
+fileFormatVersion: 2
+guid: 8489d2b82a0214040a76266ec284e0ef
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LoginBundle_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 478
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ace2befe16a2f44b900c3571b163b4
+      internalID: 410273116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 476
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f840ea913cb79b4ba7539acf3ecd2cc
+      internalID: -904017865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_2
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 476
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93321164ea05d0745b92729ceefa44db
+      internalID: 17198812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_3
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 476
+        width: 25
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 921cbd18697d0e34a9e7d1d37cb68d1b
+      internalID: -1824326562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_4
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 476
+        width: 69
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c85b58a5b366b4e47b54963d636db0ce
+      internalID: 687260522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_5
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 478
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 197eaadb20515094c9ac954d38a49b68
+      internalID: 1001042176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 478
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ac44036237954439cd1a8b8c6a5ec8
+      internalID: -1421767684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_7
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 482
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8be41a09675a3e84ab8d3c7cbe5ffaed
+      internalID: -2066394345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_8
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 484
+        width: 34
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b7baaba39100ad43b77f36c29f461ed
+      internalID: -2107330957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_9
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 480
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecd471e2af05413459cb249bbb8e89dc
+      internalID: 988566990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_10
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 478
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f96479dba54165448baa3c662820b7b
+      internalID: -1075040303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_11
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 478
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b61317fce688a244811480509b4997b
+      internalID: 715623151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_12
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 478
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f664fe423c28f6748b66c33dfb4bc4d9
+      internalID: 1163406151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_13
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 446
+        width: 33
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbbb5da32a0d8c44a9cf5f60b6d74233
+      internalID: -718379920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_14
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 442
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d66e7fc934e0b49498b8e42a6fb427a4
+      internalID: -925889607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_15
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 443
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 833db47f44fac3b488ed58d659db8eb5
+      internalID: 621326721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_16
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 442
+        width: 35
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91fa8c1411a43e64684e3b406774922f
+      internalID: -1398934996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_17
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 443
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 410dd5ce347499d499500b20b8a2e264
+      internalID: 1045940753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_18
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 443
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544bbdc8d2eca5642a5ae3d118cd27d7
+      internalID: -333855353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_19
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 443
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede7f6fd8437b814cad264c705c855d6
+      internalID: -68168958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_20
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 443
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49ec0e19f4791043ad492e8d3126499
+      internalID: 1832369376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_21
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 442
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ee0d60d97145c49a9840c79f1c8d95
+      internalID: 1396205989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_22
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 442
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e515fdfa5021386468786ab2508f6178
+      internalID: 1676316136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_23
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 444
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d761a646ef19e14cbf215280c84a831
+      internalID: -1193114482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_24
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 444
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5984033c1a79a64ca2fec215600cda3
+      internalID: 746891721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_25
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 443
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11f9e01d487c99e489f07deae8fc2ef4
+      internalID: 206604919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_26
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 443
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86bc75f8601fa1046ac19f17f292af59
+      internalID: -1437800385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_27
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 407
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a4cb6b312415f443ac8fe8a57b33660
+      internalID: 1454039843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_28
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 407
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 619f1075c8cc06546b7a30151850d56a
+      internalID: 632829613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_29
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 406
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 788c1133eae915c409b3f77b6121f96e
+      internalID: 1020767611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_30
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 406
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9cd20701064ef040a1a609148e793ad
+      internalID: -352002596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_31
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 408
+        width: 34
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f819d38e595c10348a75205f52f35bdb
+      internalID: 61693787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_32
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 408
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8123e53fe0d5824a86a8db993396cfe
+      internalID: 1540610311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_33
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 411
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d1643a0aee0d8749ad24b9c515a8fa5
+      internalID: -53073105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_34
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 412
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 291ebe6476699e247b0a505e3390567e
+      internalID: 1448137525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_35
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 408
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92b957516366cff4b8a108a477782069
+      internalID: 1242311851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_36
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 408
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108650fc1a21b454095233f1dded4fe1
+      internalID: -1321318815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_37
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 410
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87454961693f4bf45b699268c905d593
+      internalID: 1291817659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_38
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 405
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbb928420e22a9d4f869273ade0b58c0
+      internalID: 267224399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_39
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 406
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5abc5bd1ba4e3c2499a9ee7366b7d81a
+      internalID: 1859467385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_40
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 411
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c1b4ec3070e03748a6d7b6e6b9e0841
+      internalID: 1230629312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_41
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 372
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc5c1da5e2c6f3e4e9ee1179362e442a
+      internalID: -720164057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_42
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 370
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a26e11766dffb741a0c341db280a5c3
+      internalID: 1264411592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_43
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 371
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aa08aa1412ea364a85898d896467938
+      internalID: -1584563641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_44
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 370
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4310f79e2b8ba8b46914ba7a5796f9bf
+      internalID: -1069546083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_45
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 370
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a4ebb7542676054ca856bc7183f3952
+      internalID: 12977133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_46
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 372
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9763b08780e42a4b8fcdf2877d9168e
+      internalID: 405507045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_47
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 372
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee78d9f9bf6c6d94c921a64b2f338d1c
+      internalID: -608234397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_48
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 279
+        width: 377
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f147fd9cdcaf1b04aba84dd8e7d4d66f
+      internalID: -979740750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_49
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 335
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d1876adeab7fe342a464692e7ac1685
+      internalID: 2144182676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_50
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 340
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1941b294c0183b49845af8130c5587f
+      internalID: -1958131757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_51
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 308
+        width: 85
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2be1235c10bab5347b36e695c38212b1
+      internalID: -804057500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 207
+        width: 27
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f663a166e7790a444aaa78e722722807
+      internalID: -259523237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_53
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 261
+        width: 67
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e55e0aff9ecfea44b8e95ac59528bfd
+      internalID: -957245426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_54
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 220
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 049fb73d4f71bf940a8f89d65fe4e0ee
+      internalID: -164448191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_55
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 216
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a99c706f7152c4696c10e0058af2d8
+      internalID: -1081812442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_56
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 200
+        width: 39
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1a4edecdf470074d930bab1185c6a16
+      internalID: 771225082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_57
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 197
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0799a6507d215b24ebf4282712222827
+      internalID: -11414048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_58
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 180
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27c58e25e318b194882e564183084dd0
+      internalID: -1791620412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_59
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 174
+        width: 50
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 861733c2440fab04fa2daf6e27b1b64a
+      internalID: -593569179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_60
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 181
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7acb25191a513648875379a88155927
+      internalID: 581503270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_61
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 175
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 988ba95956841384b924f3861d262f09
+      internalID: -572233570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_62
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 124
+        width: 52
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b43c82ad456ab941b03e3fee084794c
+      internalID: -818701920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_63
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 175
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8109d986cb7499f48ad3e284947d212b
+      internalID: -381301467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_64
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 152
+        width: 48
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aee34e530a7149419f0d66eaf5c55a1
+      internalID: -581048418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_65
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 133
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1370ad583aaf3df4ead65c57bdd6bc36
+      internalID: -1204659053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_66
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 91
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85faffdf32c9ee4dbf8d41b4ecff023
+      internalID: 1418265817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_67
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 95
+        width: 53
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2bfc28218111084e812abac0f7c8dd2
+      internalID: 1733193748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_68
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 44
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59e2972fb2358a449995b4e5fd751212
+      internalID: -1420053456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_69
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 61
+        width: 8
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4a3fc69f76deda4989aee75cdd44b0c
+      internalID: -1017625123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_70
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 60
+        width: 60
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 895821719820c174a8dcfa89d030dc3d
+      internalID: -640796794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_71
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 8
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c2949f9c7c57b4fbc4b6b1b938b79b
+      internalID: -811411900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoginBundle_72
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 2
+        width: 162
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afef640a92785e24db3dd54970596d24
+      internalID: 134494845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: a2c89fb93b39f0240a6b53d3c54c68d2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      LoginBundle_0: 410273116
+      LoginBundle_1: -904017865
+      LoginBundle_10: -1075040303
+      LoginBundle_11: 715623151
+      LoginBundle_12: 1163406151
+      LoginBundle_13: -718379920
+      LoginBundle_14: -925889607
+      LoginBundle_15: 621326721
+      LoginBundle_16: -1398934996
+      LoginBundle_17: 1045940753
+      LoginBundle_18: -333855353
+      LoginBundle_19: -68168958
+      LoginBundle_2: 17198812
+      LoginBundle_20: 1832369376
+      LoginBundle_21: 1396205989
+      LoginBundle_22: 1676316136
+      LoginBundle_23: -1193114482
+      LoginBundle_24: 746891721
+      LoginBundle_25: 206604919
+      LoginBundle_26: -1437800385
+      LoginBundle_27: 1454039843
+      LoginBundle_28: 632829613
+      LoginBundle_29: 1020767611
+      LoginBundle_3: -1824326562
+      LoginBundle_30: -352002596
+      LoginBundle_31: 61693787
+      LoginBundle_32: 1540610311
+      LoginBundle_33: -53073105
+      LoginBundle_34: 1448137525
+      LoginBundle_35: 1242311851
+      LoginBundle_36: -1321318815
+      LoginBundle_37: 1291817659
+      LoginBundle_38: 267224399
+      LoginBundle_39: 1859467385
+      LoginBundle_4: 687260522
+      LoginBundle_40: 1230629312
+      LoginBundle_41: -720164057
+      LoginBundle_42: 1264411592
+      LoginBundle_43: -1584563641
+      LoginBundle_44: -1069546083
+      LoginBundle_45: 12977133
+      LoginBundle_46: 405507045
+      LoginBundle_47: -608234397
+      LoginBundle_48: -979740750
+      LoginBundle_49: 2144182676
+      LoginBundle_5: 1001042176
+      LoginBundle_50: -1958131757
+      LoginBundle_51: -804057500
+      LoginBundle_52: -259523237
+      LoginBundle_53: -957245426
+      LoginBundle_54: -164448191
+      LoginBundle_55: -1081812442
+      LoginBundle_56: 771225082
+      LoginBundle_57: -11414048
+      LoginBundle_58: -1791620412
+      LoginBundle_59: -593569179
+      LoginBundle_6: -1421767684
+      LoginBundle_60: 581503270
+      LoginBundle_61: -572233570
+      LoginBundle_62: -818701920
+      LoginBundle_63: -381301467
+      LoginBundle_64: -581048418
+      LoginBundle_65: -1204659053
+      LoginBundle_66: 1418265817
+      LoginBundle_67: 1733193748
+      LoginBundle_68: -1420053456
+      LoginBundle_69: -1017625123
+      LoginBundle_7: -2066394345
+      LoginBundle_70: -640796794
+      LoginBundle_71: -811411900
+      LoginBundle_72: 134494845
+      LoginBundle_8: -2107330957
+      LoginBundle_9: 988566990
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

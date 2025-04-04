@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: kr
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -39,6 +39,52 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - SetCamera
+  - SendPlayersInfo
+  - SetActorNumber
+  - Move
+  - MoveVertical
+  - AnimateMove
+  - Jump
+  - Run
+  - Attack
+  - Dash
+  - SetTrigger
+  - Set
+  - SetBool
+  - SetFloat
+  - SetLife
+  - SetStamina
+  - Add
+  - CreateRoom
+  - Remove
+  - BackMove
+  - Die
+  - Roar
+  - ShootProjectile
+  - Stun
+  - StartRoom
+  - LeaveRoom
+  - SyncHeadDamage
+  - SyncHP
+  - TakeDamage
+  - TakeHeadDamage
+  - Trap
+  - Equip
+  - Rebind
+  - Landing
+  - Link
+  - Patrol
+  - RotateToTarget
+  - Sleep
+  - TakeOff
+  - WakeUP
+  - RPC_ReturnToPool
+  - RPC_DisableProjectile
+  - InitShooter
+  - StartTrapLifetime
+  - RPC_SetTargetPlayer
+  - RPC_SyncShootProjectile
   DisableAutoOpenWizard: 1
   ShowSettings: 0
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1

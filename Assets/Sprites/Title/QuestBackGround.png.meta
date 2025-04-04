@@ -1,0 +1,351 @@
+fileFormatVersion: 2
+guid: e32cbcd6dfddeb845a900438ce46c5e6
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: QuestBackGround_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 670
+        width: 716
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f05f24eadc3a215419215c3d677e9a7b
+      internalID: 219095181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_14
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 404
+        width: 104
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5956dfa4d00c63041a620cf4060d2811
+      internalID: 1789066889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 828
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a01f40b9a0d7c7e4e9090a4d750f1a31
+      internalID: -1611695703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 820
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2fb645a729754c4fa561101f968d345
+      internalID: 2001180975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_18
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 696
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eee3c81b3c2b9f42bcbbc50d779bca1
+      internalID: 704231098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 408
+        width: 667
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3741f775f516fc046a6101dabefdb04e
+      internalID: 1740534685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 776
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6103c847f4269ea4cbc6f20c6fea82cf
+      internalID: -1270141221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_29
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 260
+        width: 195
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d32e5fbe7411bd41aa70bc9220fa230
+      internalID: -1262836689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuestBackGround_34
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 120
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6448f3a8a81324ba0070aae6eed309
+      internalID: 1892275243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b3e770a090106924fba7ae6b8a573bc4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      QuestBackGround_0: 219095181
+      QuestBackGround_1: 1040577848
+      QuestBackGround_10: 1472620897
+      QuestBackGround_11: -2072760071
+      QuestBackGround_12: 236043713
+      QuestBackGround_13: 399427277
+      QuestBackGround_14: 1789066889
+      QuestBackGround_15: -1500328294
+      QuestBackGround_16: -1611695703
+      QuestBackGround_17: 2001180975
+      QuestBackGround_18: 704231098
+      QuestBackGround_19: 622102256
+      QuestBackGround_2: 1435434290
+      QuestBackGround_20: 1740534685
+      QuestBackGround_21: -2060727250
+      QuestBackGround_22: 125287649
+      QuestBackGround_23: 2116226397
+      QuestBackGround_24: 875248189
+      QuestBackGround_25: 893365855
+      QuestBackGround_26: -1270141221
+      QuestBackGround_27: -509335919
+      QuestBackGround_28: -1638333028
+      QuestBackGround_29: -1262836689
+      QuestBackGround_3: 491529373
+      QuestBackGround_30: 1301099858
+      QuestBackGround_31: 2031579975
+      QuestBackGround_32: 1331506840
+      QuestBackGround_33: 1765328040
+      QuestBackGround_34: 1892275243
+      QuestBackGround_4: 550049663
+      QuestBackGround_5: 992024754
+      QuestBackGround_6: 731097737
+      QuestBackGround_7: -1948917005
+      QuestBackGround_8: 1663496621
+      QuestBackGround_9: -1107753009
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
