@@ -74,7 +74,7 @@ public class InvenToryCtrl : MonoBehaviour
     public Text goldbarText;
     int gold = 0;
     public int GetGold => gold;
-    public void SetGold(int value) { gold += value; Debug.Log("°ñµå Å‰µæ : " + gold); }
+    public void SetGold(int value) { gold += value; /*Debug.Log("°ñµå Å‰µæ : " + gold);*/ }
 
     //½Ì±ÛÅæ
     public static InvenToryCtrl Instance;
@@ -157,50 +157,26 @@ public class InvenToryCtrl : MonoBehaviour
         AppendItemListToCSV(sb, boxInven);
 
         csvData = sb.ToString();
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("BoxInvenData")
-            .SetValueAsync(csvData);
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("BoxInvenData").SetValueAsync(csvData);
 
         sb = new StringBuilder();
         AppendItemListToCSV(sb, equipInventory);
 
         csvData = sb.ToString();
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("EquipInventoryData")
-            .SetValueAsync(csvData);
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("EquipInventoryData").SetValueAsync(csvData);
 
         sb = new StringBuilder();
         AppendItemListToCSV(sb, equippedInventory);
 
         csvData = sb.ToString();
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("EquippedInventoryData")
-            .SetValueAsync(csvData);
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("EquippedInventoryData").SetValueAsync(csvData);
 
         //½½·Ô¼¼ÆÃ
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("Weapon")
-            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Weapon].id));
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("Head")
-            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Head].id));
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("Breast")
-            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Chest].id));
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("Hand")
-            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Arms].id));
-        await FirebaseDatabase.DefaultInstance.RootReference
-            .Child(user.UserId)
-            .Child("Waist")
-            .SetValueAsync(((int)equippedInventory[(int)EquipSlot.Waist].id));
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Weapon").SetValueAsync(((int)equippedInventory[(int)EquipSlot.Weapon].id));
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Head").SetValueAsync(((int)equippedInventory[(int)EquipSlot.Head].id));
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Breast").SetValueAsync(((int)equippedInventory[(int)EquipSlot.Chest].id));
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Hand").SetValueAsync(((int)equippedInventory[(int)EquipSlot.Arms].id));
+        await FirebaseDatabase.DefaultInstance.RootReference.Child(user.UserId).Child("Waist").SetValueAsync(((int)equippedInventory[(int)EquipSlot.Waist].id));
         await FirebaseDatabase.DefaultInstance.RootReference
             .Child(user.UserId)
             .Child("Leg")
@@ -422,7 +398,7 @@ public class InvenToryCtrl : MonoBehaviour
         Debug.Log("type : " + inventype);
         Debug.Log("form c : " + from.Count);
         CompactItemList(from);
-        Debug.Log("to c : " + to.Count); 
+        Debug.Log("to c : " + to.Count);
         CompactItemList(to);
 
     }
@@ -445,8 +421,8 @@ public class InvenToryCtrl : MonoBehaviour
             }
         }
 
-        CompactItemList(from);
-        CompactItemList(to);
+        //from = CompactItemList(from);
+        //to = CompactItemList(to);
 
     }
 
@@ -541,7 +517,6 @@ public class InvenToryCtrl : MonoBehaviour
     {
         int emptyCount = toList.Count(i => i.type == ItemType.Empty);
         Debug.Log("ÇöÀç ºó ½½·Ô °³¼ö: " + emptyCount);
-
 
         if (!ItemDataBase.Instance.itemDB.ContainsKey(itemKey))
         {

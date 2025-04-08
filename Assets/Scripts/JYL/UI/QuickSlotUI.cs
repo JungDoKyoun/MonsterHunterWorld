@@ -33,12 +33,6 @@ public class QuickSlotUI : BaseInventory
         InvenToryCtrl.Instance.LoadQuickSlotItemsFromInventory();
 
         items = InvenToryCtrl.Instance.quickSlotItem;
-
-        for (int i = 0; i < items.Count; i++)
-        {
-
-        }
-
         if (items == null || items.Count == 0)
         {
             Debug.LogWarning("사용 가능한 아이템이 없습니다.");
@@ -169,10 +163,6 @@ public class QuickSlotUI : BaseInventory
                 StartCoroutine(EffectDestroy(obj, 2f));
             }
         }
-        
-
-        // 아이템 0개 되면 제거
-
 
         if (item.count == 0)
         {

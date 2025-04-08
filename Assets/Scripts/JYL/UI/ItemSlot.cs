@@ -38,39 +38,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void SlotSetItem(BaseItem value)
     {
-        //if (value == null)
-        //{
-        //    Debug.LogError("▶ SlotSetItem: value가 null입니다.");
-        //    return;
-        //}
-
         item = value;
-
-        //if (itemImage == null)
-        //{
-        //    Debug.LogError("▶ itemImage가 null입니다. 초기화 전에 호출됐을 수 있음.");
-        //    return;
-        //}
-
-
         var img = itemImage.GetComponent<Image>();
-
-        //if (img == null)
-        //{
-        //    Debug.LogError($"▶ itemImage '{itemImage.name}' 에 Image 컴포넌트가 없습니다.");
-        //    return;
-        //}
-
-        //if (item.image == null)
-        //{
-        //    Debug.LogWarning("▶ item.image가 null입니다.");
-        //    return;
-        //}
-
-
-
-        //Debug.Log($" SlotSetItem 성공: {item.name}");
-
         img.sprite = item.image;
         img.color = item.color;
 
@@ -80,8 +49,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             countText.text = (item.count > 0) ? item.count.ToString() : "";
         }
     }
-
-
 
     //아이템 클릭시 해당 아이템 반대편 인벤토리로 넘기기
     public void OnPointerClick(PointerEventData eventData)
@@ -93,7 +60,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         switch (invenType)
         {
-            case InvenType.Inven:
+            case InvenType.Inven:                
                 if (isShop)
                 {
                     ctrl.SellItemToShop(ctrl.inventory, item.id);

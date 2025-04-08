@@ -164,6 +164,7 @@ public class EquipslotCtrl : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         }
     }
 
+    
     public bool IsCorrectType(BaseItem item)
     {
         if (item == null || item.type == ItemType.Empty)
