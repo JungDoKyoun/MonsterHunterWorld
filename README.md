@@ -101,6 +101,8 @@ jyl011202@gmail.com
 
 팀 노션 자료: https://www.notion.so/1ad18710838f80f6b174cdf8791f1502?source=copy_link
 
-💬 개발 후기
+---
+
+## 💬 개발 후기
 Photon, Firebase, 인벤토리 등 각자의 파트를 실제 게임처럼 기능별로 나눠 구현하며
 팀 협업 기반 개발 경험을 쌓을 수 있었던 프로젝트였습니다.
