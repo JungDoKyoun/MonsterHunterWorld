@@ -12,7 +12,7 @@ Photon PUN2과 Firebase를 활용하여 제작한
 ---
 
 ## 📽️ 시연 영상
-👉 [YouTube 시연 링크 삽입 예정]
+👉 [YouTube](https://youtu.be/VCp4IfyKoJc?si=AvvPspbcFZPn77_F)
 
 ---
 
