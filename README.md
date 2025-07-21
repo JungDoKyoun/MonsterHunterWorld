@@ -38,7 +38,7 @@
  
      
   노션 주소 - https://www.notion.so/1ad18710838f80f6b174cdf8791f1502
-  유튜브 주소 - 조영락 [비스트 애니멀즈 팀] 네트워크팀포트폴리오
-  PPT 칸바 주소 - 손성태 유니티 네트워크 팀프로젝트 PPT.pptx
   
-  PPT 칸바 주소 - 손성태 유니티 네트워크 팀프로젝트 PPT.pptx
+  유튜브 주소 - [조영락 [비스트 애니멀즈 팀] 네트워크팀포트폴리오](https://www.youtube.com/watch?v=VCp4IfyKoJc&ab_channel=%EB%8F%84%ED%86%B0%ED%95%9C%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%9D%98%EC%B0%BD%EA%B3%A0)
+  
+  PPT 칸바 주소 - [유니티 네트워크 팀프로젝트 PPT.pptx](https://www.canva.com/design/DAGjkC_XPls/2zrkMR4iWEZo5-Qp4TkT8A/edit)
