@@ -82,13 +82,7 @@ Assets/
    ```bash
    git clone https://github.com/jylack/MonsterHunterWorld.git
    
-Firebase 설정 (Auth + DB 연동)
-
-Photon App ID 등록
-
-https://www.photonengine.com/
-
-Unity에서 실행 또는 빌드
+Unity에서 실행 
 
 📄 문서 자료
 팀 발표 자료: https://www.canva.com/design/DAGtaLjVA1k/53ipM-s4FxlRW4CR0H1xIg/edit
