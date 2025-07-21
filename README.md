@@ -14,8 +14,6 @@ Photon PUN2과 Firebase를 활용하여 제작한
 ## 📽️ 시연 영상
 👉 [YouTube 시연영상 ](https://youtu.be/VCp4IfyKoJc?si=AvvPspbcFZPn77_F)
 
-## 실행 자료 요청 이메일
-jyl011202@gmail.com
 ---
 
 ## 🧑‍💻 팀원 소개
@@ -81,6 +79,10 @@ Assets/
 - UI 사운드 및 포커싱 구현
 
 ---
+## 실행 자료 요청 이메일
+jyl011202@gmail.com
+
+--- 
 
 ## 🚀 실행 방법
 
