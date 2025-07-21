@@ -1,48 +1,111 @@
-# MonsterHunter
+🎮 Monster Hunter-like Unity Multiplayer Project
+비스트 애니멀즈 팀의 유니티 기반 네트워크 멀티플레이 협업 프로젝트
 
-라이즈 리소스로 몬헌 시리즈 제작중 
+<p align="center"> <img src="https://img.shields.io/badge/Unity-2022.3.21f-blue?logo=unity"/> <img src="https://img.shields.io/badge/Photon-PUN2-brightgreen?logo=photon"/> <img src="https://img.shields.io/badge/Firebase-Auth%20&%20DB-yellow?logo=firebase"/> </p>
+📽️ 시연 영상
+👉 [YouTube 시연 링크] https://youtu.be/VCp4IfyKoJc?si=v91WG-ZnZITtIgwS
 
-프로젝트 초기 목표 :
-1. 마을에서 집회소로 간다음 집회소에서 퀘스트를 받으면 , 퀘스트 룸 생성
-2. 다른사람들이 퀘스트 리스트에서 퀘스트를 선택할경우 같은 룸으로 이동.
-3. 퀘스트 수주 본인 제외하고 , 레디 다 해두면 방장이 게임 시작가능.
-4. 시작 누르면 인게임 필드로 이동.
-5. 필드로 이동시 들고있던 아이템들(소지중, 장착중) 가지고 이동.
-6. 아이템 퀵슬롯으로 사용가능 아이템 사용가능.
-7. 몬스터 일정 영역 순회
-8. 플레이어 멥 이동
-9. 몬스터 순회도중 플레이어 만나면 전투모드로 전환
-10. 플레이어 공격 히트 판정 제작
-11. 몬스터 공격 히트 판정 제작
-12. 둘다 죽을때까지 전투
-13. 몬스터 기절기능
-14. 플레이어 함정 기능
-15. 플레이어 회복아이템 기능
-16. 이후 미정
+🧑‍💻 팀원 소개
+이름	역할
+조영락	팀장, 인벤토리 시스템, 아이템 UI, CSV/DB 연동
+정영한	플레이어 조작, 씬 전환 및 룸 입장 로직
+정도균	몬스터 AI, 루트 모션, 오브젝트 풀링, 상태이상
+손성태	UI 시스템, 사운드, 로딩 씬, Firebase/Photon 기본 기능
 
-## 목표 - Unity 엔진으로 네트워크 게임 프로그래밍 실습
+🔧 기술 스택
+엔진: Unity 2022.3.21f
 
-- **기간**: 2025.03.14 ~ 2025.04.03 (3주)
-- **인원**: 팀 프로젝트 (4인)
-- **역활**
-  - 조영락(팀장) : 아이템 시스템, UI, 인벤토리, 네트워크 동기화
+네트워크: Photon PUN2
 
-- 0주차  목표 - 주제 선정 및 회의
-    - 주제 : 어떤 게임을 만들것이냐. -몬스터 헌터로 결정
-- 1주차 목표 - 세팅 (자료조사 / 설계 등) - 게임 실행 가능한 프로토타입 완성
-    - 몬스터 - 지정된 좌표 순회, 전투 , 애니메이션
-    - 플레이어 - 전투 , 애니메이션
-    - UI - 전투 UI, 아이템 UI, 옵션UI
-    - 멥 - 리소스 배치
-    - 네트워크 - 동기화,세이브 로드 , 생성 제거
-- 2주차 목표 -  코딩 / 에셋 적용 등 대략적으로 꾸밈
-    - 남은 세부 목표 달성 및 기능 추가
-- 3주차 목표 - 프로젝트 완성 / 발표자료 준비 등
-    - 추가기능 추가 중지, 현재 있는 기능들 최적화 및 퀼리티 업.
- 
-     
-  노션 주소 - https://www.notion.so/1ad18710838f80f6b174cdf8791f1502
-  
-  유튜브 주소 - [조영락 [비스트 애니멀즈 팀] 네트워크팀포트폴리오](https://www.youtube.com/watch?v=VCp4IfyKoJc&ab_channel=%EB%8F%84%ED%86%B0%ED%95%9C%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%9D%98%EC%B0%BD%EA%B3%A0)
-  
-  PPT 칸바 주소 - [유니티 네트워크 팀프로젝트 PPT.pptx](https://www.canva.com/design/DAGjkC_XPls/2zrkMR4iWEZo5-Qp4TkT8A/edit)
+DB/Auth: Firebase (Authentication, Database)
+
+언어: C#
+
+버전 관리: GitHub (트렁크 기반 협업)
+
+🗂️ 폴더 구조 요약
+bash
+복사
+편집
+Assets/
+├── Scripts/
+│   ├── Inventory/        # 인벤토리 및 아이템 관련
+│   ├── Monster/          # 몬스터 루트모션, 공격 등
+│   ├── Network/          # Photon, Firebase 연동
+│   ├── Player/           # 플레이어 이동, 입력 처리
+│   └── UI/               # 각종 UI 매니저 및 시스템
+├── Resources/
+│   ├── CSV/              # 아이템 데이터 테이블
+│   └── Sound/            # 효과음 파일
+🧩 주요 기능 요약
+✅ 조영락 (팀장)
+CSV 기반 아이템 데이터 테이블 로딩 및 인벤토리 초기화
+
+Firebase에 유저 정보 저장 및 비동기 세이브/로드
+
+장비/소모품 구분 및 아이템 장착/교환 로직 구현
+
+옵저버 패턴 기반 UI 자동 갱신
+
+퀵슬롯 기능과 이펙트 재생 (함정, 포션 등)
+
+✅ 정영한
+카메라 기준 방향으로 이동 가능한 WASD 조작
+
+각도 계산 및 쿼터니언을 활용한 회전 처리
+
+집회소 → 사냥터로의 동기화된 씬 이동 처리
+
+해시테이블 기반 방 공유 시스템 구현
+
+✅ 정도균
+루트모션 기반 몬스터 이동 및 공중 순찰
+
+몬스터 공격/휴식/기절/상태이상 처리
+
+Photon RPC 기반 투사체 풀링 및 충돌 처리
+
+Monster ScriptableObject로 데이터 관리
+
+✅ 손성태
+Firebase 회원가입, 로그인, 닉네임 연동
+
+AudioMixer 기반 효과음 볼륨 제어 (JSON 저장/불러오기)
+
+로딩 씬 구현: 회전 이미지, 페이드인/아웃, 씬 전환
+
+UI 동적 포커싱 및 사운드 Trigger
+
+🚀 실행 방법
+GitHub 클론
+
+bash
+복사
+편집
+git clone https://github.com/jylack/MonsterHunterWorld.git
+Firebase 세팅 (Auth, DB)
+Firebase 콘솔에서 웹 앱 등록 후 .json 설정파일 추가
+
+Unity에서 Assets/Scripts/Scripts.zip 압축 해제
+
+Photon App ID 등록
+
+https://www.photonengine.com/
+
+App ID를 Unity Photon Server 설정에 등록
+
+실행 (에디터 혹은 빌드)
+
+📁 관련 자료
+팀 발표 PDF: 몬헌 모작 유니티 네트워크 팀프로젝트 PPT.pdf
+
+코드 압축본: Scripts.zip
+
+📝 개발 후기 및 교훈
+실시간 멀티플레이 게임에서 Photon의 룸 구조 이해가 중요
+
+루트모션 + 네비메시 동기화는 예외처리와 타이밍 조절이 핵심
+
+Firebase 사용 시 async/await 처리로 데이터 누락 방지 필요
+
+UI 매니저 중심의 설계로 화면 상태 전환 유지에 유리함
