@@ -14,6 +14,8 @@ Photon PUN2과 Firebase를 활용하여 제작한
 ## 📽️ 시연 영상
 👉 [YouTube 시연영상 ](https://youtu.be/VCp4IfyKoJc?si=AvvPspbcFZPn77_F)
 
+## 실행 자료 요청 이메일
+jyl011202@gmail.com
 ---
 
 ## 🧑‍💻 팀원 소개
@@ -82,11 +84,15 @@ Assets/
 
 ## 🚀 실행 방법
 
-1. 리포지토리 클론
+1. 모델링 등 몇몇 폴더 다운로드 - 이메일로 요청 
+
+2. 리포지토리 클론
    ```bash
    git clone https://github.com/jylack/MonsterHunterWorld.git
-   
-Unity에서 실행 
+
+3. 압축 폴더명에 맞는 폴더에 여기에 압축풀기  
+
+4. Unity에서 실행 
 
 📄 문서 자료
 팀 발표 자료: https://www.canva.com/design/DAGtaLjVA1k/53ipM-s4FxlRW4CR0H1xIg/edit
