@@ -61,8 +61,8 @@ Photon PUN2과 Firebase를 활용하여 제작한
 - UI 사운드 및 포커싱 구현
 
 ---
-## 실행 자료 요청 이메일
-jyl011202@gmail.com
+## 프로젝트가 바로 실행은 안됩니다.
+이력서와 포트폴리오에서 추가로 다운받을 리소스 파일들이있습니다.
 
 --- 
 
@@ -78,10 +78,10 @@ jyl011202@gmail.com
 
 4. Unity에서 실행 
 
-📄 문서 자료
+문서 자료
 📄 팀 발표 자료: https://www.canva.com/design/DAGtaLjVA1k/53ipM-s4FxlRW4CR0H1xIg/edit
 
-팀 노션 자료: https://www.notion.so/1ad18710838f80f6b174cdf8791f1502?source=copy_link
+📄 팀 노션 자료: https://www.notion.so/1ad18710838f80f6b174cdf8791f1502?source=copy_link
 
 ---
 
