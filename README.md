@@ -79,6 +79,7 @@ Photon PUN2과 Firebase를 활용하여 제작한
 4. Unity에서 실행 
 
 문서 자료
+
 📄 팀 발표 자료: https://www.canva.com/design/DAGtaLjVA1k/53ipM-s4FxlRW4CR0H1xIg/edit
 
 📄 팀 노션 자료: https://www.notion.so/1ad18710838f80f6b174cdf8791f1502?source=copy_link
