@@ -17,8 +17,6 @@ Unity와 Photon PUN2로 개발한 멀티플레이어 보스 몬스터 시스템�
 
 ## 📌 주요 기능
 
-### 🎯 보스 몬스터 AI 시스템
-
 #### 1. **13가지 State Pattern 기반 AI**
 <img width="932" height="315" alt="몬헌 상태패턴 drawio" src="https://github.com/user-attachments/assets/c8d401c0-6bb5-419f-be98-123500163c13" />
 
@@ -48,8 +46,6 @@ MonsterPatrolState, MonsterLandingState, MonsterDieState
 - **애니메이션 동기화**: SetBool, SetTrigger, SetFloat RPC로 완벽 동기화
 - **위치 보정**: NavMeshAgent와 Transform 위치 실시간 매칭
 
-### 🚀 투사체 시스템
-
 #### 3. **Object Pooling 투사체 관리**
 <img width="1611" height="897" alt="캡처_2025_09_09_02_51_52_3" src="https://github.com/user-attachments/assets/a8247685-9401-419c-b7f1-fb57beadbd55" />
 
@@ -73,8 +69,6 @@ public IEnumerator WaitForEndAttackAnime() // 애니메이션 동기화
 - **부위별 데미지**: 머리 타격 시 스턴, 누적 데미지 시스템
 - **콜라이더 동적 제어**: 공격 애니메이션과 동기화된 무기 콜라이더
 - **쿨타임 관리**: 공격별 독립적인 쿨타임 시스템
-
-### 🎮 보스 행동 시스템
 
 #### 5. **NavMesh, 루트 모션 기반 이동 AI**
 ![녹화_2025_09_08_00_00_00_579 (1)](https://github.com/user-attachments/assets/2ea0df17-dc3f-4224-95df-5997ab2e786c)
