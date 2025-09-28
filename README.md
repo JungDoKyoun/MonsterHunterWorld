@@ -20,6 +20,8 @@ Unity와 Photon PUN2로 개발한 멀티플레이어 보스 몬스터 시스템�
 ### 🎯 보스 몬스터 AI 시스템
 
 #### 1. **13가지 State Pattern 기반 AI**
+<img width="932" height="315" alt="몬헌 상태패턴 drawio" src="https://github.com/user-attachments/assets/c8d401c0-6bb5-419f-be98-123500163c13" />
+
 ```csharp
 // 13개의 독립적인 상태 클래스
 MonsterIdleState, MonsterSleepState, MonsterWakeUpState,
@@ -34,6 +36,8 @@ MonsterPatrolState, MonsterLandingState, MonsterDieState
 - **확장 가능한 구조**: 새로운 보스 패턴 추가 시 기존 코드 수정 불필요
 
 #### 2. **Photon 네트워크 동기화**
+![몬헌 RPC (2)](https://github.com/user-attachments/assets/93df27fd-493d-437f-b106-20157addefc1)
+
 ```csharp
 [PunRPC] public void TakeDamage(int damage)
 [PunRPC] public void Attack(int attackType)
@@ -47,6 +51,8 @@ MonsterPatrolState, MonsterLandingState, MonsterDieState
 ### 🚀 투사체 시스템
 
 #### 3. **Object Pooling 투사체 관리**
+<img width="1611" height="897" alt="캡처_2025_09_09_02_51_52_3" src="https://github.com/user-attachments/assets/a8247685-9401-419c-b7f1-fb57beadbd55" />
+
 ```csharp
 Dictionary<ProjectileType, ObjectPool<MonsterProjectile>> MonsterProjectilePool
 Dictionary<string, MonsterProjectile> _projectileInstances
@@ -57,6 +63,8 @@ Dictionary<string, MonsterProjectile> _projectileInstances
 - **충돌 처리 동기화**: OnTriggerEnter 후 모든 클라이언트에 RPC 전파
 
 #### 4. **전투 메커니즘**
+![asd (1) (1)](https://github.com/user-attachments/assets/cf2c42a2-b75d-425a-b94a-dda149dd1367)
+
 ```csharp
 public void ChooseAttackType() // 랜덤 공격 패턴 선택
 public IEnumerator WaitForEndAttackAnime() // 애니메이션 동기화
@@ -68,7 +76,9 @@ public IEnumerator WaitForEndAttackAnime() // 애니메이션 동기화
 
 ### 🎮 보스 행동 시스템
 
-#### 5. **NavMesh 기반 이동 AI**
+#### 5. **NavMesh, 루트 모션 기반 이동 AI**
+![녹화_2025_09_08_00_00_00_579 (1)](https://github.com/user-attachments/assets/2ea0df17-dc3f-4224-95df-5997ab2e786c)
+
 ```csharp
 public void RequestLink() // 점프 링크 처리
 public IEnumerator WaitForEndLink() // 링크 애니메이션
@@ -76,56 +86,25 @@ public IEnumerator WaitForEndLink() // 링크 애니메이션
 - **지형 적응 이동**: NavMesh로 장애물 회피 및 최적 경로 탐색
 - **순찰 시스템**: RestIndex, SleepIndex 기반 웨이포인트 순찰
 - **추적 모드**: 플레이어 감지 시 즉시 추적 모드 전환
-- **OffMeshLink 처리**: 점프, 낭떠러지 등 특수 이동 구현
-
-#### 6. **ScriptableObject 데이터 관리**
-```csharp
-[CreateAssetMenu] public class BossMonster : MonsterStatusSO
-{
-    public List<MonsterProjectileData> ProjectileDatas;
-    public List<MonsterAttackData> MonsterAttackDatas;
-}
-```
-- **모듈식 보스 설계**: 스탯, 공격 패턴, 투사체를 SO로 관리
-- **런타임 수정 가능**: 에디터에서 실시간 밸런스 조정
-- **재사용 가능한 데이터**: 여러 보스가 공통 패턴 공유 가능
-- **확장성**: 새로운 보스 추가 시 SO 생성만으로 가능
-
-## 🎮 네트워크 구조
-
-| 컴포넌트 | 역할 |
-|---------|------|
-| MonsterManager | Singleton, 전체 시스템 관리 |
-| MonsterController | 개별 보스 제어, RPC 처리 |
-| MonsterStateManager | AI 상태 머신 관리 |
-| ProjectileSpawnManager | 투사체 풀 관리 |
 
 ## 🛠 기술 스택
-- **엔진**: Unity 2021.3 LTS
-- **네트워킹**: Photon PUN2
-- **AI**: State Pattern, NavMesh
-- **최적화**: Object Pooling
-- **데이터**: ScriptableObject
+- **Engine**: Unity 2022.3.21f
+- **Language**: C#
+- **Networking**: Photon PUN2
+- **Tools**: GitHub, Notion, Visual Studio
 
 ## 🎯 시스템 특징
-- **13개 상태의 복잡한 AI**: 일반 몬스터와 차별화된 보스 패턴
 - **완벽한 네트워크 동기화**: 모든 액션과 애니메이션 실시간 동기화
 - **효율적인 메모리 관리**: Object Pool과 재사용 가능한 컴포넌트
-- **데이터 드리븐 설계**: 코드 수정 없이 보스 패턴 추가/수정
 
 ## 📚 주요 학습 내용
 - Photon PUN2를 활용한 실시간 멀티플레이어 구현
 - State Pattern으로 복잡한 AI 로직 체계화
 - Object Pooling으로 성능 최적화
-- NavMesh와 OffMeshLink를 활용한 3D 이동
+- NavMesh와 루트 모션을 활용한 3D 이동
 - Coroutine을 활용한 애니메이션 타이밍 제어
 
-## 🔧 개선 예정 사항
+## 🔧 개선하고 싶은 부분
 - 페이즈별 패턴 변화 시스템
-- 보스 전용 UI (체력바, 페이즈 표시)
-- 협동 공격 패턴
 - 환경 상호작용 (맵 파괴, 장애물 생성)
 - 보스 처치 보상 시스템
-
-## 📄 라이선스
-This project is licensed under the MIT License
